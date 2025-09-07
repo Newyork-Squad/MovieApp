@@ -111,8 +111,8 @@
 
     <style name="Theme.MovieApp.SplashScreen" parent="Theme.SplashScreen.IconBackground">
         <item name="postSplashScreenTheme">@style/Theme.MovieApp</item>
-        <item name="windowSplashScreenBackground">@color/background_color</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenBackground">@color/background_screen</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
     </style>
 
     <style name="CircleImage">
@@ -160,13 +160,13 @@
 
 ////////////////////////new ////////////////////////////
 
-    <!-- Display -->
+   <!-- &lt;!&ndash; Display &ndash;&gt;
     <style name="Text.Display.XL">
         <item name="android:fontFamily">@font/manrope_bold</item>
         <item name="android:textSize">@dimen/text_display_xl</item>
     </style>
 
-    <!-- Titles -->
+    &lt;!&ndash; Titles &ndash;&gt;
     <style name="Text.Title.XL">
         <item name="android:fontFamily">@font/manrope_medium</item>
         <item name="android:textSize">@dimen/text_title_xl</item>
@@ -187,7 +187,7 @@
         <item name="android:textSize">@dimen/text_title_sm</item>
     </style>
 
-    <!-- Body / LG -->
+    &lt;!&ndash; Body / LG &ndash;&gt;
     <style name="Text.Body.LG.Regular">
         <item name="android:fontFamily">@font/manrope</item>
         <item name="android:textSize">@dimen/text_body_lg</item>
@@ -203,7 +203,7 @@
         <item name="android:textSize">@dimen/text_body_lg</item>
     </style>
 
-    <!-- Body / MD -->
+    &lt;!&ndash; Body / MD &ndash;&gt;
     <style name="Text.Body.MD.Regular">
         <item name="android:fontFamily">@font/manrope</item>
         <item name="android:textSize">@dimen/text_body_md</item>
@@ -219,7 +219,7 @@
         <item name="android:textSize">@dimen/text_body_md</item>
     </style>
 
-    <!-- Body / SM -->
+    &lt;!&ndash; Body / SM &ndash;&gt;
     <style name="Text.Body.SM.Regular">
         <item name="android:fontFamily">@font/manrope</item>
         <item name="android:textSize">@dimen/text_body_sm</item>
@@ -235,7 +235,7 @@
         <item name="android:textSize">@dimen/text_body_sm</item>
     </style>
 
-    <!-- Label / MD -->
+    &lt;!&ndash; Label / MD &ndash;&gt;
     <style name="Text.Label.MD.Regular">
         <item name="android:fontFamily">@font/manrope</item>
         <item name="android:textSize">@dimen/text_label_md</item>
@@ -249,7 +249,7 @@
     <style name="Text.Label.MD.SemiBold">
         <item name="android:fontFamily">@font/manrope_semibold</item>
         <item name="android:textSize">@dimen/text_label_md</item>
-    </style>
+    </style>-->
 
 
 </resources>

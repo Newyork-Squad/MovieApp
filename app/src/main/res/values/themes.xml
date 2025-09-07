@@ -158,5 +158,98 @@
 
     </style>
 
+////////////////////////new ////////////////////////////
+
+    <!-- Display -->
+    <style name="Text.Display.XL">
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textSize">@dimen/text_display_xl</item>
+    </style>
+
+    <!-- Titles -->
+    <style name="Text.Title.XL">
+        <item name="android:fontFamily">@font/manrope_medium</item>
+        <item name="android:textSize">@dimen/text_title_xl</item>
+    </style>
+
+    <style name="Text.Title.LG">
+        <item name="android:fontFamily">@font/manrope_medium</item>
+        <item name="android:textSize">@dimen/text_title_lg</item>
+    </style>
+
+    <style name="Text.Title.MD">
+        <item name="android:fontFamily">@font/manrope_medium</item>
+        <item name="android:textSize">@dimen/text_title_md</item>
+    </style>
+
+    <style name="Text.Title.SM">
+        <item name="android:fontFamily">@font/manrope_medium</item>
+        <item name="android:textSize">@dimen/text_title_sm</item>
+    </style>
+
+    <!-- Body / LG -->
+    <style name="Text.Body.LG.Regular">
+        <item name="android:fontFamily">@font/manrope</item>
+        <item name="android:textSize">@dimen/text_body_lg</item>
+    </style>
+
+    <style name="Text.Body.LG.Medium">
+        <item name="android:fontFamily">@font/manrope_medium</item>
+        <item name="android:textSize">@dimen/text_body_lg</item>
+    </style>
+
+    <style name="Text.Body.LG.SemiBold">
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">@dimen/text_body_lg</item>
+    </style>
+
+    <!-- Body / MD -->
+    <style name="Text.Body.MD.Regular">
+        <item name="android:fontFamily">@font/manrope</item>
+        <item name="android:textSize">@dimen/text_body_md</item>
+    </style>
+
+    <style name="Text.Body.MD.Medium">
+        <item name="android:fontFamily">@font/manrope_medium</item>
+        <item name="android:textSize">@dimen/text_body_md</item>
+    </style>
+
+    <style name="Text.Body.MD.SemiBold">
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">@dimen/text_body_md</item>
+    </style>
+
+    <!-- Body / SM -->
+    <style name="Text.Body.SM.Regular">
+        <item name="android:fontFamily">@font/manrope</item>
+        <item name="android:textSize">@dimen/text_body_sm</item>
+    </style>
+
+    <style name="Text.Body.SM.Medium">
+        <item name="android:fontFamily">@font/manrope_medium</item>
+        <item name="android:textSize">@dimen/text_body_sm</item>
+    </style>
+
+    <style name="Text.Body.SM.SemiBold">
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">@dimen/text_body_sm</item>
+    </style>
+
+    <!-- Label / MD -->
+    <style name="Text.Label.MD.Regular">
+        <item name="android:fontFamily">@font/manrope</item>
+        <item name="android:textSize">@dimen/text_label_md</item>
+    </style>
+
+    <style name="Text.Label.MD.Medium">
+        <item name="android:fontFamily">@font/manrope_medium</item>
+        <item name="android:textSize">@dimen/text_label_md</item>
+    </style>
+
+    <style name="Text.Label.MD.SemiBold">
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">@dimen/text_label_md</item>
+    </style>
+
 
 </resources>

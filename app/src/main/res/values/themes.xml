@@ -161,92 +161,92 @@
 ////////////////////////new ////////////////////////////
 
     <!-- Display -->
-    <style name="Text.Display.XL">
+    <style name="Text_Display_XL">
         <item name="android:fontFamily">@font/manrope_bold</item>
         <item name="android:textSize">@dimen/text_display_xl</item>
     </style>
 
     <!-- Titles -->
-    <style name="Text.Title.XL">
+    <style name="Text_Title_XL">
         <item name="android:fontFamily">@font/manrope_medium</item>
         <item name="android:textSize">@dimen/text_title_xl</item>
     </style>
 
-    <style name="Text.Title.LG">
+    <style name="Text_Title_LG">
         <item name="android:fontFamily">@font/manrope_medium</item>
         <item name="android:textSize">@dimen/text_title_lg</item>
     </style>
 
-    <style name="Text.Title.MD">
+    <style name="Text_Title_MD">
         <item name="android:fontFamily">@font/manrope_medium</item>
         <item name="android:textSize">@dimen/text_title_md</item>
     </style>
 
-    <style name="Text.Title.SM">
+    <style name="Text_Title_SM">
         <item name="android:fontFamily">@font/manrope_medium</item>
         <item name="android:textSize">@dimen/text_title_sm</item>
     </style>
 
     <!-- Body / LG -->
-    <style name="Text.Body.LG.Regular">
+    <style name="Text_Body_LG_Regular">
         <item name="android:fontFamily">@font/manrope</item>
         <item name="android:textSize">@dimen/text_body_lg</item>
     </style>
 
-    <style name="Text.Body.LG.Medium">
+    <style name="Text_Body_LG_Medium">
         <item name="android:fontFamily">@font/manrope_medium</item>
         <item name="android:textSize">@dimen/text_body_lg</item>
     </style>
 
-    <style name="Text.Body.LG.SemiBold">
+    <style name="Text_Body_LG_SemiBold">
         <item name="android:fontFamily">@font/manrope_semibold</item>
         <item name="android:textSize">@dimen/text_body_lg</item>
     </style>
 
     <!-- Body / MD -->
-    <style name="Text.Body.MD.Regular">
+    <style name="Text_Body_MD_Regular">
         <item name="android:fontFamily">@font/manrope</item>
         <item name="android:textSize">@dimen/text_body_md</item>
     </style>
 
-    <style name="Text.Body.MD.Medium">
+    <style name="Text_Body_MD_Medium">
         <item name="android:fontFamily">@font/manrope_medium</item>
         <item name="android:textSize">@dimen/text_body_md</item>
     </style>
 
-    <style name="Text.Body.MD.SemiBold">
+    <style name="Text_Body_MD_SemiBold">
         <item name="android:fontFamily">@font/manrope_semibold</item>
         <item name="android:textSize">@dimen/text_body_md</item>
     </style>
 
     <!-- Body / SM -->
-    <style name="Text.Body.SM.Regular">
+    <style name="Text_Body_SM_Regular">
         <item name="android:fontFamily">@font/manrope</item>
         <item name="android:textSize">@dimen/text_body_sm</item>
     </style>
 
-    <style name="Text.Body.SM.Medium">
+    <style name="Text_Body_SM_Medium">
         <item name="android:fontFamily">@font/manrope_medium</item>
         <item name="android:textSize">@dimen/text_body_sm</item>
     </style>
 
-    <style name="Text.Body.SM.SemiBold">
+    <style name="Text_Body_SM_SemiBold">
         <item name="android:fontFamily">@font/manrope_semibold</item>
         <item name="android:textSize">@dimen/text_body_sm</item>
     </style>
 
     <!-- Label / MD -->
-    <style name="Text.Label.MD.Regular">
+    <style name="Text_Label_MD_Regular">
         <item name="android:fontFamily">@font/manrope</item>
         <item name="android:textSize">@dimen/text_label_md</item>
     </style>
 
-    <style name="Text.Label.MD.Medium">
+    <style name="Text_Label_MD_Medium">
         <item name="android:fontFamily">@font/manrope_medium</item>
         <item name="android:textSize">@dimen/text_label_md</item>
     </style>
 
-    <style name="Text.Label.MD.SemiBold">
+    <style name="Text_Label_MD_SemiBold">
         <item name="android:fontFamily">@font/manrope_semibold</item>
         <item name="android:textSize">@dimen/text_label_md</item>
     </style>

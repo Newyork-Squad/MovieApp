@@ -17,12 +17,15 @@
     <string name="don_t_have_an_account">Don’t have an account?</string>
     <string name="sign_up">Sign up</string>
     <string name="place_of_birth">place of Birth</string>
+    <string name="in">In %1$s</string>
     <string name="konwn_for">Known For</string>
     <string name="todo">TODO</string>
     <string name="gender">Gender</string>
     <string name="birthday">Birthday</string>
+    <string name="born_in">Born in %1$s</string>
     <string name="biography">Biography</string>
     <string name="movies">Movies</string>
+    <string name="best_of">Best of %1$s</string>
     <string name="actors">Actors</string>
     <string name="oops">Oops!</string>
     <string name="description">There is no internet connection\nPlease check it out</string>

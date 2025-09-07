@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
             android:onClick="@{() -> viewModel.getData()}"
-            android:text="@string/retry"
+            android:text="@string/try_again"
             android:textColor="@color/white_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

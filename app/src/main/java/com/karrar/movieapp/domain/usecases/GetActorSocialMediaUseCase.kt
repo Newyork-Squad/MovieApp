@@ -10,12 +10,11 @@ class GetActorSocialMediaUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(
         actorId: Int
-    ): List<String> {
+    ): HashMap<String, String> {
         val socialMediaResponse = movieRepository.getActorSocialMediaIDs(actorId = actorId)
         if (socialMediaResponse == null) {
-            return emptyList()
+            return hashMapOf()
         }
         return socialMediaMapper.map(socialMediaResponse)
-
     }
 }

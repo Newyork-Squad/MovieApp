@@ -228,6 +228,7 @@ fun <T> setGenresChips(
     view: ChipGroup, chipList: List<GenreUIState>?, listener: T,
     selectedChip: Int?
 ) {
+    view.removeAllViews()
     chipList?.let {
         it.forEach { genre -> view.addView(view.createChip(genre, listener)) }
     }

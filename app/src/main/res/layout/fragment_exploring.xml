@@ -12,6 +12,7 @@
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_color"
@@ -87,128 +88,53 @@
             android:id="@+id/input_search"
             style="@style/Regular.Medium"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginEnd="@dimen/spacing_medium"            android:layout_marginTop="@dimen/spacing_small"
             android:background="@drawable/edit_text_background"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="@dimen/spacing_small"
+           android:drawableEnd="@drawable/ic_microphone"
             android:focusableInTouchMode="false"
             android:hint="@string/search_hint"
             android:onClick="@{() -> viewModel.onClickSearch()}"
             android:paddingStart="@dimen/spacing_small"
+            android:paddingEnd="@dimen/spacing_small"
             android:textColorHint="@color/shade_ternary_color"
             android:transitionName="search_box"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_explore" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_movies"
-            style="@style/CardCorners.Small"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_explore"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            style="@style/CardCorners.Small"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
             android:layout_marginEnd="@dimen/spacing_medium"
             android:backgroundTint="@color/card_background_color"
-            android:onClick="@{() -> viewModel.onClickMovies()}"
-            app:cardCornerRadius="@dimen/radius_small"
-            app:cardElevation="0dp"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/card_series"
+            app:tabIndicatorColor="@color/brand_color"
+            app:tabSelectedTextColor="@color/brand_color"
+            app:tabTextColor="@color/shade_primary_color"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_search">
 
-            <ImageView
-                android:id="@+id/icon_movie"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/spacing_medium"
-                android:src="@drawable/ic_movie" />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_movies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/movies_label"
+            />
 
-            <TextView
-                android:id="@+id/text_movies_label"
-                style="@style/SemiBold.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/spacing_large"
-                android:text="@string/movies_label"
-                android:textColor="@color/brand_color" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_series"
-            style="@style/CardCorners.Small"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:backgroundTint="@color/card_background_color"
-            android:onClick="@{() -> viewModel.onClickTVShow()}"
-            app:cardCornerRadius="@dimen/radius_small"
-            app:cardElevation="0dp"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/card_actors"
-            app:layout_constraintStart_toEndOf="@id/card_movies"
-            app:layout_constraintTop_toBottomOf="@id/input_search">
-
-            <ImageView
-                android:id="@+id/icon_series"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/spacing_medium"
-                android:src="@drawable/ic_tv" />
-
-            <TextView
-                android:id="@+id/text_series_label"
-                style="@style/SemiBold.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/spacing_large"
-                android:text="@string/tv_shows_label"
-                android:textColor="@color/brand_color" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_actors"
-            style="@style/CardCorners.Small"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:backgroundTint="@color/card_background_color"
-            android:onClick="@{() -> viewModel.onClickActors()}"
-            app:cardCornerRadius="@dimen/radius_small"
-            app:cardElevation="0dp"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@id/input_search"
-            app:layout_constraintStart_toEndOf="@id/card_series"
-            app:layout_constraintTop_toBottomOf="@id/input_search">
-
-            <ImageView
-                android:id="@+id/icon_actors"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/spacing_medium"
-                android:src="@drawable/ic_actors" />
-
-            <TextView
-                android:id="@+id/text_actors_label"
-                style="@style/SemiBold.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/spacing_large"
-                android:text="@string/actors_label"
-                android:textColor="@color/brand_color" />
-
-        </androidx.cardview.widget.CardView>
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_shows_label" />
+        </com.google.android.material.tabs.TabLayout>
 
         <TextView
             android:id="@+id/text_trend_label"
@@ -222,29 +148,62 @@
             app:doneLoading="@{viewModel.uiState.loading}"
             app:errorNotEmpty="@{viewModel.uiState.error}"
 
-            app:layout_constraintStart_toStartOf="@id/card_movies"
-            app:layout_constraintTop_toBottomOf="@id/card_movies" />
+            app:layout_constraintStart_toStartOf="@id/tab_explore"
+            app:layout_constraintTop_toBottomOf="@id/tab_explore" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_trend"
+            android:id="@+id/rvGenres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_genre_chip"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_explore"/>
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/chip_height"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingHorizontal="@dimen/spacing_medium"
+            android:scrollbars="none"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_explore"
+            tools:background="@color/brand_color">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:listener="@{viewModel}"
+                app:selectedChip="@{viewModel.uiState.selectedCategoryID}"
+                app:selectionRequired="true"
+                app:setGenres="@{viewModel.uiState.genre}"
+                app:singleLine="true"
+                app:singleSelection="true" />
+        </HorizontalScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_media"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="@dimen/spacing_small"
             android:layout_marginTop="@dimen/spacing_small"
             android:clipToPadding="false"
             android:elevation="@dimen/spacing_too_small"
-
             app:doneLoading="@{viewModel.uiState.loading}"
             app:errorNotEmpty="@{viewModel.uiState.error}"
-
-            app:items="@{viewModel.uiState.trendyMovie}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_trend_label"
             app:spanCount="2"
-            tools:listitem="@layout/item_trend" />
+            tools:listitem="@layout/item_category" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_loading"

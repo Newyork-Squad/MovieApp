@@ -14,6 +14,7 @@ class WatchHistoryMapper @Inject constructor() : Mapper<WatchHistoryEntity, Medi
             input.releaseDate,
             input.movieDuration,
             input.mediaType,
+            input.gener
         )
     }
 }

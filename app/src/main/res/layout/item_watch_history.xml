@@ -93,7 +93,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:textColor="@color/shade_secondary"
-                    android:text="Drama, Action, Crime, Thriller"
+                    android:text="@{item.gener}"
                     app:layout_constraintStart_toStartOf="@id/text_title_movie"
                     app:layout_constraintTop_toBottomOf="@id/text_title_movie"
                     tools:text="Drama, Action, Crime, Thriller" />

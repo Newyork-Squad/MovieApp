@@ -8,6 +8,7 @@ import com.karrar.movieapp.data.local.database.entity.movie.*
 import com.karrar.movieapp.data.remote.response.*
 import com.karrar.movieapp.data.remote.response.actor.ActorDto
 import com.karrar.movieapp.data.remote.response.actor.ActorMoviesDto
+import com.karrar.movieapp.data.remote.response.actor.ActorProfileResponse
 import com.karrar.movieapp.data.remote.response.actor.ActorSocialMediaResponse
 import com.karrar.movieapp.data.remote.response.genre.GenreDto
 import com.karrar.movieapp.data.remote.response.movie.MovieDetailsDto
@@ -28,6 +29,8 @@ interface MovieRepository {
     suspend fun getActorDetails(actorId: Int): ActorDto?
 
     suspend fun getActorSocialMediaIDs(actorId: Int): ActorSocialMediaResponse?
+
+    suspend fun getActorImages(actorId: Int): ActorProfileResponse?
 
     suspend fun getActorMovies(actorId: Int): ActorMoviesDto?
 

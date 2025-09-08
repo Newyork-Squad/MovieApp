@@ -8,5 +8,4 @@ data class MediaHistoryUiState(
     var releaseDate: String,
     var movieDuration: Int,
     var mediaType: String,
-    var movieGenere:String,
 )

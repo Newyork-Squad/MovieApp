@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_medium"
+        android:background="@color/card_background_color"
         android:onClick="@{() -> listener.onClickMovie(item)}"
         app:cardCornerRadius="@dimen/radius_small"
         app:cardElevation="0dp">
@@ -37,6 +38,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/due_tone_trash"
                 android:contentDescription="delete"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -46,7 +48,6 @@
                 android:id="@+id/content_container"
                 android:layout_width="0dp"
                 android:layout_height="80dp"
-                android:background="@color/card_background_color"
                 android:onClick="@{() -> listener.onClickMovie(item)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +93,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:textColor="@color/shade_secondary"
-                    android:text="@{item.movieGenere}"
+                    android:text="Drama, Action, Crime, Thriller"
                     app:layout_constraintStart_toStartOf="@id/text_title_movie"
                     app:layout_constraintTop_toBottomOf="@id/text_title_movie"
                     tools:text="Drama, Action, Crime, Thriller" />

@@ -33,8 +33,11 @@ class LoginViewModel @Inject constructor(
     val loginEvent = _loginEvent.asStateFlow()
 
     fun onClickSignUp() {
+        _loginUIState.update { it.copy(showSignUpDialog = false) }
+
         _loginEvent.update { Event(LoginUIEvent.SignUpEvent) }
     }
+
 
     fun onClickLogin() {
         login()
@@ -114,6 +117,17 @@ class LoginViewModel @Inject constructor(
         val current = _loginUIState.value.passwordVisible
         _loginUIState.value = _loginUIState.value.copy(passwordVisible = !current)
     }
+
+    fun onClickCreateAccount() {
+        _loginUIState.update { it.copy(showSignUpDialog = true) }
+    }
+
+    fun onClickCancelSignUp() {
+        _loginUIState.update { it.copy(showSignUpDialog = false) }
+    }
+
+
+
 
 
 }

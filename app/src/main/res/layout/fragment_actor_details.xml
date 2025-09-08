@@ -109,15 +109,17 @@
                 tools:visibility="visible"
                 app:isVisible="@{viewModel.actorDetailsUIState.success}">
 
-                <View
+                <androidx.cardview.widget.CardView
                     android:id="@+id/actor_card_background"
                     android:layout_width="match_parent"
                     android:layout_height="165dp"
+                    app:cardBackgroundColor="@color/background_card"
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:layout_marginHorizontal="@dimen/spacing_medium"
-                    android:background="@color/background_card"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:cardCornerRadius="@dimen/radius_x2l"
+                    app:cardElevation="0dp"/>
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/actor_image"
@@ -183,6 +185,7 @@
                     app:layout_constraintHorizontal_bias="0.001"
                     app:layout_constraintStart_toStartOf="@+id/text_birthday_actor"
                     app:layout_constraintTop_toBottomOf="@+id/text_birthday_actor"
+                    android:maxWidth="200dp"
                     tools:text="In Massachusetts, USA " />
 
 <!--                TODO: Add recycler view for social media links-->

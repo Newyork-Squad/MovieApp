@@ -11,5 +11,7 @@ data class ActorDetailsUIState(
     val isLoading: Boolean = false,
     val isSuccess: Boolean = false,
     val error: List<Error> = emptyList(),
-    val actorMovies: List<ActorMoviesUIState> = emptyList()
+    val actorMovies: List<ActorMoviesUIState> = emptyList(),
+    val actorSocialMediaLinks: List<String> = emptyList(),
+    val actorImages: List<String> = emptyList()
 )

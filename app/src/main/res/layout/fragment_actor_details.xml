@@ -188,6 +188,41 @@
                     android:maxWidth="200dp"
                     tools:text="In Massachusetts, USA " />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/social_media_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/spacing_medium"
+                    app:items="@{viewModel.actorDetailsUIState.actorMovies}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/related_movie_title"
+                    tools:ignore="MissingConstraints"
+                    tools:listitem="@layout/chip_item_category" />
+
+
+<!--                <com.google.android.material.button.MaterialButton-->
+<!--                    android:id="@+id/button_play_trailer"-->
+<!--                    style="@style/SemiBold.Medium"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="@dimen/spacing_small"-->
+<!--                    android:onClick="@{() -> listener.onClickPlayTrailer()}"-->
+<!--                    android:text="@string/play_trailer"-->
+<!--                    android:textAllCaps="false"-->
+<!--                    android:textColor="@color/white_primary"-->
+<!--                    app:cornerRadius="@dimen/spacing_large"-->
+<!--                    app:icon="@drawable/ic_play_filled"-->
+<!--                    app:iconTint="@color/white_primary"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/imageView"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    tools:text="Play Trailer" />-->
+
 <!--                TODO: Add recycler view for social media links-->
 
                 <TextView

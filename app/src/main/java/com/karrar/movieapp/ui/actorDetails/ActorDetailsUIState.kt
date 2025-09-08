@@ -1,5 +1,7 @@
 package com.karrar.movieapp.ui.actorDetails
 
+import com.karrar.movieapp.ui.actorDetails.socialmedia.SocialMediaLinksUIState
+
 data class ActorDetailsUIState(
     val name: String = "",
     val imageUrl: String = "",
@@ -12,6 +14,6 @@ data class ActorDetailsUIState(
     val isSuccess: Boolean = false,
     val error: List<Error> = emptyList(),
     val actorMovies: List<ActorMoviesUIState> = emptyList(),
-    val actorSocialMediaLinks: List<String> = emptyList(),
+    val actorSocialMediaLinks: SocialMediaLinksUIState = SocialMediaLinksUIState(),
     val actorImages: List<String> = emptyList()
 )

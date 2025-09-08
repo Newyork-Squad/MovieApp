@@ -1,5 +1,6 @@
 package com.karrar.movieapp.ui.actorDetails
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.enums.HomeItemsType
@@ -7,6 +8,8 @@ import com.karrar.movieapp.domain.usecases.GetActorDetailsUseCase
 import com.karrar.movieapp.domain.usecases.GetActorImagesUseCase
 import com.karrar.movieapp.domain.usecases.GetActorMoviesUseCase
 import com.karrar.movieapp.domain.usecases.GetActorSocialMediaUseCase
+import com.karrar.movieapp.ui.actorDetails.socialmedia.SocialMediaInteractionListener
+import com.karrar.movieapp.ui.actorDetails.socialmedia.SocialMediaUIMapper
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.utilities.Event
@@ -27,7 +30,8 @@ class ActorViewModel @Inject constructor(
     private val getActorImagesUseCase: GetActorImagesUseCase,
     private val actorDetailsUIMapper: ActorDetailsUIMapper,
     private val actorMoviesUIMapper: ActorMoviesUIMapper,
-) : BaseViewModel(), MovieInteractionListener {
+    private val actorSocialMediaUIMapper: SocialMediaUIMapper
+) : BaseViewModel(), MovieInteractionListener, SocialMediaInteractionListener {
 
     val args = ActorDetailsFragmentArgs.fromSavedStateHandle(state)
 
@@ -48,7 +52,8 @@ class ActorViewModel @Inject constructor(
             try {
                 val actorDetails = actorDetailsUIMapper.map(getActorDetailsUseCase(args.id))
                 val actorMovies = getActorMoviesUseCase(args.id).map { actorMoviesUIMapper.map(it) }
-                val socialMediaLinks = getActorSocialMediaUseCase(args.id)
+                val socialMediaLinks =
+                    actorSocialMediaUIMapper.map(getActorSocialMediaUseCase(args.id))
                 val actorImages = getActorImagesUseCase(args.id)
                 _actorDetailsUIState.update {
                     it.copy(
@@ -91,6 +96,11 @@ class ActorViewModel @Inject constructor(
 
     override fun onClickSeeAllMovie(homeItemsType: HomeItemsType) {
         _actorDetailsUIEvent.update { Event(ActorDetailsUIEvent.SeeAllMovies) }
+    }
+
+    override fun onClickSocialMediaLink(link: String) {
+        // TODO : open link in browser
+        Log.d("ActorViewModel", "Social Media Link: $link")
     }
 
 }

@@ -41,6 +41,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/logo" />
 
+        <!-- Username Label -->
+        <TextView
+            android:id="@+id/usernameLabel"
+            style="@style/Body_MD.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="48dp"
+            android:text="@string/username"
+            android:textColor="@color/shade_secondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcomeText" />
+
         <!-- Username -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/userNameLayout"
@@ -48,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:hint="@string/enter_your_username"
 
             app:boxBackgroundMode="outline"
@@ -69,7 +82,7 @@
 
             app:hintTextColor="@color/shade_tertiary"
             app:indicatorColor="@color/brand_primary"
-            app:layout_constraintTop_toBottomOf="@id/welcomeText"
+            app:layout_constraintTop_toBottomOf="@id/usernameLabel"
             app:startIconDrawable="@drawable/outline_user"
             app:startIconTint="@color/shade_tertiary">
 
@@ -81,6 +94,19 @@
                 android:textColor="@color/shade_primary"
                 android:textColorHint="@color/shade_secondary" />
         </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/passwordLabel"
+            style="@style/Body_MD.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/password"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/shade_secondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userNameLayout" />
 
         <!-- Password -->
         <com.google.android.material.textfield.TextInputLayout
@@ -100,6 +126,7 @@
             app:boxStrokeErrorColor="@color/primary_red"
             app:boxStrokeWidth="1dp"
             app:boxStrokeWidthFocused="1dp"
+            app:endIconMode="password_toggle"
             app:endIconTint="@color/shade_tertiary"
             app:error="@{viewModel.loginUIState.passwordHelperText}"
             app:errorEnabled="true"
@@ -108,11 +135,10 @@
             app:helperTextTextColor="@color/primary_red"
             app:hintTextColor="@color/shade_tertiary"
             app:indicatorColor="@color/brand_primary"
-            app:layout_constraintTop_toBottomOf="@id/userNameLayout"
+            app:layout_constraintTop_toBottomOf="@id/passwordLabel"
             app:onPasswordToggle="@{() -> viewModel.togglePasswordVisibility()}"
             app:passwordVisible="@{viewModel.loginUIState.passwordVisible}"
             app:startIconDrawable="@drawable/outline_lock"
-            app:endIconMode="password_toggle"
             app:startIconTint="@color/shade_tertiary">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -161,7 +187,7 @@
             android:text="@string/login"
             android:textAllCaps="false"
             android:textColor="@color/button_onPrimary"
-            app:backgroundTint="@color/button_primary"
+            app:backgroundTint="@color/button_login_background"
             app:cornerRadius="@dimen/radius_lg"
             app:hideIfTrue="@{viewModel.loginUIState.loading}"
             app:layout_constraintTop_toBottomOf="@id/forgotPassword" />
@@ -177,6 +203,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/forgotPassword" />
+
 
         <!-- Join as Guest -->
         <com.google.android.material.button.MaterialButton

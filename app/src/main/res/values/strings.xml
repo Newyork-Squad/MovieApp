@@ -51,7 +51,7 @@
     <string name="play_trailer">Play Trailer</string>
     <string name="duration">%1$d Minutes</string>
     <string name="reviews">(%1$s reviews)</string>
-    <string name="overview">Overview</string>
+    <string name="storyline">Storyline</string>
     <string name="cast">Cast</string>
     <string name="similar_movies">Similar Movies</string>
     <string name="rate_the_movie">Rate The Movie</string>
@@ -59,7 +59,7 @@
     <string name="review">Reviews</string>
     <string name="reviews_comment">Reviews</string>
     <string name="user_name">"@" %1$s</string>
-    <string name="back_button">back button</string>
+    <string name="save_button">back button</string>
     <string name="view_all_reviews">View all reviews</string>
     <string name="episodes">Episodes</string>
     <string name="seasons">Seasons</string>
@@ -101,5 +101,11 @@
     <string name="you_must_be_logged_in_to_save_a_movie">You must be logged in to save a movie</string>
     <string name="this_list_has_no_lists">No lists found</string>
     <string name="episode_title">%1$d. %2$s</string>
-    <string name="season_number">(%1$s Seasons)</string>
+    <string name="season_number">%1$s Seasons</string>
+    <string name="movie">MOVIE</string>
+    <string name="series">SERIES</string>
+    <string name="star_icon_for_rating">star icon for rating</string>
+    <string name="clock_icon_for_duration">clock icon for movie duration</string>
+    <string name="movie_image">movie image</string>
+    <string name="back_arrow_icon">back arrow icon</string>
 </resources>

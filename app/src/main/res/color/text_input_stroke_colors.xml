@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Focused -->
+    <item android:color="@color/brand_primary" android:state_focused="true" />
+
+    <!-- Error state  -->
+    <item android:color="@color/primary_red" android:state_focused="true" android:state_activated="false" />
+
+
+    <!-- Default -->
+    <item android:color="@color/stroke_primary" />
+</selector>

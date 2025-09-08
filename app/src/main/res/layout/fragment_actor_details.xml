@@ -188,6 +188,15 @@
                     android:maxWidth="200dp"
                     tools:text="In Massachusetts, USA " />
 
+                <include
+                    layout="@layout/list_social_media"
+                    app:socialMediaList="@{viewModel.actorDetailsUIState.actorSocialMediaLinks}"
+                    app:listener="@{viewModel}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/text_place_of_birth_actor"
+                    app:layout_constraintStart_toStartOf="@+id/actor_image"/>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/social_media_recycler"
                     android:layout_width="match_parent"
@@ -205,25 +214,6 @@
                     tools:listitem="@layout/chip_item_category" />
 
 
-<!--                <com.google.android.material.button.MaterialButton-->
-<!--                    android:id="@+id/button_play_trailer"-->
-<!--                    style="@style/SemiBold.Medium"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginBottom="@dimen/spacing_small"-->
-<!--                    android:onClick="@{() -> listener.onClickPlayTrailer()}"-->
-<!--                    android:text="@string/play_trailer"-->
-<!--                    android:textAllCaps="false"-->
-<!--                    android:textColor="@color/white_primary"-->
-<!--                    app:cornerRadius="@dimen/spacing_large"-->
-<!--                    app:icon="@drawable/ic_play_filled"-->
-<!--                    app:iconTint="@color/white_primary"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@+id/imageView"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    tools:text="Play Trailer" />-->
-
-<!--                TODO: Add recycler view for social media links-->
 
                 <TextView
                     android:id="@+id/related_movie_title"

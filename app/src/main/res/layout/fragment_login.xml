@@ -85,7 +85,6 @@
                 app:helperTextTextColor="@color/primary_red"
                 app:hintEnabled="false"
                 app:hintTextColor="@color/shade_tertiary"
-                app:indicatorColor="@color/brand_primary"
                 app:layout_constraintTop_toBottomOf="@id/usernameLabel"
                 app:startIconDrawable="@drawable/outline_user"
                 app:startIconTint="@color/shade_tertiary">
@@ -97,7 +96,9 @@
                     android:hint="@string/enter_your_username"
                     android:inputType="textPersonName"
                     android:textColor="@color/shade_primary"
-                    android:textColorHint="@color/shade_secondary" />
+                    android:textColorHint="@color/shade_secondary"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                  />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -139,7 +140,6 @@
                 app:helperTextTextColor="@color/primary_red"
                 app:hintEnabled="false"
                 app:hintTextColor="@color/shade_tertiary"
-                app:indicatorColor="@color/brand_primary"
                 app:layout_constraintTop_toBottomOf="@id/passwordLabel"
                 app:onPasswordToggle="@{() -> viewModel.togglePasswordVisibility()}"
                 app:passwordVisible="@{viewModel.loginUIState.passwordVisible}"
@@ -153,7 +153,9 @@
                     android:hint="@string/enter_your_password"
                     android:inputType="textPassword"
                     android:textColor="@color/shade_primary"
-                    android:textColorHint="@color/shade_secondary" />
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textColorHint="@color/shade_secondary"
+                     />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Forgot password -->

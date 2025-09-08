@@ -1,8 +1,10 @@
 package com.karrar.movieapp.ui.login
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.karrar.movieapp.domain.usecases.login.LoginAsGuestUseCase
 import com.karrar.movieapp.domain.usecases.login.LoginWithUserNameAndPasswordUseCase
 import com.karrar.movieapp.domain.usecases.login.ValidateFiledUseCase
 import com.karrar.movieapp.domain.usecases.login.ValidateLoginFormUseCase
@@ -19,6 +21,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     state: SavedStateHandle,
     private val loginWithUserNameAndPasswordUseCase: LoginWithUserNameAndPasswordUseCase,
+    private val loginAsGuestUseCase: LoginAsGuestUseCase,
     private val validateFiledUseCase: ValidateFiledUseCase,
     private val validatePasswordFiledUseCase: ValidatePasswordFiledUseCase,
     private val validateLoginFormUseCase: ValidateLoginFormUseCase,
@@ -43,6 +46,9 @@ class LoginViewModel @Inject constructor(
         login()
     }
 
+    fun onClickJoinAsGuest() {
+        joinAsGuest()
+    }
     fun onUserNameInputChange(text: CharSequence) {
         val userNameFieldState = validateFiledUseCase(text.toString())
         _loginUIState.update {
@@ -130,6 +136,26 @@ class LoginViewModel @Inject constructor(
         _loginEvent.update { Event(LoginUIEvent.ForgotPasswordEvent) }
     }
 
+    private fun joinAsGuest() {
+        viewModelScope.launch {
+            try {
+                _loginUIState.update { it.copy(isLoading = true) }
+                val guestLoginState = loginAsGuestUseCase()
+                if (guestLoginState) {
+                    onGuestLoginSuccessfully()
+                }
+            } catch (e: Throwable) {
+                onLoginError(e.message.toString())
+                Log.e("login","${e.message.toString()}")
+            }
+        }
+    }
+
+    private fun onGuestLoginSuccessfully() {
+        _loginUIState.update { it.copy(isLoading = false) }
+        _loginEvent.update { Event(LoginUIEvent.JoinAsGuestEvent) }
+        resetForm()
+    }
 
 
 }

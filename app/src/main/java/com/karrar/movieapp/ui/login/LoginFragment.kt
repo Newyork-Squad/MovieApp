@@ -5,7 +5,6 @@ import android.net.Uri
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.karrar.movieapp.BuildConfig
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.DialogSignupBinding
@@ -43,16 +42,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             is LoginUIEvent.LoginEvent -> {
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment())
             }
+
             LoginUIEvent.SignUpEvent -> {
                 val browserIntent =
                     Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.TMDB_SIGNUP_URL))
                 startActivity(browserIntent)
             }
+
             LoginUIEvent.ForgotPasswordEvent -> {
                 val browserIntent =
                     Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.TMDB_FORGOTPASSWORD_URL))
                 startActivity(browserIntent)
             }
+
+            LoginUIEvent.JoinAsGuestEvent -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+
         }
 
     }

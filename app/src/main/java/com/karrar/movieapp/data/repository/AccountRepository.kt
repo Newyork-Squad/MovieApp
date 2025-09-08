@@ -8,10 +8,13 @@ interface AccountRepository {
     fun getSessionId(): String?
 
 
-    suspend fun loginWithUserNameANdPassword(userName: String, password: String) : Boolean
+    suspend fun loginWithUserNameANdPassword(userName: String, password: String): Boolean
 
     suspend fun logout()
 
     suspend fun getAccountDetails(): AccountDto?
+
+    fun isGuestMode(): Boolean
+    suspend fun loginAsGuest(): Boolean
 }
 

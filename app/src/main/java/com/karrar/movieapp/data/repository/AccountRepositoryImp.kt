@@ -19,6 +19,18 @@ class AccountRepositoryImp @Inject constructor(
     }
 
 
+    override fun isGuestMode(): Boolean {
+        return getSessionId() == GUEST_SESSION_ID
+    }
+
+    override suspend fun loginAsGuest(): Boolean {
+        return try {
+            appConfiguration.saveSessionId(GUEST_SESSION_ID)
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
     override suspend fun loginWithUserNameANdPassword(
         userName: String,
         password: String
@@ -69,6 +81,10 @@ class AccountRepositoryImp @Inject constructor(
 
     private suspend fun saveSessionId(sessionId: String) {
         appConfiguration.saveSessionId(sessionId)
+    }
+
+    companion object {
+        private const val GUEST_SESSION_ID = "guest_session"
     }
 
 }

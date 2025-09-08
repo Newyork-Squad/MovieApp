@@ -13,6 +13,7 @@ import com.karrar.movieapp.data.local.mappers.movie.LocalMovieMappersContainer
 import com.karrar.movieapp.data.remote.response.*
 import com.karrar.movieapp.data.remote.response.actor.ActorDto
 import com.karrar.movieapp.data.remote.response.actor.ActorMoviesDto
+import com.karrar.movieapp.data.remote.response.actor.ActorSocialMediaResponse
 import com.karrar.movieapp.data.remote.response.genre.GenreDto
 import com.karrar.movieapp.data.remote.response.movie.MovieDetailsDto
 import com.karrar.movieapp.data.remote.response.movie.RatingDto
@@ -64,6 +65,10 @@ class MovieRepositoryImp @Inject constructor(
 
     override suspend fun getActorDetails(actorId: Int): ActorDto? {
         return movieService.getActorDetails(actorId = actorId).body()
+    }
+
+    override suspend fun getActorSocialMediaIDs(actorId: Int): ActorSocialMediaResponse? {
+        return movieService.getActorExternalIds(actorId).body()
     }
 
     override suspend fun getActorMovies(actorId: Int): ActorMoviesDto? {

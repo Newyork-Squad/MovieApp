@@ -267,7 +267,9 @@
     <style name="Label_MD.SemiBold" >
         <item name="android:fontFamily">@font/manrope_semibold</item>
     </style>
-
-
+    
+    <style name="CorneredImage">
+        <item name="cornerSize">@dimen/radius_xl</item>
+    </style>
 
 </resources>

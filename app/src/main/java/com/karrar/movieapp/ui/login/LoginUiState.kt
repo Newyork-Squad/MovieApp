@@ -8,5 +8,5 @@ data class LoginUiState(
     val isLoading:Boolean = false,
     val isValidForm : Boolean = false,
     val error:String = "",
-
+    val passwordVisible: Boolean = false
 )

@@ -110,4 +110,10 @@ class LoginViewModel @Inject constructor(
         _loginUIState.update { it.copy(userName = "", password = "") }
     }
 
+    fun togglePasswordVisibility() {
+        val current = _loginUIState.value.passwordVisible
+        _loginUIState.value = _loginUIState.value.copy(passwordVisible = !current)
+    }
+
+
 }

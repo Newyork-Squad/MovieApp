@@ -1,5 +1,6 @@
 package com.karrar.movieapp.utilities
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -19,7 +20,8 @@ import com.karrar.movieapp.utilities.Constants.FIRST_CATEGORY_ID
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-
+import android.text.InputType
+import com.google.android.material.textfield.TextInputLayout
 
 @BindingAdapter("app:showWhenListNotEmpty")
 fun <T> showWhenListNotEmpty(view: View, list: List<T>) {
@@ -211,6 +213,7 @@ fun convertToHoursPattern(view: TextView, duration: Int) {
     }
 }
 
+@SuppressLint("StringFormatMatches")
 @BindingAdapter(value = ["app:movieHours", "app:movieMinutes"])
 fun setDuration(view: TextView, hours: Int?, minutes: Int?) {
     if (hours == 0) {
@@ -257,4 +260,27 @@ fun setRating(view: RatingBar?, rating: Float) {
 @BindingAdapter("showWhenTextNotEmpty")
 fun <T> showWhenTextNotEmpty(view: View,text:String){
     view.isVisible = text.isNotEmpty()
+}
+
+@BindingAdapter(value = ["passwordVisible", "onPasswordToggle"], requireAll = false)
+fun setPasswordToggle(
+    layout: TextInputLayout,
+    isVisible: Boolean,
+    onToggle: (() -> Unit)?
+) {
+    val editText = layout.editText
+
+    if (isVisible) {
+        editText?.inputType =
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+        layout.endIconDrawable = layout.context.getDrawable(R.drawable.outline_eye_opened)
+    } else {
+        editText?.inputType =
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        layout.endIconDrawable = layout.context.getDrawable(R.drawable.outline_eye_closed)
+    }
+
+    editText?.setSelection(editText.text?.length ?: 0)
+
+    layout.setEndIconOnClickListener { onToggle?.invoke() }
 }

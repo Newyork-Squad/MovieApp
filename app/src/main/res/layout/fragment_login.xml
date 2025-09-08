@@ -52,24 +52,25 @@
             android:hint="@string/enter_your_username"
 
             app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="@dimen/radius_lg"
+            app:boxCornerRadiusBottomStart="@dimen/radius_lg"
+            app:boxCornerRadiusTopEnd="@dimen/radius_lg"
+            app:boxCornerRadiusTopStart="@dimen/radius_lg"
+
             app:boxStrokeColor="@color/text_input_stroke_colors"
             app:boxStrokeErrorColor="@color/primary_red"
             app:boxStrokeWidth="1dp"
             app:boxStrokeWidthFocused="1dp"
-
             app:error="@{viewModel.loginUIState.userNameHelperText}"
             app:errorEnabled="true"
             app:errorIconDrawable="@drawable/outline_danger_triangle"
             app:errorTextColor="@color/primary_red"
             app:helperTextTextColor="@color/primary_red"
+
             app:hintTextColor="@color/shade_tertiary"
+            app:indicatorColor="@color/brand_primary"
             app:layout_constraintTop_toBottomOf="@id/welcomeText"
             app:startIconDrawable="@drawable/outline_user"
-
-            app:boxCornerRadiusTopStart="@dimen/radius_lg"
-            app:boxCornerRadiusTopEnd="@dimen/radius_lg"
-            app:boxCornerRadiusBottomStart="@dimen/radius_lg"
-            app:boxCornerRadiusBottomEnd="@dimen/radius_lg"
             app:startIconTint="@color/shade_tertiary">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -91,6 +92,10 @@
             android:layout_marginTop="16dp"
             android:hint="@string/enter_your_password"
             app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="@dimen/radius_lg"
+            app:boxCornerRadiusBottomStart="@dimen/radius_lg"
+            app:boxCornerRadiusTopEnd="@dimen/radius_lg"
+            app:boxCornerRadiusTopStart="@dimen/radius_lg"
             app:boxStrokeColor="@color/text_input_stroke_colors"
             app:boxStrokeErrorColor="@color/primary_red"
             app:boxStrokeWidth="1dp"
@@ -102,16 +107,13 @@
             app:errorTextColor="@color/primary_red"
             app:helperTextTextColor="@color/primary_red"
             app:hintTextColor="@color/shade_tertiary"
+            app:indicatorColor="@color/brand_primary"
             app:layout_constraintTop_toBottomOf="@id/userNameLayout"
-            app:passwordToggleDrawable="@drawable/outline_eye_closed"
+            app:onPasswordToggle="@{() -> viewModel.togglePasswordVisibility()}"
+            app:passwordVisible="@{viewModel.loginUIState.passwordVisible}"
             app:startIconDrawable="@drawable/outline_lock"
-            app:startIconTint="@color/shade_tertiary"
-            app:passwordToggleEnabled="true"
-            app:boxCornerRadiusTopStart="@dimen/radius_lg"
-            app:boxCornerRadiusTopEnd="@dimen/radius_lg"
-            app:boxCornerRadiusBottomStart="@dimen/radius_lg"
-            app:boxCornerRadiusBottomEnd="@dimen/radius_lg"
-            >
+            app:endIconMode="password_toggle"
+            app:startIconTint="@color/shade_tertiary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

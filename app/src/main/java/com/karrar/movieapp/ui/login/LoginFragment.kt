@@ -48,7 +48,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.TMDB_SIGNUP_URL))
                 startActivity(browserIntent)
             }
+            LoginUIEvent.ForgotPasswordEvent -> {
+                val browserIntent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.TMDB_FORGOTPASSWORD_URL))
+                startActivity(browserIntent)
+            }
         }
+
     }
 
 

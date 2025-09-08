@@ -126,7 +126,9 @@ class LoginViewModel @Inject constructor(
         _loginUIState.update { it.copy(showSignUpDialog = false) }
     }
 
-
+    fun onClickForgotPassword() {
+        _loginEvent.update { Event(LoginUIEvent.ForgotPasswordEvent) }
+    }
 
 
 

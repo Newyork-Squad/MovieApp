@@ -108,4 +108,7 @@
     <string name="clock_icon_for_duration">clock icon for movie duration</string>
     <string name="movie_image">movie image</string>
     <string name="back_arrow_icon">back arrow icon</string>
+    <string name="tv_show_image">tv show image</string>
+    <string name="clock_icon_for_number_of_seasons">clock icon for number of seasons</string>
+    <string name="calendar_icon_for_release_date">calendar icon for release date</string>
 </resources>

@@ -126,7 +126,7 @@
                     android:layout_marginStart="@dimen/spacing_medium"
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:scaleType="centerCrop"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.AsymmetricRectangle"
+                    app:shapeAppearanceOverlay="@style/AsymmetricRectangleImage"
                     app:isVisible="@{viewModel.actorDetailsUIState.success}"
                     app:posterImage="@{viewModel.actorDetailsUIState.imageUrl}"
                     android:contentDescription="@{viewModel.actorDetailsUIState.name}"

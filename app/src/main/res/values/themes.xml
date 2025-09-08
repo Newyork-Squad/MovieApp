@@ -118,6 +118,14 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="AsymmetricRectangleImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/radius_xl</item>
+        <item name="cornerSizeTopRight">@dimen/radius_s</item>
+        <item name="cornerSizeBottomRight">@dimen/radius_xl</item>
+        <item name="cornerSizeBottomLeft">@dimen/radius_s</item>
+    </style>
+
 
     <style name="CardCorners.BottomMedium">
         <item name="cornerSizeBottomLeft">@dimen/radius_medium</item>

@@ -192,7 +192,8 @@ class HomeViewModel @Inject constructor(
                         }
                     }
                 }
-            } catch (t: Throwable) {
+            } catch (th: Throwable) {
+                onError(th.message.toString())
             }
         }
     }

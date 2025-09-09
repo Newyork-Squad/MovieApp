@@ -116,7 +116,7 @@ class TvShowDetailsViewModel @Inject constructor(
                 val result = getTvShowDetailsUseCase.getSeriesCrew(tvShowId)
                 _stateUI.update { it ->
                     it.copy(
-                        seriesCrewResult = result.map { crewUiStateMapper.map(it) },
+                        seriesCrewResult = result.map { crewUiStateMapper.map(it) }.take(8),
                         isLoading = false
                     )
                 }

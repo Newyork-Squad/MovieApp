@@ -2,6 +2,6 @@ package com.karrar.movieapp.domain.models
 
 data class Crew(
     val id: Int,
-    val crewName: String,
-    val job: String,
+    val crewMemberName: String,
+    val crewMemberJob: String,
 )

@@ -2,7 +2,7 @@ package com.karrar.movieapp.domain.usecases.movieDetails
 
 import com.karrar.movieapp.data.repository.MovieRepository
 import com.karrar.movieapp.domain.enums.MediaType
-import com.karrar.movieapp.domain.mappers.CrewDtoMapper
+import com.karrar.movieapp.domain.mappers.MovieCrewMapper
 import com.karrar.movieapp.domain.mappers.actor.ActorDtoMapper
 import com.karrar.movieapp.domain.mappers.movie.MovieDetailsMapper
 import com.karrar.movieapp.domain.mappers.movie.MovieMapper
@@ -21,7 +21,7 @@ class GetMovieDetailsUseCase @Inject constructor(
     private val getMovieReviewsUseCase: GetReviewsUseCase,
     private val actorMapper: ActorDtoMapper,
     private val movieMapper: MovieMapper,
-    private val crewMapper: CrewDtoMapper,
+    private val movieCrewMapper: MovieCrewMapper,
 ) {
     suspend fun getMovieDetails(movieId: Int): MovieDetails {
         val response = movieRepository.getMovieDetails(movieId)
@@ -38,7 +38,7 @@ class GetMovieDetailsUseCase @Inject constructor(
 
     suspend fun getMovieCrew(movieId: Int): List<Crew> {
         return movieRepository.getMovieCastAndCrew(movieId)?.crew?.let {
-            it.map { crewMapper.map(it) }
+            it.map { movieCrewMapper.map(it) }
         } ?: throw Throwable("Not Success")
     }
 

@@ -50,7 +50,7 @@ class MovieRepositoryImp @Inject constructor(
     private val dataMappers: LocalMovieMappersContainer,
     private val mediaDataSourceContainer: MediaDataSourceContainer,
     private val searchDataSourceContainer: SearchDataSourceContainer,
-    private val movieMovieDataSource: MovieDataSourceContainer,
+    private val movieDataSource: MovieDataSourceContainer,
     private val actorMovieDataSource: ActorMovieDataSource
 ) : BaseRepository(), MovieRepository {
 
@@ -225,29 +225,29 @@ class MovieRepositoryImp @Inject constructor(
     override suspend fun getTrendingMoviesPager(): Pager<Int, MovieDto> {
         return Pager(
             config = config,
-            pagingSourceFactory = { movieMovieDataSource.trendingMovieDataSource })
+            pagingSourceFactory = { movieDataSource.trendingMovieDataSource })
     }
 
     override suspend fun getNowPlayingMoviesPager(): Pager<Int, MovieDto> {
         return Pager(
             config = config,
-            pagingSourceFactory = { movieMovieDataSource.nowStreamingMovieMovieDataSource })
+            pagingSourceFactory = { movieDataSource.nowStreamingMovieMovieDataSource })
     }
 
     override suspend fun getUpcomingMoviesPager(): Pager<Int, MovieDto> {
         return Pager(
             config = config,
-            pagingSourceFactory = { movieMovieDataSource.upcomingMovieMovieDataSource })
+            pagingSourceFactory = { movieDataSource.upcomingMovieMovieDataSource })
     }
 
     override suspend fun getAdventureMoviesPager(): Pager<Int, MovieDto> {
-        val dataSource = movieMovieDataSource.movieByGenreDataSource
+        val dataSource = movieDataSource.movieByGenreDataSource
         dataSource.setGenre(Constants.MYSTERY_ID)
         return Pager(config = config, pagingSourceFactory = { dataSource })
     }
 
     override suspend fun getMysteryMoviesPager(): Pager<Int, MovieDto> {
-        val dataSource = movieMovieDataSource.movieByGenreDataSource
+        val dataSource = movieDataSource.movieByGenreDataSource
         dataSource.setGenre(Constants.ADVENTURE_ID)
         return Pager(config = config, pagingSourceFactory = { dataSource })
     }

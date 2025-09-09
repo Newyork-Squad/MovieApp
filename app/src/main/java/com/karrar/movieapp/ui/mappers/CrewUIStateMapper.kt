@@ -8,8 +8,8 @@ import javax.inject.Inject
 class CrewUIStateMapper @Inject constructor() : Mapper<Crew, CrewUIState> {
     override fun map(input: Crew): CrewUIState {
         return CrewUIState(
-            name = input.crewName,
-            job = input.job
+            name = input.crewMemberName,
+            job = input.crewMemberJob
         )
     }
 }

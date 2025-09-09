@@ -31,8 +31,8 @@ class GetTvShowDetailsUseCase @Inject constructor(
     }
 
     suspend fun getSeriesCrew(tvShowId: Int): List<Crew> {
-        return ListMapper(seriesMapperContainer.crewMapper)
-            .mapList(seriesRepository.getTvShowCastAndCrew(tvShowId)?.crew).take(8)
+        return ListMapper(seriesMapperContainer.seriesCrewMapper)
+            .mapList(seriesRepository.getTvShowCastAndCrew(tvShowId)?.crew)
     }
 
     suspend fun getSeasons(tvShowId: Int): List<Season> {

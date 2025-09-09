@@ -4,12 +4,12 @@ import com.karrar.movieapp.data.remote.response.CrewDto
 import com.karrar.movieapp.domain.models.Crew
 import javax.inject.Inject
 
-class CrewDtoMapper @Inject constructor() : Mapper<CrewDto, Crew> {
+class MovieCrewMapper @Inject constructor() : Mapper<CrewDto, Crew> {
     override fun map(input: CrewDto): Crew {
         return Crew(
             id = input.id ?: 0,
-            crewName = input.name.orEmpty(),
-            job = input.job.orEmpty()
+            crewMemberName = input.name.orEmpty(),
+            crewMemberJob = input.job.orEmpty()
         )
     }
 }

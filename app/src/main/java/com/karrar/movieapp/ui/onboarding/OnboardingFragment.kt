@@ -1,12 +1,7 @@
 package com.karrar.movieapp.ui.onboarding
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.karrar.movieapp.R
@@ -14,7 +9,9 @@ import com.karrar.movieapp.databinding.FragmentOnboardingBinding
 import com.karrar.movieapp.ui.base.BaseFragment
 import com.karrar.movieapp.ui.onboarding.adapter.OnboardingContentAdapter
 import com.karrar.movieapp.ui.onboarding.adapter.OnboardingImageAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
     override val layoutIdFragment: Int = R.layout.fragment_onboarding
     override val viewModel: OnboardingViewModel by viewModels()
@@ -108,7 +105,10 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
                     finalPageTv.visibility = View.VISIBLE
                 }
 
-                2 -> findNavController().navigate(R.id.action_onboardingFragment_to_homeFragment)
+                2 -> {
+                    viewModel.markAsNotFirstLaunch()
+                    findNavController().navigate(R.id.action_onboardingFragment_to_homeFragment)
+                }
             }
         }
     }

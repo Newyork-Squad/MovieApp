@@ -31,7 +31,6 @@
     <dimen name="text_label_md">12sp</dimen>
 
 
-
     <!-- radius -->
     <dimen name="radius_large">24dp</dimen>
     <dimen name="radius_medium">16dp</dimen>
@@ -54,5 +53,9 @@
 
     <!-- chips -->
     <dimen name="chip_height">32dp</dimen>
+
+    <!--dialog-->
+    <dimen name="dialog_bottom_margin">48dp</dimen>
+    <dimen name="dialog_horizontal_margin">12dp</dimen>
 
 </resources>

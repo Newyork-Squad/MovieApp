@@ -2,7 +2,10 @@ package com.karrar.movieapp.ui.login
 
 import android.content.Intent
 import android.net.Uri
+import android.view.Gravity
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.karrar.movieapp.BuildConfig
@@ -13,76 +16,95 @@ import com.karrar.movieapp.ui.base.BaseFragment
 import com.karrar.movieapp.utilities.collectLast
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
+
     override val layoutIdFragment = R.layout.fragment_login
     override val viewModel: LoginViewModel by viewModels()
+
     private var signUpDialog: AlertDialog? = null
 
     override fun onStart() {
         super.onStart()
         setTitle(false)
+
         collectLast(viewModel.loginEvent) {
-            it.getContentIfNotHandled()?.let { onEvent(it) }
+            it.getContentIfNotHandled()?.let(::onEvent)
         }
 
         collectLast(viewModel.loginUIState) { uiState ->
-            if (uiState.showSignUpDialog) {
-                showSignUpDialog()
-            } else {
-                dismissSignUpDialog()
-            }
+            if (uiState.showSignUpDialog) showSignUpDialog()
+            else dismissSignUpDialog()
         }
-
     }
 
     private fun onEvent(event: LoginUIEvent) {
         when (event) {
-            is LoginUIEvent.LoginEvent -> {
+            is LoginUIEvent.LoginEvent ->
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToProfileFragment())
-            }
 
-            LoginUIEvent.SignUpEvent -> {
-                val browserIntent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.TMDB_SIGNUP_URL))
-                startActivity(browserIntent)
-            }
+            LoginUIEvent.SignUpEvent ->
+                openBrowser(BuildConfig.TMDB_SIGNUP_URL)
 
-            LoginUIEvent.ForgotPasswordEvent -> {
-                val browserIntent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.TMDB_FORGOTPASSWORD_URL))
-                startActivity(browserIntent)
-            }
+            LoginUIEvent.ForgotPasswordEvent ->
+                openBrowser(BuildConfig.TMDB_FORGOTPASSWORD_URL)
 
-            LoginUIEvent.JoinAsGuestEvent -> findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
-
+            LoginUIEvent.JoinAsGuestEvent ->
+                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
         }
-
     }
 
+    private fun openBrowser(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
+    }
 
     private fun showSignUpDialog() {
         if (signUpDialog?.isShowing == true) return
 
-        val dialogBinding = DialogSignupBinding.inflate(layoutInflater)
-        dialogBinding.viewModel = viewModel
-        dialogBinding.lifecycleOwner = viewLifecycleOwner
+        val dialogBinding = DialogSignupBinding.inflate(layoutInflater).apply {
+            viewModel = this@LoginFragment.viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
 
-        AlertDialog.Builder(requireContext())
-            .setView(dialogBinding.root)
+        signUpDialog = createSignUpDialog(dialogBinding).apply {
+            setOnDismissListener {
+                if (viewModel.loginUIState.value.showSignUpDialog) {
+                    viewModel.onClickCancelSignUp()
+                }
+            }
+            show()
+        }
+    }
+
+    private fun createSignUpDialog(binding: DialogSignupBinding): AlertDialog {
+        return AlertDialog.Builder(requireContext(), R.style.SignUpDialogStyle)
+            .setView(binding.root)
             .setCancelable(true)
-            .create()
-            .apply {
+            .create().apply {
+                window?.apply {
+                    setLayout(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                    setBackgroundDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.bg_dialog
+                        )
+                    )
 
-                setOnDismissListener {
-                    if (viewModel.loginUIState.value.showSignUpDialog) {
-                        viewModel.onClickCancelSignUp()
+                    val horizontalMargin =
+                        resources.getDimensionPixelSize(R.dimen.dialog_horizontal_margin)
+                    val bottomMargin = resources.getDimensionPixelSize(R.dimen.dialog_bottom_margin)
+
+                    attributes = attributes?.apply {
+                        width = resources.displayMetrics.widthPixels - (2 * horizontalMargin)
+                        gravity = Gravity.BOTTOM
+                        y = bottomMargin
                     }
                 }
-
-                show()
-            }.also { signUpDialog = it }
+            }
     }
 
     private fun dismissSignUpDialog() {
@@ -94,7 +116,4 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         super.onDestroy()
         dismissSignUpDialog()
     }
-
-
 }
-

@@ -24,8 +24,8 @@
     <string name="biography">Biography</string>
     <string name="movies">Movies</string>
     <string name="actors">Actors</string>
-    <string name="oops">Oops!</string>
-    <string name="description">There is no internet connection\nPlease check it out</string>
+    <string name="oops_no_internet">Oops! No Internet</string>
+    <string name="description">Looks like you\'re offline Let\'s reconnect so \nyou don\'t miss out!</string>
     <string name="all_movies_of_actor">All Movies Of Actor</string>
     <!--   Titles -->
     <string name="title_on_air">On The Air</string>
@@ -88,7 +88,7 @@
     <string name="one_season">%1$d Season</string>
     <string name="more_than_one_season">%1$d Seasons</string>
     <string name="internet_connection">There is no internet connection.</string>
-    <string name="retry">Retry</string>
+    <string name="try_again">Try Again</string>
     <string name="you_must_be_logged_in_to_see_the_profile">You must be logged in to see the profile and use additional features.</string>
     <string name="new_list">New List</string>
     <string name="log_in">Log In</string>

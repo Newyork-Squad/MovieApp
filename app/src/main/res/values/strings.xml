@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Movie App</string>
 
-    <string name="see_all">See all</string>
+    <string name="show_more">Show More</string>
     <string name="top_rated">Top Rated</string>
     <string name="latest">Latest</string>
     <string name="popular">Popular</string>
@@ -35,6 +35,7 @@
     <string name="title_trending">Trending</string>
     <string name="title_streaming">Now Streaming</string>
     <string name="title_upcoming">Upcoming</string>
+    <string name="title_recently_viewed">You Recently Viewed</string>
     <string name="title_celebrity">Celebrities</string>
     <string name="title_airing_today">Airing today</string>
     <string name="title_top_rated_tv_show">Top Rated Tv-Show</string>

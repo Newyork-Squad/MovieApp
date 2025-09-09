@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.ui.base.BaseAdapter
@@ -257,4 +259,16 @@ fun setRating(view: RatingBar?, rating: Float) {
 @BindingAdapter("showWhenTextNotEmpty")
 fun <T> showWhenTextNotEmpty(view: View,text:String){
     view.isVisible = text.isNotEmpty()
+}
+
+@BindingAdapter("app:dynamicShapeAppearance")
+fun ShapeableImageView.setDynamicShapeAppearance(isCurrent: Boolean) {
+    val styleRes =
+        if (isCurrent) {
+            R.style.OnboardingImageCornerCurrent
+        } else {
+            R.style.OnboardingImageCorner
+        }
+    this.shapeAppearanceModel =
+        ShapeAppearanceModel.builder(context, styleRes, styleRes).build()
 }

@@ -319,7 +319,10 @@ class HomeViewModel @Inject constructor(
             HomeItemsType.UPCOMING -> AllMediaType.UPCOMING
             HomeItemsType.MYSTERY -> AllMediaType.MYSTERY
             HomeItemsType.ADVENTURE -> AllMediaType.ADVENTURE
-            HomeItemsType.RECENTLY_VIEWED -> AllMediaType.RECENTLY_VIEWED
+            HomeItemsType.RECENTLY_VIEWED -> {
+                onClickSeeAllRecentlyViewed()
+                return
+            }
             HomeItemsType.NON -> AllMediaType.ACTOR_MOVIES
         }
         _homeUIEvent.update { Event(HomeUIEvent.ClickSeeAllMovieEvent(type)) }

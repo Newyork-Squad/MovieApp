@@ -12,5 +12,4 @@ enum class AllMediaType {
     MYSTERY,
     ADVENTURE,
     ACTOR_MOVIES,
-    RECENTLY_VIEWED,
 }

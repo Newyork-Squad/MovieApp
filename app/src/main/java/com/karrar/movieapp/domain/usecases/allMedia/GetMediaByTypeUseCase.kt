@@ -59,8 +59,6 @@ class GetMediaByTypeUseCase @Inject constructor(
                     movieMapper::map
                 )
             }
-
-            AllMediaType.RECENTLY_VIEWED -> TODO()
         }
     }
 

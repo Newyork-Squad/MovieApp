@@ -98,6 +98,6 @@ fun <T : Any> GridLayoutManager.setSpanSize(
 }
 
 fun Date.convertToDayMonthYearFormat(): String {
-    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val formatter = SimpleDateFormat("yyyy, MMM dd", Locale.getDefault())
     return formatter.format(this)
 }

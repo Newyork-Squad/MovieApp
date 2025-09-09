@@ -2,6 +2,7 @@ package com.karrar.movieapp.ui.profile
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.karrar.movieapp.R
@@ -10,6 +11,7 @@ import com.karrar.movieapp.ui.base.BaseFragment
 import com.karrar.movieapp.utilities.Constants
 import com.karrar.movieapp.utilities.collectLast
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.core.content.edit
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
@@ -20,10 +22,24 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setTitle(true, getString(R.string.profile))
 
+        val prefs = requireContext().getSharedPreferences("settings", android.content.Context.MODE_PRIVATE)
+        val darkMode = prefs.getBoolean("dark_mode", false)
+        binding.switchDarkMode.isChecked = darkMode
+
+        binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit { putBoolean("dark_mode", isChecked) }
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
         collectLast(viewModel.profileUIEvent) {
             it.getContentIfNotHandled()?.let { onEvent(it) }
         }
     }
+
 
     private fun onEvent(event: ProfileUIEvent) {
         val action = when (event) {

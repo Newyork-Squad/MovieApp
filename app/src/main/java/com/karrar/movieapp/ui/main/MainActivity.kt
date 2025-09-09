@@ -3,6 +3,7 @@ package com.karrar.movieapp.ui.main
 import android.os.Bundle
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -22,6 +23,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val prefs = getSharedPreferences("settings", MODE_PRIVATE)
+        val darkMode = prefs.getBoolean("dark_mode", false)
+
+        AppCompatDelegate.setDefaultNightMode(
+            if (darkMode) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
+        )
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY)
         setTheme(R.style.Theme_MovieApp)

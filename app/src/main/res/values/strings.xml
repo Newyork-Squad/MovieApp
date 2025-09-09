@@ -51,11 +51,11 @@
     <string name="home">Home</string>
     <string name="explore">Explore</string>
     <string name="myList">My Lists</string>
-    <string name="profile">Profile</string>
+    <string name="profile">My Profile</string>
     <string name="play_trailer">Play Trailer</string>
     <string name="duration">%1$d Minutes</string>
     <string name="reviews">(%1$s reviews)</string>
-    <string name="overview">Overview</string>
+    <string name="storyline">Storyline</string>
     <string name="cast">Cast</string>
     <string name="similar_movies">Similar Movies</string>
     <string name="rate_the_movie">Rate The Movie</string>
@@ -63,7 +63,7 @@
     <string name="review">Reviews</string>
     <string name="reviews_comment">Reviews</string>
     <string name="user_name">"@" %1$s</string>
-    <string name="back_button">back button</string>
+    <string name="save_button">back button</string>
     <string name="view_all_reviews">View all reviews</string>
     <string name="episodes">Episodes</string>
     <string name="seasons">Seasons</string>
@@ -77,7 +77,7 @@
     <string name="are_you_sure">Are You Sure?</string>
     <string name="you_re_about_to_sign_out_of_your_account">You’re about to sign out of your account.</string>
     <string name="cancel">Cancel</string>
-    <string name="logout">Sign Out</string>
+    <string name="logout">Logout</string>
     <string name="this_list_has_no_movies">This list has no movies</string>
     <string name="zero">\.0</string>
     <string name="my_ratings">My Ratings</string>
@@ -105,11 +105,31 @@
     <string name="you_must_be_logged_in_to_save_a_movie">You must be logged in to save a movie</string>
     <string name="this_list_has_no_lists">No lists found</string>
     <string name="episode_title">%1$d. %2$s</string>
-    <string name="season_number">(%1$s Seasons)</string>
     <string name="youtube">YouTube</string>
     <string name="instagram">Instagram</string>
     <string name="facebook">Facebook</string>
     <string name="twitter">Twitter</string>
     <string name="tiktok">Tiktok</string>
 
+    <string name="logout_dialog_title">Are you sure you want to logout?</string>
+    <string name="logout_dialog_caption">You can always sign back in with your account.</string>
+    <string name="login_or_signup">Login &amp; Sign Up</string>
+    <string name="tap_to_add_name">Tap to add your name</string>
+    <string name="to_personalize">to personalize your profile</string>
+    <string name="settings">Settings</string>
+    <string name="language">language</string>
+    <string name="content_preferences">Content Preferences</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="my_collections">My Collections</string>
+    <string name="history">History</string>
+    <string name="season_number">%1$s Seasons</string>
+    <string name="movie">MOVIE</string>
+    <string name="series">SERIES</string>
+    <string name="star_icon_for_rating">star icon for rating</string>
+    <string name="clock_icon_for_duration">clock icon for movie duration</string>
+    <string name="movie_image">movie image</string>
+    <string name="back_arrow_icon">back arrow icon</string>
+    <string name="tv_show_image">tv show image</string>
+    <string name="clock_icon_for_number_of_seasons">clock icon for number of seasons</string>
+    <string name="calendar_icon_for_release_date">calendar icon for release date</string>
 </resources>

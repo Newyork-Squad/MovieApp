@@ -1,6 +1,5 @@
 package com.karrar.movieapp.ui.movieDetails
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.enums.HomeItemsType
@@ -134,7 +133,6 @@ class MovieDetailsViewModel @Inject constructor(
                 )
             } catch (e: Throwable) {
             }
-            Log.d("VIEW_MODEL_STATE", "${_uiState.value.movieCrewResult}")
         }
     }
 

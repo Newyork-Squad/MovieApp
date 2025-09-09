@@ -65,11 +65,11 @@
             android:gravity="center"
             android:paddingStart="@dimen/spacing_small"
             android:paddingEnd="6dp"
-            android:text="@{item.mediaRate}"
             android:textColor="@color/shade_primary"
             app:drawableTint="@color/primary_yellow"
             app:layout_constraintEnd_toEndOf="@+id/image_movie"
             app:layout_constraintTop_toTopOf="@+id/image_movie"
+            app:setOneDecimalAfterPoint="@{item.mediaRate}"
             tools:text="8.4" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

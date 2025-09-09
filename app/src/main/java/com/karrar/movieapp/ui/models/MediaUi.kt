@@ -4,6 +4,6 @@ data class MediaUiState(
     val id: Int = 0,
     val imageUrl: String = "",
     val mediaTitle: String = "",
-    val mediaRate: String = "",
+    val mediaRate: Float = 0f,
     val mediaImage: String= ""
 )

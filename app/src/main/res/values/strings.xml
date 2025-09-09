@@ -124,4 +124,7 @@
     <string name="calendar_icon_for_release_date">calendar icon for release date</string>
     <string name="behind_the_scenes">Behind the Scenes</string>
     <string name="show_more">Show More</string>
+    <string name="give_it_stars">Give it Stars!</string>
+    <string name="let_the_world_know_how_you_felt">Let the world know how you felt.</string>
+    <string name="arrow">arrow</string>
 </resources>

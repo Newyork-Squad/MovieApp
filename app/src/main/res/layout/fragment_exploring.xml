@@ -15,7 +15,7 @@
         android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color"
+        android:background="@color/background_screen"
         app:layoutDescription="@xml/fragment_exploring_scene">
 
         <com.airbnb.lottie.LottieAnimationView
@@ -90,7 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginEnd="@dimen/spacing_medium"            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
             android:background="@drawable/edit_text_background"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="@dimen/spacing_small"
@@ -110,14 +111,14 @@
             android:id="@+id/tab_explore"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/CardCorners.Small"
+            app:tabTextAppearance="@style/MyTabTextAppearance"
             android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_12dp"
             android:layout_marginEnd="@dimen/spacing_medium"
-            android:backgroundTint="@color/card_background_color"
-            app:tabIndicatorColor="@color/brand_color"
-            app:tabSelectedTextColor="@color/brand_color"
-            app:tabTextColor="@color/shade_primary_color"
+            android:backgroundTint="@color/background_screen"
+            app:tabIndicatorColor="@color/brand_primary"
+            app:tabSelectedTextColor="@color/brand_primary"
+            app:tabTextColor="@color/shade_tertiary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_search">
@@ -136,26 +137,15 @@
             android:text="@string/tv_shows_label" />
         </com.google.android.material.tabs.TabLayout>
 
-        <TextView
-            android:id="@+id/text_trend_label"
-            style="@style/SemiBold.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:text="@string/trending_today_label"
-            android:textColor="@color/shade_primary_color"
-
-            app:doneLoading="@{viewModel.uiState.loading}"
-            app:errorNotEmpty="@{viewModel.uiState.error}"
-
-            app:layout_constraintStart_toStartOf="@id/tab_explore"
-            app:layout_constraintTop_toBottomOf="@id/tab_explore" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_genres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_12dp"
+            android:layout_marginEnd="@dimen/spacing_medium"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_genre_chip"
             app:items="@{viewModel.uiState.genre}"
@@ -176,8 +166,10 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_trend_label"
+            app:layout_constraintTop_toBottomOf="@id/rv_genres"
+            app:layout_constraintVertical_bias="0.0"
             app:spanCount="2"
             tools:listitem="@layout/item_category" />
 

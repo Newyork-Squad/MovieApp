@@ -62,6 +62,7 @@ class HomeAdapter(
                     viewPager.adapter = adapter
 
                     setupPageTransformer(viewPager)
+                    setupAutoScroll(viewPager, adapter)
 
                 }
 
@@ -209,6 +210,19 @@ class HomeAdapter(
                 }
             }
         }
+    }
+
+    private fun setupAutoScroll(viewPager: ViewPager2, adapter: PopularMovieAdapter){
+        val handler = Handler(Looper.getMainLooper())
+        val runnable = object : Runnable {
+            override fun run() {
+                val current = viewPager.currentItem
+                val next = if (current + 1 < adapter.itemCount) current + 1 else 0
+                viewPager.setCurrentItem(next, true)
+                handler.postDelayed(this, 3000)
+            }
+        }
+        handler.postDelayed(runnable, 3000)
     }
 
 }

@@ -110,10 +110,10 @@
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/RoundButton"
+                    android:onClick="@{() -> viewModel.onClickWatchHistory()}"
                     android:text="@string/history"
                     android:textAllCaps="false"
                     app:icon="@drawable/due_tone_history"
-                    android:onClick="@{() -> viewModel.onClickWatchHistory()}"
                     app:iconGravity="textStart"
                     app:iconPadding="8dp"
                     app:iconSize="16dp" />
@@ -130,10 +130,10 @@
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/RoundButton"
+                    android:onClick="@{() -> viewModel.onClickRatedMovies()}"
                     android:text="@string/my_ratings"
                     android:textAllCaps="false"
                     app:icon="@drawable/due_tone_star"
-                    android:onClick="@{() -> viewModel.onClickRatedMovies()}"
                     app:iconGravity="textStart"
                     app:iconPadding="8dp"
                     app:iconSize="16dp" />
@@ -162,16 +162,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_medium"
+            app:cardBackgroundColor="@color/background_card"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
-            app:strokeWidth="0dp"
-            app:cardBackgroundColor="@color/background_card"
-            app:layout_constraintTop_toBottomOf="@+id/text_setting">
+            app:layout_constraintTop_toBottomOf="@+id/text_setting"
+            app:strokeWidth="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
 
                 <com.google.android.material.textview.MaterialTextView
@@ -282,8 +281,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_medium"
                     app:dividerColor="@color/shade_quaternary_color"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:isVisible="@{viewModel.profileDetailsUIState.isLoggedIn}"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/contentPreferences" />
 
@@ -304,21 +303,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/contentPreferences" />
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/edit_sign_out"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/outline_alt_arrow_right"
-                    android:tint="@color/primary_red"
-                    app:layout_constraintEnd_toEndOf="@+id/text_sign_out"
-                    app:isVisible="@{viewModel.profileDetailsUIState.isLoggedIn}"
-                    app:layout_constraintTop_toBottomOf="@+id/contentPreferences" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

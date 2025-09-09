@@ -125,7 +125,7 @@ class HomeAdapter(
                 is HomeItem.RecentlyViewed -> {
                     holder.binding.run {
                         setVariable(
-                            BR.adapterRecycler, WatchHistoryAdapter(
+                            BR.adapterRecycler, RecentlyViewedAdapter(
                                 currentItem.items,
                                 listener as WatchHistoryInteractionListener
                             )

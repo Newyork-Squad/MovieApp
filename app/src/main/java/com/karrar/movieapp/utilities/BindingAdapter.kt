@@ -1,6 +1,7 @@
 package com.karrar.movieapp.utilities
 
 import android.annotation.SuppressLint
+import android.text.InputType
 import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.textfield.TextInputLayout
 import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.ui.base.BaseAdapter
@@ -20,8 +22,6 @@ import com.karrar.movieapp.utilities.Constants.FIRST_CATEGORY_ID
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-import android.text.InputType
-import com.google.android.material.textfield.TextInputLayout
 
 @BindingAdapter("app:showWhenListNotEmpty")
 fun <T> showWhenListNotEmpty(view: View, list: List<T>) {
@@ -229,7 +229,7 @@ fun setDuration(view: TextView, hours: Int?, minutes: Int?) {
 @BindingAdapter("app:setGenres", "app:listener", "app:selectedChip")
 fun <T> setGenresChips(
     view: ChipGroup, chipList: List<GenreUIState>?, listener: T,
-    selectedChip: Int?
+    selectedChip: Int?,
 ) {
     chipList?.let {
         it.forEach { genre -> view.addView(view.createChip(genre, listener)) }
@@ -258,15 +258,28 @@ fun setRating(view: RatingBar?, rating: Float) {
 }
 
 @BindingAdapter("showWhenTextNotEmpty")
-fun <T> showWhenTextNotEmpty(view: View,text:String){
+fun <T> showWhenTextNotEmpty(view: View, text: String) {
     view.isVisible = text.isNotEmpty()
+}
+
+@BindingAdapter("app:hideDividerIfLast")
+fun hideDividerIfLast(view: View, isLast: Boolean) {
+    view.isVisible = !isLast
+}
+
+@SuppressLint("DefaultLocale")
+@BindingAdapter("app:setOneDecimalAfterPoint")
+fun setOneDecimalAfterPoint(textView: View, value: Float?) {
+    value?.let {
+        (textView as TextView).text = String.format("%.1f", value)
+    }
 }
 
 @BindingAdapter(value = ["passwordVisible", "onPasswordToggle"], requireAll = false)
 fun setPasswordToggle(
     layout: TextInputLayout,
     isVisible: Boolean,
-    onToggle: (() -> Unit)?
+    onToggle: (() -> Unit)?,
 ) {
     val editText = layout.editText
 

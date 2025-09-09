@@ -255,6 +255,11 @@ fun setRating(view: RatingBar?, rating: Float) {
 }
 
 @BindingAdapter("showWhenTextNotEmpty")
-fun <T> showWhenTextNotEmpty(view: View,text:String){
+fun <T> showWhenTextNotEmpty(view: View, text: String) {
     view.isVisible = text.isNotEmpty()
+}
+
+@BindingAdapter("app:hideDividerIfLast")
+fun hideDividerIfLast(view: View, isLast: Boolean) {
+    view.isVisible = !isLast
 }

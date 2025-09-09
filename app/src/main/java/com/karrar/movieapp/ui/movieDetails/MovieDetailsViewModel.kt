@@ -1,15 +1,20 @@
 package com.karrar.movieapp.ui.movieDetails
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.domain.models.MovieDetails
 import com.karrar.movieapp.domain.usecases.GetSessionIDUseCase
-import com.karrar.movieapp.domain.usecases.movieDetails.*
+import com.karrar.movieapp.domain.usecases.movieDetails.GetMovieDetailsUseCase
+import com.karrar.movieapp.domain.usecases.movieDetails.GetMovieRateUseCase
+import com.karrar.movieapp.domain.usecases.movieDetails.InsertMoviesUseCase
+import com.karrar.movieapp.domain.usecases.movieDetails.SetRatingUseCase
 import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.ui.movieDetails.mapper.ActorUIStateMapper
+import com.karrar.movieapp.ui.mappers.CrewUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.mapper.MediaUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.mapper.MovieDetailsUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.mapper.ReviewUIStateMapper
@@ -37,6 +42,7 @@ class MovieDetailsViewModel @Inject constructor(
     private val getMovieRate: GetMovieRateUseCase,
     private val reviewUIStateMapper: ReviewUIStateMapper,
     private val sessionIDUseCase: GetSessionIDUseCase,
+    private val crewUIStateMapper: CrewUIStateMapper,
     state: SavedStateHandle,
 ) : BaseViewModel(), ActorsInteractionListener, MovieInteractionListener,
     DetailInteractionListener {
@@ -60,6 +66,7 @@ class MovieDetailsViewModel @Inject constructor(
         getMovieCast(args.movieId)
         getSimilarMovie(args.movieId)
         getMovieReviews(args.movieId)
+        getMovieCrew(args.movieId)
     }
 
     private fun getMovieDetails(movieId: Int) {
@@ -108,6 +115,26 @@ class MovieDetailsViewModel @Inject constructor(
                 )
             } catch (e: Throwable) {
             }
+        }
+    }
+
+    private fun getMovieCrew(movieId: Int) {
+        viewModelScope.launch {
+            try {
+                val result = getMovieDetailsUseCase.getMovieCrew(movieId)
+                _uiState.update {
+                    it.copy(
+                        movieCrewResult = result.map { crew -> crewUIStateMapper.map(crew) }
+                            .take(8),
+                        isLoading = false
+                    )
+                }
+                onAddMovieDetailsItemOfNestedView(
+                    DetailItemUIState.Crew(_uiState.value.movieCrewResult)
+                )
+            } catch (e: Throwable) {
+            }
+            Log.d("VIEW_MODEL_STATE", "${_uiState.value.movieCrewResult}")
         }
     }
 

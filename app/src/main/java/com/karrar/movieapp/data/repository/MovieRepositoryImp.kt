@@ -1,5 +1,6 @@
 package com.karrar.movieapp.data.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import com.karrar.movieapp.data.Constants
 import com.karrar.movieapp.data.local.AppConfiguration
@@ -209,17 +210,20 @@ class MovieRepositoryImp @Inject constructor(
 
 
     override suspend fun getTrendingMoviesPager(): Pager<Int, MovieDto> {
-        return Pager(config = config,
+        return Pager(
+            config = config,
             pagingSourceFactory = { movieMovieDataSource.trendingMovieDataSource })
     }
 
     override suspend fun getNowPlayingMoviesPager(): Pager<Int, MovieDto> {
-        return Pager(config = config,
+        return Pager(
+            config = config,
             pagingSourceFactory = { movieMovieDataSource.nowStreamingMovieMovieDataSource })
     }
 
     override suspend fun getUpcomingMoviesPager(): Pager<Int, MovieDto> {
-        return Pager(config = config,
+        return Pager(
+            config = config,
             pagingSourceFactory = { movieMovieDataSource.upcomingMovieMovieDataSource })
     }
 
@@ -387,8 +391,16 @@ class MovieRepositoryImp @Inject constructor(
         return movieService.getMovieDetails(movieId).body()
     }
 
-    override suspend fun getMovieCast(movieId: Int): CreditsDto? {
-        return movieService.getMovieCast(movieId).body()
+    override suspend fun getMovieCastAndCrew(movieId: Int): CreditsDto? {
+        val response = movieService.getMovieCastAndCrew(movieId).body()
+        val crewJobs = response?.crew?.map {
+            it.department
+        }
+        val crewName = response?.crew?.map {
+            it.name
+        }
+        Log.d("MOVIECREW", "$crewJobs $crewName")
+        return response
     }
 
     override suspend fun getSimilarMovie(movieId: Int): List<MovieDto>? {

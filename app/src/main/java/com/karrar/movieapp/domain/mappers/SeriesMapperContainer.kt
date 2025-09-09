@@ -9,6 +9,7 @@ class SeriesMapperContainer @Inject constructor(
     val mediaMapper: TVShowMapper,
     val tvShowDetailsMapper: TvShowDetailsMapper,
     val actorMapper: ActorDtoMapper,
+    val crewMapper: CrewMapper,
     val reviewMapper: ReviewMapper,
     val seasonMapper: SeasonMapper,
     val trailerMapper: TrailerMapper,

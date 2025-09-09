@@ -5,7 +5,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.karrar.movieapp.BR
 import com.karrar.movieapp.R
-import com.karrar.movieapp.ui.adapters.*
+import com.karrar.movieapp.ui.adapters.ActorAdapter
+import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
+import com.karrar.movieapp.ui.adapters.CrewAdapter
 import com.karrar.movieapp.ui.base.BaseAdapter
 import com.karrar.movieapp.ui.base.BaseInteractionListener
 import com.karrar.movieapp.ui.movieDetails.DetailInteractionListener
@@ -40,6 +42,7 @@ class DetailUIStateAdapter(
                     setVariable(BR.listener, listener as DetailInteractionListener)
                 }
             }
+
             is DetailItemUIState.Cast -> {
                 holder.binding.run {
                     setVariable(
@@ -52,25 +55,45 @@ class DetailUIStateAdapter(
                     )
                 }
             }
+
+            is DetailItemUIState.Crew -> {
+                holder.binding.run {
+                    setVariable(
+                        BR.adapterRecycler,
+                        CrewAdapter(
+                            currentItem.data,
+                            R.layout.item_crew,
+                            listener
+                        )
+                    )
+                }
+            }
+
             is DetailItemUIState.Seasons -> {
                 holder.binding.run {
                     setVariable(
                         BR.adapterRecycler,
-                        SeasonAdapterUIState(currentItem.data, listener as SeasonInteractionListener)
+                        SeasonAdapterUIState(
+                            currentItem.data,
+                            listener as SeasonInteractionListener
+                        )
                     )
                 }
             }
+
             is DetailItemUIState.Rating -> {
                 holder.binding.run {
                     setVariable(BR.viewModel, currentItem.viewModel)
                 }
             }
+
             is DetailItemUIState.Comment -> {
                 holder.binding.run {
                     setVariable(BR.item, currentItem.data)
                     setVariable(BR.listener, listener)
                 }
             }
+
             is DetailItemUIState.ReviewText -> {}
             DetailItemUIState.SeeAllReviewsButton -> {
                 holder.binding.run {
@@ -93,6 +116,7 @@ class DetailUIStateAdapter(
         return when (items[position]) {
             is DetailItemUIState.Header -> R.layout.item_tv_show_details_header
             is DetailItemUIState.Cast -> R.layout.list_cast
+            is DetailItemUIState.Crew -> R.layout.list_crew
             is DetailItemUIState.Seasons -> R.layout.list_season
             is DetailItemUIState.Rating -> R.layout.item_tvshow_rating
             is DetailItemUIState.Comment -> R.layout.item_tvshow_review

@@ -1,5 +1,6 @@
 package com.karrar.movieapp.utilities
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -255,6 +256,19 @@ fun setRating(view: RatingBar?, rating: Float) {
 }
 
 @BindingAdapter("showWhenTextNotEmpty")
-fun <T> showWhenTextNotEmpty(view: View,text:String){
+fun <T> showWhenTextNotEmpty(view: View, text: String) {
     view.isVisible = text.isNotEmpty()
+}
+
+@BindingAdapter("app:hideDividerIfLast")
+fun hideDividerIfLast(view: View, isLast: Boolean) {
+    view.isVisible = !isLast
+}
+
+@SuppressLint("DefaultLocale")
+@BindingAdapter("app:setOneDecimalAfterPoint")
+fun setOneDecimalAfterPoint(textView: View, value: Float?) {
+    value?.let {
+        (textView as TextView).text = String.format("%.1f", value)
+    }
 }

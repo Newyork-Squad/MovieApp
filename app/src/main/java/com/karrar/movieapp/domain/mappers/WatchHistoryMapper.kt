@@ -17,4 +17,15 @@ class WatchHistoryMapper @Inject constructor() : Mapper<WatchHistoryEntity, Medi
             input.gener
         )
     }
+    fun map(input:MediaHistoryUiState):WatchHistoryEntity{
+        return WatchHistoryEntity(input.id,
+            input.posterPath,
+            input.movieTitle,
+            input.voteAverage,
+            input.releaseDate,
+            input.movieDuration,
+            input.mediaType,
+            input.gener
+        )
+    }
 }

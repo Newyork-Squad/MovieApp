@@ -3,6 +3,7 @@ package com.karrar.movieapp.ui.profile.watchhistory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.mappers.WatchHistoryMapper
+import com.karrar.movieapp.domain.usecases.DeleteMovieFromHistoryUseCase
 import com.karrar.movieapp.domain.usecases.GetWatchHistoryUseCase
 import com.karrar.movieapp.utilities.Constants
 import com.karrar.movieapp.utilities.Event
@@ -16,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WatchHistoryViewModel @Inject constructor(
     private val getWatchHistoryUseCase: GetWatchHistoryUseCase,
+    private val deleteMovieFromHistoryUseCase: DeleteMovieFromHistoryUseCase,
     private val watchHistoryMapper: WatchHistoryMapper
 ) : ViewModel(), WatchHistoryInteractionListener {
 
@@ -50,6 +52,18 @@ class WatchHistoryViewModel @Inject constructor(
             _watchHistoryUIEvent.update { Event(WatchHistoryUIEvent.MovieEvent(item.id)) }
         } else {
             _watchHistoryUIEvent.update { Event(WatchHistoryUIEvent.TVShowEvent(item.id)) }
+        }
+    }
+
+    override fun onDeleteClick(item: MediaHistoryUiState) {
+        viewModelScope.launch {
+            deleteMovieFromHistoryUseCase(watchHistoryMapper.map(item)) // Convert to WatchHistoryEntity and call use case
+
+            _uiState.update { currentState ->
+                val updatedList = currentState.allMedia.filter { it.id != item.id }
+                currentState.copy(allMedia = updatedList)
+            }
+
         }
     }
 

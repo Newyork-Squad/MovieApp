@@ -274,7 +274,8 @@
 
             <TextView
                 android:id="@+id/over_view_title"
-                style="@style/SemiBold.Medium"
+                style="@style/Title.SM"
+                android:textColor="@color/shade_primary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/radius_medium"
@@ -287,7 +288,9 @@
 
             <TextView
                 android:id="@+id/over_view"
-                style="@style/Regular.Medium.Secondary"
+                android:fontFamily="@font/manrope"
+                android:textColor="@color/shade_secondary"
+                android:textSize="@dimen/text_small"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_medium"

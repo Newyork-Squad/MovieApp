@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.karrar.movieapp.R
@@ -16,6 +17,8 @@ import com.karrar.movieapp.databinding.FragmentExploringBinding
 import com.karrar.movieapp.ui.adapters.LoadUIStateAdapter
 import com.karrar.movieapp.ui.base.BaseFragment
 import com.karrar.movieapp.ui.category.CategoryAdapter
+import com.karrar.movieapp.ui.category.CategoryInteractionListener
+import com.karrar.movieapp.ui.category.uiState.GenreUIState
 import com.karrar.movieapp.ui.explore.exploreUIState.ExploringUIEvent
 import com.karrar.movieapp.ui.explore.exploreUIState.TrendyMediaUIState
 import com.karrar.movieapp.utilities.Constants
@@ -32,6 +35,7 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
     override val viewModel: ExploringViewModel by viewModels()
 
     private val allMediaAdapter by lazy { CategoryAdapter(viewModel) }
+    private lateinit var genreAdapter: GenreAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +49,7 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
         collectEvent()
         initTabLayout()
         setupSearchHideOnScroll()
+        setGenreAdapter()
         setMediaAdapter()
         collectData()
     }
@@ -63,6 +68,15 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
         })
     }
 
+    private fun setGenreAdapter() {
+        genreAdapter = GenreAdapter(emptyList(), viewModel)
+
+        binding.rvGenres.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = genreAdapter
+        }
+    }
+
     private fun setMediaAdapter() {
         val footerAdapter = LoadUIStateAdapter(allMediaAdapter::retry)
         binding.recyclerMedia.adapter = allMediaAdapter.withLoadStateFooter(footerAdapter)
@@ -77,7 +91,9 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
 
     private fun collectData() {
         lifecycleScope.launch {
-            viewModel.uiState.collect {
+            viewModel.uiState.collect { state ->
+                genreAdapter.setItems(state.genre)
+                genreAdapter.setSelectedGenre(state.selectedCategoryID)
                 collectLast(viewModel.uiState.value.media) { paging ->
                     allMediaAdapter.submitData(paging)
                 }
@@ -160,6 +176,7 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
                     )
                 )
             }
+
             Constants.TV_SHOWS -> {
                 findNavController().navigate(
                     ExploringFragmentDirections.actionExploringFragmentToTvShowDetailsFragment(

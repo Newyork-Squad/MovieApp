@@ -32,6 +32,7 @@ abstract class BaseAdapter<T>(
         holder.binding.apply {
             setVariable(BR.item, items[position])
             setVariable(BR.listener, listener)
+            executePendingBindings()
         }
     }
 
@@ -46,6 +47,8 @@ abstract class BaseAdapter<T>(
         items = newItems
         diffResult.dispatchUpdatesTo(this)
     }
+
+    fun getItemAt(position: Int): T = items[position]
 
     open fun areItemsSame(oldItem: T, newItem: T): Boolean {
         return oldItem?.equals(newItem) == true

@@ -13,31 +13,37 @@
     </data>
 
     <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/spacing_medium"
+            >
 
             <include
                 layout="@layout/item_social_media_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_small"
                 android:visibility="@{socialMediaList.youtube != null ? android.view.View.VISIBLE : android.view.View.GONE}"
-                app:icon="@drawable/colored_youtube"
+                app:icon='@{com.karrar.movieapp.R.drawable.colored_youtube}'
                 app:link="@{socialMediaList.youtube}"
                 app:listener="@{listener}"
-                app:name="@{@string/youtube}" />
+                app:name="@{@string/youtube}"
+                />
 
             <include
                 layout="@layout/item_social_media_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_small"
                 android:visibility="@{socialMediaList.instagram != null ? android.view.View.VISIBLE : android.view.View.GONE}"
-                app:icon="@drawable/colored_instagram"
+                app:icon='@{com.karrar.movieapp.R.drawable.colored_instagram}'
                 app:link="@{socialMediaList.instagram}"
                 app:listener="@{listener}"
                 app:name="@{@string/instagram}" />
@@ -47,8 +53,9 @@
                 layout="@layout/item_social_media_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_small"
                 android:visibility="@{socialMediaList.facebook != null ? android.view.View.VISIBLE : android.view.View.GONE}"
-                app:icon="@drawable/colored_facebook"
+                app:icon='@{com.karrar.movieapp.R.drawable.colored_facebook}'
                 app:link="@{socialMediaList.facebook}"
                 app:listener="@{listener}"
                 app:name="@{@string/facebook}" />
@@ -57,8 +64,9 @@
                 layout="@layout/item_social_media_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_small"
                 android:visibility="@{socialMediaList.twitter != null ? android.view.View.VISIBLE : android.view.View.GONE}"
-                app:icon="@drawable/colored_x"
+                app:icon='@{com.karrar.movieapp.R.drawable.colored_x}'
                 app:link="@{socialMediaList.twitter}"
                 app:listener="@{listener}"
                 app:name="@{@string/twitter}" />
@@ -68,8 +76,9 @@
                 layout="@layout/item_social_media_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_small"
                 android:visibility="@{socialMediaList.tiktok != null ? android.view.View.VISIBLE : android.view.View.GONE}"
-                app:icon="@drawable/colored_tiktok"
+                app:icon='@{com.karrar.movieapp.R.drawable.colored_tiktok}'
                 app:link="@{socialMediaList.tiktok}"
                 app:listener="@{listener}"
                 app:name="@{@string/tiktok}" />

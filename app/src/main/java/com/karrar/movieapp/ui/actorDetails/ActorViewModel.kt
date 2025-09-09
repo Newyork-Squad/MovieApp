@@ -1,6 +1,5 @@
 package com.karrar.movieapp.ui.actorDetails
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.enums.HomeItemsType
@@ -15,7 +14,6 @@ import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.utilities.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -99,8 +97,7 @@ class ActorViewModel @Inject constructor(
     }
 
     override fun onClickSocialMediaLink(link: String) {
-        // TODO : open link in browser
-        Log.d("ActorViewModel", "Social Media Link: $link")
+        _actorDetailsUIEvent.update { Event(ActorDetailsUIEvent.OpenSocialMediaLink(link)) }
     }
 
 }

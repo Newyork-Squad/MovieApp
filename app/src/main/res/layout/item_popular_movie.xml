@@ -17,16 +17,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:onClick="@{()->listener.onClickMovie(item.movieID)}"
-        android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/spacing_small">
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/spacing_medium">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_movie"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/spacing_large"
+            android:layout_height="@dimen/home_image_height"
             android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="1.75:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -55,9 +53,7 @@
             android:elevation="2dp"
             android:ellipsize="end"
             android:lines="1"
-            android:maxWidth="240dp"
-            android:paddingStart="0dp"
-            android:paddingEnd="@dimen/spacing_medium"
+            android:paddingHorizontal="@dimen/home_pager_text"
             android:text="@{item.title}"
             android:textColor="@color/white_primary"
             app:layout_constraintEnd_toEndOf="@+id/image_movie"
@@ -89,10 +85,11 @@
             style="@style/SemiBold.Small"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/spacing_small"
+            android:paddingHorizontal="@dimen/home_pager_text"
             android:layout_marginTop="@dimen/spacing_too_small"
             android:elevation="2dp"
             android:gravity="center"
+            android:lines="1"
             android:textColor="@color/white_secondary"
             app:genre="@{item.genre}"
             app:layout_constraintEnd_toEndOf="@+id/image_movie"

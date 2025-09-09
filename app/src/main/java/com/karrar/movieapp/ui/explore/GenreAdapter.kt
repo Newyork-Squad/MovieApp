@@ -1,7 +1,5 @@
 package com.karrar.movieapp.ui.explore
 
-import android.util.Log
-import androidx.databinding.library.baseAdapters.BR.listener
 import com.google.android.material.chip.Chip
 import com.karrar.movieapp.R
 import com.karrar.movieapp.ui.base.BaseAdapter

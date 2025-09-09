@@ -1,6 +1,5 @@
 package com.karrar.movieapp.domain.usecases.movieDetails
 
-import android.util.Log
 import com.karrar.movieapp.data.repository.MovieRepository
 import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.domain.mappers.CrewDtoMapper
@@ -38,8 +37,6 @@ class GetMovieDetailsUseCase @Inject constructor(
     }
 
     suspend fun getMovieCrew(movieId: Int): List<Crew> {
-        val response= movieRepository.getMovieCastAndCrew(movieId)
-        Log.d("CREW", "getMovieCrew: $response")
         return movieRepository.getMovieCastAndCrew(movieId)?.crew?.let {
             it.map { crewMapper.map(it) }
         } ?: throw Throwable("Not Success")

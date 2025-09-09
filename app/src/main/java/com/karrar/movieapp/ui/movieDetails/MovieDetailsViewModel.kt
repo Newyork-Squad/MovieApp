@@ -13,8 +13,8 @@ import com.karrar.movieapp.domain.usecases.movieDetails.SetRatingUseCase
 import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
-import com.karrar.movieapp.ui.movieDetails.mapper.ActorUIStateMapper
 import com.karrar.movieapp.ui.mappers.CrewUIStateMapper
+import com.karrar.movieapp.ui.movieDetails.mapper.ActorUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.mapper.MediaUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.mapper.MovieDetailsUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.mapper.ReviewUIStateMapper
@@ -208,9 +208,9 @@ class MovieDetailsViewModel @Inject constructor(
             onAddMovieDetailsItemOfNestedView(DetailItemUIState.Comment(it))
         }
         onAddMovieDetailsItemOfNestedView(DetailItemUIState.ReviewText)
-        if (showSeeAll) {
-            onAddMovieDetailsItemOfNestedView(DetailItemUIState.SeeAllReviewsButton)
-        }
+//        if (showSeeAll) {
+//            onAddMovieDetailsItemOfNestedView(DetailItemUIState.SeeAllReviewsButton)
+//        }
     }
 
     private fun onAddMovieDetailsItemOfNestedView(item: DetailItemUIState) {

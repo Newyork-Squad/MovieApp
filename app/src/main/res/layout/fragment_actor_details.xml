@@ -141,7 +141,7 @@
                     android:id="@+id/text_name_actor"
                     style="@style/Title.MD"
                     android:layout_width="wrap_content"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:text="@{viewModel.actorDetailsUIState.name}"
                     android:textColor="@color/shade_primary"
@@ -149,42 +149,59 @@
                     app:layout_constraintTop_toTopOf="@+id/actor_image"
                     tools:text="Chris Evans" />
 
+                <ImageView
+                    android:id="@+id/cake_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/outline_cake"
+                    app:tint="@color/shade_secondary"
+                    android:contentDescription="@string/birthday"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    app:layout_constraintTop_toBottomOf="@+id/text_name_actor"
+                    app:layout_constraintStart_toStartOf="@+id/text_name_actor"
+                    />
+
                 <TextView
                     android:id="@+id/text_birthday_actor"
-                    style="@style/Regular.Medium.Secondary"
+                    style="@style/Label_MD.Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_small"
-                    android:drawablePadding="4dp"
-                    android:text="@{String.format(@string/in,viewModel.actorDetailsUIState.birthday)}"
-
+                    android:layout_marginStart="@dimen/spacing_too_small"
+                    android:gravity="center_vertical"
+                    android:text="@{String.format(@string/born_on,viewModel.actorDetailsUIState.birthday)}"
                     android:textColor="@color/shade_secondary"
-                    app:drawableStartCompat="@drawable/outline_cake"
-                    app:drawableTint="@color/shade_secondary"
-                    app:layout_constraintStart_toStartOf="@+id/text_name_actor"
-                    app:layout_constraintTop_toBottomOf="@+id/text_name_actor"
+                    app:layout_constraintStart_toEndOf="@+id/cake_icon"
+                    app:layout_constraintTop_toTopOf="@+id/cake_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/cake_icon"
                     tools:text="Born on Jan 30, 1974" />
 
+                <ImageView
+                    android:id="@+id/place_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/outline_location"
+                    app:tint="@color/shade_secondary"
+                    android:contentDescription="@string/birthday"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    app:layout_constraintTop_toBottomOf="@+id/cake_icon"
+                    app:layout_constraintStart_toStartOf="@+id/text_name_actor"
+                    />
                 <TextView
                     android:id="@+id/text_place_of_birth_actor"
-                    style="@style/Regular.Medium.Secondary"
-                    android:layout_width="wrap_content"
+                    style="@style/Label_MD.Regular"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/spacing_small"
-                    android:drawablePadding="4dp"
+                    android:layout_marginStart="@dimen/spacing_too_small"
                     android:ellipsize="end"
                     android:lines="1"
-                    android:maxWidth="200dp"
-                    android:text="@{String.format(@string/born_in,viewModel.actorDetailsUIState.placeOfBirth)}"
+                    android:text="@{String.format(@string/in,viewModel.actorDetailsUIState.placeOfBirth)}"
                     android:textColor="@color/shade_secondary"
-                    app:drawableStartCompat="@drawable/outline_location"
-                    app:drawableTint="@color/shade_secondary"
                     app:layout_constraintEnd_toEndOf="@+id/actor_card_background"
-                    app:layout_constraintHorizontal_bias="0.001"
-                    app:layout_constraintStart_toStartOf="@+id/text_birthday_actor"
-                    app:layout_constraintTop_toBottomOf="@+id/text_birthday_actor"
-                    tools:text="In Massachusetts, USA " />
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@+id/place_icon"
+                    app:layout_constraintTop_toTopOf="@+id/place_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/place_icon"
+                    tools:text="In Massachusetts, USA" />
 
                 <FrameLayout
                     android:id="@+id/social_media_layout"
@@ -208,24 +225,6 @@
                     app:socialMediaList="@{viewModel.actorDetailsUIState.actorSocialMediaLinks}" />
 
                 </FrameLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/social_media_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_small"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/spacing_medium"
-                app:items="@{viewModel.actorDetailsUIState.actorMovies}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/related_movie_title"
-                tools:ignore="MissingConstraints"
-                tools:listitem="@layout/chip_item_category" />
-
 
             <TextView
                 android:id="@+id/related_movie_title"

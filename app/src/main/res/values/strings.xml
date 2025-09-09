@@ -23,7 +23,7 @@
     <string name="todo">TODO</string>
     <string name="gender">Gender</string>
     <string name="birthday">Birthday</string>
-    <string name="born_in">Born in %1$s</string>
+    <string name="born_on">Born on %1$s</string>
     <string name="biography">Biography</string>
     <string name="movies">Movies</string>
     <string name="best_of">Best of %1$s</string>

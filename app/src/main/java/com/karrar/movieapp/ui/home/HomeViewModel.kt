@@ -19,7 +19,11 @@ import com.karrar.movieapp.ui.profile.ProfileUIState
 import com.karrar.movieapp.utilities.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -69,6 +73,10 @@ class HomeViewModel @Inject constructor(
         _homeUiState.update { it.copy(error = emptyList()) }
     }
 
+    fun refreshProfile() {
+        getProfileDetails()
+    }
+
     private fun getProfileDetails() {
         if (checkIfLoggedInUseCase()) {
             _profileDetailsUIState.update {
@@ -97,6 +105,18 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
+    val displayName: StateFlow<String> = profileDetailsUIState.map { state ->
+        if (state.isLoggedIn) {
+            state.name.ifBlank { state.username }
+        } else {
+            "Home"
+        }
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.Lazily,
+        "Home"
+    )
 
 
 

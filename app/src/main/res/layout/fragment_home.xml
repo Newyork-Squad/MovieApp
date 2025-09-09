@@ -18,28 +18,29 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/appBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/userImage"
+                android:src="@drawable/cineverse_home_logo"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:contentDescription="@string/app_name"
                 android:scaleType="centerCrop"
-                android:src="@drawable/cineverse_home_logo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
+                android:layout_margin="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:gravity="center_vertical"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@id/userImage"
                 app:layout_constraintStart_toEndOf="@id/userImage"
@@ -47,22 +48,21 @@
 
                 <TextView
                     android:id="@+id/tvWelcome"
+                    style="@style/Body_SM.Regular"
+                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:text="@string/welcome"
-                    android:textColor="@color/shade_secondary_color"
-                    android:textSize="@dimen/text_body_sm"
-                    android:textStyle="bold" />
+                    android:textColor="@color/shade_secondary"
+                    android:visibility="@{viewModel.profileDetailsUIState.loggedIn ? View.VISIBLE : View.GONE}" />
 
                 <TextView
                     android:id="@+id/tvUserName"
+                    style="@style/Title.SM"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.profileDetailsUIState.name.isEmpty() ? viewModel.profileDetailsUIState.username : viewModel.profileDetailsUIState.name}"
-                    android:textColor="@color/shade_primary_color"
-                    android:textSize="@dimen/text_title_sm"
-                    android:visibility='@{viewModel.profileDetailsUIState.loggedIn ? View.VISIBLE : View.GONE}' />
+                    android:text="@{viewModel.displayName}"
+                    android:textColor="@color/shade_primary" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,6 +29,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         collectHomeData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshProfile()
+    }
+
     private fun collectHomeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.homeUiState.collect {

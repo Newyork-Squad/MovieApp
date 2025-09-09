@@ -21,10 +21,10 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     state: SavedStateHandle,
     private val loginWithUserNameAndPasswordUseCase: LoginWithUserNameAndPasswordUseCase,
-    private val loginAsGuestUseCase: LoginAsGuestUseCase,
     private val validateFiledUseCase: ValidateFiledUseCase,
     private val validatePasswordFiledUseCase: ValidatePasswordFiledUseCase,
     private val validateLoginFormUseCase: ValidateLoginFormUseCase,
+    private val loginAsGuestUseCase: LoginAsGuestUseCase
 ) : ViewModel() {
 
     val args = LoginFragmentArgs.fromSavedStateHandle(state)
@@ -46,9 +46,10 @@ class LoginViewModel @Inject constructor(
         login()
     }
 
-    fun onClickJoinAsGuest() {
-        joinAsGuest()
+    fun onClickGuestLogin() {
+        loginAsGuest()
     }
+
     fun onUserNameInputChange(text: CharSequence) {
         val userNameFieldState = validateFiledUseCase(text.toString())
         _loginUIState.update {
@@ -104,6 +105,24 @@ class LoginViewModel @Inject constructor(
         resetForm()
     }
 
+
+    private fun loginAsGuest() {
+        viewModelScope.launch {
+            try {
+                val loginState = loginAsGuestUseCase()
+                if (loginState) {
+                    onGuestLoginSuccessfully()
+                }
+            } catch (e: Throwable) {
+                onLoginError(e.message.toString())
+            }
+        }
+    }
+
+    private fun onGuestLoginSuccessfully() {
+        _loginEvent.update { Event(LoginUIEvent.JoinAsGuestEvent) }
+        resetForm()
+    }
     private fun onLoginError(message: String) {
         _loginUIState.update {
             it.copy(
@@ -136,26 +155,6 @@ class LoginViewModel @Inject constructor(
         _loginEvent.update { Event(LoginUIEvent.ForgotPasswordEvent) }
     }
 
-    private fun joinAsGuest() {
-        viewModelScope.launch {
-            try {
-                _loginUIState.update { it.copy(isLoading = true) }
-                val guestLoginState = loginAsGuestUseCase()
-                if (guestLoginState) {
-                    onGuestLoginSuccessfully()
-                }
-            } catch (e: Throwable) {
-                onLoginError(e.message.toString())
-                Log.e("login","${e.message.toString()}")
-            }
-        }
-    }
-
-    private fun onGuestLoginSuccessfully() {
-        _loginUIState.update { it.copy(isLoading = false) }
-        _loginEvent.update { Event(LoginUIEvent.JoinAsGuestEvent) }
-        resetForm()
-    }
 
 
 }

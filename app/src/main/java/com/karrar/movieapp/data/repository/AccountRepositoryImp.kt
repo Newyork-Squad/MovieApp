@@ -18,19 +18,10 @@ class AccountRepositoryImp @Inject constructor(
         return appConfiguration.getSessionId()
     }
 
-
-    override fun isGuestMode(): Boolean {
-        return getSessionId() == GUEST_SESSION_ID
+    override fun isGuestUser(): Boolean {
+        return appConfiguration.isGuestUser()
     }
 
-    override suspend fun loginAsGuest(): Boolean {
-        return try {
-            appConfiguration.saveSessionId(GUEST_SESSION_ID)
-            true
-        } catch (e: Exception) {
-            false
-        }
-    }
     override suspend fun loginWithUserNameANdPassword(
         userName: String,
         password: String
@@ -45,11 +36,40 @@ class AccountRepositoryImp @Inject constructor(
 
             val validateRequestTokenWithLogin = service.validateRequestTokenWithLogin(body)
             if (validateRequestTokenWithLogin.isSuccessful) {
-                validateRequestTokenWithLogin.body()?.requestToken?.let { createSession(it) }
+                validateRequestTokenWithLogin.body()?.requestToken?.let {
+                    createSession(it)
+                    appConfiguration.setIsGuest(false)
+                }
                 true
             } else {
                 val errorResponse = dataClassParser.parseFromJson(
                     validateRequestTokenWithLogin.errorBody()?.string(), ErrorResponse::class.java
+                )
+                throw Throwable(errorResponse.statusMessage)
+            }
+        } catch (e: Exception) {
+            throw Throwable(e)
+        }
+    }
+
+    override suspend fun loginAsGuest(): Boolean {
+        return try {
+            val guestSessionResponse = service.createGuestSession()
+            if (guestSessionResponse.isSuccessful) {
+                val guestSessionId = guestSessionResponse.body()?.guestSessionId
+                if (guestSessionId != null) {
+                    saveSessionId(guestSessionId)
+                    appConfiguration.setIsGuest(true)
+                    true
+                } else {
+                    val errorResponse = dataClassParser.parseFromJson(
+                        guestSessionResponse.errorBody()?.string(), ErrorResponse::class.java
+                    )
+                    throw Throwable(errorResponse.statusMessage)
+                }
+            } else {
+                val errorResponse = dataClassParser.parseFromJson(
+                    guestSessionResponse.errorBody()?.string(), ErrorResponse::class.java
                 )
                 throw Throwable(errorResponse.statusMessage)
             }
@@ -63,7 +83,9 @@ class AccountRepositoryImp @Inject constructor(
     }
 
     override suspend fun getAccountDetails(): AccountDto? {
-        return service.getAccountDetails().body()
+        return if (isGuestUser()) {
+            null
+        } else service.getAccountDetails().body()
     }
 
     private suspend fun getRequestToken(): String {
@@ -83,8 +105,5 @@ class AccountRepositoryImp @Inject constructor(
         appConfiguration.saveSessionId(sessionId)
     }
 
-    companion object {
-        private const val GUEST_SESSION_ID = "guest_session"
-    }
 
 }

@@ -225,7 +225,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="20dp"
                 android:elevation="0dp"
-                android:onClick="@{() -> viewModel.onClickJoinAsGuest()}"
+                android:onClick="@{() -> viewModel.onClickGuestLogin()}"
                 android:stateListAnimator="@null"
                 android:text="@string/join_as_guest"
                 android:textAllCaps="false"

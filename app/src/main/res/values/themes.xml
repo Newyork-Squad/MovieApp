@@ -96,11 +96,17 @@
     </style>
 
     <style name="CardCorners.Small">
-        <item name="cornerSize">@dimen/radius_small</item>
+        <item name="cornerSizeTopLeft">@dimen/radius_small</item>
+        <item name="cornerSizeTopRight">@dimen/radius_small</item>
+        <item name="cornerSizeBottomLeft">@dimen/radius_small</item>
     </style>
 
     <style name="CardCorners.Medium">
         <item name="cornerSize">@dimen/radius_medium</item>
+    </style>
+
+    <style name="CardCorners.SmallAll">
+        <item name="cornerSize">@dimen/radius_small</item>
     </style>
 
     <style name="Login" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">

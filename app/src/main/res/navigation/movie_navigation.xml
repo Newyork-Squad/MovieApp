@@ -327,5 +327,15 @@
             android:id="@+id/action_tvShowDetailFragment_to_youtubePlayerActivity"
             app:destination="@id/youtubePlayerActivity" />
     </fragment>
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.karrar.movieapp.ui.onboarding.OnboardingFragment"
+        android:label="OnboardingFragment" >
+        <action
+            android:id="@+id/action_onboardingFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

@@ -141,6 +141,16 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="OnboardingImageCornerCurrent">
+        <item name="cornerSize">24dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="OnboardingImageCorner">
+        <item name="cornerSize">24dp</item>
+    </style>
+
     <style name="Chip.Regular.Small" parent="Widget.MaterialComponents.Chip.Filter">
         <item name="chipStrokeColor">@color/chip_stroke</item>
         <item name="chipBackgroundColor">@color/chip_background</item>
@@ -186,15 +196,15 @@
         <item name="android:textSize">@dimen/text_title_xl</item>
     </style>
 
-    <style name="Title.LG" >
+    <style name="Title.LG">
         <item name="android:textSize">@dimen/text_title_lg</item>
     </style>
 
-    <style name="Title.MD" >
+    <style name="Title.MD">
         <item name="android:textSize">@dimen/text_title_md</item>
     </style>
 
-    <style name="Title.SM" >
+    <style name="Title.SM">
         <item name="android:textSize">@dimen/text_title_sm</item>
     </style>
 
@@ -203,9 +213,11 @@
     <style name="Body_LG">
         <item name="android:textSize">@dimen/text_body_lg</item>
     </style>
+
     <style name="Body_MD">
         <item name="android:textSize">@dimen/text_body_md</item>
     </style>
+
     <style name="Body_SM">
         <item name="android:textSize">@dimen/text_body_sm</item>
     </style>
@@ -242,15 +254,15 @@
     </style>
 
     <!-- Body SM -->
-    <style name="Body_SM.Regular" >
+    <style name="Body_SM.Regular">
         <item name="android:fontFamily">@font/manrope</item>
     </style>
 
-    <style name="Body_SM.Medium" >
+    <style name="Body_SM.Medium">
         <item name="android:fontFamily">@font/manrope_medium</item>
     </style>
 
-    <style name="Body_SM.SemiBold" >
+    <style name="Body_SM.SemiBold">
         <item name="android:fontFamily">@font/manrope_semibold</item>
     </style>
 
@@ -260,14 +272,13 @@
         <item name="android:fontFamily">@font/manrope</item>
     </style>
 
-    <style name="Label_MD.Medium" >
+    <style name="Label_MD.Medium">
         <item name="android:fontFamily">@font/manrope_medium</item>
     </style>
 
-    <style name="Label_MD.SemiBold" >
+    <style name="Label_MD.SemiBold">
         <item name="android:fontFamily">@font/manrope_semibold</item>
     </style>
-
 
 
 </resources>

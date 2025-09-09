@@ -59,7 +59,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setBottomNavigationVisibility(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavigation.isVisible = destination.id != R.id.loginFragment
+            binding.bottomNavigation.isVisible =
+                when (destination.id) {
+                    R.id.loginFragment -> false
+                    R.id.onboardingFragment -> false
+                    else -> true
+                }
         }
     }
 

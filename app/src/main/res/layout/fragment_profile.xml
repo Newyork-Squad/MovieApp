@@ -14,6 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_screen">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/background_screen"
+            app:title="@string/profile"
+            app:titleTextAppearance="@style/Title.SM"
+            app:titleTextColor="@color/shade_primary"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_actor"
@@ -25,7 +34,8 @@
             app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -42,6 +52,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
                     app:posterImage="@{viewModel.profileDetailsUIState.avatarPath}"
                     app:shapeAppearanceOverlay="@style/Circle"
                     tools:background="@drawable/actor" />
@@ -64,7 +75,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="@{viewModel.profileDetailsUIState.displayName}"
                         android:textColor="@color/shade_primary"
                         tools:text="Captain America" />
 
@@ -73,7 +83,6 @@
                         style="@style/Body_SM.Medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.profileDetailsUIState.displayUsername}"
                         android:textColor="@color/shade_secondary"
                         tools:text="\@captn.ameri" />
 
@@ -123,6 +132,7 @@
                     android:layout_marginHorizontal="8dp"
                     android:text="@string/my_collections"
                     android:textAllCaps="false"
+                    android:onClick="@{() -> viewModel.onClickMyCollections()}"
                     app:icon="@drawable/due_tone_video_library"
                     app:iconGravity="textStart"
                     app:iconPadding="8dp"
@@ -148,11 +158,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_medium"
             android:drawablePadding="@dimen/spacing_medium"
-            android:onClick="@{() -> viewModel.onClickLogout()}"
             android:paddingVertical="@dimen/spacing_medium"
             android:text="@string/settings"
             android:textColor="@color/shade_primary"
-            app:isVisible="@{viewModel.profileDetailsUIState.isLoggedIn}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
@@ -161,17 +169,17 @@
             android:id="@+id/settings_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_medium"
+            android:layout_marginHorizontal="@dimen/spacing_medium"
+            app:cardBackgroundColor="@color/background_card"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/text_setting"
             app:strokeWidth="0dp"
-            app:cardBackgroundColor="@color/background_card"
-            app:layout_constraintTop_toBottomOf="@+id/text_setting">
+            tools:layout_editor_absoluteX="16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
 
                 <com.google.android.material.textview.MaterialTextView
@@ -224,6 +232,7 @@
                     android:drawablePadding="@dimen/spacing_medium"
                     android:paddingVertical="@dimen/spacing_medium"
                     android:text="@string/language"
+                    android:onClick="@{() -> viewModel.onClickLanguagePicker()}"
                     android:textColor="@color/shade_primary"
                     app:drawableTint="@color/brand_primary"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -259,6 +268,7 @@
                     android:drawableStart="@drawable/due_tone_color_switch"
                     android:drawablePadding="@dimen/spacing_medium"
                     android:paddingVertical="@dimen/spacing_medium"
+                    android:onClick="@{() -> viewModel.onClickContentPreferences()}"
                     android:text="@string/content_preferences"
                     android:textColor="@color/shade_primary"
                     app:drawableTint="@color/brand_primary"
@@ -282,8 +292,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_medium"
                     app:dividerColor="@color/shade_quaternary_color"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:isVisible="@{viewModel.profileDetailsUIState.isLoggedIn}"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/contentPreferences" />
 
@@ -312,8 +322,8 @@
                     android:layout_marginTop="20dp"
                     android:src="@drawable/outline_alt_arrow_right"
                     android:tint="@color/primary_red"
-                    app:layout_constraintEnd_toEndOf="@+id/text_sign_out"
                     app:isVisible="@{viewModel.profileDetailsUIState.isLoggedIn}"
+                    app:layout_constraintEnd_toEndOf="@+id/text_sign_out"
                     app:layout_constraintTop_toBottomOf="@+id/contentPreferences" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

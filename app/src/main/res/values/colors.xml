@@ -64,7 +64,7 @@
     <color name="primary_yellow">#FACC15</color>
 
     <!-- Additional Secondary -->
-    <color name="secondary_red">#EBEEEE</color>
+    <color name="secondary_red">#FBEEEE</color>
     <color name="secondary_green">#EEF5EF</color>
     <color name="secondary_yellow">#FFFAEB</color>
 </resources>

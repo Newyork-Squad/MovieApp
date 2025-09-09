@@ -54,7 +54,7 @@
     <string name="storyline">Storyline</string>
     <string name="cast">Star Cast</string>
     <string name="similar_movies">You Might Also Like</string>
-    <string name="rate_the_movie">Rate The Movie</string>
+    <string name="rating_title">Did You Watch it?</string>
     <string name="reviews_title">Reviews</string>
     <string name="review">Reviews</string>
     <string name="reviews_comment">Reviews</string>
@@ -123,4 +123,5 @@
     <string name="clock_icon_for_number_of_seasons">clock icon for number of seasons</string>
     <string name="calendar_icon_for_release_date">calendar icon for release date</string>
     <string name="behind_the_scenes">Behind the Scenes</string>
+    <string name="show_more">Show More</string>
 </resources>

@@ -101,3 +101,10 @@ fun Date.convertToDayMonthYearFormat(): String {
     val formatter = SimpleDateFormat("yyyy, MMM dd", Locale.getDefault())
     return formatter.format(this)
 }
+
+fun String.convertToDayMonthYearFormat(inputFormat: String, outputFormat: String): String? {
+    val date = SimpleDateFormat(inputFormat, Locale.getDefault())
+        .parse(this)?: return null
+    val formatter = SimpleDateFormat(outputFormat, Locale.getDefault())
+    return formatter.format(date)
+}

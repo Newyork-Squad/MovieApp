@@ -68,12 +68,12 @@
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginTop="8dp"
 
+                app:boxBackgroundColor="@color/background_card"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusBottomEnd="@dimen/radius_lg"
                 app:boxCornerRadiusBottomStart="@dimen/radius_lg"
                 app:boxCornerRadiusTopEnd="@dimen/radius_lg"
                 app:boxCornerRadiusTopStart="@dimen/radius_lg"
-
                 app:boxStrokeColor="@color/text_input_stroke_colors"
                 app:boxStrokeErrorColor="@color/primary_red"
                 app:boxStrokeWidth="1dp"
@@ -97,8 +97,7 @@
                     android:inputType="textPersonName"
                     android:textColor="@color/shade_primary"
                     android:textColorHint="@color/shade_secondary"
-                    android:textCursorDrawable="@drawable/custom_cursor"
-                  />
+                    android:textCursorDrawable="@drawable/custom_cursor" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -122,6 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginTop="8dp"
+                app:boxBackgroundColor="@color/background_card"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusBottomEnd="@dimen/radius_lg"
                 app:boxCornerRadiusBottomStart="@dimen/radius_lg"
@@ -153,9 +153,8 @@
                     android:hint="@string/enter_your_password"
                     android:inputType="textPassword"
                     android:textColor="@color/shade_primary"
-                    android:textCursorDrawable="@drawable/custom_cursor"
                     android:textColorHint="@color/shade_secondary"
-                     />
+                    android:textCursorDrawable="@drawable/custom_cursor" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Forgot password -->
@@ -164,6 +163,7 @@
                 style="@style/Body_MD.Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/plus_jakarta_sans_regular"
                 android:onClick="@{() -> viewModel.onClickForgotPassword()}"
                 android:text="@string/forgot_password"
                 android:textColor="@color/shade_secondary"
@@ -192,13 +192,16 @@
                 android:elevation="0dp"
                 android:enabled="@{viewModel.loginUIState.validForm}"
                 android:onClick="@{()->viewModel.onClickLogin()}"
+                android:stateListAnimator="@null"
                 android:text="@string/login"
                 android:textAllCaps="false"
-                android:textColor="@color/button_onPrimary"
+                android:textColor="@color/login_button_text_color"
                 app:backgroundTint="@color/button_login_background"
                 app:cornerRadius="@dimen/radius_lg"
                 app:hideIfTrue="@{viewModel.loginUIState.loading}"
-                app:layout_constraintTop_toBottomOf="@id/forgotPassword" />
+                app:layout_constraintTop_toBottomOf="@id/forgotPassword"
+                app:strokeColor="@null"
+                app:strokeWidth="0dp" />
 
             <!-- Loading indicator -->
             <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -223,12 +226,15 @@
                 android:layout_marginTop="20dp"
                 android:elevation="0dp"
                 android:onClick="@{() -> viewModel.onClickJoinAsGuest()}"
+                android:stateListAnimator="@null"
                 android:text="@string/join_as_guest"
                 android:textAllCaps="false"
                 android:textColor="@color/button_onSecondary"
                 app:backgroundTint="@color/button_secondary"
                 app:cornerRadius="@dimen/radius_lg"
-                app:layout_constraintTop_toBottomOf="@id/loginButton" />
+                app:layout_constraintTop_toBottomOf="@id/loginButton"
+                app:strokeColor="@null"
+                app:strokeWidth="0dp" />
 
             <!-- Create account -->
             <com.google.android.material.button.MaterialButton
@@ -242,6 +248,7 @@
                 android:onClick="@{() -> viewModel.onClickCreateAccount()}"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="12dp"
+                android:stateListAnimator="@null"
                 android:text="@string/create_a_new_account"
                 android:textAllCaps="false"
                 android:textColor="@color/button_onSecondary"
@@ -251,7 +258,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/guestButton"
-                app:layout_constraintVertical_bias="0.903" />
+                app:layout_constraintVertical_bias="0.903"
+                app:strokeColor="@null"
+                app:strokeWidth="0dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

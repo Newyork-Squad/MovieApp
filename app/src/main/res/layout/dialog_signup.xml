@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     >
 
     <data>
+
         <variable
             name="viewModel"
             type="com.karrar.movieapp.ui.login.LoginViewModel" />
@@ -72,11 +72,15 @@
                 android:layout_height="68dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/button_secondary"
-                android:text="@string/cancel"
+                android:elevation="0dp"
                 android:onClick="@{()->viewModel.onClickCancelSignUp()}"
+                android:stateListAnimator="@null"
+                android:text="@string/cancel"
                 android:textAllCaps="false"
                 android:textColor="@color/button_onSecondary"
-                app:cornerRadius="@dimen/radius_lg" />
+                app:cornerRadius="@dimen/radius_lg"
+                app:strokeColor="@null"
+                app:strokeWidth="0dp" />
 
             <View
                 android:layout_width="16dp"
@@ -87,12 +91,16 @@
                 android:layout_width="0dp"
                 android:layout_height="68dp"
                 android:layout_weight="1"
-                android:onClick="@{()->viewModel.onClickSignUp()}"
                 android:backgroundTint="@color/button_primary"
+                android:elevation="0dp"
+                android:onClick="@{()->viewModel.onClickSignUp()}"
+                android:stateListAnimator="@null"
                 android:text="@string/go_to_website"
                 android:textAllCaps="false"
                 android:textColor="@color/button_onPrimary"
-                app:cornerRadius="@dimen/radius_lg" />
+                app:cornerRadius="@dimen/radius_lg"
+                app:strokeColor="@null"
+                app:strokeWidth="0dp" />
         </LinearLayout>
 
     </LinearLayout>

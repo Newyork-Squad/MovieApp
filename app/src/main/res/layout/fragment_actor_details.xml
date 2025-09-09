@@ -34,44 +34,73 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_lost_connection"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/img_lost_connection"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:backgroundTint="@color/secondary_red"
+            app:cardCornerRadius="@dimen/radius_full"
+            app:cardElevation="@null"
+            app:layout_constraintBottom_toTopOf="@+id/title_lost_connection"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:showWhenListNotEmpty="@{viewModel.actorDetailsUIState.error}">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/oops_no_internet"
+                android:src="@drawable/due_tone_station"
+                app:tint="@color/primary_red" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/title_lost_connection"
+            style="@style/Title.SM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/oops_no_internet"
+            android:textColor="@color/shade_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/lost_internet_animation"
-            app:showWhenListNotEmpty="@{viewModel.actorDetailsUIState.error}" />
-
-        <Button
-            android:id="@+id/button_retry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:onClick="@{() -> viewModel.getData()}"
-            android:text="@string/retry"
-            android:textColor="@color/white_primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description_lost_connection"
             app:showWhenListNotEmpty="@{viewModel.actorDetailsUIState.error}" />
 
         <TextView
             android:id="@+id/description_lost_connection"
-            style="@style/Regular.Medium"
+            style="@style/Body_SM.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_small"
             android:gravity="center"
             android:text="@string/description"
-            android:textColor="@color/brand_color"
+            android:textColor="@color/shade_secondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/animation_lost_connection"
+            app:layout_constraintTop_toBottomOf="@id/title_lost_connection"
+            app:showWhenListNotEmpty="@{viewModel.actorDetailsUIState.error}" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_retry"
+            style="@style/Body_SM.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:backgroundTint="@color/button_primary"
+            android:onClick="@{() -> viewModel.getData()}"
+            android:paddingHorizontal="@dimen/spacing_medium"
+            android:paddingVertical="12dp"
+            android:stateListAnimator="@null"
+            android:text="@string/try_again"
+            android:textAllCaps="false"
+            android:textColor="@color/button_onPrimary"
+            app:cornerRadius="@dimen/radius_md"
+            app:layout_constraintEnd_toEndOf="@id/description_lost_connection"
+            app:layout_constraintStart_toStartOf="@id/description_lost_connection"
+            app:layout_constraintTop_toBottomOf="@+id/description_lost_connection"
             app:showWhenListNotEmpty="@{viewModel.actorDetailsUIState.error}" />
 
 
@@ -104,12 +133,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/back_icon_shape"
+            android:onClick="@{() -> viewModel.onClickBack()}"
             android:padding="@dimen/spacing_small"
             android:src="@drawable/ic_arrow_left"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/background_color"
-            android:onClick="@{() -> viewModel.onClickBack()}"/>
+            app:tint="@color/background_color" />
 
         <TextView
             android:id="@+id/text_name_actor"
@@ -245,9 +274,9 @@
                     android:layout_marginStart="@dimen/radius_medium"
                     android:layout_marginTop="@dimen/spacing_large"
                     android:text="@string/movies"
-                    app:showWhenListNotEmpty="@{viewModel.actorDetailsUIState.actorMovies}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_place_of_birth_actor" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_place_of_birth_actor"
+                    app:showWhenListNotEmpty="@{viewModel.actorDetailsUIState.actorMovies}" />
 
 
                 <TextView
@@ -257,13 +286,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/spacing_small"
                     android:onClick="@{() -> viewModel.onClickSeeAllMovie(HomeItemsType.NON)}"
-                    app:showWhenListNotEmpty="@{viewModel.actorDetailsUIState.actorMovies}"
                     android:text="@string/see_all"
                     android:textColor="@color/brand_color"
                     app:drawableEndCompat="@drawable/ic_arrow_right"
                     app:layout_constraintBottom_toBottomOf="@+id/related_movie_title"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/related_movie_title" />
+                    app:layout_constraintTop_toTopOf="@+id/related_movie_title"
+                    app:showWhenListNotEmpty="@{viewModel.actorDetailsUIState.actorMovies}" />
 
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -292,7 +321,7 @@
                     android:text="@string/biography"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/related_movie_recycler"
-                    app:showWhenTextNotEmpty="@{viewModel.actorDetailsUIState.biography}"/>
+                    app:showWhenTextNotEmpty="@{viewModel.actorDetailsUIState.biography}" />
 
 
                 <TextView

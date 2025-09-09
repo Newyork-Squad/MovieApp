@@ -21,14 +21,12 @@ import com.karrar.movieapp.ui.adapters.LoadUIStateAdapter
 import com.karrar.movieapp.ui.base.BasePagingAdapter
 import com.karrar.movieapp.ui.category.CategoryInteractionListener
 import com.karrar.movieapp.ui.category.uiState.GenreUIState
-import com.karrar.movieapp.ui.explore.GenreAdapter
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 fun <T> ChipGroup.createChip(item: GenreUIState, listener: T): View {
     val chipBinding: ChipItemCategoryBinding = DataBindingUtil.inflate(

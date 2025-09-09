@@ -52,12 +52,12 @@
     <string name="duration">%1$d Minutes</string>
     <string name="reviews">(%1$s reviews)</string>
     <string name="storyline">Storyline</string>
-    <string name="cast">Cast</string>
-    <string name="similar_movies">Similar Movies</string>
-    <string name="rate_the_movie">Rate The Movie</string>
+    <string name="cast">Star Cast</string>
+    <string name="similar_movies">You Might Also Like</string>
+    <string name="rating_title">Did You Watch it?</string>
     <string name="reviews_title">Reviews</string>
     <string name="review">Reviews</string>
-    <string name="reviews_comment">Reviews</string>
+    <string name="top_reviews">Top Reviews</string>
     <string name="user_name">"@" %1$s</string>
     <string name="save_button">back button</string>
     <string name="view_all_reviews">View all reviews</string>
@@ -122,4 +122,9 @@
     <string name="tv_show_image">tv show image</string>
     <string name="clock_icon_for_number_of_seasons">clock icon for number of seasons</string>
     <string name="calendar_icon_for_release_date">calendar icon for release date</string>
+    <string name="behind_the_scenes">Behind the Scenes</string>
+    <string name="show_more">Show More</string>
+    <string name="give_it_stars">Give it Stars!</string>
+    <string name="let_the_world_know_how_you_felt">Let the world know how you felt.</string>
+    <string name="arrow">arrow</string>
 </resources>

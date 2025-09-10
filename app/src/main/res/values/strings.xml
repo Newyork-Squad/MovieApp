@@ -113,6 +113,16 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="my_collections">My Collections</string>
     <string name="history">History</string>
+    <string name="get_started">Get Started</string>
+    <string name="onboarding_first_page_title">Welcome to Your Movie Universe</string>
+    <string name="onboarding_first_page_des"><![CDATA[Discover, track, and rate your favorite movies & series.]]></string>
+    <string name="onboarding_second_page_des">Your Watchlist. Your Ratings. All in One Place.</string>
+    <string name="onboarding_third_page_des">Answer fun questions to get handpicked recommendations.</string>
+    <string name="onboarding_third_page_title">Personalized Recommendations</string>
+    <string name="onboarding_second_page_title">Track Everything</string>
+
+
+
     <string name="season_number">%1$s Seasons</string>
     <string name="movie">MOVIE</string>
     <string name="series">SERIES</string>

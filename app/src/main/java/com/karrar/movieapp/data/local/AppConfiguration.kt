@@ -13,10 +13,16 @@ interface AppConfiguration {
 
     suspend fun getRequestDate(key: String): Long?
 
+    fun getStartUpState(): Boolean
+
+    suspend fun saveStartUpState(value: Boolean)
+
 }
 
-class AppConfigurator @Inject constructor(private val dataStorePreferences: DataStorePreferences) :
-    AppConfiguration {
+class AppConfigurator @Inject constructor(
+    private val dataStorePreferences: DataStorePreferences,
+    private val sharedPreferences: SharedPreferences,
+    ) : AppConfiguration {
 
     override fun getSessionId(): String? {
         return dataStorePreferences.readString(SESSION_ID_KEY)
@@ -34,9 +40,17 @@ class AppConfigurator @Inject constructor(private val dataStorePreferences: Data
         return dataStorePreferences.readLong(key)
     }
 
+    override fun getStartUpState(): Boolean {
+        return sharedPreferences.getBoolean(START_UP_KEY, false)
+    }
+
+    override suspend fun saveStartUpState(value: Boolean) {
+        sharedPreferences.saveBoolean(START_UP_KEY, value)
+    }
 
 
     companion object DataStorePreferencesKeys {
         const val SESSION_ID_KEY = "session_id"
+        const val START_UP_KEY = "start_up"
     }
 }

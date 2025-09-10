@@ -17,13 +17,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.karrar.movieapp.R
 import com.karrar.movieapp.ui.profile.ProfileViewModel
 
-private const val EDIT_PROFILE_URL = "https://www.themoviedb.org/settings/profile"
-private const val LOGIN_URL = "https://www.themoviedb.org/login"
-
 class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
     private val profileViewModel: ProfileViewModel by activityViewModels()
-
     private lateinit var webView: WebView
     private lateinit var progressBar: ProgressBar
     private var filePathCallback: ValueCallback<Array<Uri>>? = null
@@ -36,7 +32,6 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
         toolbar.setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
-
 
         webView = view.findViewById(R.id.webView)
         progressBar = view.findViewById(R.id.progressBar)
@@ -79,6 +74,11 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         profileViewModel.getData()
         val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav?.visibility = View.VISIBLE
+    }
 
+    companion object {
+        const val EDIT_PROFILE_URL = "https://www.themoviedb.org/settings/profile"
+        const val LOGIN_URL = "https://www.themoviedb.org/login"
     }
 }
+

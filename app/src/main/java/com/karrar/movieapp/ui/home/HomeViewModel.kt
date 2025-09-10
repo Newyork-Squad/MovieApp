@@ -5,6 +5,7 @@ import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.domain.mappers.WatchHistoryMapper
 import com.karrar.movieapp.domain.usecase.home.HomeUseCasesContainer
+import com.karrar.movieapp.domain.usecases.mylist.GetMyListUseCase
 import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.MediaInteractionListener
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
@@ -14,6 +15,9 @@ import com.karrar.movieapp.ui.home.homeUiState.HomeUIEvent
 import com.karrar.movieapp.ui.home.homeUiState.HomeUiState
 import com.karrar.movieapp.ui.mappers.ActorUiMapper
 import com.karrar.movieapp.ui.mappers.MediaUiMapper
+import com.karrar.movieapp.ui.myList.CreatedListInteractionListener
+import com.karrar.movieapp.ui.myList.CreatedListUIMapper
+import com.karrar.movieapp.ui.myList.myListUIState.CreatedListUIState
 import com.karrar.movieapp.ui.profile.watchhistory.MediaHistoryUiState
 import com.karrar.movieapp.ui.profile.watchhistory.WatchHistoryInteractionListener
 import com.karrar.movieapp.utilities.Constants
@@ -31,9 +35,12 @@ class HomeViewModel @Inject constructor(
     private val mediaUiMapper: MediaUiMapper,
     private val actorUiMapper: ActorUiMapper,
     private val popularUiMapper: PopularUiMapper,
-    private val watchHistoryMapper: WatchHistoryMapper
+    private val watchHistoryMapper: WatchHistoryMapper,
+    private val getMyListUseCase: GetMyListUseCase,
+    private val createdListUIMapper: CreatedListUIMapper,
 ) : BaseViewModel(), HomeInteractionListener, ActorsInteractionListener, MovieInteractionListener,
-    MediaInteractionListener, TVShowInteractionListener, WatchHistoryInteractionListener {
+    MediaInteractionListener, TVShowInteractionListener, WatchHistoryInteractionListener,
+    CreatedListInteractionListener {
 
     private val _homeUiState = MutableStateFlow(HomeUiState())
     val homeUiState = _homeUiState.asStateFlow()
@@ -59,6 +66,7 @@ class HomeViewModel @Inject constructor(
         getAdventure()
         getActors()
         getRecentlyViewed()
+        getCollections()
     }
 
     override fun getData() {
@@ -303,6 +311,25 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun getCollections() {
+        viewModelScope.launch {
+            try {
+                val items = getMyListUseCase().map { createdListUIMapper.map(it) }
+                if (items.isNotEmpty()) {
+                    _homeUiState.update {
+                        it.copy(
+                            adventureMovies = HomeItem.Collections(items),
+                            isLoading = false
+                        )
+                    }
+                }
+
+            } catch (th: Throwable) {
+                onError(th.message.toString())
+            }
+        }
+    }
+
     override fun onClickMovie(movieId: Int) {
         _homeUIEvent.update { Event(HomeUIEvent.ClickMovieEvent(movieId)) }
     }
@@ -323,6 +350,12 @@ class HomeViewModel @Inject constructor(
                 onClickSeeAllRecentlyViewed()
                 return
             }
+
+            HomeItemsType.COLLECTIONS -> {
+                onClickSeeAllCollections()
+                return
+            }
+
             HomeItemsType.NON -> AllMediaType.ACTOR_MOVIES
         }
         _homeUIEvent.update { Event(HomeUIEvent.ClickSeeAllMovieEvent(type)) }
@@ -335,6 +368,10 @@ class HomeViewModel @Inject constructor(
 
     override fun onClickSeeAllRecentlyViewed() {
         _homeUIEvent.update { Event(HomeUIEvent.ClickSeeAllRecentlyViewed) }
+    }
+
+    override fun onClickSeeAllCollections() {
+        _homeUIEvent.update { Event(HomeUIEvent.ClickSeeAllCollections) }
     }
 
     override fun onClickMedia(mediaId: Int) {
@@ -355,6 +392,10 @@ class HomeViewModel @Inject constructor(
         } else {
             _homeUIEvent.update { Event(HomeUIEvent.ClickSeriesEvent(item.id)) }
         }
+    }
+
+    override fun onListClick(item: CreatedListUIState) {
+        _homeUIEvent.update { Event(HomeUIEvent.ClickListEvent(item)) }
     }
 
 }

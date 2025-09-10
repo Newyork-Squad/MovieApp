@@ -151,6 +151,16 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="OnboardingImageCornerCurrent">
+        <item name="cornerSize">24dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="OnboardingImageCorner">
+        <item name="cornerSize">24dp</item>
+    </style>
+
     <style name="Chip.Regular.Small" parent="Widget.MaterialComponents.Chip.Filter">
         <item name="chipStrokeColor">@color/chip_stroke</item>
         <item name="chipBackgroundColor">@color/chip_background</item>
@@ -293,4 +303,12 @@
     <style name="MediaCardCorners">
         <item name="cornerSize">@dimen/radius_lg</item>
     </style>
+
+    <style name="SeasonImage">
+        <item name="cornerSizeTopRight">@dimen/radius_x5l</item>
+        <item name="cornerSizeTopLeft">@dimen/radius_x5l</item>
+        <item name="cornerSizeBottomLeft">@dimen/radius_xs</item>
+        <item name="cornerSizeBottomRight">@dimen/radius_xs</item>
+    </style>
+
 </resources>

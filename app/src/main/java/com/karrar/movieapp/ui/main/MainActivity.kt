@@ -30,6 +30,7 @@ import java.util.Locale
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         installSplashScreen()
+        viewModel.getData()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         observeViewModel()
@@ -99,11 +101,22 @@ class MainActivity : AppCompatActivity() {
 
         setBottomNavigationVisibility(navController)
         setNavigationController(navController)
+
+        lifecycleScope.launchWhenResumed {
+            viewModel.mainUiState.collect {
+                if (!it.isFirstLaunch) navController.navigate(R.id.onboardingFragment)
+            }
+        }
     }
 
     private fun setBottomNavigationVisibility(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavigation.isVisible = destination.id != R.id.loginFragment
+            binding.bottomNavigation.isVisible =
+                when (destination.id) {
+                    R.id.loginFragment -> false
+                    R.id.onboardingFragment -> false
+                    else -> true
+                }
         }
     }
 

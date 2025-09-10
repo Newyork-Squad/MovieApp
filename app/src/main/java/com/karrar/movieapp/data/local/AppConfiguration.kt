@@ -20,10 +20,16 @@ interface AppConfiguration {
     suspend fun saveLanguage(language: String)
      fun getLanguage():  Flow<String>
 
+    fun getStartUpState(): Boolean
+
+    suspend fun saveStartUpState(value: Boolean)
+
 }
 
-class AppConfigurator @Inject constructor(private val dataStorePreferences: DataStorePreferences) :
-    AppConfiguration {
+class AppConfigurator @Inject constructor(
+    private val dataStorePreferences: DataStorePreferences,
+    private val sharedPreferences: SharedPreferences,
+    ) : AppConfiguration {
 
     override fun getSessionId(): String? {
         return dataStorePreferences.readString(SESSION_ID_KEY)
@@ -55,11 +61,19 @@ class AppConfigurator @Inject constructor(private val dataStorePreferences: Data
         dataStorePreferences.writeString(LANGUAGE_KEY, language)
     }
 
+    override fun getStartUpState(): Boolean {
+        return sharedPreferences.getBoolean(START_UP_KEY, false)
+    }
+
+    override suspend fun saveStartUpState(value: Boolean) {
+        sharedPreferences.saveBoolean(START_UP_KEY, value)
+    }
 
 
 
     companion object Keys {
         const val SESSION_ID_KEY = "session_id"
+        const val START_UP_KEY = "start_up"
         const val DARK_MODE_KEY = "dark_mode"
         const val LANGUAGE_KEY = "language"
     }

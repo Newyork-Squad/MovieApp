@@ -143,4 +143,23 @@
     <string name="edit_profile">تعديل الملف الشخصي</string>
     <string name="you_ll_be_taken_to_the_website_to_update_your_name_username_or_profile_picture">سيتم توجيهك إلى الموقع لتحديث اسمك أو اسم المستخدم أو صورتك الشخصية.</string>
     <string name="go_to_website">الذهاب إلى الموقع</string>
+
+    <string name="welcome_back_to_cineverse">مرحبًا بعودتك إلى سينيفيرس!</string>
+    <string name="create_a_new_account">إنشاء حساب جديد</string>
+    <string name="forgot_password">هل نسيت كلمة المرور؟</string>
+    <string name="join_as_guest">الانضمام كزائر</string>
+    <string name="enter_your_username">أدخل اسم المستخدم</string>
+    <string name="enter_your_password">أدخل كلمة المرور</string>
+    <string name="join_cineverse">انضم إلى سينيفيرس</string>
+    <string name="let_s_get_you_set_up_we_ll_take_you_to_the_website_to_create_your_account">
+        دعنا نجهزك! سنأخذك إلى الموقع لإنشاء حسابك.
+    </string>
+
+    <string name="get_started">ابدأ الآن</string>
+    <string name="onboarding_first_page_title">مرحبًا بك في عالم أفلامك</string>
+    <string name="onboarding_first_page_des"><![CDATA[اكتشف، وتابع، وقيّم أفلامك ومسلسلاتك المفضلة.]]></string>
+    <string name="onboarding_second_page_des">قائمة مشاهداتك، وتقييماتك، كلها في مكان واحد.</string>
+    <string name="onboarding_third_page_des">أجب عن أسئلة ممتعة لتحصل على توصيات مختارة خصيصًا لك.</string>
+    <string name="onboarding_third_page_title">توصيات مخصصة</string>
+    <string name="onboarding_second_page_title">تابع كل شيء</string>
 </resources>

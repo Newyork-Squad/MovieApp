@@ -103,6 +103,14 @@
     <string name="you_must_be_logged_in_to_save_a_movie">You must be logged in to save a movie</string>
     <string name="this_list_has_no_lists">No lists found</string>
     <string name="episode_title">%1$d. %2$s</string>
+    <string name="welcome_back_to_cineverse">Welcome back to CineVerse!</string>
+    <string name="create_a_new_account">Create a New Account</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="join_as_guest">Join as Guest</string>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="join_cineverse">Join CineVerse</string>
+    <string name="let_s_get_you_set_up_we_ll_take_you_to_the_website_to_create_your_account">Let\'s get you set up! We\'ll take you to the website to create your account.</string>
     <string name="logout_dialog_title">Are you sure you want to logout?</string>
     <string name="logout_dialog_caption">You can always sign back in with your account.</string>
     <string name="login_or_signup">Login &amp; Sign Up</string>
@@ -121,9 +129,6 @@
     <string name="onboarding_third_page_des">Answer fun questions to get handpicked recommendations.</string>
     <string name="onboarding_third_page_title">Personalized Recommendations</string>
     <string name="onboarding_second_page_title">Track Everything</string>
-
-
-
     <string name="season_number">%1$s Seasons</string>
     <string name="movie">MOVIE</string>
     <string name="series">SERIES</string>

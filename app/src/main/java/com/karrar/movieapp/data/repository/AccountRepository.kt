@@ -9,7 +9,7 @@ interface AccountRepository {
     fun getSessionId(): String?
 
 
-    suspend fun loginWithUserNameANdPassword(userName: String, password: String) : Boolean
+    suspend fun loginWithUserNameANdPassword(userName: String, password: String): Boolean
 
     suspend fun logout()
 
@@ -20,5 +20,10 @@ interface AccountRepository {
 
     suspend fun getLanguage():  Flow<String>
     suspend fun saveLanguage(language: String)
+
+    fun isGuestUser(): Boolean
+
+    suspend fun loginAsGuest(): Boolean
+
 }
 

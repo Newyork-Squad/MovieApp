@@ -2,11 +2,13 @@ package com.karrar.movieapp.ui.main
 
 import android.os.Bundle
 import android.view.Window
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -21,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val prefs = getSharedPreferences("settings", MODE_PRIVATE)
@@ -36,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         installSplashScreen()
+        viewModel.getData()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -55,11 +59,22 @@ class MainActivity : AppCompatActivity() {
 
         setBottomNavigationVisibility(navController)
         setNavigationController(navController)
+
+        lifecycleScope.launchWhenResumed {
+            viewModel.mainUiState.collect {
+                if (!it.isFirstLaunch) navController.navigate(R.id.onboardingFragment)
+            }
+        }
     }
 
     private fun setBottomNavigationVisibility(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavigation.isVisible = destination.id != R.id.loginFragment
+            binding.bottomNavigation.isVisible =
+                when (destination.id) {
+                    R.id.loginFragment -> false
+                    R.id.onboardingFragment -> false
+                    else -> true
+                }
         }
     }
 

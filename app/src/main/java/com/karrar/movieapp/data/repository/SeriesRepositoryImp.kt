@@ -191,7 +191,7 @@ class SeriesRepositoryImp @Inject constructor(
         return service.getTvShowDetails(tvShowId).body()
     }
 
-    override suspend fun getTvShowCast(tvShowId: Int): CreditsDto? {
+    override suspend fun getTvShowCastAndCrew(tvShowId: Int): CreditsDto? {
         return service.getTvShowCast(tvShowId).body()
     }
 

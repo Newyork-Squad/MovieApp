@@ -1,5 +1,6 @@
 package com.karrar.movieapp.utilities
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.ui.base.BaseAdapter
@@ -256,6 +259,31 @@ fun setRating(view: RatingBar?, rating: Float) {
 }
 
 @BindingAdapter("showWhenTextNotEmpty")
-fun <T> showWhenTextNotEmpty(view: View,text:String){
+fun <T> showWhenTextNotEmpty(view: View, text: String) {
     view.isVisible = text.isNotEmpty()
+}
+
+@BindingAdapter("app:dynamicShapeAppearance")
+fun ShapeableImageView.setDynamicShapeAppearance(isCurrent: Boolean) {
+    val styleRes =
+        if (isCurrent) {
+            R.style.OnboardingImageCornerCurrent
+        } else {
+            R.style.OnboardingImageCorner
+        }
+    this.shapeAppearanceModel =
+        ShapeAppearanceModel.builder(context, styleRes, styleRes).build()
+}
+
+@BindingAdapter("app:hideDividerIfLast")
+fun hideDividerIfLast(view: View, isLast: Boolean) {
+    view.isVisible = !isLast
+}
+
+@SuppressLint("DefaultLocale")
+@BindingAdapter("app:setOneDecimalAfterPoint")
+fun setOneDecimalAfterPoint(textView: View, value: Float?) {
+    value?.let {
+        (textView as TextView).text = String.format("%.1f", value)
+    }
 }

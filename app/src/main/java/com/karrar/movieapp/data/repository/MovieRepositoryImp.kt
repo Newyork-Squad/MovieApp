@@ -8,9 +8,23 @@ import com.karrar.movieapp.data.local.database.daos.MovieDao
 import com.karrar.movieapp.data.local.database.entity.ActorEntity
 import com.karrar.movieapp.data.local.database.entity.SearchHistoryEntity
 import com.karrar.movieapp.data.local.database.entity.WatchHistoryEntity
-import com.karrar.movieapp.data.local.database.entity.movie.*
+import com.karrar.movieapp.data.local.database.entity.movie.AdventureMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.MysteryMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.NowStreamingMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.TrendingMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.UpcomingMovieEntity
 import com.karrar.movieapp.data.local.mappers.movie.LocalMovieMappersContainer
-import com.karrar.movieapp.data.remote.response.*
+import com.karrar.movieapp.data.remote.response.AddListResponse
+import com.karrar.movieapp.data.remote.response.AddMovieDto
+import com.karrar.movieapp.data.remote.response.BaseListResponse
+import com.karrar.movieapp.data.remote.response.CreatedListDto
+import com.karrar.movieapp.data.remote.response.CreditsDto
+import com.karrar.movieapp.data.remote.response.DailyTrendingDto
+import com.karrar.movieapp.data.remote.response.MovieDto
+import com.karrar.movieapp.data.remote.response.MyListsDto
+import com.karrar.movieapp.data.remote.response.RatedMoviesDto
+import com.karrar.movieapp.data.remote.response.SavedListDto
 import com.karrar.movieapp.data.remote.response.actor.ActorDto
 import com.karrar.movieapp.data.remote.response.actor.ActorMoviesDto
 import com.karrar.movieapp.data.remote.response.genre.GenreDto
@@ -24,7 +38,7 @@ import com.karrar.movieapp.data.repository.mediaDataSource.movie.MovieDataSource
 import com.karrar.movieapp.data.repository.serchDataSource.SearchDataSourceContainer
 import com.karrar.movieapp.domain.mappers.MediaDataSourceContainer
 import kotlinx.coroutines.flow.Flow
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 class MovieRepositoryImp @Inject constructor(
@@ -36,7 +50,7 @@ class MovieRepositoryImp @Inject constructor(
     private val dataMappers: LocalMovieMappersContainer,
     private val mediaDataSourceContainer: MediaDataSourceContainer,
     private val searchDataSourceContainer: SearchDataSourceContainer,
-    private val movieMovieDataSource: MovieDataSourceContainer,
+    private val movieDataSource: MovieDataSourceContainer,
     private val actorMovieDataSource: ActorMovieDataSource
 ) : BaseRepository(), MovieRepository {
 
@@ -209,28 +223,31 @@ class MovieRepositoryImp @Inject constructor(
 
 
     override suspend fun getTrendingMoviesPager(): Pager<Int, MovieDto> {
-        return Pager(config = config,
-            pagingSourceFactory = { movieMovieDataSource.trendingMovieDataSource })
+        return Pager(
+            config = config,
+            pagingSourceFactory = { movieDataSource.trendingMovieDataSource })
     }
 
     override suspend fun getNowPlayingMoviesPager(): Pager<Int, MovieDto> {
-        return Pager(config = config,
-            pagingSourceFactory = { movieMovieDataSource.nowStreamingMovieMovieDataSource })
+        return Pager(
+            config = config,
+            pagingSourceFactory = { movieDataSource.nowStreamingMovieMovieDataSource })
     }
 
     override suspend fun getUpcomingMoviesPager(): Pager<Int, MovieDto> {
-        return Pager(config = config,
-            pagingSourceFactory = { movieMovieDataSource.upcomingMovieMovieDataSource })
+        return Pager(
+            config = config,
+            pagingSourceFactory = { movieDataSource.upcomingMovieMovieDataSource })
     }
 
     override suspend fun getAdventureMoviesPager(): Pager<Int, MovieDto> {
-        val dataSource = movieMovieDataSource.movieByGenreDataSource
+        val dataSource = movieDataSource.movieByGenreDataSource
         dataSource.setGenre(Constants.MYSTERY_ID)
         return Pager(config = config, pagingSourceFactory = { dataSource })
     }
 
     override suspend fun getMysteryMoviesPager(): Pager<Int, MovieDto> {
-        val dataSource = movieMovieDataSource.movieByGenreDataSource
+        val dataSource = movieDataSource.movieByGenreDataSource
         dataSource.setGenre(Constants.ADVENTURE_ID)
         return Pager(config = config, pagingSourceFactory = { dataSource })
     }
@@ -387,8 +404,8 @@ class MovieRepositoryImp @Inject constructor(
         return movieService.getMovieDetails(movieId).body()
     }
 
-    override suspend fun getMovieCast(movieId: Int): CreditsDto? {
-        return movieService.getMovieCast(movieId).body()
+    override suspend fun getMovieCastAndCrew(movieId: Int): CreditsDto? {
+        return movieService.getMovieCastAndCrew(movieId).body()
     }
 
     override suspend fun getSimilarMovie(movieId: Int): List<MovieDto>? {

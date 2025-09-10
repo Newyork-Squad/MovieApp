@@ -2,7 +2,6 @@ package com.karrar.movieapp.data.repository
 
 import androidx.paging.Pager
 import com.karrar.movieapp.data.local.database.entity.WatchHistoryEntity
-import com.karrar.movieapp.data.local.database.entity.movie.AdventureMovieEntity
 import com.karrar.movieapp.data.local.database.entity.series.AiringTodaySeriesEntity
 import com.karrar.movieapp.data.local.database.entity.series.OnTheAirSeriesEntity
 import com.karrar.movieapp.data.local.database.entity.series.TopRatedSeriesEntity
@@ -15,7 +14,6 @@ import com.karrar.movieapp.data.remote.response.movie.RatingDto
 import com.karrar.movieapp.data.remote.response.review.ReviewsDto
 import com.karrar.movieapp.data.remote.response.trailerVideosDto.TrailerDto
 import com.karrar.movieapp.data.remote.response.tvShow.TvShowDetailsDto
-import com.karrar.movieapp.domain.models.*
 import kotlinx.coroutines.flow.Flow
 
 interface SeriesRepository {
@@ -48,7 +46,7 @@ interface SeriesRepository {
 
     suspend fun getTvShowDetails(tvShowId: Int): TvShowDetailsDto?
 
-    suspend fun getTvShowCast(tvShowId: Int): CreditsDto?
+    suspend fun getTvShowCastAndCrew(tvShowId: Int): CreditsDto?
 
     suspend fun getTvShowReviews(tvShowId: Int): List<ReviewsDto>?
 

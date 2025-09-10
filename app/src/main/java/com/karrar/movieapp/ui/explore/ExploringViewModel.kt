@@ -8,7 +8,7 @@ import com.karrar.movieapp.domain.usecases.GetGenreListUseCase
 import com.karrar.movieapp.domain.usecases.GetMediaByGenreIDUseCase
 import com.karrar.movieapp.ui.adapters.MediaInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
-import com.karrar.movieapp.ui.category.CategoryInteractionListener
+import com.karrar.movieapp.ui.category.GenresInteractionListener
 import com.karrar.movieapp.ui.category.GenreUIStateMapper
 import com.karrar.movieapp.ui.category.MediaUIStateMapper
 import com.karrar.movieapp.ui.explore.exploreUIState.ErrorUIState
@@ -32,7 +32,7 @@ class ExploringViewModel @Inject constructor(
     private val getGenresUseCase: GetGenreListUseCase,
     private val mediaUIStateMapper: MediaUIStateMapper,
     private val genreUIStateMapper: GenreUIStateMapper,
-) : BaseViewModel(), MediaInteractionListener, CategoryInteractionListener {
+) : BaseViewModel(), MediaInteractionListener, GenresInteractionListener {
 
     private val _uiState = MutableStateFlow(ExploreUIState())
     val uiState: StateFlow<ExploreUIState> = _uiState
@@ -91,9 +91,9 @@ class ExploringViewModel @Inject constructor(
         _exploringUIEvent.update { Event(ExploringUIEvent.SearchEvent) }
     }
 
-    override fun onClickCategory(categoryId: Int) {
-        _uiState.update { it.copy(selectedCategoryID = categoryId, isLoading = true) }
-        loadMedia(_uiState.value.selectedMediaId, categoryId)
+    override fun onGenreSelected(genreId: Int) {
+        _uiState.update { it.copy(selectedCategoryID = genreId, isLoading = true) }
+        loadMedia(_uiState.value.selectedMediaId, genreId)
     }
 
     override fun onClickMedia(mediaId: Int) {

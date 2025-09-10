@@ -17,8 +17,6 @@ import com.karrar.movieapp.databinding.FragmentExploringBinding
 import com.karrar.movieapp.ui.adapters.LoadUIStateAdapter
 import com.karrar.movieapp.ui.base.BaseFragment
 import com.karrar.movieapp.ui.category.CategoryAdapter
-import com.karrar.movieapp.ui.category.CategoryInteractionListener
-import com.karrar.movieapp.ui.category.uiState.GenreUIState
 import com.karrar.movieapp.ui.explore.exploreUIState.ExploringUIEvent
 import com.karrar.movieapp.ui.explore.exploreUIState.TrendyMediaUIState
 import com.karrar.movieapp.utilities.Constants

@@ -135,10 +135,10 @@ fun <T> hideWhenSuccessSearch(view: View, text: String, error: List<T>?, loading
 
 // different
 
-@BindingAdapter(value = ["app:items"])
-fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
+@BindingAdapter(value = ["app:items", "app:resetScroll"], requireAll = false)
+fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?, resetScroll: Boolean? = false) {
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
-    view.scrollToPosition(0)
+    if (resetScroll == true) view.scrollToPosition(0)
 }
 
 

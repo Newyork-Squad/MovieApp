@@ -1,5 +1,6 @@
 package com.karrar.movieapp.ui.profile.watchhistory
 
+import android.content.Context
 import android.graphics.Canvas
 import android.os.Bundle
 import android.view.View
@@ -35,47 +36,83 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
             }
         }
         // Set up swipe-to-delete functionality
-        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
+        val itemTouchHelperCallback =
+            object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
+                private val limitScrollX = dipToPx(100f, requireContext())
+                private var currentScrollX = 0
+                private var currentScrollXWhenInActive = 0
+                private var initXWhenInActive = 0f
+                private var firstInActive = false
 
-                // Ensure the list is not empty and position is valid
-                if (position >= 0 && position < adapter.itemCount) {
-                    val item = adapter.getItem(position)
-                    viewModel.onDeleteClick(item)
-                    adapter.removeItem(position)
+
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val position = viewHolder.adapterPosition
+
+                    // Ensure the list is not empty and position is valid
+                    if (position >= 0 && position < adapter.itemCount) {
+                        val item = adapter.getItem(position)
+                        viewModel.showDeleteButton(position)
+                        viewModel.onDeleteClick(item)
+                        //adapter.removeItem(position)
+                    }
+                }
+
+                override fun onChildDraw(
+                    c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+                    dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
+                ) {
+
+
+                    if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                        if (dX == 0f) {
+                            currentScrollX = viewHolder.itemView.scrollX
+                            firstInActive = true
+                        }
+
+                        if (isCurrentlyActive) {
+                            var scrollOffset = currentScrollX + (-dX).toInt()
+                            scrollOffset = scrollOffset.coerceIn(0, limitScrollX)
+                            viewHolder.itemView.scrollTo(scrollOffset, 0)
+
+
+                        } else {
+
+                            if (firstInActive) {
+                                firstInActive = false
+                                currentScrollXWhenInActive = viewHolder.itemView.scrollX
+                                initXWhenInActive = dX
+                            }
+
+                            if (viewHolder.itemView.scrollX < limitScrollX) {
+                                viewHolder.itemView.scrollTo(
+                                    (currentScrollXWhenInActive * dX / initXWhenInActive).toInt(),
+                                    0
+                                )
+                            }
+                        }
+                    }
                 }
             }
-
-            override fun onChildDraw(
-                c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
-                dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
-            ) {
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-
-                val deleteButton = viewHolder.itemView.findViewById<ImageButton>(R.id.action_button)
-
-                // Show the delete button when the item is swiped to the left
-                if (isCurrentlyActive && dX < 0) {
-                    deleteButton.visibility = View.VISIBLE
-                } else {
-                    deleteButton.visibility = View.GONE
-                }
-            }
-        }
 
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerViewWatchHistory)
 
         collectEvent()
+    }
+
+
+    private fun dipToPx(dipValue: Float, context: Context): Int {
+        return (dipValue * context.resources.displayMetrics.density).toInt()
+
     }
 
     private fun collectEvent() {
@@ -91,6 +128,7 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
                     event.movieID
                 )
             }
+
             is WatchHistoryUIEvent.TVShowEvent -> {
                 WatchHistoryFragmentDirections.actionWatchHistoryFragmentToTvShowDetailsFragment(
                     event.tvShowID

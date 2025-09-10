@@ -24,6 +24,9 @@ class WatchHistoryViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(WatchHistoryUiState())
     val uiState = _uiState.asStateFlow()
 
+    private val _deleteButtonVisibility = MutableStateFlow(false)
+    val deleteButtonVisibility = _deleteButtonVisibility.asStateFlow()
+
     private val _watchHistoryUIEvent: MutableStateFlow<Event<WatchHistoryUIEvent?>> =
         MutableStateFlow(Event(null))
     val watchHistoryUIEvent = _watchHistoryUIEvent.asStateFlow()
@@ -65,6 +68,10 @@ class WatchHistoryViewModel @Inject constructor(
             }
 
         }
+    }
+
+    fun showDeleteButton(position: Int) {
+        _deleteButtonVisibility.value = true
     }
 
 }

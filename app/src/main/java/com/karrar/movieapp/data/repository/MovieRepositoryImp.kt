@@ -424,4 +424,22 @@ class MovieRepositoryImp @Inject constructor(
         return movieService.getMovieTrailer(movieId).body()
     }
 
+    override suspend fun getMatchingMovies(
+        genreIds: String,
+        minRunTime: Int?,
+        maxRunTime: Int?,
+        earliestDate: String?,
+        latestDate: String?,
+        moodId: String?
+    ): List<MovieDto>? {
+        return movieService.getMatchingMovies(
+            genreIds,
+            minRunTime,
+            maxRunTime,
+            earliestDate,
+            latestDate,
+            moodId
+        ).body()?.items
+    }
+
 }

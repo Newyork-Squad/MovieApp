@@ -1,8 +1,6 @@
 package com.karrar.movieapp.domain.usecases.match
 
 import com.karrar.movieapp.data.repository.MovieRepository
-import com.karrar.movieapp.domain.mappers.ListMapper
-import com.karrar.movieapp.domain.mappers.MovieMappersContainer
 import com.karrar.movieapp.domain.mappers.movie.MovieMapper
 import com.karrar.movieapp.domain.models.Media
 import javax.inject.Inject

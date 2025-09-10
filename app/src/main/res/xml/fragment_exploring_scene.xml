@@ -4,63 +4,53 @@
 
     <ConstraintSet android:id="@+id/start">
 
+        <Constraint
+            android:id="@+id/input_search"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:paddingStart="@dimen/spacing_small"
+            android:paddingEnd="@dimen/spacing_small"
+            android:alpha="1"
+            android:translationY="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_explore" />
 
         <Constraint
-            android:id="@+id/recycler_trend"
+            android:id="@+id/tab_explore"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:alpha="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_search" />
+
+        <Constraint
+            android:id="@+id/rv_genres"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/spacing_small"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_explore" />
+        <Constraint
+            android:id="@+id/recycler_media"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/spacing_small"
-            android:clipToPadding="false"
-            android:elevation="@dimen/spacing_too_small"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginEnd="@dimen/spacing_medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_trend_label"
-            app:visibilityMode="ignore" />
-
-        <Constraint
-            android:id="@+id/card_movies"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:layout_marginEnd="@dimen/spacing_medium"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/card_series"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_search" />
-
-        <Constraint
-            android:id="@+id/card_series"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/card_actors"
-            app:layout_constraintStart_toEndOf="@id/card_movies"
-            app:layout_constraintTop_toBottomOf="@id/input_search" />
-
-        <Constraint
-            android:id="@+id/card_actors"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@id/input_search"
-            app:layout_constraintStart_toEndOf="@id/card_series"
-            app:layout_constraintTop_toBottomOf="@id/input_search" />
-
-        <Constraint
-            android:id="@+id/text_trend_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:elevation="@dimen/spacing_too_small"
-            app:layout_constraintStart_toStartOf="@id/card_movies"
-            app:layout_constraintTop_toBottomOf="@id/card_movies"
-            app:visibilityMode="ignore" />
+            app:layout_constraintTop_toBottomOf="@id/rv_genres" />
 
         <Constraint
             android:id="@+id/animation_loading"
@@ -90,7 +80,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_trend_label"
+            app:layout_constraintTop_toBottomOf="@+id/tab_explore"
             app:visibilityMode="ignore" />
 
         <Constraint
@@ -127,52 +117,52 @@
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/input_search"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:alpha="0"
+            android:translationY="-64dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingStart="@dimen/spacing_small"
+            android:paddingEnd="@dimen/spacing_small"
+            app:layout_constraintTop_toBottomOf="@id/text_explore" />
 
         <Constraint
-            android:id="@+id/card_movies"
+            android:id="@+id/tab_explore"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
             android:layout_marginEnd="@dimen/spacing_medium"
-            android:alpha="0"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/card_series"
+            android:alpha="1"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_search" />
-
+            app:layout_constraintTop_toTopOf="parent" />
         <Constraint
-            android:id="@+id/card_series"
-            android:layout_width="0dp"
+            android:id="@+id/rv_genres"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/spacing_medium"
             android:alpha="0"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/card_actors"
-            app:layout_constraintStart_toEndOf="@id/card_movies"
-            app:layout_constraintTop_toBottomOf="@id/input_search" />
-
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_explore" />
         <Constraint
-            android:id="@+id/card_actors"
-            android:layout_width="0dp"
+            android:id="@+id/recycler_media"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:alpha="0"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@id/input_search"
-            app:layout_constraintStart_toEndOf="@id/card_series"
-            app:layout_constraintTop_toBottomOf="@id/input_search" />
-
-        <Constraint
-            android:id="@+id/text_trend_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:elevation="@dimen/spacing_too_small"
-            app:layout_constraintStart_toStartOf="@id/card_movies"
-            app:layout_constraintTop_toBottomOf="@id/input_search"
-            app:visibilityMode="ignore" />
+            android:layout_marginEnd="@dimen/spacing_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_explore" />
 
         <Constraint
             android:id="@+id/animation_loading"
@@ -183,7 +173,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:visibilityMode="ignore" />
-
 
         <Constraint
             android:id="@+id/animation_lost_connection"
@@ -237,27 +226,15 @@
             description_lost_connection,button_retry"
             app:visibilityMode="ignore" />
 
-        <Constraint
-            android:id="@+id/recycler_trend"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/spacing_small"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:clipToPadding="false"
-            android:elevation="@dimen/spacing_too_small"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_trend_label"
-            app:visibilityMode="ignore" />
 
     </ConstraintSet>
 
     <Transition
         app:constraintSetEnd="@id/end"
-        app:constraintSetStart="@+id/start">
+        app:constraintSetStart="@+id/start"
+        app:duration="220">
         <OnSwipe
             app:dragDirection="dragUp"
-            app:touchAnchorId="@+id/recycler_trend" />
+            app:touchAnchorId="@+id/recycler_media" />
     </Transition>
 </MotionScene>

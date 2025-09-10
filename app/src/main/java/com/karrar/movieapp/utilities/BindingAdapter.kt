@@ -1,10 +1,14 @@
 package com.karrar.movieapp.utilities
 
+import android.graphics.drawable.GradientDrawable
 import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -138,10 +142,10 @@ fun <T> hideWhenSuccessSearch(view: View, text: String, error: List<T>?, loading
 
 // different
 
-@BindingAdapter(value = ["app:items"])
-fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
+@BindingAdapter(value = ["app:items", "app:resetScroll"], requireAll = false)
+fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?, resetScroll: Boolean? = false) {
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
-    view.scrollToPosition(0)
+    if (resetScroll == true) view.scrollToPosition(0)
 }
 
 
@@ -231,6 +235,7 @@ fun <T> setGenresChips(
     view: ChipGroup, chipList: List<GenreUIState>?, listener: T,
     selectedChip: Int?
 ) {
+    view.removeAllViews()
     chipList?.let {
         it.forEach { genre -> view.addView(view.createChip(genre, listener)) }
     }
@@ -289,4 +294,18 @@ fun setOneDecimalAfterPoint(textView: View, value: Float?) {
 @BindingAdapter("genresText")
 fun TextView.setGenres(genres: List<String>?) {
     text = genres?.joinToString(", ") ?: ""
+}
+
+
+@BindingAdapter("isLanguageSelected")
+fun setLanguageSelected(view: View, isSelected: Boolean) {
+    if (view is CardView || view is LinearLayout) {
+        val color = if (isSelected) {
+            ContextCompat.getColor(view.context, R.color.brand_tertiary)
+        } else {
+            ContextCompat.getColor(view.context, R.color.background_bottomSheetCard)
+        }
+
+        view.setBackgroundColor(color)
+    }
 }

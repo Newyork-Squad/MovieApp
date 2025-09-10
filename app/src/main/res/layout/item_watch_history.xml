@@ -8,6 +8,9 @@
         <variable
             name="item"
             type="com.karrar.movieapp.ui.profile.watchhistory.MediaHistoryUiState" />
+        <variable
+            name="listen"
+            type="com.karrar.movieapp.ui.profile.watchhistory.WatchHistoryListener" />
 
         <variable
             name="listener"
@@ -20,7 +23,6 @@
         android:layout_marginHorizontal="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_medium"
         android:background="@color/card_background_color"
-        android:onClick="@{() -> listener.onClickMovie(item)}"
         app:cardCornerRadius="@dimen/radius_small"
         app:cardElevation="0dp">
 
@@ -132,7 +134,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="@dimen/spacing_medium"
                 android:contentDescription="delete"
-                android:onClick="@{() -> listener.onDeleteClick(item)}"
+                android:onClick="@{() -> listen.onDeleteClick(item)}"
                 android:src="@drawable/due_tone_trash"
                 android:backgroundTint="@color/brand_color"
                 android:visibility="gone"

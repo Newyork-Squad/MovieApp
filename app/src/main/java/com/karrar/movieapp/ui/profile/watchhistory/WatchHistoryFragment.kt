@@ -25,17 +25,21 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setTitle(true, getString(R.string.watch_history))
-        // Initialize the adapter
         adapter = WatchHistoryAdapter(mutableListOf(), viewModel)
         binding.recyclerViewWatchHistory.adapter = adapter
 
+        binding.closeButton.setOnClickListener {
+            viewModel.closeInfoCard()
+        }
+
+
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.uiState.collect { uiState ->
-                // Pass the updated list to the adapter
                 adapter.setItemList(uiState.allMedia)
             }
         }
-        // Set up swipe-to-delete functionality
+
         val itemTouchHelperCallback =
             object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
@@ -57,12 +61,12 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val position = viewHolder.adapterPosition
 
-                    // Ensure the list is not empty and position is valid
                     if (position >= 0 && position < adapter.itemCount) {
                         val item = adapter.getItem(position)
                         viewModel.showDeleteButton(position)
-                        viewModel.onDeleteClick(item)
-                        //adapter.removeItem(position)
+                        //binding.recyclerViewWatchHistory.adapter
+                        //viewModel.onDeleteClick(item)
+                        adapter.removeItem(position)
                     }
                 }
 
@@ -133,6 +137,9 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
                 WatchHistoryFragmentDirections.actionWatchHistoryFragmentToTvShowDetailsFragment(
                     event.tvShowID
                 )
+            }
+            is WatchHistoryUIEvent.ToExploreScreen->{
+                WatchHistoryFragmentDirections.actionWatchHistoryFragmentToExploringFragment()
             }
         }
         findNavController().navigate(action)

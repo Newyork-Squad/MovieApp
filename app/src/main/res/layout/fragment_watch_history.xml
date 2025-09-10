@@ -22,11 +22,13 @@
             android:layout_marginHorizontal="@dimen/spacing_medium"
             android:background="@color/card_background_color"
             android:layout_marginTop="@dimen/spacing_medium"
-            app:shapeAppearanceOverlay="@style/CardCorners.SmallAll"
+            app:cardVisibility="@{viewModel.cardVisibility}"
+        app:shapeAppearanceOverlay="@style/CardCorners.SmallAll"
             app:layout_constraintBottom_toTopOf="@id/recycler_view_watch_history"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            >
+
+        >
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -55,11 +57,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/close_button"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:src="@drawable/outline_close"
         android:layout_marginStart="@dimen/spacing_small"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_info"
@@ -85,17 +88,15 @@
             app:layout_constraintTop_toBottomOf="@id/info_card"
             tools:listitem="@layout/item_watch_history" />
 
-        <TextView
-            style="@style/SemiBold.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/this_list_has_no_movies"
+        <include
+            android:id="@+id/error"
+            layout="@layout/emptyhistory"
+            app:showWhenListEmpty="@{viewModel.uiState.allMedia}"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenListEmpty="@{viewModel.uiState.allMedia}" />
-
+           />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

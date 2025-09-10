@@ -18,25 +18,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginHorizontal="@dimen/spacing_medium"
-        android:layout_marginTop="@dimen/spacing_medium">
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/spacing_small"
             android:gravity="center_vertical"
-            android:layout_marginBottom="@dimen/spacing_small">
+            android:orientation="horizontal">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_your_rating_label"
                 style="@style/Body_SM.Medium"
-                android:textColor="@color/shade_primary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_small"
                 android:text="@string/you_gave_it"
-                android:layout_marginEnd="@dimen/spacing_small" />
+                android:textColor="@color/shade_primary" />
 
             <RatingBar
                 android:id="@+id/rating_bar_user"
@@ -45,10 +45,10 @@
                 android:layout_height="wrap_content"
                 android:isIndicator="true"
                 android:numStars="5"
-                android:stepSize="0.1"
                 android:progressTint="@color/primary_yellow"
-                android:secondaryProgressTint="@color/primary_yellow"
                 android:rating="@{item.rating / 2f}"
+                android:secondaryProgressTint="@color/primary_yellow"
+                android:stepSize="0.1"
                 tools:rating="4.2" />
 
         </LinearLayout>
@@ -129,8 +129,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginBottom="4dp"
                     android:layout_marginTop="@dimen/spacing_large"
+                    android:layout_marginBottom="4dp"
+                    android:drawableStart="@drawable/due_tone_calendar"
+                    app:drawableTint="@color/shade_secondary"
+                    android:drawablePadding="8dp"
                     android:text="@{item.releaseDate}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/image_movie"

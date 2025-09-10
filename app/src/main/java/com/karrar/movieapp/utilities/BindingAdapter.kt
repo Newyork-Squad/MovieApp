@@ -286,3 +286,7 @@ fun setOneDecimalAfterPoint(textView: View, value: Float?) {
         (textView as TextView).text = String.format("%.1f", value)
     }
 }
+@BindingAdapter("genresText")
+fun TextView.setGenres(genres: List<String>?) {
+    text = genres?.joinToString(", ") ?: ""
+}

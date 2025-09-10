@@ -1,5 +1,6 @@
 package com.karrar.movieapp.utilities
 
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Rect
 import android.view.LayoutInflater
@@ -101,6 +102,9 @@ fun Date.convertToDayMonthYearFormat(): String {
     val formatter = SimpleDateFormat("yyyy, MMM dd", Locale.getDefault())
     return formatter.format(this)
 }
+
+ fun Int.dpToPx(context: Context): Int =
+    (this * context.resources.displayMetrics.density).toInt()
 
 fun String.convertToMonthDayYearFormat(): String {
     val inputFormatter = SimpleDateFormat("yyyy-M-d", Locale.getDefault())

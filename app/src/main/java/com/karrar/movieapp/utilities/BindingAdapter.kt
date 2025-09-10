@@ -1,10 +1,14 @@
 package com.karrar.movieapp.utilities
 
+import android.graphics.drawable.GradientDrawable
 import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -285,5 +289,19 @@ fun hideDividerIfLast(view: View, isLast: Boolean) {
 fun setOneDecimalAfterPoint(textView: View, value: Float?) {
     value?.let {
         (textView as TextView).text = String.format("%.1f", value)
+    }
+}
+
+
+@BindingAdapter("isLanguageSelected")
+fun setLanguageSelected(view: View, isSelected: Boolean) {
+    if (view is CardView || view is LinearLayout) {
+        val color = if (isSelected) {
+            ContextCompat.getColor(view.context, R.color.brand_tertiary)
+        } else {
+            ContextCompat.getColor(view.context, R.color.background_bottomSheetCard)
+        }
+
+        view.setBackgroundColor(color)
     }
 }

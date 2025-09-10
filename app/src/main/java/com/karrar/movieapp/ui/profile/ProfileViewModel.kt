@@ -1,8 +1,12 @@
 package com.karrar.movieapp.ui.profile
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
 import com.karrar.movieapp.domain.usecases.GetAccountDetailsUseCase
+import com.karrar.movieapp.domain.usecases.setting.GetDarkModeUseCase
+import com.karrar.movieapp.domain.usecases.setting.SaveDarkModeUseCase
 import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.utilities.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +20,9 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val getAccountDetailsUseCase: GetAccountDetailsUseCase,
     private val accountUIStateMapper: AccountUIStateMapper,
-    private val checkIfLoggedInUseCase: CheckIfLoggedInUseCase
+    private val checkIfLoggedInUseCase: CheckIfLoggedInUseCase,
+    private val getDarkModeUseCase: GetDarkModeUseCase,
+    private val saveDarkModeUseCase: SaveDarkModeUseCase,
 ) : BaseViewModel() {
 
     private val _profileDetailsUIState = MutableStateFlow(ProfileUIState())
@@ -25,8 +31,15 @@ class ProfileViewModel @Inject constructor(
     private val _profileUIEvent: MutableStateFlow<Event<ProfileUIEvent?>> = MutableStateFlow(Event(null))
     val profileUIEvent= _profileUIEvent.asStateFlow()
 
+    private val _darkMode = MutableStateFlow(false)
+    val darkMode = _darkMode.asStateFlow()
+    private val _language = MutableStateFlow("English") // القيمة الافتراضية
+    val language = _language.asStateFlow()
+
+
     init {
         getData()
+        loadDarkMode()
     }
 
     override fun getData() {
@@ -74,14 +87,42 @@ class ProfileViewModel @Inject constructor(
     fun onClickWatchHistory() {
         _profileUIEvent.update { Event(ProfileUIEvent.WatchHistoryEvent) }
     }
+    fun onClickMyCollections() {
+        _profileUIEvent.update { Event(ProfileUIEvent.MyCollectionsEvent) }
+    }
+    fun onClickLanguagePicker() {
+        _profileUIEvent.update { Event(ProfileUIEvent.ShowLanguagePicker) }
+    }
+    fun onClickContentPreferences() {
+        _profileUIEvent.update { Event(ProfileUIEvent.ShowContentPreferences) }
+    }
 
     fun onClickProfileCard() {
         _profileUIEvent.update { Event(
             if(profileDetailsUIState.value.isLoggedIn)
-                ProfileUIEvent.LoginEvent
+                ProfileUIEvent.EditProfileEvent
             else
                 ProfileUIEvent.LoginEvent
         )}
     }
+    private fun loadDarkMode() {
+        viewModelScope.launch {
+            getDarkModeUseCase().collect { value ->
+                _darkMode.value = value
+            }
+        }
+    }
+
+
+
+    fun toggleDarkMode(enabled: Boolean) {
+        viewModelScope.launch {
+            Log.d("ProfileViewModel", "toggleDarkMode: $enabled")
+
+            saveDarkModeUseCase(enabled)
+            _darkMode.value = enabled
+        }
+    }
+
 
 }

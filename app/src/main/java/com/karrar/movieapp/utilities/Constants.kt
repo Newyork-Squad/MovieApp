@@ -10,6 +10,14 @@ object Constants {
     const val FIRST_CATEGORY_ID = 0
     const val ALL = "All"
 
+    const val FACEBOOK_ID = "facebook_id"
+    const val INSTAGRAM_ID = "instagram_id"
+    const val TWITTER_ID = "twitter_id"
+    const val YOUTUBE_ID = "youtube_id"
+    const val IMDB_ID = "imdb_id"
+    const val TIKTOK_ID = "tiktok_id"
+
+
     const val MAX_NUM_REVIEWS = 3
 
     const val MOVIE = "movie"

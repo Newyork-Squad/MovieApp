@@ -14,6 +14,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -268,6 +269,14 @@ fun <T> showWhenTextNotEmpty(view: View, text: String) {
     view.isVisible = text.isNotEmpty()
 }
 
+@BindingAdapter("icon")
+fun setButtonIcon(button: MaterialButton, icon: Int) {
+    if (icon != 0) {
+        button.icon = ContextCompat.getDrawable(button.context, icon)
+    } else {
+        button.icon = null
+    }
+}
 @BindingAdapter("app:dynamicShapeAppearance")
 fun ShapeableImageView.setDynamicShapeAppearance(isCurrent: Boolean) {
     val styleRes =

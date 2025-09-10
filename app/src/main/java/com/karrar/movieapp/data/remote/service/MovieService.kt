@@ -15,7 +15,9 @@ import com.karrar.movieapp.data.remote.response.SeasonDto
 import com.karrar.movieapp.data.remote.response.TVShowsDTO
 import com.karrar.movieapp.data.remote.response.account.AccountDto
 import com.karrar.movieapp.data.remote.response.actor.ActorDto
+import com.karrar.movieapp.data.remote.response.actor.ActorProfileResponse
 import com.karrar.movieapp.data.remote.response.actor.ActorMoviesDto
+import com.karrar.movieapp.data.remote.response.actor.ActorSocialMediaResponse
 import com.karrar.movieapp.data.remote.response.genre.GenreResponse
 import com.karrar.movieapp.data.remote.response.login.GuestSessionResponse
 import com.karrar.movieapp.data.remote.response.login.RequestTokenResponse
@@ -60,6 +62,16 @@ interface MovieService {
         @Query("query") query: String,
         @Query("page") page: Int
     ): Response<BaseListResponse<ActorDto>>
+
+    @GET("person/{person_id}/external_ids")
+    suspend fun getActorExternalIds(
+        @Path("person_id") personId: Int
+    ): Response<ActorSocialMediaResponse>
+
+    @GET("person/{person_id}/images")
+    suspend fun getActorImages(
+        @Path("person_id") personId: Int
+    ): Response<ActorProfileResponse>
 
     @GET("search/movie")
     suspend fun searchForMovie(

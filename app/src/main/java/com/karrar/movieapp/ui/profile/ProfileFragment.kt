@@ -20,32 +20,48 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupUI()
+        observeProfileState()
+        observeDarkMode()
+        setupDarkModeSwitch()
+        collectEvents()
+    }
+    private fun setupUI() {
         (activity as? AppCompatActivity)?.supportActionBar?.hide()
         setTitle(false, getString(R.string.profile))
         activity?.window?.statusBarColor =
             ContextCompat.getColor(requireContext(), R.color.background_screen)
         activity?.window?.navigationBarColor =
             ContextCompat.getColor(requireContext(), R.color.background_screen)
+    }
 
+    private fun observeProfileState() {
         collectLast(viewModel.profileDetailsUIState) {
             updateProfileTexts()
         }
+    }
 
+    private fun observeDarkMode() {
         collectLast(viewModel.darkMode) { darkMode ->
             if (binding.switchDarkMode.isChecked != darkMode) {
                 binding.switchDarkMode.isChecked = darkMode
             }
         }
+    }
 
+    private fun setupDarkModeSwitch() {
         binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
             viewModel.toggleDarkMode(isChecked)
         }
+    }
 
-
+    private fun collectEvents() {
         collectLast(viewModel.profileUIEvent) {
             it.getContentIfNotHandled()?.let { onEvent(it) }
         }
     }
+
 
     private fun onEvent(event: ProfileUIEvent) {
         val action = when (event) {

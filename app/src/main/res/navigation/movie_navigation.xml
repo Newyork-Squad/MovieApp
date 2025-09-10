@@ -251,6 +251,12 @@
         <action
             android:id="@+id/action_ratedMoviesFragment_to_tvShowDetailsFragment"
             app:destination="@id/tvShowDetailsFragment" />
+        <action
+            android:id="@+id/action_ratedMoviesFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_ratedMoviesFragment_to_exploringFragment"
+            app:destination="@id/exploringFragment" />
     </fragment>
 
     <fragment

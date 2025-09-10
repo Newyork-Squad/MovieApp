@@ -47,6 +47,9 @@ class MyRatingsFragment : BaseFragment<FragmentMyRatingsBinding>() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+        binding.btnGoToHome.setOnClickListener {
+            findNavController().navigate(R.id.action_ratedMoviesFragment_to_exploringFragment)
+        }
 
         setupAdapter()
         setupTabLayout()

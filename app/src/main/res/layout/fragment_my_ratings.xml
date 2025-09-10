@@ -71,19 +71,83 @@
             tools:layout_editor_absoluteY="60dp"
             tools:listitem="@layout/item_rated_movie" />
 
-        <TextView
-            style="@style/SemiBold.Medium"
-            android:layout_width="wrap_content"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/this_list_has_no_movies"
-            android:visibility="gone"
+            android:padding="20dp"
             app:doneLoad="@{viewModel.ratedUiState.loading}"
             app:emptyData="@{viewModel.ratedUiState.ratedList}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:noError="@{viewModel.ratedUiState.error}" />
+            app:noError="@{viewModel.ratedUiState.error}">
+
+
+            <FrameLayout
+                android:id="@+id/icon_container"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/oval_background_quinary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/due_tone_star"
+                    app:tint="@color/brand_primary" />
+            </FrameLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_confirmation"
+                style="@style/Title.SM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/no_ratings_yet"
+                android:textColor="@color/shade_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.48"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/icon_container" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_confirmation_message"
+                style="@style/Body_SM.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:text="@string/rate_movies_and_series_you_ve_watched_to_track_what_you_love_and_what_you_don_t"
+                android:textColor="@color/shade_secondary_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_confirmation" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_go_to_home"
+                style="@style/Body_MD.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_rectangle"
+                android:text="@string/start_rating"
+                android:textAllCaps="false"
+                android:textColor="@color/button_onPrimary"
+                app:backgroundTint="@color/button_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_confirmation_message" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -106,7 +170,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <ImageView
-                    android:layout_width="28dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="28dp"
                     android:layout_gravity="center"
                     android:contentDescription="@string/oops_no_internet"

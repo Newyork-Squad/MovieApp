@@ -113,4 +113,13 @@ interface MovieRepository {
 
     suspend fun getRatedMovie(): List<RatedMoviesDto>?
 
+    suspend fun getMatchingMovies(
+        genreIds: String,
+        minRunTime: Int?,
+        maxRunTime: Int?,
+        earliestDate: String?,
+        latestDate: String?,
+        moodId: String?
+    ): List<MovieDto>?
+
 }

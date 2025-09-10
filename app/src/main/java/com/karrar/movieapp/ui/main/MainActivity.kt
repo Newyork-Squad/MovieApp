@@ -28,7 +28,6 @@ import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
 

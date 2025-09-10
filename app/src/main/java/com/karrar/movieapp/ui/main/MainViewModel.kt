@@ -1,5 +1,10 @@
 package com.karrar.movieapp.ui.main
 
+import androidx.lifecycle.viewModelScope
+import com.karrar.movieapp.domain.usecases.setting.GetDarkModeUseCase
+import com.karrar.movieapp.domain.usecases.setting.GetLanguageUseCase
+import com.karrar.movieapp.domain.usecases.setting.SaveDarkModeUseCase
+import com.karrar.movieapp.domain.usecases.setting.SaveLanguageUseCase
 import com.karrar.movieapp.domain.usecases.startUp.GetStartUpStateUseCase
 import com.karrar.movieapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +32,13 @@ class MainViewModel @Inject constructor(
     private val _darkMode = MutableStateFlow(false)
     val darkMode: StateFlow<Boolean> = _darkMode
 
-    init {
+
+    override fun getData() {
+        _mainUiState.update {
+            it.copy(
+                isFirstLaunch = getStartUpStateUseCase(),
+            )
+        }
         viewModelScope.launch {
             getLanguageUseCase().collect { lang ->
                 _language.value = lang
@@ -39,14 +50,7 @@ class MainViewModel @Inject constructor(
             }
         }
     }
-    override fun getData() {
-        _mainUiState.update {
-            it.copy(
-                isFirstLaunch = getStartUpStateUseCase(),
-            )
-        }
-    }
-}
+
 
     fun changeLanguage(language: String) {
         viewModelScope.launch {
@@ -60,4 +64,3 @@ class MainViewModel @Inject constructor(
         }
     }
 }
-

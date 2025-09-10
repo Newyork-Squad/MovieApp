@@ -151,6 +151,16 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="OnboardingImageCornerCurrent">
+        <item name="cornerSize">24dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="OnboardingImageCorner">
+        <item name="cornerSize">24dp</item>
+    </style>
+
     <style name="Chip.Regular.Small" parent="Widget.MaterialComponents.Chip.Filter">
         <item name="chipStrokeColor">@color/chip_stroke</item>
         <item name="chipBackgroundColor">@color/chip_background</item>

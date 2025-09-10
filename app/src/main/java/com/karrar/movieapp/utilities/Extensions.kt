@@ -22,12 +22,11 @@ import com.karrar.movieapp.ui.base.BasePagingAdapter
 import com.karrar.movieapp.ui.category.CategoryInteractionListener
 import com.karrar.movieapp.ui.category.uiState.GenreUIState
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 fun <T> ChipGroup.createChip(item: GenreUIState, listener: T): View {
     val chipBinding: ChipItemCategoryBinding = DataBindingUtil.inflate(
@@ -99,6 +98,14 @@ fun <T : Any> GridLayoutManager.setSpanSize(
 }
 
 fun Date.convertToDayMonthYearFormat(): String {
-    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val formatter = SimpleDateFormat("yyyy, MMM dd", Locale.getDefault())
     return formatter.format(this)
+}
+
+fun String.convertToMonthDayYearFormat(): String {
+    val inputFormatter = SimpleDateFormat("yyyy-M-d", Locale.getDefault())
+    val outputFormatter = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+
+    val date = inputFormatter.parse(this)
+    return outputFormatter.format(date ?: Date())
 }

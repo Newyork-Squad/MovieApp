@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.karrar.movieapp.ui.movieDetails.movieDetailsUIState.MovieDetailsUIState" />
+
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.movieDetails.DetailInteractionListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_media_info"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/movie"
+            style="@style/Label_MD.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movie"
+            android:textColor="@color/brand_primary"
+            android:textFontWeight="500"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/movie_name"
+            style="@style/Title.MD"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{item.name}"
+            android:textColor="@color/shade_primary"
+            android:textFontWeight="500"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@id/play_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/movie"
+            tool:text="The Dark Knight" />
+
+        <TextView
+            android:id="@+id/movie_genre"
+            style="@style/Body_SM.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{item.genres}"
+            android:textColor="@color/shade_secondary"
+            android:textFontWeight="500"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/play_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/movie_name"
+            tool:text="Drama, Action, Crime, Thriller" />
+
+        <ImageView
+            android:id="@+id/star_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:contentDescription="@string/star_icon_for_rating"
+            android:src="@drawable/star"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/movie_genre" />
+
+        <TextView
+            android:id="@+id/movie_rating"
+            style="@style/Label_MD.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{item.voteAverage}"
+            android:textColor="@color/shade_secondary"
+            android:textFontWeight="400"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/star_icon"
+            app:layout_constraintStart_toEndOf="@+id/star_icon"
+            app:layout_constraintTop_toTopOf="@id/star_icon"
+            tool:Text="8.5" />
+
+        <ImageView
+            android:id="@+id/clock_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:contentDescription="@string/clock_icon_for_duration"
+            android:src="@drawable/due_tone_clock"
+            app:layout_constraintBottom_toBottomOf="@id/movie_rating"
+            app:layout_constraintStart_toEndOf="@+id/movie_rating"
+            app:layout_constraintTop_toTopOf="@id/movie_rating"
+            app:tint="@color/shade_secondary" />
+
+        <TextView
+            android:id="@+id/movie_duration"
+            style="@style/Label_MD.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textColor="@color/shade_secondary"
+            android:textFontWeight="400"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/clock_icon"
+            app:layout_constraintStart_toEndOf="@+id/clock_icon"
+            app:layout_constraintTop_toTopOf="@id/clock_icon"
+            app:movieHours="@{item.hours}"
+            app:movieMinutes="@{item.minutes}"
+            tool:Text="2 34" />
+
+        <ImageView
+            android:id="@+id/calender_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/due_tone_calendar"
+            app:layout_constraintBottom_toBottomOf="@id/movie_duration"
+            app:layout_constraintStart_toEndOf="@+id/movie_duration"
+            app:layout_constraintTop_toTopOf="@id/movie_duration"
+            app:tint="@color/shade_secondary" />
+
+        <TextView
+            android:id="@+id/movie_date"
+            style="@style/Label_MD.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{item.releaseDate}"
+            android:textColor="@color/shade_secondary"
+            android:textFontWeight="400"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/calender_icon"
+            app:layout_constraintStart_toEndOf="@+id/calender_icon"
+            app:layout_constraintTop_toTopOf="@id/calender_icon"
+            tool:Text="8.5" />
+
+        <ImageButton
+            android:id="@+id/play_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/play_button_background"
+            android:contentDescription="@string/save_button"
+            android:onClick="@{() -> listener.onClickPlayTrailer()}"
+            android:padding="10dp"
+            android:src="@drawable/due_tone_play"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/brand_tertiary" />
+
+        <ImageButton
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11.5dp"
+            android:background="@drawable/save_icon_shape"
+            android:contentDescription="@string/save_button"
+            android:onClick="@{() -> listener.onClickSave()}"
+            android:padding="10dp"
+            android:src="@drawable/due_tone_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/play_button"
+            app:tint="@color/button_onSecondary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

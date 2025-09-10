@@ -13,6 +13,18 @@
 
     </style>
 
+    <style name="RoundButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/background_card</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textColor">@color/shade_primary</item>
+        <item name="android:textAppearance">@style/Label_MD.Medium</item>
+        <item name="cornerRadius">@dimen/radius_full</item>
+        <item name="iconTint">@color/brand_primary</item>
+    </style>
+
 
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
@@ -95,6 +107,10 @@
 
     <style name="CardCorners.SmallAll">
         <item name="cornerSize">@dimen/radius_small</item>
+    </style>
+
+    <style name="CardCorners.Large">
+        <item name="cornerSize">@dimen/radius_lg</item>
     </style>
 
     <style name="Login" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
@@ -180,15 +196,15 @@
         <item name="android:textSize">@dimen/text_title_xl</item>
     </style>
 
-    <style name="Title.LG" >
+    <style name="Title.LG">
         <item name="android:textSize">@dimen/text_title_lg</item>
     </style>
 
-    <style name="Title.MD" >
+    <style name="Title.MD">
         <item name="android:textSize">@dimen/text_title_md</item>
     </style>
 
-    <style name="Title.SM" >
+    <style name="Title.SM">
         <item name="android:textSize">@dimen/text_title_sm</item>
     </style>
 
@@ -197,9 +213,11 @@
     <style name="Body_LG">
         <item name="android:textSize">@dimen/text_body_lg</item>
     </style>
+
     <style name="Body_MD">
         <item name="android:textSize">@dimen/text_body_md</item>
     </style>
+
     <style name="Body_SM">
         <item name="android:textSize">@dimen/text_body_sm</item>
     </style>
@@ -236,15 +254,15 @@
     </style>
 
     <!-- Body SM -->
-    <style name="Body_SM.Regular" >
+    <style name="Body_SM.Regular">
         <item name="android:fontFamily">@font/manrope</item>
     </style>
 
-    <style name="Body_SM.Medium" >
+    <style name="Body_SM.Medium">
         <item name="android:fontFamily">@font/manrope_medium</item>
     </style>
 
-    <style name="Body_SM.SemiBold" >
+    <style name="Body_SM.SemiBold">
         <item name="android:fontFamily">@font/manrope_semibold</item>
     </style>
 
@@ -254,14 +272,25 @@
         <item name="android:fontFamily">@font/manrope</item>
     </style>
 
-    <style name="Label_MD.Medium" >
+    <style name="Label_MD.Medium">
         <item name="android:fontFamily">@font/manrope_medium</item>
     </style>
 
-    <style name="Label_MD.SemiBold" >
+    <style name="Label_MD.SemiBold">
         <item name="android:fontFamily">@font/manrope_semibold</item>
     </style>
 
+    <style name="MovieAndSeriesCornerImage">
+        <item name="cornerSize">@dimen/radius_xl</item>
+    </style>
 
+    <style name="CastImage">
+        <item name="cornerSizeBottomLeft">@dimen/radius_lg</item>
+        <item name="cornerSizeTopLeft">@dimen/radius_lg</item>
+        <item name="cornerSizeTopRight">@dimen/radius_lg</item>
+    </style>
 
+    <style name="MediaCardCorners">
+        <item name="cornerSize">@dimen/radius_lg</item>
+    </style>
 </resources>

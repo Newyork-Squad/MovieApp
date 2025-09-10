@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Movie App</string>
 
-    <string name="see_all">See all</string>
+    <string name="show_more">Show More</string>
     <string name="top_rated">Top Rated</string>
     <string name="latest">Latest</string>
     <string name="popular">Popular</string>
@@ -24,8 +24,8 @@
     <string name="biography">Biography</string>
     <string name="movies">Movies</string>
     <string name="actors">Actors</string>
-    <string name="oops">Oops!</string>
-    <string name="description">There is no internet connection\nPlease check it out</string>
+    <string name="oops_no_internet">Oops! No Internet</string>
+    <string name="description">Looks like you\'re offline Let\'s reconnect so \nyou don\'t miss out!</string>
     <string name="all_movies_of_actor">All Movies Of Actor</string>
     <!--   Titles -->
     <string name="title_on_air">On The Air</string>
@@ -35,6 +35,7 @@
     <string name="title_trending">Trending</string>
     <string name="title_streaming">Now Streaming</string>
     <string name="title_upcoming">Upcoming</string>
+    <string name="title_recently_viewed">You Recently Viewed</string>
     <string name="title_celebrity">Celebrities</string>
     <string name="title_airing_today">Airing today</string>
     <string name="title_top_rated_tv_show">Top Rated Tv-Show</string>
@@ -53,12 +54,12 @@
     <string name="duration">%1$d Minutes</string>
     <string name="reviews">(%1$s reviews)</string>
     <string name="storyline">Storyline</string>
-    <string name="cast">Cast</string>
-    <string name="similar_movies">Similar Movies</string>
-    <string name="rate_the_movie">Rate The Movie</string>
+    <string name="cast">Star Cast</string>
+    <string name="similar_movies">You Might Also Like</string>
+    <string name="rating_title">Did You Watch it?</string>
     <string name="reviews_title">Reviews</string>
     <string name="review">Reviews</string>
-    <string name="reviews_comment">Reviews</string>
+    <string name="top_reviews">Top Reviews</string>
     <string name="user_name">"@" %1$s</string>
     <string name="save_button">back button</string>
     <string name="view_all_reviews">View all reviews</string>
@@ -88,7 +89,7 @@
     <string name="one_season">%1$d Season</string>
     <string name="more_than_one_season">%1$d Seasons</string>
     <string name="internet_connection">There is no internet connection.</string>
-    <string name="retry">Retry</string>
+    <string name="try_again">Try Again</string>
     <string name="you_must_be_logged_in_to_see_the_profile">You must be logged in to see the profile and use additional features.</string>
     <string name="new_list">New List</string>
     <string name="log_in">Log In</string>
@@ -123,6 +124,11 @@
     <string name="tv_show_image">tv show image</string>
     <string name="clock_icon_for_number_of_seasons">clock icon for number of seasons</string>
     <string name="calendar_icon_for_release_date">calendar icon for release date</string>
+    <string name="behind_the_scenes">Behind the Scenes</string>
+    <string name="show_more">Show More</string>
+    <string name="give_it_stars">Give it Stars!</string>
+    <string name="let_the_world_know_how_you_felt">Let the world know how you felt.</string>
+    <string name="arrow">arrow</string>
     <string name="change_language">Change Language</string>
     <string name="english">English</string>
     <string name="arabic">Arabic</string>

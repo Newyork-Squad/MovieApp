@@ -119,10 +119,10 @@
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/RoundButton"
+                    android:onClick="@{() -> viewModel.onClickWatchHistory()}"
                     android:text="@string/history"
                     android:textAllCaps="false"
                     app:icon="@drawable/due_tone_history"
-                    android:onClick="@{() -> viewModel.onClickWatchHistory()}"
                     app:iconGravity="textStart"
                     app:iconPadding="8dp"
                     app:iconSize="16dp" />
@@ -140,10 +140,10 @@
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/RoundButton"
+                    android:onClick="@{() -> viewModel.onClickRatedMovies()}"
                     android:text="@string/my_ratings"
                     android:textAllCaps="false"
                     app:icon="@drawable/due_tone_star"
-                    android:onClick="@{() -> viewModel.onClickRatedMovies()}"
                     app:iconGravity="textStart"
                     app:iconPadding="8dp"
                     app:iconSize="16dp" />
@@ -171,10 +171,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_medium"
             app:cardBackgroundColor="@color/background_card"
+            android:layout_margin="@dimen/spacing_medium"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
             app:layout_constraintTop_toBottomOf="@+id/text_setting"
-            app:strokeWidth="0dp"
+            app:strokeWidth="0dp">
             tools:layout_editor_absoluteX="16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -328,7 +329,5 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

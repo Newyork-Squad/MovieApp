@@ -98,7 +98,7 @@ interface MovieService {
 
 
     @GET("movie/{movie_id}/credits")
-    suspend fun getMovieCast(@Path("movie_id") movieId: Int): Response<CreditsDto>
+    suspend fun getMovieCastAndCrew(@Path("movie_id") movieId: Int): Response<CreditsDto>
 
 
     @GET("movie/{movie_id}/similar")

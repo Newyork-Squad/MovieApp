@@ -15,41 +15,65 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/spacing_small"
-        android:layout_marginHorizontal="@dimen/spacing_small"
-        android:backgroundTint="@color/background_color"
-        android:onClick="@{() -> listener.onClickActor(item.id)}"
-        >
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/background_cast_item"
+        android:onClick="@{() -> listener.onClickActor(item.id)}">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/cast_image"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:scaleType="centerCrop"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:background="@color/gray"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:posterImage="@{item.imageUrl}"
-            app:shapeAppearanceOverlay="@style/Circle"
-            tools:srcCompat="@drawable/image"
-            />
+            app:shapeAppearanceOverlay="@style/CastImage"
+            tools:srcCompat="@drawable/image" />
 
         <TextView
             android:id="@+id/cast_name"
-            style="@style/Regular.Small.Secondary"
+            style="@style/Body_MD.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12.5dp"
             android:ellipsize="end"
-            android:lines="2"
+            android:maxLines="1"
             android:text="@{item.name}"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@+id/cast_image"
-            app:layout_constraintStart_toStartOf="@+id/cast_image"
-            app:layout_constraintTop_toBottomOf="@+id/cast_image"
+            android:textAlignment="textStart"
+            android:textColor="@color/shade_primary"
+            android:textFontWeight="500"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/character_name"
+            app:layout_constraintStart_toEndOf="@id/cast_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Debora Caprioglio" />
+
+        <TextView
+            android:id="@+id/character_name"
+            style="@style/Body_SM.Regular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12.5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{item.characterName}"
+            android:textAlignment="textStart"
+            android:textColor="@color/shade_secondary"
+            android:textFontWeight="400"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cast_image"
+            app:layout_constraintTop_toBottomOf="@id/cast_name"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="Debora Caprioglio" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

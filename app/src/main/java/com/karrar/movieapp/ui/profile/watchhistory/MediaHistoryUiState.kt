@@ -7,5 +7,5 @@ data class MediaHistoryUiState(
     var voteAverage: String,
     var releaseDate: String,
     var movieDuration: Int,
-    var mediaType: String
+    var mediaType: String,
 )

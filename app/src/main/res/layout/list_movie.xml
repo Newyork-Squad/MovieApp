@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_small"
             android:onClick="@{() -> adapterRecycler.listener.onClickSeeAllMovie(movieType)}"
-            android:text="@string/see_all"
+            android:text="@string/show_more"
             android:textColor="@color/brand_color"
             app:drawableEndCompat="@drawable/ic_arrow_right"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_title"

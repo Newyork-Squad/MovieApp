@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_medium"
-        android:background="@color/card_background_color"
+        android:background="@color/background_card"
         app:cardCornerRadius="@dimen/radius_small"
         app:cardElevation="0dp">
 
@@ -98,7 +98,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_rate_movie"
-                style="@style/SemiBold.Small"
+                style="@style/Label_MD.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_medium_small"
@@ -114,7 +114,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_duration"
-                style="@style/Regular.Small.ternary"
+                style="@style/Label_MD.Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_medium"
@@ -123,28 +123,11 @@
                 android:drawablePadding="@dimen/spacing_too_small"
                 android:gravity="center"
                 android:textColor="@color/shade_secondary"
-                app:convertToHoursPattern="@{item.movieDuration}"
+                android:text="@{item.releaseDate}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/image_movie"
                 tools:text="1h 50m" />
 
-            <ImageButton
-                android:id="@+id/action_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="@dimen/spacing_medium"
-                android:contentDescription="delete"
-                android:onClick="@{() -> listen.onDeleteClick(item)}"
-                android:src="@drawable/due_tone_trash"
-                android:backgroundTint="@color/brand_color"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white_primary"
-
-
-                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,15 +1,23 @@
 package com.karrar.movieapp.ui.profile.watchhistory
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
-import android.widget.ImageButton
+import android.view.animation.DecelerateInterpolator
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.FragmentWatchHistoryBinding
 import com.karrar.movieapp.ui.base.BaseFragment
@@ -21,96 +29,205 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
     override val layoutIdFragment: Int = R.layout.fragment_watch_history
     override val viewModel: WatchHistoryViewModel by viewModels()
     private lateinit var adapter: WatchHistoryAdapter
+    private var displayedList: List<MediaHistoryUiState> = emptyList()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setTitle(true, getString(R.string.watch_history))
         adapter = WatchHistoryAdapter(mutableListOf(), viewModel)
         binding.recyclerViewWatchHistory.adapter = adapter
+        collectLast(viewModel.watchHistoryUIEvent) {
+            it.getContentIfNotHandled()?.let { onEvent(it) }
+        }
+
+        val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav?.visibility = View.GONE
 
         binding.closeButton.setOnClickListener {
             viewModel.closeInfoCard()
         }
+       binding.buttonNavToExplor.setOnClickListener {
+         findNavController().navigate(R.id.action_watchHistoryFragment_to_exploringFragment)
+       }
 
 
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.uiState.collect { uiState ->
-                adapter.setItemList(uiState.allMedia)
+                displayedList = uiState.allMedia
+                adapter = WatchHistoryAdapter(displayedList, viewModel)
+                binding.recyclerViewWatchHistory.adapter = adapter
             }
         }
 
-        val itemTouchHelperCallback =
-            object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-
-                private val limitScrollX = dipToPx(100f, requireContext())
-                private var currentScrollX = 0
-                private var currentScrollXWhenInActive = 0
-                private var initXWhenInActive = 0f
-                private var firstInActive = false
+        setupSwipeToDelete()
+        collectEvent()
+    }
 
 
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    return false
+
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupSwipeToDelete() {
+        val deleteIcon = ContextCompat.getDrawable(requireContext(), R.drawable.due_tone_trash)!!
+        val bgMargin = resources.getDimensionPixelSize(R.dimen.spacing_small)
+
+        var deleteBounds: Rect? = null
+        var swipedPosition = RecyclerView.NO_POSITION
+        val openItems = mutableSetOf<Int>()
+
+        val itemTouchHelper = ItemTouchHelper(object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                val itemView = viewHolder.itemView
+                val maxSwipe = -itemView.width * 0.20f
+
+                val pos = viewHolder.bindingAdapterPosition
+                val isOpen = openItems.contains(pos)
+
+                val clampedDx = when {
+
+                    isOpen && dX > 0 -> 0f
+
+                    dX < 0 -> dX.coerceAtLeast(maxSwipe)
+
+                    else -> dX
                 }
 
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val position = viewHolder.adapterPosition
 
-                    if (position >= 0 && position < adapter.itemCount) {
-                        val item = adapter.getItem(position)
-                        viewModel.showDeleteButton(position)
-                        //binding.recyclerViewWatchHistory.adapter
-                        //viewModel.onDeleteClick(item)
-                        adapter.removeItem(position)
-                    }
+                super.onChildDraw(c, recyclerView, viewHolder, clampedDx, dY, actionState, isCurrentlyActive)
+
+                if (clampedDx <= maxSwipe) {
+                    drawBackgroundWithMargin(c, itemView, clampedDx, bgMargin)
+                    val iconHeightMultiplier = 3f
+                    deleteBounds = drawDeleteIcon(c, itemView, deleteIcon, clampedDx, bgMargin, iconHeightMultiplier)
+                    swipedPosition = pos
+                } else if (clampedDx == 0f) {
+                    openItems.remove(pos)
+                }
+            }
+
+
+            override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+                super.clearView(recyclerView, viewHolder)
+
+                val itemView = viewHolder.itemView
+                val maxSwipe = -itemView.width * 0.20f
+                val currentX = itemView.translationX
+
+                val finalPos = when {
+                    currentX < maxSwipe / 2 -> maxSwipe
+                    else -> 0f
                 }
 
-                override fun onChildDraw(
-                    c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
-                    dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
-                ) {
-
-
-                    if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-                        if (dX == 0f) {
-                            currentScrollX = viewHolder.itemView.scrollX
-                            firstInActive = true
-                        }
-
-                        if (isCurrentlyActive) {
-                            var scrollOffset = currentScrollX + (-dX).toInt()
-                            scrollOffset = scrollOffset.coerceIn(0, limitScrollX)
-                            viewHolder.itemView.scrollTo(scrollOffset, 0)
-
-
+                itemView.animate()
+                    .translationX(finalPos)
+                    .setDuration(200)
+                    .setInterpolator(DecelerateInterpolator())
+                    .withEndAction {
+                        val pos = viewHolder.bindingAdapterPosition
+                        if (finalPos == maxSwipe) {
+                            openItems.add(pos)
                         } else {
+                            openItems.remove(pos)
+                        }
+                    }
+                    .start()
+            }
 
-                            if (firstInActive) {
-                                firstInActive = false
-                                currentScrollXWhenInActive = viewHolder.itemView.scrollX
-                                initXWhenInActive = dX
-                            }
 
-                            if (viewHolder.itemView.scrollX < limitScrollX) {
-                                viewHolder.itemView.scrollTo(
-                                    (currentScrollXWhenInActive * dX / initXWhenInActive).toInt(),
-                                    0
-                                )
-                            }
+
+        })
+
+        itemTouchHelper.attachToRecyclerView(binding.recyclerViewWatchHistory)
+
+        binding.recyclerViewWatchHistory.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                deleteBounds?.let { rect ->
+                    if (rect.contains(event.x.toInt(), event.y.toInt())) {
+                        if (swipedPosition != RecyclerView.NO_POSITION) {
+                            val item = displayedList[swipedPosition]
+                            viewModel.onDeleteClick(item)
+                            swipedPosition = RecyclerView.NO_POSITION
+                            openItems.remove(swipedPosition)
                         }
                     }
                 }
             }
+            false
+        }
+    }
 
-        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-        itemTouchHelper.attachToRecyclerView(binding.recyclerViewWatchHistory)
 
-        collectEvent()
+    private fun drawBackgroundWithMargin(
+        c: Canvas,
+        itemView: View,
+        dX: Float,
+        margin: Int
+    ) {
+        val context = itemView.context
+        val bgColor = ContextCompat.getColor(context, R.color.primary_red)
+
+        val background = GradientDrawable().apply {
+            setColor(bgColor)
+            cornerRadius = 12f
+        }
+
+        background.setBounds(
+            itemView.right + dX.toInt() + margin,
+            itemView.top + margin * 4 ,
+            itemView.right - margin,
+            itemView.bottom - margin
+        )
+
+        background.draw(c)
+    }
+
+    private fun drawDeleteIcon(
+        c: Canvas,
+        itemView: View,
+        deleteIcon: Drawable,
+        dX: Float,
+        margin: Int,
+        iconHeightMultiplier: Float
+    ): Rect {
+        DrawableCompat.setTint(
+            deleteIcon,
+            ContextCompat.getColor(itemView.context, R.color.button_onPrimary)
+        )
+
+        val backgroundLeft = itemView.right + dX.toInt() + margin
+        val backgroundRight = itemView.right - margin
+        val backgroundCenterX = (backgroundLeft + backgroundRight) / 2
+        val iconHalfWidth = deleteIcon.intrinsicWidth / 2
+
+        val iconTop = itemView.top + (itemView.height - deleteIcon.intrinsicHeight) / 2 + margin *2
+        val iconBottom = iconTop + deleteIcon.intrinsicHeight
+        val iconLeft = backgroundCenterX - iconHalfWidth
+        val iconRight = backgroundCenterX + iconHalfWidth
+
+        deleteIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+        deleteIcon.draw(c)
+
+        return Rect(iconLeft, iconTop, iconRight, iconBottom)
     }
 
 
@@ -118,6 +235,9 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
         return (dipValue * context.resources.displayMetrics.density).toInt()
 
     }
+
+
+
 
     private fun collectEvent() {
         collectLast(viewModel.watchHistoryUIEvent) {
@@ -138,11 +258,13 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
                     event.tvShowID
                 )
             }
-            is WatchHistoryUIEvent.ToExploreScreen->{
-                WatchHistoryFragmentDirections.actionWatchHistoryFragmentToExploringFragment()
-            }
+
         }
         findNavController().navigate(action)
     }
+
+
+
+
 
 }

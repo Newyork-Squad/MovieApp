@@ -282,3 +282,8 @@ fun setCardVisibility(view: View, isVisible: Boolean) {
 fun setDeleteButtonVisibility(view: View, isVisible: Boolean) {
     view.visibility = if (isVisible) View.VISIBLE else View.GONE
 }
+
+@BindingAdapter("genresText")
+fun TextView.setGenres(genres: List<String>?) {
+    text = genres?.joinToString(", ") ?: ""
+}

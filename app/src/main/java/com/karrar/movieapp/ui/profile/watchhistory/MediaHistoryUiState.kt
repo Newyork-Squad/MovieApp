@@ -9,4 +9,5 @@ data class MediaHistoryUiState(
     var movieDuration: Int,
     var mediaType: String,
     val gener: String,
+
 )

@@ -24,10 +24,8 @@ class WatchHistoryViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(WatchHistoryUiState())
     val uiState = _uiState.asStateFlow()
 
-    private val _deleteButtonVisibility = MutableStateFlow(false)
-    val deleteButtonVisibility = _deleteButtonVisibility.asStateFlow()
 
-    private val _cardVisibility = MutableStateFlow(true) // true means visible
+    private val _cardVisibility = MutableStateFlow(true)
     val cardVisibility = _cardVisibility.asStateFlow()
 
 
@@ -62,13 +60,10 @@ class WatchHistoryViewModel @Inject constructor(
         }
     }
 
-    override fun onClickToExploreScreen() {
-        _watchHistoryUIEvent.update { Event(WatchHistoryUIEvent.ToExploreScreen) }
-    }
 
     override fun onDeleteClick(item: MediaHistoryUiState) {
         viewModelScope.launch {
-            deleteMovieFromHistoryUseCase(watchHistoryMapper.map(item)) // Convert to WatchHistoryEntity and call use case
+            deleteMovieFromHistoryUseCase(watchHistoryMapper.map(item))
 
             _uiState.update { currentState ->
                 val updatedList = currentState.allMedia.filter { it.id != item.id }
@@ -79,9 +74,6 @@ class WatchHistoryViewModel @Inject constructor(
     }
 
 
-    fun showDeleteButton(position: Int) {
-        _deleteButtonVisibility.value = true
-    }
 
     fun closeInfoCard() {
         _cardVisibility.value = false

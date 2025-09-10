@@ -303,4 +303,12 @@
     <style name="MediaCardCorners">
         <item name="cornerSize">@dimen/radius_lg</item>
     </style>
+
+    <style name="SeasonImage">
+        <item name="cornerSizeTopRight">@dimen/radius_x5l</item>
+        <item name="cornerSizeTopLeft">@dimen/radius_x5l</item>
+        <item name="cornerSizeBottomLeft">@dimen/radius_xs</item>
+        <item name="cornerSizeBottomRight">@dimen/radius_xs</item>
+    </style>
+
 </resources>

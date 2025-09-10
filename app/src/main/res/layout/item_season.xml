@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/spacing_small"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/spacing_normal"
         android:background="@drawable/card_background"
         android:onClick="@{() -> listener.onClickSeason(item.seasonNumber)}"
         android:padding="12dp">
@@ -54,12 +54,10 @@
 
         <View
             android:id="@+id/text_line"
-            style="@style/Regular.Small"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginStart="@dimen/spacing_too_small"
-            android:layout_marginTop="12dp"
-            android:textColor="@color/stroke_primary"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:background="@color/stroke_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_episode" />
@@ -130,7 +128,7 @@
             android:id="@+id/calender_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="@dimen/spacing_normal"
             android:src="@drawable/due_tone_calendar"
             app:layout_constraintBottom_toBottomOf="@id/star"
             app:layout_constraintEnd_toStartOf="@+id/text_season_year"

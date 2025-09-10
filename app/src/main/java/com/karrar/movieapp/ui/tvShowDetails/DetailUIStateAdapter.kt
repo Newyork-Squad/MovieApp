@@ -12,6 +12,7 @@ import com.karrar.movieapp.ui.base.BaseAdapter
 import com.karrar.movieapp.ui.base.BaseInteractionListener
 import com.karrar.movieapp.ui.movieDetails.DetailInteractionListener
 import com.karrar.movieapp.ui.tvShowDetails.tvShowUIState.DetailItemUIState
+import com.karrar.movieapp.utilities.Constants
 
 class DetailUIStateAdapter(
     private var items: List<DetailItemUIState>,
@@ -74,7 +75,7 @@ class DetailUIStateAdapter(
                     setVariable(
                         BR.adapterRecycler,
                         SeasonAdapterUIState(
-                            currentItem.data.take(3),
+                            currentItem.data.take(Constants.NUMBER_OF_SEASONS),
                             listener as SeasonInteractionListener
                         )
                     )

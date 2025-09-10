@@ -15,7 +15,7 @@ data class ProfileDto(
     @SerializedName("height")
     val height: Int? = null,
     @SerializedName("iso_639_1")
-    val iso6391: String? = null,
+    val language: String? = null,
     @SerializedName("file_path")
     val filePath: String? = null,
     @SerializedName("vote_average")

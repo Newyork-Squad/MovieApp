@@ -4,14 +4,19 @@ import android.annotation.SuppressLint
 import android.text.InputType
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.textfield.TextInputLayout
 import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.MediaType
@@ -137,10 +142,10 @@ fun <T> hideWhenSuccessSearch(view: View, text: String, error: List<T>?, loading
 
 // different
 
-@BindingAdapter(value = ["app:items"])
-fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
+@BindingAdapter(value = ["app:items", "app:resetScroll"], requireAll = false)
+fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?, resetScroll: Boolean? = false) {
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
-    view.scrollToPosition(0)
+    if (resetScroll == true) view.scrollToPosition(0)
 }
 
 
@@ -231,6 +236,7 @@ fun <T> setGenresChips(
     view: ChipGroup, chipList: List<GenreUIState>?, listener: T,
     selectedChip: Int?,
 ) {
+    view.removeAllViews()
     chipList?.let {
         it.forEach { genre -> view.addView(view.createChip(genre, listener)) }
     }
@@ -262,6 +268,18 @@ fun <T> showWhenTextNotEmpty(view: View, text: String) {
     view.isVisible = text.isNotEmpty()
 }
 
+@BindingAdapter("app:dynamicShapeAppearance")
+fun ShapeableImageView.setDynamicShapeAppearance(isCurrent: Boolean) {
+    val styleRes =
+        if (isCurrent) {
+            R.style.OnboardingImageCornerCurrent
+        } else {
+            R.style.OnboardingImageCorner
+        }
+    this.shapeAppearanceModel =
+        ShapeAppearanceModel.builder(context, styleRes, styleRes).build()
+}
+
 @BindingAdapter("app:hideDividerIfLast")
 fun hideDividerIfLast(view: View, isLast: Boolean) {
     view.isVisible = !isLast
@@ -274,6 +292,21 @@ fun setOneDecimalAfterPoint(textView: View, value: Float?) {
         (textView as TextView).text = String.format("%.1f", value)
     }
 }
+
+
+@BindingAdapter("isLanguageSelected")
+fun setLanguageSelected(view: View, isSelected: Boolean) {
+    if (view is CardView || view is LinearLayout) {
+        val color = if (isSelected) {
+            ContextCompat.getColor(view.context, R.color.brand_tertiary)
+        } else {
+            ContextCompat.getColor(view.context, R.color.background_bottomSheetCard)
+        }
+
+        view.setBackgroundColor(color)
+    }
+}
+
 
 @BindingAdapter(value = ["passwordVisible", "onPasswordToggle"], requireAll = false)
 fun setPasswordToggle(

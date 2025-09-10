@@ -5,6 +5,7 @@ import com.karrar.movieapp.data.local.AppConfiguration
 import com.karrar.movieapp.data.remote.response.account.AccountDto
 import com.karrar.movieapp.data.remote.response.login.ErrorResponse
 import com.karrar.movieapp.data.remote.service.MovieService
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
@@ -103,6 +104,20 @@ class AccountRepositoryImp @Inject constructor(
 
     private suspend fun saveSessionId(sessionId: String) {
         appConfiguration.saveSessionId(sessionId)
+    }
+
+    override suspend fun isDarkMode(): Flow<Boolean> =
+        appConfiguration.isDarkMode()
+
+    override suspend fun saveDarkMode(enabled: Boolean) {
+        appConfiguration.saveDarkMode(enabled)
+    }
+
+    override suspend fun getLanguage():  Flow<String> =
+        appConfiguration.getLanguage()
+
+    override suspend fun saveLanguage(language: String) {
+        appConfiguration.saveLanguage(language)
     }
 
 

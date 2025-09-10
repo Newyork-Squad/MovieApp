@@ -26,7 +26,7 @@ class CategoryViewModel @Inject constructor(
     private val genreUIStateMapper: GenreUIStateMapper,
     private val getGenresUseCase: GetGenreListUseCase,
     state: SavedStateHandle
-) : BaseViewModel(), MediaInteractionListener, CategoryInteractionListener {
+) : BaseViewModel(), MediaInteractionListener, GenresInteractionListener {
 
     val args = CategoryFragmentArgs.fromSavedStateHandle(state)
 
@@ -78,10 +78,10 @@ class CategoryViewModel @Inject constructor(
         _categoryUIEvent.update { Event(CategoryUIEvent.ClickMovieEvent(mediaId)) }
     }
 
-    override fun onClickCategory(categoryId: Int) {
+    override fun onGenreSelected(genreId: Int) {
         viewModelScope.launch {
-            _uiState.update { it.copy(selectedCategoryID = categoryId) }
-            _categoryUIEvent.emit(Event(CategoryUIEvent.SelectedCategory(categoryId)))
+            _uiState.update { it.copy(selectedCategoryID = genreId) }
+            _categoryUIEvent.emit(Event(CategoryUIEvent.SelectedCategory(genreId)))
         }
     }
 
@@ -104,6 +104,5 @@ class CategoryViewModel @Inject constructor(
             }
         }
     }
-
 }
 

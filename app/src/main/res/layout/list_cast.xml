@@ -34,7 +34,6 @@
             android:id="@+id/cast_adapter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:adapter="@{adapterRecycler}"
             android:clipToPadding="false"
             android:orientation="horizontal"

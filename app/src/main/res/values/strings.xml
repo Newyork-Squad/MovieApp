@@ -62,7 +62,7 @@
     <string name="save_button">back button</string>
     <string name="view_all_reviews">View all reviews</string>
     <string name="episodes">Episodes</string>
-    <string name="seasons">Seasons</string>
+    <string name="seasons">Latest Seasons</string>
     <string name="submit_toast">Submitted, Thank you for your feedback</string>
     <string name="total_episodes">%1$s Episodes</string>
     <string name="m">%1$s m</string>

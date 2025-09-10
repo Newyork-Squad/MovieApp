@@ -13,7 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:background="@color/background_color">
+        tools:background="@color/background_color"
+        android:layout_marginTop="24dp">
 
         <TextView
             android:id="@+id/text_seasons"
@@ -26,13 +27,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/show_more"
+            style="@style/Body_MD.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/show_more"
+            android:textColor="@color/brand_primary"
+            android:textFontWeight="500"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/text_seasons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_seasons" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_seasons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:orientation="vertical"
             android:adapter="@{adapterRecycler}"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="12dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

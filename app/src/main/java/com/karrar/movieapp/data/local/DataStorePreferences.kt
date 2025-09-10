@@ -34,16 +34,6 @@ class DataStorePreferences(context: Context) {
             preferences[stringPreferencesKey(key)] = value
         }
     }
-    suspend fun writeBoolean(key: String, value: Boolean) {
-        prefDataStore.edit { preferences ->
-            preferences[booleanPreferencesKey(key)] = value
-        }
-    }
-
-    suspend fun readBoolean(key: String): Boolean? {
-        return prefDataStore.data.firstOrNull()?.get(booleanPreferencesKey(key))
-    }
-
     fun readBooleanFlow(key: String): Flow<Boolean> {
         return prefDataStore.data.map { preferences ->
             preferences[booleanPreferencesKey(key)] ?: false

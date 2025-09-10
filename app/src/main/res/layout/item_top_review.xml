@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.karrar.movieapp.ui.movieDetails.movieDetailsUIState.ReviewUIState" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/card_background"
+            android:paddingHorizontal="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/author_avatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/background_card"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:mediaPoster="@{item.userImage}"
+                app:shapeAppearanceOverlay="@style/Circle"
+                tools:srcCompat="@drawable/image" />
+
+            <TextView
+                android:id="@+id/author_name"
+                style="@style/Body_MD.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{item.name}"
+                android:textColor="@color/shade_primary"
+                android:textFontWeight="500"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/author_avatar"
+                app:layout_constraintTop_toTopOf="@id/author_avatar" />
+
+
+            <TextView
+                android:id="@+id/author_user_name"
+                style="@style/Body_SM.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/user_name(item.userName)}"
+                android:textColor="@color/shade_secondary"
+                android:textFontWeight="400"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/author_avatar"
+                app:layout_constraintStart_toEndOf="@id/author_avatar"
+                app:layout_constraintTop_toBottomOf="@id/author_name" />
+
+
+            <io.github.glailton.expandabletextview.ExpandableTextView
+                android:id="@+id/author_review"
+                style="@style/Body_MD.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:maxLines="4"
+                android:text="@{item.content}"
+                android:textColor="@color/shade_secondary"
+                android:textFontWeight="500"
+                android:textSize="14sp"
+                app:animDuration="500"
+                app:collapsedLines="5"
+                app:ellipsizeTextColor="@color/brand_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/author_user_name"
+                app:readLessText=""
+                app:readMoreText="Read more" />
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginTop="12dp"
+                android:isIndicator="true"
+                android:progressDrawable="@drawable/rating_custom"
+                android:rating="@{item.rating}"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:stepSize="0.5"
+                android:transformPivotX="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/author_review" />
+
+            <TextView
+                android:id="@+id/date"
+                style="@style/Body_SM.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{item.createDate}"
+                android:textColor="@color/shade_secondary"
+                android:textFontWeight="400"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/rating_bar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

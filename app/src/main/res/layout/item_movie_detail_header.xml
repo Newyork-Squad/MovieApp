@@ -31,7 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/back_arrow_icon"
             app:mediaPoster="@{item.image}"
-            app:shapeAppearanceOverlay="@style/CorneredImage"
+            app:shapeAppearanceOverlay="@style/MovieAndSeriesCornerImage"
             tools:src="@drawable/image" />
 
 

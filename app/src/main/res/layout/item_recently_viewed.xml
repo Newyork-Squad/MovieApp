@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.karrar.movieapp.ui.profile.watchhistory.MediaHistoryUiState" />
+
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.profile.watchhistory.WatchHistoryInteractionListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_normal">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_movie"
+            android:layout_width="136dp"
+            android:layout_height="182dp"
+            android:onClick="@{() -> listener.onClickMovie(item)}"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mediaPoster="@{item.posterPath}"
+            app:shapeAppearanceOverlay="@style/CardCorners.Large"
+            tools:src="@drawable/test" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_title_movie"
+            style="@style/Body_MD.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@{item.movieTitle}"
+            android:textColor="@color/shade_secondary"
+            app:layout_constraintEnd_toEndOf="@+id/image_movie"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_movie"
+            tools:text="The Mandalorian" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_rate_movie"
+            style="@style/Label_MD.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:paddingEnd="@dimen/spacing_xSmall"
+            android:paddingStart="@dimen/spacing_small"
+            android:layout_margin="@dimen/spacing_small"
+            android:gravity="center"
+            android:drawableEnd="@drawable/ic_star"
+            android:drawablePadding="@dimen/spacing_too_small"
+            app:drawableTint="@color/primary_yellow"
+            android:background="@drawable/rounded_corners"
+            android:text="@{item.voteAverage}"
+            android:textColor="@color/shade_primary"
+            app:layout_constraintEnd_toEndOf="@+id/image_movie"
+            app:layout_constraintTop_toTopOf="@+id/image_movie"
+            tools:text="8.4" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

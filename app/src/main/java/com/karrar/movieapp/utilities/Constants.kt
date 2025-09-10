@@ -18,10 +18,13 @@ object Constants {
     const val PERSON = "person"
     const val ACTING = "Acting"
     const val NUM_HOME_REQUEST = 9
-    const val  SUCCESS_REQUEST = 1
+    const val SUCCESS_REQUEST = 1
     const val INTERNET_STATUS = 400
 
     const val PROFILE = 1
+    const val NUMBER_OF_SEASONS = 3
+    const val SEASON_YEAR_LENGTH = 4
+    const val RATE_DISPLAY_LENGTH = 3
 }
 
 object ErrorUI {

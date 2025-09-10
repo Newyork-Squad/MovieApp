@@ -2,6 +2,7 @@ package com.karrar.movieapp.data.remote.response.episode
 
 
 import com.google.gson.annotations.SerializedName
+import com.karrar.movieapp.data.remote.response.CrewDto
 
 data class EpisodeDto(
     @SerializedName("air_date")

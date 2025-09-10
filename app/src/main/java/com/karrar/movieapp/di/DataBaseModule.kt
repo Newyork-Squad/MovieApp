@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.google.gson.Gson
 import com.karrar.movieapp.data.local.DataStorePreferences
+import com.karrar.movieapp.data.local.SharedPreferences
 import com.karrar.movieapp.data.local.database.Converters
 import com.karrar.movieapp.data.local.database.MovieDataBase
 import com.karrar.movieapp.data.local.database.daos.ActorDao
@@ -58,4 +59,9 @@ object DataBaseModule {
     @Provides
     fun provideDataStorePreferences(@ApplicationContext context: Context) =
         DataStorePreferences(context)
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext context: Context) =
+        SharedPreferences(context)
 }

@@ -1,5 +1,4 @@
 package com.karrar.movieapp.utilities
-
 import android.annotation.SuppressLint
 import android.text.InputType
 import android.view.View
@@ -28,7 +27,6 @@ import com.karrar.movieapp.utilities.Constants.FIRST_CATEGORY_ID
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-
 
 @BindingAdapter("app:showWhenListNotEmpty")
 fun <T> showWhenListNotEmpty(view: View, list: List<T>) {
@@ -303,6 +301,21 @@ fun setOneDecimalAfterPoint(textView: View, value: Float?) {
     }
 }
 
+@BindingAdapter("app:cardVisibility")
+fun setCardVisibility(view: View, isVisible: Boolean) {
+    view.visibility = if (isVisible) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("app:deleteButtonVisibility")
+fun setDeleteButtonVisibility(view: View, isVisible: Boolean) {
+    view.visibility = if (isVisible) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("genresText")
+fun TextView.setGenres(genres: List<String>?) {
+    text = genres?.joinToString(", ") ?: ""
+}
+
 
 @BindingAdapter("isLanguageSelected")
 fun setLanguageSelected(view: View, isSelected: Boolean) {
@@ -339,20 +352,4 @@ fun setPasswordToggle(
     editText?.setSelection(editText.text?.length ?: 0)
 
     layout.setEndIconOnClickListener { onToggle?.invoke() }
-}
-
-
-@BindingAdapter("app:cardVisibility")
-fun setCardVisibility(view: View, isVisible: Boolean) {
-    view.visibility = if (isVisible) View.VISIBLE else View.GONE
-}
-
-@BindingAdapter("app:deleteButtonVisibility")
-fun setDeleteButtonVisibility(view: View, isVisible: Boolean) {
-    view.visibility = if (isVisible) View.VISIBLE else View.GONE
-}
-
-@BindingAdapter("genresText")
-fun TextView.setGenres(genres: List<String>?) {
-    text = genres?.joinToString(", ") ?: ""
 }

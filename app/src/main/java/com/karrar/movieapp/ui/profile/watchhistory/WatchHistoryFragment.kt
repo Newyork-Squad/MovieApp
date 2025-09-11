@@ -117,8 +117,9 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
 
                 if (clampedDx <= maxSwipe) {
                     drawBackgroundWithMargin(c, itemView, clampedDx, bgMargin)
-                    val iconHeightMultiplier = 3f
-                    deleteBounds = drawDeleteIcon(c, itemView, deleteIcon, clampedDx, bgMargin, iconHeightMultiplier)
+                    deleteBounds = drawDeleteIcon(
+                        c, itemView, deleteIcon, clampedDx, bgMargin,
+                    )
                     swipedPosition = pos
                 } else if (clampedDx == 0f) {
                     openItems.remove(pos)
@@ -207,7 +208,6 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
         deleteIcon: Drawable,
         dX: Float,
         margin: Int,
-        iconHeightMultiplier: Float
     ): Rect {
         DrawableCompat.setTint(
             deleteIcon,

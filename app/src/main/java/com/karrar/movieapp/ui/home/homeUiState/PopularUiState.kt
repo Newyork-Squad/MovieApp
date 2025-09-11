@@ -4,6 +4,6 @@ data class PopularUiState(
     val movieID: Int,
     val title: String,
     val imageUrl: String,
-    val movieRate:Double,
+    val movieRate: String,
     val genre: List<String>
 )

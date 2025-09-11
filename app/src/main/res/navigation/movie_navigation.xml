@@ -246,6 +246,15 @@
     </dialog>
 
     <dialog
+        android:id="@+id/rateDialog"
+        android:name="com.karrar.movieapp.ui.movieDetails.rateDialog.RateDialog"
+        tools:layout="@layout/dialog_rate">
+        <argument
+            android:name="media_id"
+            app:argType="integer" />
+    </dialog>
+
+    <dialog
         android:id="@+id/loginDialog"
         android:name="com.karrar.movieapp.ui.movieDetails.loginDialog.LoginDialog"
         tools:layout="@layout/dialog_login">

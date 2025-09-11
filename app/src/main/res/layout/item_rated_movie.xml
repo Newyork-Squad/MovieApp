@@ -72,7 +72,7 @@
                     android:id="@+id/image_movie"
                     android:layout_width="64dp"
                     android:layout_height="88dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:mediaPoster="@{item.posterPath}"
@@ -81,35 +81,36 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/text_title_movie"
-                    style="@style/Regular.Small"
-                    android:layout_width="0dp"
+                    style="@style/Body_MD.Medium"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_medium"
                     android:ellipsize="end"
                     android:lines="1"
+                    android:textColor="@color/shade_primary"
                     android:text="@{item.title}"
                     app:layout_constraintBottom_toTopOf="@+id/text_genre_movie"
-                    app:layout_constraintEnd_toStartOf="@+id/text_rate_movie"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@id/image_movie"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="spread"
                     tools:text="The Mandalorian" />
 
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/text_genre_movie"
-                    style="@style/Regular.Small"
+                    style="@style/Body_SM.Regular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_medium"
                     android:layout_marginBottom="2dp"
                     android:ellipsize="end"
+                    android:textColor="@color/shade_secondary"
                     app:genresText="@{item.genres}"
                     app:layout_constraintBottom_toTopOf="@+id/text_year"
-                    app:layout_constraintEnd_toStartOf="@+id/text_rate_movie"
                     app:layout_constraintStart_toEndOf="@id/image_movie"
                     app:layout_constraintTop_toBottomOf="@+id/text_title_movie"
-                    tools:text="action action action actionaction action action actio" />
+                    tools:text="action action action actionaction actionactionaction action actio" />
+
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/text_rate_movie"

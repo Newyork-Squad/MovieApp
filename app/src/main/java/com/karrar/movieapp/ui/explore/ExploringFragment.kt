@@ -80,7 +80,7 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
         binding.recyclerMedia.adapter = allMediaAdapter.withLoadStateFooter(footerAdapter)
 
         val mManager = binding.recyclerMedia.layoutManager as GridLayoutManager
-        mManager.setSpanSize(footerAdapter, allMediaAdapter, mManager.spanCount)
+        mManager.setSpanSize(footerAdapter, allMediaAdapter, 1)
 
         collect(
             flow = allMediaAdapter.loadStateFlow,

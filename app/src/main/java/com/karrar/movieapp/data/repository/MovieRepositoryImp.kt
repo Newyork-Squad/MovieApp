@@ -1,5 +1,7 @@
 package com.karrar.movieapp.data.repository
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.paging.Pager
 import com.karrar.movieapp.data.Constants
 import com.karrar.movieapp.data.local.AppConfiguration
@@ -38,7 +40,12 @@ import com.karrar.movieapp.data.remote.service.MovieService
 import com.karrar.movieapp.data.repository.mediaDataSource.ActorMovieDataSource
 import com.karrar.movieapp.data.repository.mediaDataSource.movie.MovieDataSourceContainer
 import com.karrar.movieapp.data.repository.serchDataSource.SearchDataSourceContainer
+import com.karrar.movieapp.domain.enums.Era
+import com.karrar.movieapp.domain.enums.MatchingGenre
+import com.karrar.movieapp.domain.enums.Mood
+import com.karrar.movieapp.domain.enums.Runtime
 import com.karrar.movieapp.domain.mappers.MediaDataSourceContainer
+import com.karrar.movieapp.domain.mappers.MovieQueryMapper
 import kotlinx.coroutines.flow.Flow
 import java.util.Date
 import javax.inject.Inject
@@ -53,7 +60,8 @@ class MovieRepositoryImp @Inject constructor(
     private val mediaDataSourceContainer: MediaDataSourceContainer,
     private val searchDataSourceContainer: SearchDataSourceContainer,
     private val movieDataSource: MovieDataSourceContainer,
-    private val actorMovieDataSource: ActorMovieDataSource
+    private val actorMovieDataSource: ActorMovieDataSource,
+    private val queryMapper: MovieQueryMapper
 ) : BaseRepository(), MovieRepository {
 
     override suspend fun getMovieGenreList(): List<GenreDto>? {
@@ -432,6 +440,29 @@ class MovieRepositoryImp @Inject constructor(
 
     override suspend fun getMovieTrailer(movieId: Int): TrailerDto? {
         return movieService.getMovieTrailer(movieId).body()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun getMatchingMovies(
+        mood: Mood,
+        genres: List<MatchingGenre>,
+        runtime: Runtime,
+        era: Era
+    ): List<MovieDto>? {
+        val keyword = queryMapper.mapMood(mood)
+        val genreIds = queryMapper.mapGenres(genres)
+        val (minRuntime, maxRuntime) = queryMapper.mapRuntime(runtime)
+        val (fromDate, toDate) = queryMapper.mapEra(era)
+
+        val response = movieService.getMatchingMovies(
+            moodId = keyword,
+            genreIds = genreIds,
+            minRuntime = minRuntime,
+            maxRuntime = maxRuntime,
+            earliestDate = fromDate,
+            latestDate = toDate
+        )
+        return response.body()?.items
     }
 
 }

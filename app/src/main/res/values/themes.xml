@@ -25,6 +25,9 @@
         <item name="iconTint">@color/brand_primary</item>
     </style>
 
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
 
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
@@ -96,9 +99,9 @@
     </style>
 
     <style name="CardCorners.Small">
-        <item name="cornerSizeTopLeft">@dimen/radius_small</item>
-        <item name="cornerSizeTopRight">@dimen/radius_small</item>
-        <item name="cornerSizeBottomLeft">@dimen/radius_small</item>
+        <item name="cornerSizeTopLeft">@dimen/radius_lg</item>
+        <item name="cornerSizeTopRight">@dimen/radius_lg</item>
+        <item name="cornerSizeBottomLeft">@dimen/radius_lg</item>
     </style>
 
     <style name="CardCorners.Medium">

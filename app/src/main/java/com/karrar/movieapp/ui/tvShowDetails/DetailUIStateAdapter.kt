@@ -8,6 +8,8 @@ import com.karrar.movieapp.R
 import com.karrar.movieapp.ui.adapters.ActorAdapter
 import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.CrewAdapter
+import com.karrar.movieapp.ui.adapters.SimilarTvShowsAdapter
+import com.karrar.movieapp.ui.adapters.SimilarTvShowsInteractionListener
 import com.karrar.movieapp.ui.base.BaseAdapter
 import com.karrar.movieapp.ui.base.BaseInteractionListener
 import com.karrar.movieapp.ui.movieDetails.DetailInteractionListener
@@ -96,6 +98,17 @@ class DetailUIStateAdapter(
             }
 
             is DetailItemUIState.ReviewText -> {}
+            is DetailItemUIState.SimilarTvShows -> {
+                holder.binding.run {
+                    setVariable(
+                        BR.adapterRecycler,
+                        SimilarTvShowsAdapter(
+                            currentItem.data,
+                            listener as SimilarTvShowsInteractionListener,
+                        )
+                    )
+                }
+            }
         }
     }
 
@@ -117,6 +130,7 @@ class DetailUIStateAdapter(
             is DetailItemUIState.Rating -> R.layout.item_tvshow_rating
             is DetailItemUIState.Comment -> R.layout.item_tvshow_review
             is DetailItemUIState.ReviewText -> R.layout.item_review_text
+            is DetailItemUIState.SimilarTvShows -> R.layout.list_similar_tv_shows
         }
     }
 }

@@ -48,7 +48,6 @@
             android:clickable="true"
             android:focusable="true"
             android:onClick="@{() -> listener.onClickSeeAllCollections()}"
-            android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
             android:text="@string/show_more"
             android:textColor="@color/brand_primary"

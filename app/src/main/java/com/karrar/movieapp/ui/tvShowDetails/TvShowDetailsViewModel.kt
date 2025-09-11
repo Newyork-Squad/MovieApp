@@ -206,10 +206,6 @@ class TvShowDetailsViewModel @Inject constructor(
         _stateUI.value.seriesReviewsResult
             .forEach { updateDetailItems(DetailItemUIState.Comment(it)) }
         updateDetailItems(DetailItemUIState.ReviewText)
-
-        if (showSeeAll) {
-            updateDetailItems(DetailItemUIState.SeeAllReviewsButton)
-        }
     }
 
     private fun updateDetailItems(item: DetailItemUIState) {

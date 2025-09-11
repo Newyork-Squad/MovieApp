@@ -97,7 +97,6 @@
                     android:textColor="@color/button_onSecondary"
                     app:backgroundTint="@color/button_secondary"
                     android:layout_weight="1"
-                    android:onClick="@{() -> viewModel.onCloseDialog()}"
                     android:text="@string/cancel"
                     android:textAllCaps="false"/>
 
@@ -112,7 +111,6 @@
                     android:textColor="@color/button_onPrimary"
                     app:backgroundTint="@color/primary_red"
                     android:backgroundTint="@color/brand_color"
-                    android:onClick="@{() -> viewModel.onLogout()}"
                     android:text="@string/logout"
                     android:textAllCaps="false"/>
 

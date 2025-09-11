@@ -20,7 +20,8 @@ class SeasonMapper @Inject constructor(
             input.overview ?: "",
             input.episodes?.map {
                 episodeMapper.map(it)
-            } ?: emptyList()
+            } ?: emptyList(),
+            seasonRate = input.voteAverage ?: 0.0
         )
     }
 }

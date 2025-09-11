@@ -1,16 +1,24 @@
 package com.karrar.movieapp.utilities
 
 import android.annotation.SuppressLint
+import android.text.InputType
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.shape.ShapeAppearanceModel
+import com.google.android.material.textfield.TextInputLayout
 import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.ui.base.BaseAdapter
@@ -136,10 +144,10 @@ fun <T> hideWhenSuccessSearch(view: View, text: String, error: List<T>?, loading
 
 // different
 
-@BindingAdapter(value = ["app:items"])
-fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
+@BindingAdapter(value = ["app:items", "app:resetScroll"], requireAll = false)
+fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?, resetScroll: Boolean? = false) {
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
-    view.scrollToPosition(0)
+    if (resetScroll == true) view.scrollToPosition(0)
 }
 
 
@@ -212,6 +220,7 @@ fun convertToHoursPattern(view: TextView, duration: Int) {
     }
 }
 
+@SuppressLint("StringFormatMatches")
 @BindingAdapter(value = ["app:movieHours", "app:movieMinutes"])
 fun setDuration(view: TextView, hours: Int?, minutes: Int?) {
     if (hours == 0) {
@@ -227,8 +236,9 @@ fun setDuration(view: TextView, hours: Int?, minutes: Int?) {
 @BindingAdapter("app:setGenres", "app:listener", "app:selectedChip")
 fun <T> setGenresChips(
     view: ChipGroup, chipList: List<GenreUIState>?, listener: T,
-    selectedChip: Int?
+    selectedChip: Int?,
 ) {
+    view.removeAllViews()
     chipList?.let {
         it.forEach { genre -> view.addView(view.createChip(genre, listener)) }
     }
@@ -260,6 +270,26 @@ fun <T> showWhenTextNotEmpty(view: View, text: String) {
     view.isVisible = text.isNotEmpty()
 }
 
+@BindingAdapter("icon")
+fun setButtonIcon(button: MaterialButton, icon: Int) {
+    if (icon != 0) {
+        button.icon = ContextCompat.getDrawable(button.context, icon)
+    } else {
+        button.icon = null
+    }
+}
+@BindingAdapter("app:dynamicShapeAppearance")
+fun ShapeableImageView.setDynamicShapeAppearance(isCurrent: Boolean) {
+    val styleRes =
+        if (isCurrent) {
+            R.style.OnboardingImageCornerCurrent
+        } else {
+            R.style.OnboardingImageCorner
+        }
+    this.shapeAppearanceModel =
+        ShapeAppearanceModel.builder(context, styleRes, styleRes).build()
+}
+
 @BindingAdapter("app:hideDividerIfLast")
 fun hideDividerIfLast(view: View, isLast: Boolean) {
     view.isVisible = !isLast
@@ -272,6 +302,45 @@ fun setOneDecimalAfterPoint(textView: View, value: Float?) {
         (textView as TextView).text = String.format("%.1f", value)
     }
 }
+
+
+@BindingAdapter("isLanguageSelected")
+fun setLanguageSelected(view: View, isSelected: Boolean) {
+    if (view is CardView || view is LinearLayout) {
+        val color = if (isSelected) {
+            ContextCompat.getColor(view.context, R.color.brand_tertiary)
+        } else {
+            ContextCompat.getColor(view.context, R.color.background_bottomSheetCard)
+        }
+
+        view.setBackgroundColor(color)
+    }
+}
+
+
+@BindingAdapter(value = ["passwordVisible", "onPasswordToggle"], requireAll = false)
+fun setPasswordToggle(
+    layout: TextInputLayout,
+    isVisible: Boolean,
+    onToggle: (() -> Unit)?,
+) {
+    val editText = layout.editText
+
+    if (isVisible) {
+        editText?.inputType =
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+        layout.endIconDrawable = layout.context.getDrawable(R.drawable.outline_eye_opened)
+    } else {
+        editText?.inputType =
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        layout.endIconDrawable = layout.context.getDrawable(R.drawable.outline_eye_closed)
+    }
+
+    editText?.setSelection(editText.text?.length ?: 0)
+
+    layout.setEndIconOnClickListener { onToggle?.invoke() }
+}
+
 
 @BindingAdapter("app:cardVisibility")
 fun setCardVisibility(view: View, isVisible: Boolean) {

@@ -19,7 +19,7 @@ import com.karrar.movieapp.data.remote.response.trailerVideosDto.ResultDto
 import com.karrar.movieapp.databinding.ChipItemCategoryBinding
 import com.karrar.movieapp.ui.adapters.LoadUIStateAdapter
 import com.karrar.movieapp.ui.base.BasePagingAdapter
-import com.karrar.movieapp.ui.category.CategoryInteractionListener
+import com.karrar.movieapp.ui.category.GenresInteractionListener
 import com.karrar.movieapp.ui.category.uiState.GenreUIState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -33,7 +33,7 @@ fun <T> ChipGroup.createChip(item: GenreUIState, listener: T): View {
         LayoutInflater.from(context), R.layout.chip_item_category, this, false
     )
     chipBinding.item = item
-    chipBinding.listener = listener as CategoryInteractionListener
+    chipBinding.listener = listener as GenresInteractionListener
     return chipBinding.root
 }
 
@@ -102,6 +102,12 @@ fun Date.convertToDayMonthYearFormat(): String {
     return formatter.format(this)
 }
 
+fun String.convertToDayMonthYearFormat(inputFormat: String, outputFormat: String): String? {
+    val date = SimpleDateFormat(inputFormat, Locale.getDefault())
+        .parse(this)?: return null
+    val formatter = SimpleDateFormat(outputFormat, Locale.getDefault())
+    return formatter.format(date)
+}
 fun String.convertToMonthDayYearFormat(): String {
     val inputFormatter = SimpleDateFormat("yyyy-M-d", Locale.getDefault())
     val outputFormatter = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())

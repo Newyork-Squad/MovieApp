@@ -5,6 +5,7 @@ import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.domain.mappers.WatchHistoryMapper
 import com.karrar.movieapp.domain.usecase.home.HomeUseCasesContainer
+import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
 import com.karrar.movieapp.domain.usecases.mylist.GetMyListUseCase
 import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.MediaInteractionListener
@@ -38,6 +39,7 @@ class HomeViewModel @Inject constructor(
     private val watchHistoryMapper: WatchHistoryMapper,
     private val getMyListUseCase: GetMyListUseCase,
     private val createdListUIMapper: CreatedListUIMapper,
+    private val checkIfLoggedInUseCase: CheckIfLoggedInUseCase,
 ) : BaseViewModel(), HomeInteractionListener, ActorsInteractionListener, MovieInteractionListener,
     MediaInteractionListener, TVShowInteractionListener, WatchHistoryInteractionListener,
     CreatedListInteractionListener {
@@ -312,13 +314,20 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getCollections() {
+        if (!checkIfLoggedInUseCase()) {
+            _homeUiState.update {
+                it.copy(isLoading = false)
+                return
+            }
+        }
+
         viewModelScope.launch {
             try {
                 val items = getMyListUseCase().map { createdListUIMapper.map(it) }
                 if (items.isNotEmpty()) {
                     _homeUiState.update {
                         it.copy(
-                            adventureMovies = HomeItem.Collections(items),
+                            collections = HomeItem.Collections(items),
                             isLoading = false
                         )
                     }

@@ -1,14 +1,15 @@
 package com.karrar.movieapp.ui.reviews
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.usecases.GetReviewsUseCase
-import com.karrar.movieapp.ui.base.BaseInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.ui.movieDetails.mapper.ReviewUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.movieDetailsUIState.ErrorUIState
 import com.karrar.movieapp.ui.movieDetails.movieDetailsUIState.MovieUIState
 import com.karrar.movieapp.utilities.Constants
+import com.karrar.movieapp.utilities.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,12 +24,15 @@ class ReviewViewModel @Inject constructor(
     private val getReviews: GetReviewsUseCase,
     private val reviewUIStateMapper: ReviewUIStateMapper,
     state: SavedStateHandle
-) : BaseViewModel(), BaseInteractionListener {
+) : BaseViewModel(), ReviewInteractionsListener {
 
     private val args = ReviewFragmentArgs.fromSavedStateHandle(state)
 
     private val _uiState = MutableStateFlow(MovieUIState())
     val uiState: StateFlow<MovieUIState> = _uiState.asStateFlow()
+
+    private val _reviewUIEvent = MutableStateFlow<Event<ReviewUIEvent?>>(Event(null))
+    val reviewUIEvent = this._reviewUIEvent.asStateFlow()
 
     init {
         getData()
@@ -60,5 +64,10 @@ class ReviewViewModel @Inject constructor(
                 message = e.message.toString()
             )
         )
+    }
+
+    override fun onClickBack() {
+        Log.d("ReviewViewModel", "Back button clicked")
+        this._reviewUIEvent.update { Event(ReviewUIEvent.ClickBackEvent) }
     }
 }

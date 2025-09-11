@@ -54,28 +54,36 @@ class TvShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
             TvShowDetailsUIEvent.ClickBackEvent -> {
                 findNavController().navigateUp()
             }
+
             is TvShowDetailsUIEvent.ClickCastEvent -> {
                 action =
                     TvShowDetailsFragmentDirections.actionTvShowDetailFragmentToActorDetailsFragment(
                         event.castID
                     )
             }
+
             is TvShowDetailsUIEvent.ClickSeasonEvent -> {
                 action =
-                    TvShowDetailsFragmentDirections.actionTvShowDetailsFragmentToEpisodesFragment(args.tvShowId, event.seasonId)
+                    TvShowDetailsFragmentDirections.actionTvShowDetailsFragmentToEpisodesFragment(
+                        args.tvShowId,
+                        event.seasonId
+                    )
             }
+
             TvShowDetailsUIEvent.ClickPlayTrailerEvent -> {
                 action =
                     TvShowDetailsFragmentDirections.actionTvShowDetailFragmentToYoutubePlayerActivity(
                         args.tvShowId, MediaType.TV_SHOW
                     )
             }
+
             TvShowDetailsUIEvent.ClickReviewsEvent -> {
                 action =
                     TvShowDetailsFragmentDirections.actionTvShowDetailsFragmentToReviewFragment(
                         args.tvShowId, MediaType.TV_SHOW
                     )
             }
+
             TvShowDetailsUIEvent.MessageAppear -> {
                 Toast.makeText(context, getString(R.string.submit_toast), Toast.LENGTH_SHORT).show()
             }

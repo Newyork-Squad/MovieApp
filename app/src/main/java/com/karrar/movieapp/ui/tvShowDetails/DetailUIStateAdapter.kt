@@ -95,7 +95,11 @@ class DetailUIStateAdapter(
                 }
             }
 
-            is DetailItemUIState.ReviewText -> {}
+            is DetailItemUIState.ReviewText -> {
+                holder.binding.run {
+                    setVariable(BR.listener, listener)
+                }
+            }
         }
     }
 

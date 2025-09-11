@@ -239,5 +239,4 @@ class TvShowDetailsViewModel @Inject constructor(
     override fun onClickSeason(seasonNumber: Int) {
         _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickSeasonEvent(seasonNumber)) }
     }
-
 }

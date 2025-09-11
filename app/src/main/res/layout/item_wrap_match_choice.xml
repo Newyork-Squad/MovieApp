@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+
+        <variable
+            name="choice"
+            type="com.karrar.movieapp.ui.match.questions.Choice" />
+
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.match.questions.adapter.ChoicesAdapter.ChoicesInteractionListener" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/choice"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:onClick="@{() -> listener.onChoiceSelected(choice)}"
+        app:cardBackgroundColor="@{isSelected ? @color/brand_tertiary : @color/background_card}"
+        app:cardCornerRadius="@dimen/radius_lg"
+        app:cardElevation="0dp"
+        app:contentPaddingRight="20dp"
+        app:contentPaddingLeft="20dp"
+        app:strokeColor="@{isSelected ? @color/brand_secondary : @android:color/transparent}"
+        app:strokeWidth="@{isSelected ? 1 : 0}">
+
+        <TextView
+            android:id="@+id/choice_text"
+            style="@style/Body_MD.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{choice.name}"
+            android:textColor="@{isSelected ? @color/brand_primary : @color/shade_primary}"
+            tools:text="Short" />
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

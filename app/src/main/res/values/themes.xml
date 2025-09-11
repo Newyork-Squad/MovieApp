@@ -303,4 +303,13 @@
     <style name="MediaCardCorners">
         <item name="cornerSize">@dimen/radius_lg</item>
     </style>
+
+    <style name="CorneredImage">
+        <item name="cornerSize">@dimen/radius_md</item>
+    </style>
+
+    <style name="CorneredImage.Medium">
+        <item name="cornerSize">@dimen/radius_md</item>
+    </style>
+
 </resources>

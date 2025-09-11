@@ -286,3 +286,12 @@ fun setOneDecimalAfterPoint(textView: View, value: Float?) {
         (textView as TextView).text = String.format("%.1f", value)
     }
 }
+
+@BindingAdapter("app:imageRes")
+fun setImageRes(view: ShapeableImageView, resId: Int?) {
+    if (resId != null) {
+        view.setImageResource(resId)
+    } else {
+        view.setImageDrawable(null)
+    }
+}

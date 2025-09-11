@@ -340,5 +340,10 @@
             app:launchSingleTop="true"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/matchFragment"
+        android:name="com.karrar.movieapp.ui.match.questions.MatchFragment"
+        android:label="fragment_match"
+        tools:layout="@layout/fragment_match" />
 
 </navigation>

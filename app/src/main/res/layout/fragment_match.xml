@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isLoading"
+            type="Boolean" />
+
+        <variable
+            name="vm"
+            type="com.karrar.movieapp.ui.match.questions.MatchViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_screen"
+        android:padding="16dp"
+        tools:context=".ui.match.questions.MatchFragment">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:indicatorColor="@color/brand_primary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:trackColor="@color/background_card"
+            app:trackCornerRadius="@dimen/radius_full"
+            app:trackThickness="12dp"
+            tools:progress="50" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="32dp"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/button_continue"
+            app:layout_constraintTop_toBottomOf="@id/progress_indicator">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/match_questions_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_continue"
+            style="@style/Body_MD.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/button_primary"
+            android:paddingVertical="14dp"
+            android:stateListAnimator="@null"
+            android:onClick="@{() -> vm.onNextClicked()}"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            android:textColor="@color/button_onPrimary"
+            android:visibility="@{isLoading ? View.INVISIBLE : View.VISIBLE}"
+            app:cornerRadius="@dimen/radius_lg"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="6dp"
+            android:backgroundTint="@color/button_primary"
+            app:cardCornerRadius="@dimen/radius_lg"
+            app:cardElevation="0dp"
+            app:isVisible="@{isLoading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/button_continue">
+
+            <ProgressBar
+                android:id="@+id/loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateBehavior="repeat"
+                android:indeterminateDrawable="@drawable/circular_progress"
+                android:indeterminateDuration="1000"
+                android:rotationX="180"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

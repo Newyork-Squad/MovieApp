@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -59,12 +58,12 @@ class MainActivity : AppCompatActivity() {
 
         setBottomNavigationVisibility(navController)
         setNavigationController(navController)
-
-        lifecycleScope.launchWhenResumed {
-            viewModel.mainUiState.collect {
-                if (!it.isFirstLaunch) navController.navigate(R.id.onboardingFragment)
-            }
-        }
+        navController.navigate(R.id.matchFragment)
+//        lifecycleScope.launchWhenResumed {
+//            viewModel.mainUiState.collect {
+//                if (!it.isFirstLaunch) navController.navigate(R.id.onboardingFragment)
+//            }
+//        }
     }
 
     private fun setBottomNavigationVisibility(navController: NavController) {

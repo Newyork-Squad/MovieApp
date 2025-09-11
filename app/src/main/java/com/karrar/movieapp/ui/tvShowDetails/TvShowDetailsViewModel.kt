@@ -228,6 +228,14 @@ class TvShowDetailsViewModel @Inject constructor(
         _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickPlayTrailerEvent) }
     }
 
+    override fun onClickRate() {
+        _tvShowDetailsUIEvent.update {
+            Event(
+                TvShowDetailsUIEvent.ShowRateDialogEvent
+            )
+        }
+    }
+
     override fun onclickBack() {
         this._tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickBackEvent) }
     }

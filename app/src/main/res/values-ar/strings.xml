@@ -41,6 +41,7 @@
     <string name="title_top_rated_tv_show">أفضل المسلسلات</string>
     <string name="text_movies">%s أفلام</string>
     <string name="movies_label">أفلام</string>
+    <string name="series_label">مسلسل</string>
     <string name="tv_shows_label">مسلسلات</string>
     <string name="history_label">السجل</string>
     <string name="explore_label">استكشف</string>

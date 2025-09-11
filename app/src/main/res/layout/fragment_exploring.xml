@@ -26,10 +26,10 @@
             android:backgroundTint="@color/secondary_red"
             app:cardCornerRadius="@dimen/radius_full"
             app:cardElevation="@null"
-            app:showWhenListNotEmpty="@{viewModel.uiState.error}"
             app:layout_constraintBottom_toTopOf="@+id/title_lost_connection"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:showWhenListNotEmpty="@{viewModel.uiState.error}">
 
             <ImageView
                 android:layout_width="28dp"
@@ -47,11 +47,11 @@
             android:layout_height="wrap_content"
             android:text="@string/oops_no_internet"
             android:textColor="@color/shade_primary"
-            app:showWhenListNotEmpty="@{viewModel.uiState.error}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:showWhenListNotEmpty="@{viewModel.uiState.error}" />
 
         <TextView
             android:id="@+id/description_lost_connection"
@@ -62,10 +62,10 @@
             android:gravity="center"
             android:text="@string/description"
             android:textColor="@color/shade_secondary"
-            app:showWhenListNotEmpty="@{viewModel.uiState.error}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_lost_connection" />
+            app:layout_constraintTop_toBottomOf="@id/title_lost_connection"
+            app:showWhenListNotEmpty="@{viewModel.uiState.error}" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_retry"
@@ -81,11 +81,11 @@
             android:text="@string/try_again"
             android:textAllCaps="false"
             android:textColor="@color/button_onPrimary"
-            app:showWhenListNotEmpty="@{viewModel.uiState.error}"
             app:cornerRadius="@dimen/radius_md"
             app:layout_constraintEnd_toEndOf="@id/description_lost_connection"
             app:layout_constraintStart_toStartOf="@id/description_lost_connection"
-            app:layout_constraintTop_toBottomOf="@+id/description_lost_connection" />
+            app:layout_constraintTop_toBottomOf="@+id/description_lost_connection"
+            app:showWhenListNotEmpty="@{viewModel.uiState.error}" />
 
 
         <!--        layout-->
@@ -104,21 +104,21 @@
 
         <EditText
             android:id="@+id/input_search"
-            style="@style/Regular.Medium"
+            style="@style/Body_MD.Regular"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginEnd="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginEnd="@dimen/spacing_medium"
             android:background="@drawable/edit_text_background"
             android:drawableStart="@drawable/ic_search"
+            android:drawableEnd="@drawable/ic_microphone"
             android:drawablePadding="@dimen/spacing_small"
-           android:drawableEnd="@drawable/ic_microphone"
             android:focusableInTouchMode="false"
             android:hint="@string/search_hint"
             android:onClick="@{() -> viewModel.onClickSearch()}"
-            android:paddingStart="@dimen/spacing_small"
-            android:paddingEnd="@dimen/spacing_small"
+            android:paddingStart="@dimen/spacing_medium"
+            android:paddingEnd="@dimen/spacing_normal"
             android:textColorHint="@color/shade_ternary_color"
             android:transitionName="search_box"
             app:layout_constraintEnd_toEndOf="parent"
@@ -129,30 +129,29 @@
             android:id="@+id/tab_explore"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:tabTextAppearance="@style/MyTabTextAppearance"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_normal"
             android:layout_marginEnd="@dimen/spacing_medium"
             android:backgroundTint="@color/background_screen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_search"
             app:tabIndicatorColor="@color/brand_primary"
             app:tabSelectedTextColor="@color/brand_primary"
-            app:tabTextColor="@color/shade_tertiary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_search">
+            app:tabTextAppearance="@style/Body_MD.Medium.MyTabTextAppearance"
+            app:tabTextColor="@color/shade_tertiary">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_movies"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/movies_label"
-            />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_movies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/movies_label" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tv_shows_label" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_series"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/series_label" />
         </com.google.android.material.tabs.TabLayout>
 
 
@@ -160,17 +159,19 @@
             android:id="@+id/rv_genres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_normal"
             android:layout_marginEnd="@dimen/spacing_medium"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_genre_chip"
+            android:orientation="horizontal"
             app:items="@{viewModel.uiState.genre}"
-            app:resetScroll="@{false}"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tab_explore"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_explore"
+            app:resetScroll="@{false}"
+            tools:listitem="@layout/item_genre_chip" />
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_media"
@@ -179,19 +180,24 @@
             android:layout_marginHorizontal="@dimen/spacing_small"
             android:layout_marginTop="@dimen/spacing_small"
             android:clipToPadding="false"
-            android:elevation="@dimen/spacing_too_small"
             app:doneLoading="@{viewModel.uiState.loading}"
             app:errorNotEmpty="@{viewModel.uiState.error}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_genres"
-            app:layout_constraintVertical_bias="0.0"
-            app:spanCount="2"
-            tools:listitem="@layout/item_category" />
-
+            tools:listitem="@layout/item_category_grid" />
+        <include
+            android:id="@+id/view_toggle"
+            layout="@layout/media_toggle_view"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:elevation="@dimen/spacing_xSmall"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
         <ProgressBar
             android:id="@+id/animation_loading"
             android:layout_width="wrap_content"

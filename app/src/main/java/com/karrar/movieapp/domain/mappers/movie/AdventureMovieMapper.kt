@@ -16,6 +16,7 @@ class AdventureMovieMapper @Inject constructor() : Mapper<AdventureMovieEntity, 
             mediaRate = 0f,
             mediaDate = "",
             mediaType = MediaType.MOVIE.value,
+            genresIds = emptyList(),
         )
     }
 }

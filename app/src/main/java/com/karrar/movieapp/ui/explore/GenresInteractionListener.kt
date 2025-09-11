@@ -1,4 +1,4 @@
-package com.karrar.movieapp.ui.category
+package com.karrar.movieapp.ui.explore
 
 import com.karrar.movieapp.ui.base.BaseInteractionListener
 

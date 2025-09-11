@@ -11,12 +11,13 @@ import javax.inject.Inject
 class MovieMapper @Inject constructor() : Mapper<MovieDto, Media> {
     override fun map(input: MovieDto): Media {
         return Media(
-            input.id ?: 0,
-            BuildConfig.IMAGE_BASE_PATH + input.posterPath,
-            MediaType.MOVIE.value,
-            input.originalTitle ?: "",
-            input.releaseDate?.substringBefore('-') ?: "",
-            input.voteAverage?.toFloat() ?: 0f
+            mediaID = input.id ?: 0,
+            mediaImage = BuildConfig.IMAGE_BASE_PATH + input.posterPath,
+            mediaType = MediaType.MOVIE.value,
+            mediaName = input.originalTitle ?: "",
+            mediaDate = input.releaseDate ?: "",
+            mediaRate = input.voteAverage?.toFloat() ?: 0f,
+            genresIds = input.genreIds ?: emptyList(),
         )
     }
 }

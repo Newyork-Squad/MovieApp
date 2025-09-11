@@ -42,7 +42,7 @@
             style="@style/Body_MD.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_medium"
             android:onClick="@{() -> listener.onClickSeeAllRecentlyViewed()}"
             android:text="@string/show_more"
             android:textColor="@color/brand_primary"

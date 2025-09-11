@@ -4,5 +4,6 @@ import com.karrar.movieapp.ui.base.BaseInteractionListener
 interface RateDialogInteractionListener : BaseInteractionListener {
     fun onStarClick(newRate : Float)
     fun onSubmitClick()
+    fun onDeleteClick()
     fun onCancelClick()
 }

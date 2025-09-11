@@ -252,6 +252,9 @@
         <argument
             android:name="media_id"
             app:argType="integer" />
+        <argument
+            android:name="media_type"
+            app:argType="string" />
     </dialog>
 
     <dialog

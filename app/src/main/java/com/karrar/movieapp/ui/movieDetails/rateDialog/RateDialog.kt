@@ -24,6 +24,22 @@ class RateDialog : BaseDialogFragment<DialogRateBinding>() {
             it.getContentIfNotHandled()?.let { onEvent(it) }
         }
 
+        binding.ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
+            viewModel.onStarClick(rating)
+        }
+
+        binding.btnRate.setOnClickListener {
+            viewModel.onSubmitClick()
+        }
+
+        binding.btnRemoveRate.setOnClickListener {
+            viewModel.onDeleteClick()
+        }
+
+        binding.btnClose.setOnClickListener {
+            viewModel.onCancelClick()
+        }
+
     }
 
     private fun onEvent(event: RateDialogUIEvent) {

@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="rate"
+            type="Float" />
+
+        <variable
             name="listener"
             type="com.karrar.movieapp.ui.movieDetails.rateDialog.RateDialogViewModel" />
 
@@ -49,6 +53,7 @@
                 app:layout_constraintTop_toBottomOf="@id/view" />
             
             <ImageView
+                android:id="@+id/btn_close"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/outline_close"
@@ -75,14 +80,40 @@
 
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    >
+                </LinearLayout>
+
+
+                <RatingBar
+                    android:id="@+id/rating_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:stepSize="0.5"
+                    android:layout_gravity="center"
+                    android:rating="@{rate}"
+                    tools:rating="3.5"
+                    android:isIndicator="false"
+                    android:progressDrawable="@drawable/rating_bar"
+                    android:backgroundTint="@color/shade_secondary"
+                    app:layout_constraintTop_toBottomOf="@id/text_confirmation"
+                    tools:ignore="TouchTargetSizeCheck"
+                    />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_login"
+                    android:id="@+id/btn_rate"
                     android:background="@drawable/btn_rectangle"
                     android:layout_width="match_parent"
                     style="@style/Body_MD.Medium"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginTop="@dimen/spacing_large"
                     android:textColor="@color/button_onPrimary"
                     app:backgroundTint="@color/button_primary"
                     android:text="@string/login"

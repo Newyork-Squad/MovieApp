@@ -2,6 +2,7 @@ package com.karrar.movieapp.ui.myList
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
 import com.karrar.movieapp.domain.usecases.mylist.CreateMovieListUseCase
 import com.karrar.movieapp.domain.usecases.mylist.GetMyListUseCase
 import com.karrar.movieapp.ui.base.BaseViewModel
@@ -27,6 +28,7 @@ class MyListsViewModel @Inject constructor(
     private val createMovieListUseCase: CreateMovieListUseCase,
     private val getMyListUseCase: GetMyListUseCase,
     private val createdListUIMapper: CreatedListUIMapper,
+    private val checkIfLoggedInUseCase: CheckIfLoggedInUseCase,
 ) : BaseViewModel(), CreatedListInteractionListener {
 
     private val _createdListUIState = MutableStateFlow(MyListUIState())
@@ -35,28 +37,44 @@ class MyListsViewModel @Inject constructor(
     private val _createListDialogUIState = MutableStateFlow(CreateListDialogUIState())
     val createListDialogUIState = _createListDialogUIState.asStateFlow()
 
-    private val _myListUIEvent: MutableStateFlow<Event<MyListUIEvent?>> = MutableStateFlow(Event(null))
+    private val _myListUIEvent: MutableStateFlow<Event<MyListUIEvent?>> =
+        MutableStateFlow(Event(null))
     val myListUIEvent = _myListUIEvent.asStateFlow()
 
     override fun getData() {
+        val loggedIn = checkIfLoggedInUseCase()
         _createdListUIState.update {
             it.copy(
                 isLoading = true,
-                isEmpty = false,
+                isLoggedIn = loggedIn,
+                isEmpty = true,
                 error = emptyList()
             )
         }
+
+        if (!loggedIn) {
+            _createdListUIState.update {
+                it.copy(isLoading = false)
+            }
+            return
+        }
+
         viewModelScope.launch {
             try {
                 val list = getMyListUseCase().map { createdListUIMapper.map(it) }
                 _createdListUIState.update {
-                    it.copy(isLoading = false, isEmpty = list.isEmpty(), createdList = list)
+                    it.copy(
+                        isLoading = false,
+                        isEmpty = list.isEmpty(),
+                        createdList = list
+                    )
                 }
             } catch (t: Throwable) {
                 setError(t)
             }
         }
     }
+
 
     fun onListNameInputChange(listName: CharSequence) {
         _createListDialogUIState.update { it.copy(mediaListName = listName.toString()) }

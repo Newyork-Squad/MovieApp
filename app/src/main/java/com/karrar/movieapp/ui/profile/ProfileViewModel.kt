@@ -2,7 +2,6 @@ package com.karrar.movieapp.ui.profile
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
 import com.karrar.movieapp.domain.usecases.GetAccountDetailsUseCase
 import com.karrar.movieapp.domain.usecases.setting.GetDarkModeUseCase
@@ -33,7 +32,7 @@ class ProfileViewModel @Inject constructor(
 
     private val _darkMode = MutableStateFlow(false)
     val darkMode = _darkMode.asStateFlow()
-    private val _language = MutableStateFlow("English") // القيمة الافتراضية
+    private val _language = MutableStateFlow("English")
     val language = _language.asStateFlow()
 
 

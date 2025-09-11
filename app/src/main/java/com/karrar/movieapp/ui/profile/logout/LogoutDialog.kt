@@ -1,9 +1,9 @@
 package com.karrar.movieapp.ui.profile.logout
 
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.karrar.movieapp.R
@@ -12,7 +12,6 @@ import com.karrar.movieapp.ui.base.BaseDialog
 import com.karrar.movieapp.utilities.collectLast
 import com.karrar.movieapp.utilities.setWidthPercent
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.core.graphics.drawable.toDrawable
 
 @AndroidEntryPoint
 class LogoutDialog : BaseDialog<DialogLogoutBinding>() {
@@ -43,7 +42,7 @@ class LogoutDialog : BaseDialog<DialogLogoutBinding>() {
                 dismiss()
             }
             LogoutUIEvent.LogoutEvent -> {
-                findNavController().navigate(R.id.action_logoutDialog_to_homeFragment)
+                findNavController().navigate(R.id.action_logoutDialog_to_loginFragment)
             }
         }
     }

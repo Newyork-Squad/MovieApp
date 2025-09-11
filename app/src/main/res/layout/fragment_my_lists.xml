@@ -71,6 +71,7 @@
             android:onClick="@{()->viewModel.onCreateList()}"
             app:cornerRadius="@dimen/radius_lg"
             app:icon="@drawable/outline_plus"
+            app:isVisible="@{viewModel.createdListUIState.isLoggedIn}"
             android:contentDescription="@string/add_collection"
             app:iconTint="@color/button_onPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -101,6 +102,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:isVisible="@{!viewModel.createdListUIState.isLoggedIn}"
             app:isListEmpty="@{viewModel.createdListUIState.isEmpty}">
 
 

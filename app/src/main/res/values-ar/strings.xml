@@ -105,6 +105,7 @@
     <string name="logout_dialog_title">هل أنت متأكد أنك تريد تسجيل الخروج؟</string>
     <string name="logout_dialog_caption">يمكنك دائمًا تسجيل الدخول مرة أخرى بحسابك.</string>
     <string name="login_dialog_title">لقد كدت أن تصل!</string>
+    <string name="rate_the_movie">قيم الفيلم</string>
     <string name="login_dialog_caption">قم بتسجيل الدخول لحفظ الأفلام وإنشاء قائمتك والحصول على توصيات مخصصة.</string>
     <string name="not_now">ليس الأن</string>
     <string name="login_or_signup">تسجيل الدخول / إنشاء حساب</string>

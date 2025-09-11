@@ -85,6 +85,9 @@
             android:name="movie_id"
             app:argType="integer" />
         <action
+            android:id="@+id/action_movieDetailsFragment_to_loginDialog"
+            app:destination="@id/loginDialog" />
+        <action
             android:id="@+id/action_movieDetailsFragment"
             app:destination="@id/movieDetailFragment"
             app:popUpToInclusive="true" />
@@ -243,6 +246,21 @@
     </dialog>
 
     <dialog
+        android:id="@+id/loginDialog"
+        android:name="com.karrar.movieapp.ui.movieDetails.loginDialog.LoginDialog"
+        tools:layout="@layout/dialog_login">
+        <action
+            android:id="@+id/action_loginDialog_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true">
+            <argument
+                android:name="from"
+                app:argType="integer"/>
+        </action>
+    </dialog>
+
+    <dialog
         android:id="@+id/logoutDialog"
         android:name="com.karrar.movieapp.ui.profile.logout.LogoutDialog"
         tools:layout="@layout/dialog_logout">
@@ -269,6 +287,12 @@
         <action
             android:id="@+id/action_ratedMoviesFragment_to_tvShowDetailsFragment"
             app:destination="@id/tvShowDetailsFragment" />
+        <action
+            android:id="@+id/action_ratedMoviesFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_ratedMoviesFragment_to_exploringFragment"
+            app:destination="@id/exploringFragment" />
     </fragment>
 
     <fragment
@@ -354,6 +378,9 @@
         <action
             android:id="@+id/action_tvShowDetailFragment_to_youtubePlayerActivity"
             app:destination="@id/youtubePlayerActivity" />
+        <action
+            android:id="@+id/action_tvShowDetailsFragment_self"
+            app:destination="@id/tvShowDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"

@@ -29,6 +29,10 @@ import com.karrar.movieapp.data.remote.response.movie.MovieDetailsDto
 import com.karrar.movieapp.data.remote.response.movie.RatingDto
 import com.karrar.movieapp.data.remote.response.review.ReviewsDto
 import com.karrar.movieapp.data.remote.response.trailerVideosDto.TrailerDto
+import com.karrar.movieapp.domain.enums.Era
+import com.karrar.movieapp.domain.enums.MatchingGenre
+import com.karrar.movieapp.domain.enums.Mood
+import com.karrar.movieapp.domain.enums.Runtime
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
@@ -118,5 +122,12 @@ interface MovieRepository {
     suspend fun deleteRating(movieId: Int): RatingDto?
 
     suspend fun getRatedMovie(): List<RatedMoviesDto>?
+
+    suspend fun getMatchingMovies(
+        mood: Mood,
+        genres: List<MatchingGenre>,
+        runtime: Runtime,
+        era: Era
+    ): List<MovieDto>?
 
 }

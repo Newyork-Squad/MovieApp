@@ -8,6 +8,7 @@ import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.DialogLoginBinding
 import com.karrar.movieapp.ui.base.BaseDialogFragment
 import com.karrar.movieapp.utilities.collectLast
+import com.karrar.movieapp.utilities.setWidthPercent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,7 +19,7 @@ class LoginDialog : BaseDialogFragment<DialogLoginBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setWidthPercent(90)
         collectLast(viewModel.loginDialogUIEvent) {
             it.getContentIfNotHandled()?.let { onEvent(it) }
         }

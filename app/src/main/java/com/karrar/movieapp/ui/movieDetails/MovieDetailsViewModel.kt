@@ -217,6 +217,10 @@ class MovieDetailsViewModel @Inject constructor(
         _uiState.update { it.copy(detailItemResult = list.toList()) }
     }
 
+    private fun showLoginDialog() {
+        _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ShowLoginDialogEvent) }
+    }
+
     override fun onClickSave() {
         _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ClickSaveEvent) }
     }

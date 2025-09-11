@@ -8,7 +8,7 @@ class TVShowsDTO(
     @SerializedName("first_air_date")
     val firstAirDate: String? = null,
     @SerializedName("genre_ids")
-    val genreIds: List<Int?>? = null,
+    val genreIds: List<Int>? = null,
     @SerializedName("id")
     val id: Int? = null,
     @SerializedName("name")

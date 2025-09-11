@@ -12,6 +12,7 @@ import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.ui.category.uiState.CategoryUIEvent
 import com.karrar.movieapp.ui.category.uiState.CategoryUIState
 import com.karrar.movieapp.ui.category.uiState.ErrorUIState
+import com.karrar.movieapp.ui.explore.GenresInteractionListener
 import com.karrar.movieapp.utilities.Constants.FIRST_CATEGORY_ID
 import com.karrar.movieapp.utilities.Event
 import dagger.hilt.android.lifecycle.HiltViewModel

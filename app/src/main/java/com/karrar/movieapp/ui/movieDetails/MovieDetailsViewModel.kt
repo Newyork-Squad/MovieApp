@@ -14,7 +14,7 @@ import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.ui.mappers.CrewUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.mapper.ActorUIStateMapper
-import com.karrar.movieapp.ui.movieDetails.mapper.MediaUIStateMapper
+import com.karrar.movieapp.ui.mappers.MediaUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.mapper.MovieDetailsUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.mapper.ReviewUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.movieDetailsUIState.DetailItemUIState

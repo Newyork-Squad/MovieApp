@@ -16,29 +16,48 @@
 
         <TextView
             android:id="@+id/similar_movie_title"
-            style="@style/SemiBold.Medium"
+            style="@style/Title.SM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_large"
             android:text="@string/similar_movies"
+            android:textColor="@color/shade_primary"
+            android:textFontWeight="500"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/show_more"
+            style="@style/Body_MD.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/show_more"
+            android:textColor="@color/brand_primary"
+            android:textFontWeight="500"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/similar_movie_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/similar_movie_title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/similar_movie_adapter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:orientation="horizontal"
-            android:clipToPadding="false"
-            android:paddingHorizontal="@dimen/spacing_small"
+            android:layout_marginTop="12dp"
             android:adapter="@{adapterRecycler}"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/similar_movie_title"
-            tools:listitem="@layout/item_movie" />
+            tools:ignore="RtlSymmetry"
+            tools:listitem="@layout/item_similar_movie" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

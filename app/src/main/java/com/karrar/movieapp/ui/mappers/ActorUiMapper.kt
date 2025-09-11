@@ -11,6 +11,7 @@ class ActorUiMapper @Inject constructor() : Mapper<Actor, ActorUiState> {
             input.actorID,
             input.actorName,
             input.actorImage,
+            input.characterName,
         )
     }
 }

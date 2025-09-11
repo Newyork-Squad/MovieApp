@@ -1,6 +1,8 @@
 package com.karrar.movieapp.ui.profile
 
-data class ProfileUIState (
+import com.karrar.movieapp.R
+
+data class ProfileUIState(
     val avatarPath: String = "",
     val name: String = "",
     val username: String = "",

@@ -5,6 +5,7 @@ import com.karrar.movieapp.data.local.AppConfiguration
 import com.karrar.movieapp.data.remote.response.account.AccountDto
 import com.karrar.movieapp.data.remote.response.login.ErrorResponse
 import com.karrar.movieapp.data.remote.service.MovieService
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
@@ -18,6 +19,9 @@ class AccountRepositoryImp @Inject constructor(
         return appConfiguration.getSessionId()
     }
 
+    override fun isGuestUser(): Boolean {
+        return appConfiguration.isGuestUser()
+    }
 
     override suspend fun loginWithUserNameANdPassword(
         userName: String,
@@ -33,11 +37,40 @@ class AccountRepositoryImp @Inject constructor(
 
             val validateRequestTokenWithLogin = service.validateRequestTokenWithLogin(body)
             if (validateRequestTokenWithLogin.isSuccessful) {
-                validateRequestTokenWithLogin.body()?.requestToken?.let { createSession(it) }
+                validateRequestTokenWithLogin.body()?.requestToken?.let {
+                    createSession(it)
+                    appConfiguration.setIsGuest(false)
+                }
                 true
             } else {
                 val errorResponse = dataClassParser.parseFromJson(
                     validateRequestTokenWithLogin.errorBody()?.string(), ErrorResponse::class.java
+                )
+                throw Throwable(errorResponse.statusMessage)
+            }
+        } catch (e: Exception) {
+            throw Throwable(e)
+        }
+    }
+
+    override suspend fun loginAsGuest(): Boolean {
+        return try {
+            val guestSessionResponse = service.createGuestSession()
+            if (guestSessionResponse.isSuccessful) {
+                val guestSessionId = guestSessionResponse.body()?.guestSessionId
+                if (guestSessionId != null) {
+                    saveSessionId(guestSessionId)
+                    appConfiguration.setIsGuest(true)
+                    true
+                } else {
+                    val errorResponse = dataClassParser.parseFromJson(
+                        guestSessionResponse.errorBody()?.string(), ErrorResponse::class.java
+                    )
+                    throw Throwable(errorResponse.statusMessage)
+                }
+            } else {
+                val errorResponse = dataClassParser.parseFromJson(
+                    guestSessionResponse.errorBody()?.string(), ErrorResponse::class.java
                 )
                 throw Throwable(errorResponse.statusMessage)
             }
@@ -51,7 +84,9 @@ class AccountRepositoryImp @Inject constructor(
     }
 
     override suspend fun getAccountDetails(): AccountDto? {
-        return service.getAccountDetails().body()
+        return if (isGuestUser()) {
+            null
+        } else service.getAccountDetails().body()
     }
 
     private suspend fun getRequestToken(): String {
@@ -70,5 +105,20 @@ class AccountRepositoryImp @Inject constructor(
     private suspend fun saveSessionId(sessionId: String) {
         appConfiguration.saveSessionId(sessionId)
     }
+
+    override suspend fun isDarkMode(): Flow<Boolean> =
+        appConfiguration.isDarkMode()
+
+    override suspend fun saveDarkMode(enabled: Boolean) {
+        appConfiguration.saveDarkMode(enabled)
+    }
+
+    override suspend fun getLanguage():  Flow<String> =
+        appConfiguration.getLanguage()
+
+    override suspend fun saveLanguage(language: String) {
+        appConfiguration.saveLanguage(language)
+    }
+
 
 }

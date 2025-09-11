@@ -12,19 +12,29 @@ import com.karrar.movieapp.ui.base.BaseDialog
 import com.karrar.movieapp.utilities.collectLast
 import com.karrar.movieapp.utilities.setWidthPercent
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.core.graphics.drawable.toDrawable
 
 @AndroidEntryPoint
 class LogoutDialog : BaseDialog<DialogLogoutBinding>() {
     override val layoutIdFragment: Int = R.layout.dialog_logout
-    override val viewModel: LogoutViewModel by viewModels()
+     val viewModel: LogoutViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
         setWidthPercent(90)
         collectLast(viewModel.logoutUIEvent) {
             it.getContentIfNotHandled()?.let { onEvent(it) }
         }
+
+        binding.btnCancel.setOnClickListener {
+            viewModel.onCloseDialog()
+        }
+
+        binding.btnLogout.setOnClickListener {
+            viewModel.onLogout()
+        }
+
     }
 
     private fun onEvent(event: LogoutUIEvent) {

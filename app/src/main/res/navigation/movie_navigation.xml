@@ -13,6 +13,9 @@
             android:id="@+id/action_homeFragment_to_actorsFragment"
             app:destination="@id/actorsFragment" />
         <action
+            android:id="@+id/action_homeFragment_to_watchHistoryFragment"
+            app:destination="@id/watchHistoryFragment" />
+        <action
             android:id="@+id/action_homeFragment_to_actorDetailsFragment"
             app:destination="@id/actorDetailsFragment" />
         <action
@@ -45,6 +48,9 @@
             app:destination="@id/profileFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 
     <fragment
@@ -109,12 +115,27 @@
         <action
             android:id="@+id/action_profileFragment_to_watchHistoryFragment"
             app:destination="@id/watchHistoryFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myListFragment"
+            app:destination="@id/myListFragment" />
 
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:popUpTo="@id/profileFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_languagePickerDialog"
+            app:destination="@id/languagePickerDialog" />
+        <action
+            android:id="@+id/action_profileFragment_to_contentPreferencesDialog"
+            app:destination="@id/contentPreferencesDialog" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileConfirmDialog"
+            app:destination="@id/editProfileConfirmDialog" />
 
 
     </fragment>
@@ -327,5 +348,50 @@
             android:id="@+id/action_tvShowDetailFragment_to_youtubePlayerActivity"
             app:destination="@id/youtubePlayerActivity" />
     </fragment>
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.karrar.movieapp.ui.onboarding.OnboardingFragment"
+        android:label="OnboardingFragment" >
+        <action
+            android:id="@+id/action_onboardingFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.karrar.movieapp.ui.profile.editProfile.EditProfileFragment"
+        android:label="EditProfileFragment" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/languagePickerDialog"
+        android:name="com.karrar.movieapp.ui.profile.language.LanguagePickerDialog"
+        android:label="LanguagePickerDialog" >
+        <action
+            android:id="@+id/action_languagePickerDialog_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/contentPreferencesDialog"
+        android:name="com.karrar.movieapp.ui.profile.contentPreferences.ContentPreferencesDialog"
+        android:label="ContentPreferencesDialog" >
+        <action
+            android:id="@+id/action_contentPreferencesDialog_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/editProfileConfirmDialog"
+        android:name="com.karrar.movieapp.ui.profile.editProfile.EditProfileConfirmDialog"
+        android:label="EditProfileConfirmDialog" >
+        <action
+            android:id="@+id/action_editProfileConfirmDialog_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_editProfileConfirmDialog_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </dialog>
 
 </navigation>

@@ -88,6 +88,12 @@
             android:id="@+id/action_movieDetailsFragment_to_loginDialog"
             app:destination="@id/loginDialog" />
         <action
+            android:id="@+id/action_movie_details_fragment_to_rateDialog"
+            app:destination="@id/rateDialog">
+            <argument android:name="media_id" app:argType="integer" />
+            <argument android:name="media_type" app:argType="string" />
+        </action>
+        <action
             android:id="@+id/action_movieDetailsFragment"
             app:destination="@id/movieDetailFragment"
             app:popUpToInclusive="true" />
@@ -386,6 +392,13 @@
         <action
             android:id="@+id/action_tvShowDetailsFragment_self"
             app:destination="@id/tvShowDetailsFragment" />
+        <action
+            android:id="@+id/action_tv_show_details_fragment_to_rate_dialog"
+            app:destination="@id/rateDialog"
+            >
+            <argument android:name="media_id" app:argType="integer" />
+            <argument android:name="media_type" app:argType="string" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"

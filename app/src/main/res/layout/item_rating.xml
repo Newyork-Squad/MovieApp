@@ -12,7 +12,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rating_section"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewModel.onClickRate()}"
+        >
 
         <TextView
             android:id="@+id/rating_id"

@@ -233,6 +233,18 @@ class MovieDetailsViewModel @Inject constructor(
         _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ClickBackEvent) }
     }
 
+    override fun onClickRate() {
+        if (uiState.value.isLogin) {
+            _movieDetailsUIEvent.update {
+                Event(
+                    MovieDetailsUIEvent.ShowRateDialogEvent
+                )
+            }
+        } else {
+            showLoginDialog()
+        }
+    }
+
     override fun onclickViewReviews() {
         _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ClickReviewsEvent) }
     }

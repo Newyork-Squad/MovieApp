@@ -35,6 +35,7 @@ import retrofit2.http.Field
 import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -275,6 +276,7 @@ interface MovieService {
 
     @GET("tv/{series_id}/similar")
     suspend fun getSimilarSeries(@Path("series_id") seriesId: Int): Response<BaseListResponse<TVShowsDTO>>
+
     @FormUrlEncoded
     @POST("list/{collection_id}/remove_item")
     @Headers("need_session_id: true")

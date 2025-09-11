@@ -444,12 +444,12 @@ class MovieRepositoryImp @Inject constructor(
 
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun getMatchingMovies(
-        mood: Mood,
+        moods: List<Mood>,
         genres: List<MatchingGenre>,
         runtime: Runtime,
         era: Era
     ): List<MovieDto>? {
-        val keyword = queryMapper.mapMood(mood)
+        val keyword = queryMapper.mapMoods(moods)
         val genreIds = queryMapper.mapGenres(genres)
         val (minRuntime, maxRuntime) = queryMapper.mapRuntime(runtime)
         val (fromDate, toDate) = queryMapper.mapEra(era)

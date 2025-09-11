@@ -124,7 +124,7 @@ interface MovieRepository {
     suspend fun getRatedMovie(): List<RatedMoviesDto>?
 
     suspend fun getMatchingMovies(
-        mood: Mood,
+        moods: List<Mood>,
         genres: List<MatchingGenre>,
         runtime: Runtime,
         era: Era

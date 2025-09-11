@@ -14,96 +14,39 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background_screen"
         tools:context=".ui.myList.MyListsFragment">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Title.SM"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/background_screen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:navigationIcon="@drawable/outline_alt_arrow_left"
+            app:title="@string/my_collections"
+            app:titleTextColor="@color/shade_primary" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/saved_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:clipToPadding="false"
             android:orientation="vertical"
             android:overScrollMode="never"
-            android:paddingTop="@dimen/spacing_small"
             android:paddingBottom="80dp"
             app:items="@{viewModel.createdListUIState.createdList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/item_saved_list" />
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floating_action_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:onClick="@{()->viewModel.onCreateList()}"
-            app:backgroundTint="@color/brand_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_baseline_add_24"
-            app:tint="@color/white_primary" />
-
-        <ImageView
-            android:id="@+id/vector_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:src="@drawable/list_vector"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_message_wrong_title"
-            style="@style/SemiBold.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:text="@string/log_in"
-            android:textColor="@color/brand_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vector_image" />
-
-        <TextView
-            android:id="@+id/text_message_wrong"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/spacing_extra_large"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:text="@string/you_must_be_logged_in_to_use_list_features"
-            android:textAlignment="center"
-            android:textAppearance="@style/Regular.Medium.Secondary"
-            android:textColor="@color/shade_secondary_color"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_message_wrong_title" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/succces_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="
-                    saved_list,
-                    floating_action_button"
-            app:error="@{viewModel.createdListUIState.error}"
-            app:loading="@{viewModel.createdListUIState.loading}" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/needLoginGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="
-            text_message_wrong,
-            vector_image,
-            text_message_wrong_title,"
-            app:showWhenNoLogin="@{viewModel.createdListUIState.error}" />
-
         <ProgressBar
             android:id="@+id/loading"
             android:layout_width="wrap_content"
@@ -119,125 +62,113 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/floating_action_button"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/brand_primary"
+            android:onClick="@{()->viewModel.onCreateList()}"
+            app:cornerRadius="@dimen/radius_lg"
+            app:icon="@drawable/outline_plus"
+            android:contentDescription="@string/add_collection"
+            app:iconTint="@color/button_onPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+
 
         <!--        error -->
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/img_lost_connection"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            android:backgroundTint="@color/secondary_red"
-            app:cardCornerRadius="@dimen/radius_full"
-            app:cardElevation="@null"
-            app:layout_constraintBottom_toTopOf="@+id/title_lost_connection"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_gravity="center"
-                android:contentDescription="@string/oops_no_internet"
-                android:src="@drawable/due_tone_station"
-                app:tint="@color/primary_red" />
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/title_lost_connection"
-            style="@style/Title.SM"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/oops_no_internet"
-            android:textColor="@color/shade_primary"
+        <include
+            layout="@layout/error2"
+            app:showWhenNoInternet="@{viewModel.createdListUIState.error}"
+            app:viewModel="@{viewModel}"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/description_lost_connection"
-            style="@style/Body_SM.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:gravity="center"
-            android:text="@string/description"
-            android:textColor="@color/shade_secondary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_lost_connection" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_retry"
-            style="@style/Body_SM.Medium"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:backgroundTint="@color/button_primary"
-            android:onClick="@{() -> viewModel.getData()}"
-            android:paddingHorizontal="@dimen/spacing_medium"
-            android:paddingVertical="12dp"
-            android:stateListAnimator="@null"
-            android:text="@string/try_again"
-            android:textAllCaps="false"
-            android:textColor="@color/button_onPrimary"
-            app:cornerRadius="@dimen/radius_md"
-            app:layout_constraintEnd_toEndOf="@id/description_lost_connection"
-            app:layout_constraintStart_toStartOf="@id/description_lost_connection"
-            app:layout_constraintTop_toBottomOf="@+id/description_lost_connection" />
-
-
-        <androidx.constraintlayout.widget.Group
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="title_lost_connection,img_lost_connection,description_lost_connection,button_retry"
-            app:showWhenNoInternet="@{viewModel.createdListUIState.error}" />
-
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <!--        empty List          -->
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/no_data"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/no_data" />
+            app:isListEmpty="@{viewModel.createdListUIState.isEmpty}">
 
-        <TextView
-            android:id="@+id/title"
-            style="@style/SemiBold.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-64dp"
-            android:text="@string/empty"
-            android:textColor="@color/brand_color"
-            app:layout_constraintEnd_toEndOf="@+id/no_data"
-            app:layout_constraintStart_toStartOf="@+id/no_data"
-            app:layout_constraintTop_toBottomOf="@+id/no_data" />
 
-        <TextView
-            android:id="@+id/description_empty_list"
-            style="@style/Regular.Medium.Secondary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:text="@string/this_list_has_no_movies"
-            app:layout_constraintEnd_toEndOf="@+id/no_data"
-            app:layout_constraintStart_toStartOf="@+id/no_data"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            <FrameLayout
+                android:id="@+id/icon_container"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/oval_background_quinary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/empty_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="description_empty_list,title,no_data"
-            app:isListEmpty="@{viewModel.createdListUIState.isEmpty}" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/due_tone_video_library"
+                    app:tint="@color/brand_primary" />
+            </FrameLayout>
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_confirmation"
+                style="@style/Title.SM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/no_collections_yet"
+                android:textColor="@color/shade_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.48"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/icon_container" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_confirmation_message"
+                style="@style/Body_SM.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:text="@string/start_building_your_personal_library_by_saving_movies_or_series_you_want_to_remember"
+                android:textColor="@color/shade_secondary_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_confirmation" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_go_to_explore"
+                style="@style/Body_MD.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_rectangle"
+                android:text="@string/start_collecting"
+                android:textAllCaps="false"
+                android:textColor="@color/button_onPrimary"
+                app:backgroundTint="@color/button_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_confirmation_message" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 </layout>

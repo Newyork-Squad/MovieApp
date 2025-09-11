@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.FragmentMyListsBinding
 import com.karrar.movieapp.ui.base.BaseFragment
+import com.karrar.movieapp.ui.main.MainActivity
 import com.karrar.movieapp.ui.myList.myListUIState.MyListUIEvent
 import com.karrar.movieapp.utilities.collectLast
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +27,11 @@ class MyListsFragment : BaseFragment<FragmentMyListsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitle(true, getString(R.string.myList))
+        setTitle(false, getString(R.string.myList))
+        (activity as? AppCompatActivity)?.supportActionBar?.hide()
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
+        toolbar.setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+
         binding.savedList.adapter = CreatedListAdapter(emptyList(), viewModel)
         collectEvent()
     }
@@ -59,5 +67,7 @@ class MyListsFragment : BaseFragment<FragmentMyListsBinding>() {
         super.onResume()
         viewModel.getData()
     }
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+    }
 }

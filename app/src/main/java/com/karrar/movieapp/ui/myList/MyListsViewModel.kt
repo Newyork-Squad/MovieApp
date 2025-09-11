@@ -1,5 +1,6 @@
 package com.karrar.movieapp.ui.myList
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.usecases.mylist.CreateMovieListUseCase
 import com.karrar.movieapp.domain.usecases.mylist.GetMyListUseCase
@@ -67,6 +68,8 @@ class MyListsViewModel @Inject constructor(
 
     fun onClickAddList() {
         viewModelScope.launch {
+            Log.d("TAG", "onClickAddList: ")
+
             try {
                 _createdListUIState.update {
                     it.copy(

@@ -45,6 +45,7 @@
     <string name="title_top_rated_tv_show">Top Rated Tv-Show</string>
     <string name="text_movies">%s Movies</string>
     <string name="movies_label">Movies</string>
+    <string name="series_label">Series</string>
     <string name="tv_shows_label">TV Shows</string>
     <string name="history_label">History</string>
     <string name="explore_label">Explore</string>
@@ -175,4 +176,9 @@
     <string name="go_to_website">Go to Website</string>
 
 
+    <string name="select_movies_or_series_tab">Select Movies or Series tab</string>
+    <string name="you_gave_it">You gave it</string>
+    <string name="no_ratings_yet">No Ratings Yet</string>
+    <string name="rate_movies_and_series_you_ve_watched_to_track_what_you_love_and_what_you_don_t">Rate movies and series you’ve watched to track what you love, and what you don’t.</string>
+    <string name="start_rating">Start Rating</string>
 </resources>

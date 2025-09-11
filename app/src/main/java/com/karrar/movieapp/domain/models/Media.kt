@@ -7,4 +7,5 @@ data class Media(
     val mediaName: String,
     val mediaDate: String,
     val mediaRate: Float,
+    val genresIds: List<Int> = emptyList(),
 )

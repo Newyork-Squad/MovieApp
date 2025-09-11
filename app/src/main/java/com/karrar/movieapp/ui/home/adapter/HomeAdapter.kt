@@ -1,14 +1,14 @@
 package com.karrar.movieapp.ui.home.adapter
 
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
 import com.karrar.movieapp.BR
 import com.karrar.movieapp.R
-import android.os.Handler
-import android.os.Looper
-import android.view.View
 import com.karrar.movieapp.databinding.ItemPopularMovieBinding
 import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.ui.adapters.ActorAdapter
@@ -160,6 +160,7 @@ class HomeAdapter(
                             )
                         )
                         setVariable(BR.listener, listener as HomeInteractionListener)
+                        setVariable(BR.isVisible, currentItem.items.isNotEmpty())
                     }
                 }
             }
@@ -212,7 +213,7 @@ class HomeAdapter(
         return -1
     }
 
-    private fun setupPageTransformer(viewPager: ViewPager2){
+    private fun setupPageTransformer(viewPager: ViewPager2) {
         viewPager.offscreenPageLimit = 3
         val sideScale = 1.1f
         val sideTranslationY = 100f
@@ -242,7 +243,7 @@ class HomeAdapter(
         }
     }
 
-    private fun setupAutoScroll(viewPager: ViewPager2, adapter: PopularMovieAdapter){
+    private fun setupAutoScroll(viewPager: ViewPager2, adapter: PopularMovieAdapter) {
         val handler = Handler(Looper.getMainLooper())
         val runnable = object : Runnable {
             override fun run() {

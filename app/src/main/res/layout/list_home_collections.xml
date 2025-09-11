@@ -4,26 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
+
         <variable
             name="adapterRecycler"
-            type="androidx.recyclerview.widget.RecyclerView.Adapter" />
+            type="com.karrar.movieapp.ui.myList.CreatedListAdapter" />
 
         <variable
             name="listener"
             type="com.karrar.movieapp.ui.home.HomeInteractionListener" />
+
+        <variable
+            name="isVisible"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_medium">
+        android:layout_marginBottom="@dimen/spacing_medium"
+        android:visibility="@{isVisible ? View.VISIBLE : View.GONE}">
 
         <TextView
             android:id="@+id/text_section_title"
             style="@style/Title.SM"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginStart="@dimen/spacing_medium"
             android:text="@string/your_collections"
             android:textColor="@color/shade_primary"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +42,7 @@
             style="@style/Body_MD.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_medium"
             android:layout_gravity="center_vertical"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
@@ -42,7 +51,7 @@
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
             android:text="@string/show_more"
-            android:textColor="@color/brand_color"
+            android:textColor="@color/brand_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

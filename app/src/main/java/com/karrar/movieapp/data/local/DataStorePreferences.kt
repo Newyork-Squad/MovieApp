@@ -34,9 +34,34 @@ class DataStorePreferences(context: Context) {
             preferences[stringPreferencesKey(key)] = value
         }
     }
+    fun readBooleanFlow(key: String): Flow<Boolean> {
+        return prefDataStore.data.map { preferences ->
+            preferences[booleanPreferencesKey(key)] ?: false
+        }
+    }
+
+    fun readStringFlow(key: String): Flow<String?> {
+        return prefDataStore.data.map { preferences ->
+            preferences[stringPreferencesKey(key)]
+        }
+    }
 
     fun readString(key: String): String? {
         return runBlocking { prefDataStore.data.map { it[stringPreferencesKey(key)] }.first() }
+    }
+
+    suspend fun writeBoolean(key: String, value: Boolean) {
+        prefDataStore.edit { preferences ->
+            preferences[booleanPreferencesKey(key)] = value
+        }
+    }
+
+    fun readBoolean(key: String): Boolean? {
+        return runBlocking {
+            prefDataStore.data.map { preferences ->
+                preferences[booleanPreferencesKey(key)]
+            }.first()
+        }
     }
 
     companion object {

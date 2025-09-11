@@ -10,6 +10,8 @@
     <dimen name="spacing_xSmall">6dp</dimen>
     <dimen name="spacing_too_small">4dp</dimen>
     <dimen name="season_card_width">88dp</dimen>
+    <dimen name="home_pager_text">48dp</dimen>
+    <dimen name="home_image_height">200dp</dimen>
 
     <!--  layout -->
     <dimen name="spacing_actor">72dp</dimen>
@@ -34,7 +36,6 @@
     <dimen name="text_label_md">12sp</dimen>
 
 
-
     <!-- radius -->
     <dimen name="radius_large">24dp</dimen>
     <dimen name="radius_medium">16dp</dimen>
@@ -57,5 +58,9 @@
 
     <!-- chips -->
     <dimen name="chip_height">32dp</dimen>
+
+    <!--dialog-->
+    <dimen name="dialog_bottom_margin">48dp</dimen>
+    <dimen name="dialog_horizontal_margin">12dp</dimen>
 
 </resources>

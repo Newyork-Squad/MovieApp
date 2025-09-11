@@ -38,19 +38,21 @@
                 android:text="@string/you_gave_it"
                 android:textColor="@color/shade_primary" />
 
-            <RatingBar
-                android:id="@+id/rating_bar_user"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:progressTint="@color/primary_yellow"
-                android:rating="@{item.rating / 2f}"
-                android:secondaryProgressTint="@color/primary_yellow"
-                android:stepSize="0.1"
-                tools:rating="4.2" />
 
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/rating_bar_user"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginTop="8dp"
+                android:isIndicator="true"
+                android:progressDrawable="@drawable/rating_custom"
+                android:rating="@{item.rating / 2f}"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:stepSize="0.1"
+                android:transformPivotX="0dp"
+                tools:rating="4.5"
+                />
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
@@ -69,8 +71,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/image_movie"
                     android:layout_width="64dp"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
+                    android:layout_height="88dp"
+                    android:scaleType="fitXY"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:mediaPoster="@{item.posterPath}"
@@ -83,13 +85,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_medium"
-                    android:layout_marginVertical="@dimen/spacing_small"
                     android:ellipsize="end"
                     android:lines="1"
                     android:text="@{item.title}"
+                    app:layout_constraintBottom_toTopOf="@+id/text_genre_movie"
                     app:layout_constraintEnd_toStartOf="@+id/text_rate_movie"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@id/image_movie"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="spread"
                     tools:text="The Mandalorian" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -98,14 +102,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_medium"
-                    android:layout_marginVertical="@dimen/spacing_large"
+                    android:layout_marginBottom="2dp"
                     android:ellipsize="end"
-                    android:lines="2"
                     app:genresText="@{item.genres}"
+                    app:layout_constraintBottom_toTopOf="@+id/text_year"
                     app:layout_constraintEnd_toStartOf="@+id/text_rate_movie"
                     app:layout_constraintStart_toEndOf="@id/image_movie"
-                    app:layout_constraintTop_toTopOf="@+id/text_title_movie"
-                    tools:text="action" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_title_movie"
+                    tools:text="action action action actionaction action action actio" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/text_rate_movie"
@@ -122,14 +126,12 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="8.4" />
-
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/text_year"
-                    style="@style/Regular.Small.ternary"
+                    style="@style/Label_MD.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="@dimen/spacing_large"
                     android:layout_marginBottom="4dp"
                     android:drawableStart="@drawable/due_tone_calendar"
                     app:drawableTint="@color/shade_secondary"
@@ -137,7 +139,9 @@
                     android:text="@{item.releaseDate}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/image_movie"
+                    app:layout_constraintTop_toBottomOf="@+id/text_genre_movie"
                     tools:text="2022" />
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

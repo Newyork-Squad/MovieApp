@@ -127,7 +127,7 @@ class MyRatingsFragment : BaseFragment<FragmentMyRatingsBinding>() {
 
                 super.onChildDraw(c, recyclerView, viewHolder, clampedDx, dY, actionState, isCurrentlyActive)
 
-                if (clampedDx <= maxSwipe) {   // بقى شرط maxSwipe بس
+                if (clampedDx <= maxSwipe) {
                     drawBackgroundWithMargin(c, itemView, clampedDx, bgMargin)
                     deleteBounds = drawDeleteIcon(c, itemView, deleteIcon, clampedDx, bgMargin)
                     swipedPosition = pos
@@ -208,7 +208,7 @@ class MyRatingsFragment : BaseFragment<FragmentMyRatingsBinding>() {
 
         background.setBounds(
             itemView.right + dX.toInt() + margin,
-            itemView.top + margin * 4 ,
+            itemView.top + margin * 8 ,
             itemView.right - margin,
             itemView.bottom - margin
         )
@@ -233,7 +233,7 @@ class MyRatingsFragment : BaseFragment<FragmentMyRatingsBinding>() {
         val backgroundCenterX = (backgroundLeft + backgroundRight) / 2
         val iconHalfWidth = deleteIcon.intrinsicWidth / 2
 
-        val iconTop = itemView.top + (itemView.height - deleteIcon.intrinsicHeight) / 2 + margin *2
+        val iconTop = itemView.top + (itemView.height - deleteIcon.intrinsicHeight) / 2 + margin * 4
         val iconBottom = iconTop + deleteIcon.intrinsicHeight
         val iconLeft = backgroundCenterX - iconHalfWidth
         val iconRight = backgroundCenterX + iconHalfWidth

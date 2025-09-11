@@ -374,6 +374,9 @@
         <action
             android:id="@+id/action_tvShowDetailFragment_to_youtubePlayerActivity"
             app:destination="@id/youtubePlayerActivity" />
+        <action
+            android:id="@+id/action_tvShowDetailsFragment_self"
+            app:destination="@id/tvShowDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"

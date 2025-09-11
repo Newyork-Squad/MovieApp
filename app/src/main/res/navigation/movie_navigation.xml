@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_homeFragment_to_savedListFragment"
             app:destination="@id/myListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_listDetailsFragment"
+            app:destination="@id/listDetailsFragment" />
 
     </fragment>
 
@@ -259,7 +262,7 @@
             app:popUpToInclusive="true">
             <argument
                 android:name="from"
-                app:argType="integer"/>
+                app:argType="integer" />
         </action>
     </dialog>
 
@@ -381,7 +384,7 @@
     <fragment
         android:id="@+id/onboardingFragment"
         android:name="com.karrar.movieapp.ui.onboarding.OnboardingFragment"
-        android:label="OnboardingFragment" >
+        android:label="OnboardingFragment">
         <action
             android:id="@+id/action_onboardingFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -391,7 +394,7 @@
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.karrar.movieapp.ui.profile.editProfile.EditProfileFragment"
-        android:label="EditProfileFragment" >
+        android:label="EditProfileFragment">
         <action
             android:id="@+id/action_editProfileFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -399,7 +402,7 @@
     <dialog
         android:id="@+id/languagePickerDialog"
         android:name="com.karrar.movieapp.ui.profile.language.LanguagePickerDialog"
-        android:label="LanguagePickerDialog" >
+        android:label="LanguagePickerDialog">
         <action
             android:id="@+id/action_languagePickerDialog_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -407,7 +410,7 @@
     <dialog
         android:id="@+id/contentPreferencesDialog"
         android:name="com.karrar.movieapp.ui.profile.contentPreferences.ContentPreferencesDialog"
-        android:label="ContentPreferencesDialog" >
+        android:label="ContentPreferencesDialog">
         <action
             android:id="@+id/action_contentPreferencesDialog_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -415,7 +418,7 @@
     <dialog
         android:id="@+id/editProfileConfirmDialog"
         android:name="com.karrar.movieapp.ui.profile.editProfile.EditProfileConfirmDialog"
-        android:label="EditProfileConfirmDialog" >
+        android:label="EditProfileConfirmDialog">
         <action
             android:id="@+id/action_editProfileConfirmDialog_to_profileFragment"
             app:destination="@id/profileFragment" />

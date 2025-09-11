@@ -99,7 +99,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
             HomeUIEvent.ClickSeeAllCollections -> HomeFragmentDirections.actionHomeFragmentToSavedListFragment()
 
-            is HomeUIEvent.ClickListEvent -> HomeFragmentDirections.actionHomeFragmentToSavedListFragment()
+            is HomeUIEvent.ClickListEvent -> HomeFragmentDirections.actionHomeFragmentToListDetailsFragment(
+                event.createdListUIState.listID,
+                event.createdListUIState.name
+            )
         }
         findNavController().navigate(action)
     }

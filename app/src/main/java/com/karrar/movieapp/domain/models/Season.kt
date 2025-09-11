@@ -8,5 +8,6 @@ data class Season(
     val seasonNumber: Int = 0,
     val episodeCount: Int = 0,
     val seasonDescription: String = "",
-    val episodes: List<Episode> = emptyList()
+    val episodes: List<Episode> = emptyList(),
+    val seasonRate: Double = 0.0
 )

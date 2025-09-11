@@ -80,6 +80,9 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
                     args.movieId
                 )
             }
+            MovieDetailsUIEvent.ShowLoginDialogEvent -> {
+                action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentToLoginDialog()
+            }
             MovieDetailsUIEvent.MessageAppear -> {
                 Toast.makeText(context, getString(R.string.submit_toast), Toast.LENGTH_SHORT).show()
             }

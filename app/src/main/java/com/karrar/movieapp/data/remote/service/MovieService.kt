@@ -1,10 +1,25 @@
 package com.karrar.movieapp.data.remote.service
 
-import com.karrar.movieapp.data.remote.response.*
+import com.karrar.movieapp.data.remote.response.AddListResponse
+import com.karrar.movieapp.data.remote.response.AddMovieDto
+import com.karrar.movieapp.data.remote.response.BaseListResponse
+import com.karrar.movieapp.data.remote.response.CreatedListDto
+import com.karrar.movieapp.data.remote.response.CreditsDto
+import com.karrar.movieapp.data.remote.response.DailyTrendingDto
+import com.karrar.movieapp.data.remote.response.LogoutResponse
+import com.karrar.movieapp.data.remote.response.MovieDto
+import com.karrar.movieapp.data.remote.response.MyListsDto
+import com.karrar.movieapp.data.remote.response.RatedMoviesDto
+import com.karrar.movieapp.data.remote.response.RatedTvShowDto
+import com.karrar.movieapp.data.remote.response.SeasonDto
+import com.karrar.movieapp.data.remote.response.TVShowsDTO
 import com.karrar.movieapp.data.remote.response.account.AccountDto
 import com.karrar.movieapp.data.remote.response.actor.ActorDto
 import com.karrar.movieapp.data.remote.response.actor.ActorMoviesDto
+import com.karrar.movieapp.data.remote.response.actor.ActorProfileResponse
+import com.karrar.movieapp.data.remote.response.actor.ActorSocialMediaResponse
 import com.karrar.movieapp.data.remote.response.genre.GenreResponse
+import com.karrar.movieapp.data.remote.response.login.GuestSessionResponse
 import com.karrar.movieapp.data.remote.response.login.RequestTokenResponse
 import com.karrar.movieapp.data.remote.response.login.SessionResponse
 import com.karrar.movieapp.data.remote.response.movie.MovieDetailsDto
@@ -14,7 +29,14 @@ import com.karrar.movieapp.data.remote.response.trailerVideosDto.TrailerDto
 import com.karrar.movieapp.data.remote.response.tvShow.TvShowDetailsDto
 import com.karrar.movieapp.domain.enums.TrendingTimeWindow
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.DELETE
+import retrofit2.http.Field
+import retrofit2.http.FieldMap
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MovieService {
 
@@ -48,6 +70,16 @@ interface MovieService {
         @Query("page") page: Int
     ): Response<BaseListResponse<ActorDto>>
 
+    @GET("person/{person_id}/external_ids")
+    suspend fun getActorExternalIds(
+        @Path("person_id") personId: Int
+    ): Response<ActorSocialMediaResponse>
+
+    @GET("person/{person_id}/images")
+    suspend fun getActorImages(
+        @Path("person_id") personId: Int
+    ): Response<ActorProfileResponse>
+
     @GET("search/movie")
     suspend fun searchForMovie(
         @Query("query") query: String,
@@ -62,6 +94,9 @@ interface MovieService {
 
     @GET("authentication/token/new")
     suspend fun getRequestToken(): Response<RequestTokenResponse>
+
+    @GET("authentication/guest_session/new")
+    suspend fun createGuestSession(): Response<GuestSessionResponse>
 
     @GET("genre/movie/list")
     suspend fun getGenreList(): Response<GenreResponse>
@@ -227,4 +262,16 @@ interface MovieService {
         @Path("tv_id") tvId: Int,
     ): Response<RatingDto>
 
+    @GET("discover/movie")
+    suspend fun getMatchingMovies(
+        @Query("with_genres") genreIds: String,
+        @Query("with_runtime.gte") minRuntime: Int?,
+        @Query("with_runtime.lte") maxRuntime: Int?,
+        @Query("primary_release_date.gte") earliestDate: String?,
+        @Query("primary_release_date.lte") latestDate: String?,
+        @Query("with_keywords") moodId: String? = null,
+    ): Response<BaseListResponse<MovieDto>>
+
+    @GET("tv/{series_id}/similar")
+    suspend fun getSimilarSeries(@Path("series_id") seriesId: Int): Response<BaseListResponse<TVShowsDTO>>
 }

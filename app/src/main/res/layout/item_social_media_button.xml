@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="name"
+            type="String" />
+
+        <variable
+            name="link"
+            type="String" />
+
+        <variable
+            name="icon"
+            type="int" />
+
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.actorDetails.socialmedia.SocialMediaInteractionListener" />
+
+    </data>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_play_trailer"
+        style="@style/Label_MD.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_small"
+        android:onClick="@{() -> listener.onClickSocialMediaLink(link)}"
+        android:text="@{name}"
+        android:textAllCaps="false"
+        android:stateListAnimator="@null"
+        app:rippleColor="?attr/colorControlHighlight"
+        android:textColor="@color/shade_primary"
+        android:visibility="@{link != null ? android.view.View.VISIBLE : android.view.View.GONE}"
+        app:backgroundTint="@color/shade_quinary"
+        app:cornerRadius="1000dp"
+        app:icon="@{icon}"
+        app:iconTint="@null"
+        tools:icon="@drawable/colored_instagram"
+        tools:text="Instgram" />
+
+</layout>

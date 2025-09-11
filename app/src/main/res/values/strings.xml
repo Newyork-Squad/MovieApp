@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Movie App</string>
 
+    <string name="see_all">See all</string>
     <string name="show_more">Show More</string>
     <string name="top_rated">Top Rated</string>
     <string name="latest">Latest</string>
     <string name="popular">Popular</string>
     <string name="tv_shows">TV Shows</string>
-    <string name="search_hint">Search for a movie, tv show, person…</string>
+    <string name="search_hint">Search…</string>
     <string name="movies_chip">Movies</string>
     <string name="tv_shows_chip">TV Shows</string>
     <string name="actors_label">Actors</string>
@@ -17,12 +18,15 @@
     <string name="don_t_have_an_account">Don’t have an account?</string>
     <string name="sign_up">Sign up</string>
     <string name="place_of_birth">place of Birth</string>
+    <string name="in">In %1$s</string>
     <string name="konwn_for">Known For</string>
     <string name="todo">TODO</string>
     <string name="gender">Gender</string>
     <string name="birthday">Birthday</string>
+    <string name="born_on">Born on %1$s</string>
     <string name="biography">Biography</string>
     <string name="movies">Movies</string>
+    <string name="best_of">Best of %1$s</string>
     <string name="actors">Actors</string>
     <string name="oops_no_internet">Oops! No Internet</string>
     <string name="description">Looks like you\'re offline Let\'s reconnect so \nyou don\'t miss out!</string>
@@ -51,6 +55,7 @@
     <string name="myList">My Lists</string>
     <string name="profile">My Profile</string>
     <string name="play_trailer">Play Trailer</string>
+    <string name="edit_profile_title">Edit Profile</string>
     <string name="duration">%1$d Minutes</string>
     <string name="reviews">(%1$s reviews)</string>
     <string name="storyline">Storyline</string>
@@ -64,7 +69,7 @@
     <string name="save_button">back button</string>
     <string name="view_all_reviews">View all reviews</string>
     <string name="episodes">Episodes</string>
-    <string name="seasons">Seasons</string>
+    <string name="seasons">Latest Seasons</string>
     <string name="submit_toast">Submitted, Thank you for your feedback</string>
     <string name="total_episodes">%1$s Episodes</string>
     <string name="m">%1$s m</string>
@@ -103,8 +108,25 @@
     <string name="you_must_be_logged_in_to_save_a_movie">You must be logged in to save a movie</string>
     <string name="this_list_has_no_lists">No lists found</string>
     <string name="episode_title">%1$d. %2$s</string>
+    <string name="youtube">YouTube</string>
+    <string name="instagram">Instagram</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="tiktok">Tiktok</string>
+
+    <string name="welcome_back_to_cineverse">Welcome back to CineVerse!</string>
+    <string name="create_a_new_account">Create a New Account</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="join_as_guest">Join as Guest</string>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="join_cineverse">Join CineVerse</string>
+    <string name="let_s_get_you_set_up_we_ll_take_you_to_the_website_to_create_your_account">Let\'s get you set up! We\'ll take you to the website to create your account.</string>
     <string name="logout_dialog_title">Are you sure you want to logout?</string>
     <string name="logout_dialog_caption">You can always sign back in with your account.</string>
+    <string name="login_dialog_title">You\'re Almost There!</string>
+    <string name="login_dialog_caption">Log in to save movies, create collections, and get personalized recommendations.</string>
+    <string name="not_now">Not Now</string>
     <string name="login_or_signup">Login &amp; Sign Up</string>
     <string name="tap_to_add_name">Tap to add your name</string>
     <string name="to_personalize">to personalize your profile</string>
@@ -121,9 +143,6 @@
     <string name="onboarding_third_page_des">Answer fun questions to get handpicked recommendations.</string>
     <string name="onboarding_third_page_title">Personalized Recommendations</string>
     <string name="onboarding_second_page_title">Track Everything</string>
-
-
-
     <string name="season_number">%1$s Seasons</string>
     <string name="movie">MOVIE</string>
     <string name="series">SERIES</string>
@@ -138,4 +157,27 @@
     <string name="give_it_stars">Give it Stars!</string>
     <string name="let_the_world_know_how_you_felt">Let the world know how you felt.</string>
     <string name="arrow">arrow</string>
+    <string name="change_language">Change Language</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic</string>
+    <string name="login_or_sign_up">Login or Sign Up</string>
+    <string name="tap_to_add_your_name">Tap to add your name</string>
+    <string name="to_personalize_your_profile">to personalize your profile</string>
+    <string name="choose_how_you_d_like_to_handle_sensitive_or_revealing_images_in_the_app">Choose how you’d like to handle sensitive or revealing images in the app.</string>
+    <string name="hide_explicit_content">Hide Explicit Content</string>
+    <string name="hides_revealing_or_inappropriate_posters_e_g_nudity_strong_sexual_content">Hides revealing or inappropriate posters (e.g. nudity, strong sexual content).</string>
+    <string name="strict_filtering">Strict Filtering</string>
+    <string name="hides_all_content_that_includes_immodest_clothing_or_behavior">Hides all content that includes immodest clothing or behavior</string>
+    <string name="show_all_content">Show All Content</string>
+    <string name="no_filtering_all_images_and_posters_will_be_displayed">No filtering. All images and posters will be displayed.</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="you_ll_be_taken_to_the_website_to_update_your_name_username_or_profile_picture">You’ll be taken to the website to update your name, username, or profile picture.</string>
+    <string name="go_to_website">Go to Website</string>
+
+
+    <string name="select_movies_or_series_tab">Select Movies or Series tab</string>
+    <string name="you_gave_it">You gave it</string>
+    <string name="no_ratings_yet">No Ratings Yet</string>
+    <string name="rate_movies_and_series_you_ve_watched_to_track_what_you_love_and_what_you_don_t">Rate movies and series you’ve watched to track what you love, and what you don’t.</string>
+    <string name="start_rating">Start Rating</string>
 </resources>

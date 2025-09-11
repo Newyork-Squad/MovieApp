@@ -6,6 +6,7 @@ import com.karrar.movieapp.domain.mappers.ListMapper
 import com.karrar.movieapp.domain.mappers.SeriesMapperContainer
 import com.karrar.movieapp.domain.models.Actor
 import com.karrar.movieapp.domain.models.Crew
+import com.karrar.movieapp.domain.models.Media
 import com.karrar.movieapp.domain.models.MediaDetailsReviews
 import com.karrar.movieapp.domain.models.Season
 import com.karrar.movieapp.domain.models.TvShowDetails
@@ -52,5 +53,15 @@ class GetTvShowDetailsUseCase @Inject constructor(
         return result?.let {
             it.find { it.id == tvShowID }?.rating ?: 0F
         } ?: throw Throwable("Error")
+    }
+
+    suspend fun getSimilarTvShows(tvShowId: Int): List<Media> {
+//        return ListMapper(seriesMapperContainer.mediaMapper)
+//            .mapList(seriesRepository.getSimilarTvShows(tvShowId))
+
+        val result = seriesRepository.getSimilarTvShows(tvShowId)
+        return result?.map {
+            seriesMapperContainer.mediaMapper.map(it)
+        } ?: throw Throwable("Not success")
     }
 }

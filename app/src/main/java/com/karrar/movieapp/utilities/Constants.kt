@@ -10,6 +10,14 @@ object Constants {
     const val FIRST_CATEGORY_ID = 0
     const val ALL = "All"
 
+    const val FACEBOOK_ID = "facebook_id"
+    const val INSTAGRAM_ID = "instagram_id"
+    const val TWITTER_ID = "twitter_id"
+    const val YOUTUBE_ID = "youtube_id"
+    const val IMDB_ID = "imdb_id"
+    const val TIKTOK_ID = "tiktok_id"
+
+
     const val MAX_NUM_REVIEWS = 3
 
     const val MOVIE = "movie"
@@ -18,10 +26,13 @@ object Constants {
     const val PERSON = "person"
     const val ACTING = "Acting"
     const val NUM_HOME_REQUEST = 9
-    const val  SUCCESS_REQUEST = 1
+    const val SUCCESS_REQUEST = 1
     const val INTERNET_STATUS = 400
 
     const val PROFILE = 1
+    const val NUMBER_OF_SEASONS = 3
+    const val SEASON_YEAR_LENGTH = 4
+    const val RATE_DISPLAY_LENGTH = 3
 }
 
 object ErrorUI {

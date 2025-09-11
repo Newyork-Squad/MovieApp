@@ -11,19 +11,14 @@
     </data>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_popular_movie"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerPopular"
         android:layout_width="match_parent"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="@dimen/spacing_small"
-        android:layout_height="wrap_content"
-        app:usePagerSnapHelper="@{true}"
-        android:adapter="@{adapterRecycler}"
-        android:orientation="horizontal"
+        android:layout_height="286dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:paddingHorizontal="@dimen/spacing_large"
         android:overScrollMode="never"
-        tools:listitem="@layout/item_popular_movie"
-        android:scrollbars="none"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        />
+        tools:listitem="@layout/item_popular_movie"/>
 
 </layout>

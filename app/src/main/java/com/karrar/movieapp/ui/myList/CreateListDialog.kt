@@ -17,6 +17,7 @@ class CreateListDialog : BaseDialog<FragmentCreateListDialogBinding>() {
     override val layoutIdFragment = R.layout.fragment_create_list_dialog
      val viewModel: MyListsViewModel by activityViewModels()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

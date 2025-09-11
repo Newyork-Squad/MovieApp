@@ -12,7 +12,8 @@ class RatedUIStateMapper @Inject constructor() :Mapper<Rated,RatedUIState>  {
             posterPath = input.posterPath,
             rating = input.rating,
             mediaType = input.mediaType,
-            releaseDate = input.releaseDate
+            releaseDate = input.releaseDate,
+            genres =  emptyList()
         )
     }
 }

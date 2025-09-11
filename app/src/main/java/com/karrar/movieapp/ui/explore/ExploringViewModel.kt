@@ -40,6 +40,9 @@ class ExploringViewModel @Inject constructor(
     private val _exploringUIEvent: MutableStateFlow<Event<ExploringUIEvent>?> = MutableStateFlow(null)
     val exploringUIEvent= _exploringUIEvent.asStateFlow()
 
+    private val _isGrid = MutableStateFlow(true)
+    val isGrid: StateFlow<Boolean> = _isGrid.asStateFlow()
+
     init {
         setMediaType(Constants.MOVIE_CATEGORIES_ID)
     }
@@ -64,6 +67,12 @@ class ExploringViewModel @Inject constructor(
         loadMedia(mediaId, Constants.FIRST_CATEGORY_ID)
     }
 
+    fun setGridMode(grid: Boolean) {
+        _isGrid.value = grid
+    }
+
+    fun toggleGridMode() = setGridMode(!_isGrid.value)
+
     private fun loadGenres(mediaId: Int) {
         viewModelScope.launch {
             try {
@@ -79,13 +88,23 @@ class ExploringViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val paging = getMediaByGenreUseCase(mediaId, categoryId)
-                    .map { pagingData -> pagingData.map { mediaUIStateMapper.map(it) } }
+                    .map { pagingData ->
+                        val genresMap: Map<Int, String> = _uiState.value.genre.associate { it.genreID to it.genreName }
+
+                        pagingData.map { media ->
+                            val baseUi = mediaUIStateMapper.map(media)
+                            val names = media.genresIds.mapNotNull { genresMap[it] }
+                            baseUi.copy(mediaGenres = names.joinToString(", "))
+                        }
+                    }
+
                 _uiState.update { it.copy(isLoading = false, media = paging, error = emptyList()) }
             } catch (t: Throwable) {
                 _uiState.update { it.copy(isLoading = false, error = listOf(ErrorUIState(-1, t.message.orEmpty()))) }
             }
         }
     }
+
 
     fun onClickSearch() {
         _exploringUIEvent.update { Event(ExploringUIEvent.SearchEvent) }

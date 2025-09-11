@@ -171,6 +171,8 @@
             app:resetScroll="@{false}"
             tools:listitem="@layout/item_genre_chip" />
 
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_media"
             android:layout_width="match_parent"
@@ -178,19 +180,24 @@
             android:layout_marginHorizontal="@dimen/spacing_small"
             android:layout_marginTop="@dimen/spacing_small"
             android:clipToPadding="false"
-            android:elevation="@dimen/spacing_too_small"
             app:doneLoading="@{viewModel.uiState.loading}"
             app:errorNotEmpty="@{viewModel.uiState.error}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_genres"
-            app:layout_constraintVertical_bias="0.0"
-            app:spanCount="2"
-            tools:listitem="@layout/item_category" />
-
+            tools:listitem="@layout/item_category_grid" />
+        <include
+            android:id="@+id/view_toggle"
+            layout="@layout/media_toggle_view"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:elevation="@dimen/spacing_xSmall"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
         <ProgressBar
             android:id="@+id/animation_loading"
             android:layout_width="wrap_content"

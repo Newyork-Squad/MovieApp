@@ -16,6 +16,7 @@ class MysteryMovieMapper @Inject constructor() : Mapper<MysteryMovieEntity, Medi
             mediaRate = 0f,
             mediaDate = "",
             mediaType = MediaType.MOVIE.value,
+            genresIds = emptyList(),
         )
     }
 }

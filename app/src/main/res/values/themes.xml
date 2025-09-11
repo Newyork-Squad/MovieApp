@@ -112,6 +112,11 @@
     <style name="CardCorners.Large">
         <item name="cornerSize">@dimen/radius_lg</item>
     </style>
+    <style name="CardCorners.Media_Image">
+        <item name="cornerSizeTopLeft">@dimen/radius_lg</item>
+        <item name="cornerSizeTopRight">@dimen/radius_lg</item>
+        <item name="cornerSizeBottomLeft">@dimen/radius_lg</item>
+    </style>
 
     <style name="Login" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:textColorHint">@color/shade_secondary_color</item>

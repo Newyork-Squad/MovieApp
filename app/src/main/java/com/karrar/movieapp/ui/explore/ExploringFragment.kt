@@ -50,7 +50,40 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
         setGenreAdapter()
         setMediaAdapter()
         collectData()
+        setupToggle()
     }
+
+    private fun setupToggle() {
+        val toggleRoot = binding.viewToggle
+
+        toggleRoot.ivGrid.setOnClickListener { viewModel.setGridMode(true) }
+        toggleRoot.ivList.setOnClickListener { viewModel.setGridMode(false) }
+        toggleRoot.indicator.setOnClickListener { viewModel.toggleGridMode() }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isGrid.collect { isGrid ->
+                if (isGrid) toggleRoot.toggleMotion.transitionToStart() else toggleRoot.toggleMotion.transitionToEnd()
+
+                allMediaAdapter.setGridMode(isGrid)
+
+                val lm = binding.recyclerMedia.layoutManager as? GridLayoutManager
+                lm?.let {
+                    val firstPos = it.findFirstVisibleItemPosition()
+                    it.spanCount = if (isGrid) 2 else 1
+
+                    binding.recyclerMedia.post {
+                        it.requestLayout()
+                        if (firstPos != RecyclerView.NO_POSITION) binding.recyclerMedia.scrollToPosition(firstPos)
+                    }
+                }
+                val gridIcon = if (isGrid) R.drawable.ic_grid_selected else R.drawable.ic_grid_unselected
+                val listIcon = if (!isGrid) R.drawable.ic_row_vertical_selected else R.drawable.ic_row_vertical_unselected
+                toggleRoot.ivGrid.setImageResource(gridIcon)
+                toggleRoot.ivList.setImageResource(listIcon)
+            }
+        }
+    }
+
 
     private fun initTabLayout() {
         binding.tabExplore.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -163,26 +196,6 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
                 ExploringFragmentDirections.actionExploringFragmentToSearchFragment(),
                 extras
             )
-    }
-
-    private fun navigateToMediaDetails(item: TrendyMediaUIState) {
-        when (item.mediaType) {
-            Constants.MOVIE -> {
-                findNavController().navigate(
-                    ExploringFragmentDirections.actionExploringFragmentToMovieDetailFragment(
-                        item.mediaID
-                    )
-                )
-            }
-
-            Constants.TV_SHOWS -> {
-                findNavController().navigate(
-                    ExploringFragmentDirections.actionExploringFragmentToTvShowDetailsFragment(
-                        item.mediaID
-                    )
-                )
-            }
-        }
     }
 
 }

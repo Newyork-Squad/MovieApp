@@ -103,6 +103,12 @@ fun Date.convertToDayMonthYearFormat(): String {
     return formatter.format(this)
 }
 
+fun String.convertToDayMonthYearFormat(inputFormat: String, outputFormat: String): String? {
+    val date = SimpleDateFormat(inputFormat, Locale.getDefault())
+        .parse(this)?: return null
+    val formatter = SimpleDateFormat(outputFormat, Locale.getDefault())
+    return formatter.format(date)
+}
  fun Int.dpToPx(context: Context): Int =
     (this * context.resources.displayMetrics.density).toInt()
 

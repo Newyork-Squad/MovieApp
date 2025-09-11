@@ -1,8 +1,10 @@
 package com.karrar.movieapp.ui.login
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.karrar.movieapp.domain.usecases.login.LoginAsGuestUseCase
 import com.karrar.movieapp.domain.usecases.login.LoginWithUserNameAndPasswordUseCase
 import com.karrar.movieapp.domain.usecases.login.ValidateFiledUseCase
 import com.karrar.movieapp.domain.usecases.login.ValidateLoginFormUseCase
@@ -22,6 +24,7 @@ class LoginViewModel @Inject constructor(
     private val validateFiledUseCase: ValidateFiledUseCase,
     private val validatePasswordFiledUseCase: ValidatePasswordFiledUseCase,
     private val validateLoginFormUseCase: ValidateLoginFormUseCase,
+    private val loginAsGuestUseCase: LoginAsGuestUseCase
 ) : ViewModel() {
 
     val args = LoginFragmentArgs.fromSavedStateHandle(state)
@@ -33,11 +36,18 @@ class LoginViewModel @Inject constructor(
     val loginEvent = _loginEvent.asStateFlow()
 
     fun onClickSignUp() {
+        _loginUIState.update { it.copy(showSignUpDialog = false) }
+
         _loginEvent.update { Event(LoginUIEvent.SignUpEvent) }
     }
 
+
     fun onClickLogin() {
         login()
+    }
+
+    fun onClickGuestLogin() {
+        loginAsGuest()
     }
 
     fun onUserNameInputChange(text: CharSequence) {
@@ -95,6 +105,24 @@ class LoginViewModel @Inject constructor(
         resetForm()
     }
 
+
+    private fun loginAsGuest() {
+        viewModelScope.launch {
+            try {
+                val loginState = loginAsGuestUseCase()
+                if (loginState) {
+                    onGuestLoginSuccessfully()
+                }
+            } catch (e: Throwable) {
+                onLoginError(e.message.toString())
+            }
+        }
+    }
+
+    private fun onGuestLoginSuccessfully() {
+        _loginEvent.update { Event(LoginUIEvent.JoinAsGuestEvent) }
+        resetForm()
+    }
     private fun onLoginError(message: String) {
         _loginUIState.update {
             it.copy(
@@ -109,5 +137,24 @@ class LoginViewModel @Inject constructor(
     private fun resetForm() {
         _loginUIState.update { it.copy(userName = "", password = "") }
     }
+
+    fun togglePasswordVisibility() {
+        val current = _loginUIState.value.passwordVisible
+        _loginUIState.value = _loginUIState.value.copy(passwordVisible = !current)
+    }
+
+    fun onClickCreateAccount() {
+        _loginUIState.update { it.copy(showSignUpDialog = true) }
+    }
+
+    fun onClickCancelSignUp() {
+        _loginUIState.update { it.copy(showSignUpDialog = false) }
+    }
+
+    fun onClickForgotPassword() {
+        _loginEvent.update { Event(LoginUIEvent.ForgotPasswordEvent) }
+    }
+
+
 
 }

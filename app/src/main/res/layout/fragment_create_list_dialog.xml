@@ -8,11 +8,16 @@
             name="viewModel"
             type="com.karrar.movieapp.ui.myList.MyListsViewModel" />
     </data>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="@dimen/radius_large">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_sheet_corners"
+        android:background="@color/background_bottomSheet"
         android:paddingVertical="@dimen/spacing_large">
 
         <TextView
@@ -20,9 +25,9 @@
             style="@style/SemiBold.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/plus_jakarta_sans_semibold"
             android:text="@string/create_a_new_list"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,60 +35,97 @@
             android:id="@+id/textView5"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="@dimen/spacing_large"
             android:fontFamily="@font/plus_jakarta_sans_regular"
             android:text="@string/explore_some_movies_on_home_or_search_and_then_create_your_movie_list"
-            android:textAlignment="center"
             android:textColor="@color/shade_secondary_color"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/primary_text" />
 
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/list_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:hint="@string/list_name"
-            android:textColorHint="@color/shade_secondary_color"
-            app:hintTextColor="@color/shade_secondary_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5">
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="8dp"
+            app:boxBackgroundColor="@color/background_card"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="@dimen/radius_lg"
+            app:boxCornerRadiusBottomStart="@dimen/radius_lg"
+            app:boxCornerRadiusTopEnd="@dimen/radius_lg"
+            app:boxCornerRadiusTopStart="@dimen/radius_lg"
+            app:boxStrokeColor="@color/text_input_stroke_colors"
+            app:boxStrokeErrorColor="@color/primary_red"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="1dp"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@drawable/outline_danger_triangle"
+            app:errorTextColor="@color/primary_red"
+            app:helperTextTextColor="@color/primary_red"
+            app:hintEnabled="false"
+            app:hintTextColor="@color/shade_tertiary"
+            app:layout_constraintTop_toBottomOf="@id/textView5"
+            app:startIconDrawable="@drawable/outline_folder"
+            app:startIconTint="@color/shade_tertiary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:afterTextChanged="@{(text) -> viewModel.onListNameInputChange(text)}"
-                android:fontFamily="@font/plus_jakarta_sans_regular"
+                android:layout_height="56dp"
+                android:hint="@string/e_g_my_watchlist"
                 android:inputType="textPersonName"
-                android:maxLength="15"
-                android:maxLines="1"
-                android:textColor="@color/shade_primary_color"
-                android:textCursorDrawable="@drawable/color_cursor" />
+                android:textColor="@color/shade_primary"
+                android:textColorHint="@color/shade_secondary"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:afterTextChanged="@{(text) -> viewModel.onListNameInputChange(text)}"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
+        <LinearLayout
+            android:id="@+id/buttons_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:layout_marginBottom="24dp"
-            android:enabled="@{!viewModel.createListDialogUIState.mediaListName.empty}"
-            android:fontFamily="@font/plus_jakarta_sans_semibold"
-            android:onClick="@{()->viewModel.onClickAddList()}"
-            android:paddingVertical="@dimen/spacing_medium"
-            android:text="@string/create"
-            android:textAllCaps="false"
-            android:textColor="@color/white_primary"
-            app:backgroundTint="@color/color_states_material_button"
-            app:cornerRadius="@dimen/spacing_small"
+            android:layout_margin="12dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/list_name" />
+            app:layout_constraintTop_toBottomOf="@+id/list_name" >
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:background="@drawable/btn_rectangle"
+                style="@style/Body_MD.Medium"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/button_onSecondary"
+                app:backgroundTint="@color/button_secondary"
+                android:layout_weight="1"
+                android:text="@string/cancel"
+                android:textAllCaps="false"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_confirm"
+                android:background="@drawable/btn_rectangle"
+                android:layout_width="0dp"
+                style="@style/Body_MD.Medium"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:enabled="@{!viewModel.createListDialogUIState.mediaListName.empty}"
+                android:onClick="@{()->viewModel.onClickAddList()}"
+                android:textColor="@color/button_text_states"
+                app:backgroundTint="@color/color_states_material_button"
+                android:text="@string/create"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>
 

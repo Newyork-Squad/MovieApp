@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.karrar.movieapp.ui.reviews.ReviewViewModel" />
+            type="com.karrar.movieapp.ui.tvShowDetails.seasons.SeasonsViewModel" />
 
         <variable
             name="listener"
-            type="com.karrar.movieapp.ui.reviews.ReviewInteractionsListener" />
+            type="com.karrar.movieapp.ui.tvShowDetails.seasons.SeasonInteractionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,12 +35,12 @@
             app:tint="@color/shade_primary" />
 
         <TextView
-            android:id="@+id/reviews"
+            android:id="@+id/seasons"
             style="@style/Title.SM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_small"
-            android:text="@string/reviews_title"
+            android:text="@string/seasons_title"
             android:textColor="@color/shade_primary"
             android:textFontWeight="500"
             android:textSize="16sp"
@@ -48,20 +49,22 @@
             app:layout_constraintTop_toTopOf="@id/back_arrow_icon" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/comment_review_adapter"
+            android:id="@+id/seasons_adapter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
             android:clipToPadding="false"
             android:orientation="vertical"
             android:overScrollMode="never"
+            android:paddingBottom="12dp"
             android:scrollbars="none"
-            app:items="@{viewModel.uiState.movieReview}"
+            app:items="@{viewModel.uiState.seriesSeasonsResult}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/reviews"
-            tools:listitem="@layout/item_movie_review" />
+            app:layout_constraintTop_toBottomOf="@id/seasons"
+            tools:listitem="@layout/item_season" />
 
         <ProgressBar
             android:id="@+id/loading"
@@ -81,7 +84,7 @@
         <include
             android:id="@+id/error"
             layout="@layout/error_movie_details"
-            app:isError="@{!viewModel.uiState.errorUIStates.isEmpty()}"
+            app:isError="@{!viewModel.uiState.errorUIState.isEmpty()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

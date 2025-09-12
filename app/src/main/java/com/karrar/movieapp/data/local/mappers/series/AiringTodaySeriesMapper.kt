@@ -10,7 +10,8 @@ class AiringTodaySeriesMapper @Inject constructor() : Mapper<TVShowsDTO, AiringT
         return AiringTodaySeriesEntity(
             id = input.id ?: 0,
             name = input.originalName ?: "",
-            imageUrl = input.posterPath ?: ""
+            imageUrl = input.posterPath ?: "",
+            rate = input.voteAverage ?: 0.0,
         )
     }
 }

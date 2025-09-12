@@ -24,6 +24,7 @@ class MatchViewModel
         private val items = mutableListOf<MatchQuestion>()
 
         override fun onNextClicked() {
+            if (getSelectedChoices(_uiState.value.currentQuestionType).isEmpty()) return
             if (_uiState.value.currentQuestionType == MatchQuestionType.RELEASE) {
                 _uiState.update {
                     it.copy(isLoading = true)
@@ -45,7 +46,7 @@ class MatchViewModel
                             if (q.type == _uiState.value.currentQuestionType) {
                                 val selectedChoices = getSelectedChoices(q.type)
                                 q.copy(
-                                    choices = selectedChoices,
+                                    choices = selectedChoices.map { it.copy(isSelected = true) },
                                     isAnswered = true,
                                 )
                             } else {
@@ -70,7 +71,7 @@ class MatchViewModel
             }
         }
 
-        override fun getSelectedChoices(type: MatchQuestionType): List<Choice> =
+        private fun getSelectedChoices(type: MatchQuestionType): List<Choice> =
             when (type) {
                 MatchQuestionType.MOOD -> _uiState.value.moodSelected
                 MatchQuestionType.GENRE -> _uiState.value.genreSelected

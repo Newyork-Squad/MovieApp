@@ -11,7 +11,7 @@ import com.karrar.movieapp.ui.match.questions.MatchQuestionType
 class ChoicesAdapter(
     private val items: List<Choice>,
     private val type: MatchQuestionType,
-    private val listener: MatchQuestionInteractionListener,
+    listener: MatchQuestionInteractionListener,
     private val onItemSelected: (List<Choice>, MatchQuestionType) -> Unit,
 ) : BaseAdapter<Choice>(items, listener) {
     override val layoutID: Int
@@ -61,25 +61,7 @@ class ChoicesAdapter(
         }
     }
 
-    /**
-     * Update choices & currently selected items
-     */
-    fun updateChoices(
-        newItems: List<Choice>,
-        newSelected: List<Choice>,
-    ) {
-//        selectedItems = newSelected
-//        setItems(newItems)
-    }
-
     interface ChoicesInteractionListener : BaseInteractionListener {
         fun onChoiceSelected(choice: Choice)
-    }
-
-    override fun areItemsSame(
-        oldItem: Choice,
-        newItem: Choice,
-    ): Boolean {
-        return oldItem.name == newItem.name // assuming Choice has unique id
     }
 }

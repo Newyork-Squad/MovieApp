@@ -20,12 +20,11 @@ class MatchAdapter(
 ) : BaseAdapter<MatchQuestion>(items, listener) {
     override val layoutID: Int = R.layout.item_match_question
 
-    private val choicesAdapters = mutableMapOf<Int, ChoicesAdapter>()
-
     override fun bind(
         holder: ItemViewHolder,
         position: Int,
     ) {
+        val choicesAdapters = mutableMapOf<Int, ChoicesAdapter>()
         val item = items[position]
 
         val choicesAdapter =
@@ -54,8 +53,6 @@ class MatchAdapter(
             executePendingBindings()
         }
     }
-
-    private fun getSelectedChoices(type: MatchQuestionType): List<Choice> = listener.getSelectedChoices(type)
 
     fun emitItems(items: List<MatchQuestion>) {
         this.items.clear()

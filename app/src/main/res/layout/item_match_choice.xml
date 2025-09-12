@@ -32,8 +32,8 @@
         app:cardBackgroundColor="@{isSelected ? @color/brand_tertiary : @color/background_card}"
         app:cardCornerRadius="@dimen/radius_lg"
         app:cardElevation="0dp"
-        app:strokeColor="@{isSelected ? @color/brand_secondary : @android:color/transparent}"
-        app:strokeWidth="@{isSelected ? 1 : 0}">
+        app:strokeColor="@{isSelected || choice.isSelected ? @color/brand_secondary : @android:color/transparent}"
+        app:strokeWidth="@{isSelected || choice.isSelected ? 1 : 0}">
 
         <LinearLayout
             android:layout_width="match_parent"

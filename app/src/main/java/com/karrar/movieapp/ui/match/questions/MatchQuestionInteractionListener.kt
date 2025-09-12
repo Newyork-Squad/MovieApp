@@ -6,7 +6,5 @@ interface MatchQuestionInteractionListener : BaseInteractionListener {
 
     fun onNextClicked()
 
-    fun getSelectedChoices(type: MatchQuestionType): List<Choice>
-
     fun getCurrentQuestionType(): MatchQuestionType
 }

@@ -32,8 +32,8 @@
         app:cardElevation="0dp"
         app:contentPaddingRight="20dp"
         app:contentPaddingLeft="20dp"
-        app:strokeColor="@{isSelected ? @color/brand_secondary : @android:color/transparent}"
-        app:strokeWidth="@{isSelected ? 1 : 0}">
+        app:strokeColor="@{isSelected || choice.isSelected ? @color/brand_secondary : @android:color/transparent}"
+        app:strokeWidth="@{isSelected || choice.isSelected ? 1 : 0}">
 
         <TextView
             android:id="@+id/choice_text"

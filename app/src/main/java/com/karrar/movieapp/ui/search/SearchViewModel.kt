@@ -48,6 +48,9 @@ class SearchViewModel @Inject constructor(
     private val _isGrid = MutableStateFlow(true)
     val isGrid: StateFlow<Boolean> = _isGrid.asStateFlow()
 
+    private val _showToggle = MutableStateFlow(false)
+    val showToggle = _showToggle.asStateFlow()
+
     private val _searchUIEvent = MutableStateFlow<Event<SearchUIEvent?>>(Event(null))
     val searchUIEvent = _searchUIEvent.asStateFlow()
 
@@ -198,5 +201,9 @@ class SearchViewModel @Inject constructor(
     }
 
     fun toggleGridMode() = setGridMode(!_isGrid.value)
+
+    fun setToggleVisibility(visible: Boolean) {
+        _showToggle.value = visible
+    }
 
 }

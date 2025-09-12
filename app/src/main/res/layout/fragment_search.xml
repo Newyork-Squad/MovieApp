@@ -98,19 +98,16 @@
                 android:text="@string/actors_label" />
         </com.google.android.material.tabs.TabLayout>
 
-        <TextView
-            android:id="@+id/text_search_label"
-            style="@style/SemiBold.Medium"
-            android:layout_width="wrap_content"
+        <include
+            android:id="@+id/layout_history_header"
+            layout="@layout/item_history_header"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:drawablePadding="@dimen/spacing_small"
-            android:gravity="center"
-            android:text="@string/history_label"
-            android:textColor="@color/shade_primary_color"
             app:hideWhenListIsEmpty="@{viewModel.uiState.searchHistory}"
             app:hideWhenSearch="@{viewModel.uiState.searchInput}"
             app:layout_constraintStart_toStartOf="@id/imagw_back_arrow"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_search" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -131,7 +128,7 @@
             app:layout_constraintTop_toBottomOf="@id/tab_media_type"
             app:loadingSearch="@{viewModel.uiState.loading}"
             app:searchInput="@{viewModel.uiState.searchInput}"
-          />
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_search_history"
@@ -149,7 +146,7 @@
             app:layout_constraintEnd_toEndOf="@id/input_search"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/imagw_back_arrow"
-            app:layout_constraintTop_toBottomOf="@id/text_search_label"
+            app:layout_constraintTop_toBottomOf="@id/layout_history_header"
             app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/item_search_history" />
 

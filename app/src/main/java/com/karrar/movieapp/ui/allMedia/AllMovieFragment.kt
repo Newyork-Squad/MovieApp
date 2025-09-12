@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.appbar.MaterialToolbar
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.FragmentAllMovieBinding
 import com.karrar.movieapp.domain.enums.AllMediaType
@@ -29,7 +30,11 @@ class AllMovieFragment : BaseFragment<FragmentAllMovieBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitle(true, getTitle(viewModel.args.type))
+        setTitle(false, getTitle(viewModel.args.type))
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
+        toolbar.setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+        val title =getTitle(viewModel.args.type)
+        binding.toolbar.title = title
         setMovieAdapter()
         setupToggle()
         collectEvent()

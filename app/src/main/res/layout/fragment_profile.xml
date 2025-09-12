@@ -294,7 +294,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_medium"
                     app:dividerColor="@color/shade_quaternary_color"
-                    app:isVisible="@{viewModel.profileDetailsUIState.isLoggedIn}"
+                    app:isVisible="@{viewModel.profileDetailsUIState.isRealUser}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/contentPreferences" />
@@ -312,7 +312,7 @@
                     android:text="@string/sign_out"
                     android:textColor="@color/primary_red"
                     app:drawableTint="@color/primary_red"
-                    app:isVisible="@{viewModel.profileDetailsUIState.isLoggedIn}"
+                    app:isVisible="@{viewModel.profileDetailsUIState.isRealUser}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/contentPreferences" />
@@ -324,7 +324,7 @@
                     android:layout_marginTop="20dp"
                     android:src="@drawable/outline_alt_arrow_right"
                     android:tint="@color/primary_red"
-                    app:isVisible="@{viewModel.profileDetailsUIState.isLoggedIn}"
+                    app:isVisible="@{viewModel.profileDetailsUIState.isRealUser}"
                     app:layout_constraintEnd_toEndOf="@+id/text_sign_out"
                     app:layout_constraintTop_toBottomOf="@+id/contentPreferences" />
 

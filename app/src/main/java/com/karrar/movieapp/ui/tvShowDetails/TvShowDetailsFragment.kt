@@ -88,6 +88,12 @@ class TvShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
                 Toast.makeText(context, getString(R.string.submit_toast), Toast.LENGTH_SHORT).show()
             }
 
+            is TvShowDetailsUIEvent.ClickTvShowEvent -> {
+                viewModelStore.clear()
+                action =
+                    TvShowDetailsFragmentDirections.actionTvShowDetailsFragmentSelf(event.thShowId)
+            }
+
             TvShowDetailsUIEvent.ClickSeasonsEvent -> {
                 action=TvShowDetailsFragmentDirections.actionTvShowDetailsFragmentToSeasonsFragment(
                     args.tvShowId

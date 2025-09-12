@@ -20,7 +20,7 @@ import com.karrar.movieapp.data.remote.response.trailerVideosDto.ResultDto
 import com.karrar.movieapp.databinding.ChipItemCategoryBinding
 import com.karrar.movieapp.ui.adapters.LoadUIStateAdapter
 import com.karrar.movieapp.ui.base.BasePagingAdapter
-import com.karrar.movieapp.ui.category.GenresInteractionListener
+import com.karrar.movieapp.ui.explore.GenresInteractionListener
 import com.karrar.movieapp.ui.category.uiState.GenreUIState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest

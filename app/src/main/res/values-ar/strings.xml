@@ -155,6 +155,7 @@
     <string name="tv_show_image">صورة المسلسل</string>
     <string name="clock_icon_for_number_of_seasons">أيقونة عدد المواسم</string>
     <string name="calendar_icon_for_release_date">أيقونة تاريخ الإصدار</string>
+    <string name="welcome">مرحبا</string>
     <string name="behind_the_scenes">الكواليس</string>
     <string name="give_it_stars">قيمه بالنجوم!</string>
     <string name="let_the_world_know_how_you_felt">دع العالم يعرف رأيك.</string>
@@ -186,4 +187,6 @@
     <string name="no_ratings_yet">لا توجد تقييمات بعد</string>
     <string name="rate_movies_and_series_you_ve_watched_to_track_what_you_love_and_what_you_don_t">قيّم الأفلام والمسلسلات التي شاهدتها لتتعقب ما تحبه وما لا تحبه.</string>
     <string name="start_rating">ابدأ التقييم</string>
+    <string name="match">كيفي</string>
+    <string name="me">انا</string>
 </resources>

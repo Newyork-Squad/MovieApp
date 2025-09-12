@@ -123,7 +123,7 @@
                 android:drawablePadding="@dimen/spacing_too_small"
                 android:gravity="center"
                 android:textColor="@color/shade_secondary"
-                android:text="@{item.releaseDate}"
+                app:convertToHoursPattern="@{item.movieDuration}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/image_movie"
                 tools:text="1h 50m" />

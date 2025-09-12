@@ -189,12 +189,12 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
 
         val background = GradientDrawable().apply {
             setColor(bgColor)
-            cornerRadius = 12f
+            cornerRadius = 16f
         }
 
         background.setBounds(
             itemView.right + dX.toInt() + margin,
-            itemView.top + margin * 4 ,
+            itemView.top + margin  ,
             itemView.right - margin,
             itemView.bottom - margin
         )
@@ -219,7 +219,7 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
         val backgroundCenterX = (backgroundLeft + backgroundRight) / 2
         val iconHalfWidth = deleteIcon.intrinsicWidth / 2
 
-        val iconTop = itemView.top + (itemView.height - deleteIcon.intrinsicHeight) / 2 + margin *2
+        val iconTop = itemView.top + (itemView.height - deleteIcon.intrinsicHeight) / 2
         val iconBottom = iconTop + deleteIcon.intrinsicHeight
         val iconLeft = backgroundCenterX - iconHalfWidth
         val iconRight = backgroundCenterX + iconHalfWidth
@@ -231,10 +231,6 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
     }
 
 
-    private fun dipToPx(dipValue: Float, context: Context): Int {
-        return (dipValue * context.resources.displayMetrics.density).toInt()
-
-    }
 
 
 

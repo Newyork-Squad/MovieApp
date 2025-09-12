@@ -1,6 +1,5 @@
 package com.karrar.movieapp.ui.match_result
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.enums.Era

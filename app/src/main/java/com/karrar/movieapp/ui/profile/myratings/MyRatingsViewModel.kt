@@ -45,11 +45,10 @@ class MyRatingsViewModel @Inject constructor(
         viewModelScope.launch {
             _ratedUiState.update { it.copy(isLoading = true) }
             try {
-                // جلب rated list
                 val ratedList = getRatedUseCase()
 
                 val movieGenresMap = getGenreListUseCase(Constants.MOVIE_CATEGORIES_ID)
-                    .associateBy { it.genreID } // Map<Int, Genre> للبحث السريع
+                    .associateBy { it.genreID }
                 val seriesGenresMap = getGenreListUseCase(Constants.TV_CATEGORIES_ID)
                     .associateBy { it.genreID }
 
@@ -89,11 +88,6 @@ class MyRatingsViewModel @Inject constructor(
                 _myRatingUIEvent.update { Event(MyRatingUIEvent.TVShowEvent(movieId)) }
             }
         }
-    }
-
-    fun retryConnect() {
-        _ratedUiState.update { it.copy(error = emptyList()) }
-        getData()
     }
 
     fun deleteMovie(movieId: Int) {

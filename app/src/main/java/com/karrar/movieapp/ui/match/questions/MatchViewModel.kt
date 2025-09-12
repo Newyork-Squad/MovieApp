@@ -17,65 +17,68 @@ class MatchViewModel
         private val _uiState = MutableStateFlow(MatchQuestionUiState())
         val uiState = _uiState.asStateFlow()
 
-        override fun onChoiceSelected(choice: Choice) {
-            val currentType = _uiState.value.currentQuestionType
-            _uiState.update { state ->
-                val updatedQuestions =
-                    state.questions.map { q ->
-                        if (q.type == currentType) {
-                            q.copy(
-                                choices =
-                                    q.choices.map {
-                                        if (it.name == choice.name) {
-                                            it.copy(isSelected = !it.isSelected)
-                                        } else {
-                                            it
-                                        }
-                                    },
-                            )
-                        } else {
-                            q
-                        }
-                    }
-                state.copy(questions = updatedQuestions)
-            }
-        }
+        private val _questions =
+            MutableStateFlow<List<MatchQuestion>>(emptyList())
+        val questions = _questions.asStateFlow()
+
+        private val items = mutableListOf<MatchQuestion>()
 
         override fun onNextClicked() {
+            if (_uiState.value.currentQuestionType == MatchQuestionType.RELEASE) {
+                _uiState.update {
+                    it.copy(isLoading = true)
+                }
+                return
+            }
+            val nextType =
+                when (_uiState.value.currentQuestionType) {
+                    MatchQuestionType.MOOD -> MatchQuestionType.GENRE
+                    MatchQuestionType.GENRE -> MatchQuestionType.TIME
+                    MatchQuestionType.TIME -> MatchQuestionType.RELEASE
+                    MatchQuestionType.RELEASE -> return
+                }
+
+            _questions.update { currentList ->
+                val updatedList =
+                    currentList
+                        .map { q ->
+                            if (q.type == _uiState.value.currentQuestionType) {
+                                val selectedChoices = getSelectedChoices(q.type)
+                                q.copy(
+                                    choices = selectedChoices,
+                                    isAnswered = true,
+                                )
+                            } else {
+                                q
+                            }
+                        }.toMutableList()
+
+                // append next question if it's not already there
+                val nextQuestion = items.firstOrNull { it.type == nextType }
+                if (nextQuestion != null && updatedList.none { it.type == nextType }) {
+                    updatedList.add(nextQuestion)
+                }
+
+                updatedList
+            }
+
             _uiState.update { state ->
-                val nextType =
-                    when (state.currentQuestionType) {
-                        MatchQuestionType.MOOD -> MatchQuestionType.GENRE
-                        MatchQuestionType.GENRE -> MatchQuestionType.TIME
-                        MatchQuestionType.TIME -> MatchQuestionType.RELEASE
-                        MatchQuestionType.RELEASE -> return
-                    }
-
-                val resetQuestions =
-                    state.questions.map { q ->
-                        if (q.type == nextType) {
-                            q.copy(
-                                choices = q.choices.map { it.copy(isSelected = false) },
-                                isAnswered = true,
-                            )
-                        } else {
-                            q
-                        }
-                    }
-
                 state.copy(
                     currentQuestionType = nextType,
-                    questions = resetQuestions,
                     progress = state.progress + 25,
                 )
             }
         }
 
-    override fun getSelectedChoices(type: MatchQuestionType): List<Choice> {
-        TODO("Not yet implemented")
-    }
+        override fun getSelectedChoices(type: MatchQuestionType): List<Choice> =
+            when (type) {
+                MatchQuestionType.MOOD -> _uiState.value.moodSelected
+                MatchQuestionType.GENRE -> _uiState.value.genreSelected
+                MatchQuestionType.TIME -> _uiState.value.mediaTimeDurationSelected
+                MatchQuestionType.RELEASE -> _uiState.value.releaseSelected
+            }
 
-    override fun getData() {
+        override fun getData() {
             val mood =
                 listOf(
                     Choice(name = "Chill", icon = R.drawable.due_tone_headphone),
@@ -118,7 +121,7 @@ class MatchViewModel
                     Choice(name = "Classic"),
                     Choice(name = "Both"),
                 )
-            val items =
+            items.addAll(
                 listOf(
                     MatchQuestion(
                         question = "What mood are you in?",
@@ -144,52 +147,33 @@ class MatchViewModel
                         choices = release,
                         isAnswered = false,
                     ),
-                )
-            _uiState.update {
-                it.copy(questions = items)
+                ),
+            )
+            _questions.update {
+                listOf(items.first())
             }
         }
 
         fun onChoiceSelected(
             type: MatchQuestionType,
-            choice: List<Choice>,
+            choices: List<Choice>,
         ) {
             _uiState.update { state ->
-                val updatedQuestion =
-                    state.questions.map {
-                        if (it.type == type) {
-                            it.copy(choices = choice)
-                        } else {
-                            it
-                        }
-                    }
                 when (type) {
                     MatchQuestionType.MOOD -> {
-                        state.copy(
-                            questions = updatedQuestion,
-                            moodSelected = choice,
-                        )
+                        state.copy(moodSelected = choices)
                     }
 
                     MatchQuestionType.GENRE -> {
-                        state.copy(
-                            questions = updatedQuestion,
-                            genreSelected = choice,
-                        )
+                        state.copy(genreSelected = choices)
                     }
 
                     MatchQuestionType.TIME -> {
-                        state.copy(
-                            questions = updatedQuestion,
-                            mediaTimeDurationSelected = choice,
-                        )
+                        state.copy(mediaTimeDurationSelected = choices)
                     }
 
                     MatchQuestionType.RELEASE -> {
-                        state.copy(
-                            questions = updatedQuestion,
-                            releaseSelected = choice,
-                        )
+                        state.copy(releaseSelected = choices)
                     }
                 }
             }

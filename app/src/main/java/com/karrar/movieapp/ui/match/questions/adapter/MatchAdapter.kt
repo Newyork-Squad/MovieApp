@@ -1,6 +1,5 @@
 package com.karrar.movieapp.ui.match.questions.adapter
 
-import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.flexbox.FlexDirection
@@ -48,7 +47,6 @@ class MatchAdapter(
             }
 
         holder.binding.apply {
-            Log.d("TAG", "bind: ${items.size}")
             setVariable(BR.question, item.question)
             setVariable(BR.layoutManager, layoutManager)
             setVariable(BR.adapter, choicesAdapter)
@@ -59,8 +57,9 @@ class MatchAdapter(
 
     private fun getSelectedChoices(type: MatchQuestionType): List<Choice> = listener.getSelectedChoices(type)
 
-    fun emitItem(item: MatchQuestion) {
-        items.add(item)
+    fun emitItems(items: List<MatchQuestion>) {
+        this.items.clear()
+        this.items.addAll(items)
         notifyDataSetChanged()
     }
 }

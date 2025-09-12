@@ -46,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:adapter="@{adapter}"
+            android:clickable="@{isCurrent}"
             app:layoutManager="@{layoutManager}"
             app:layout_constraintTop_toBottomOf="@id/question"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

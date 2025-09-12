@@ -14,6 +14,7 @@ import com.karrar.movieapp.ui.mappers.CrewUIStateMapper
 import com.karrar.movieapp.ui.mappers.MediaUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.DetailInteractionListener
 import com.karrar.movieapp.ui.movieDetails.mapper.ActorUIStateMapper
+import com.karrar.movieapp.ui.tvShowDetails.seasons.SeasonInteractionListener
 import com.karrar.movieapp.ui.tvShowDetails.tvShowUIMapper.TvShowMapperContainer
 import com.karrar.movieapp.ui.tvShowDetails.tvShowUIState.DetailItemUIState
 import com.karrar.movieapp.ui.tvShowDetails.tvShowUIState.Error
@@ -41,7 +42,6 @@ class TvShowDetailsViewModel @Inject constructor(
     state: SavedStateHandle,
 ) : BaseViewModel(), ActorsInteractionListener, SeasonInteractionListener,
     SimilarTvShowsInteractionListener, DetailInteractionListener {
-) : BaseViewModel(), ActorsInteractionListener, DetailInteractionListener {
 
     val args = TvShowDetailsFragmentArgs.fromSavedStateHandle(state)
 
@@ -245,9 +245,6 @@ class TvShowDetailsViewModel @Inject constructor(
         _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickCastEvent(actorID)) }
     }
 
-    override fun onClickSeason(seasonNumber: Int) {
-        _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickSeasonEvent(seasonNumber)) }
-    }
 
     private fun getSimilarTvShows(tvShowId: Int) {
         viewModelScope.launch {
@@ -282,4 +279,6 @@ class TvShowDetailsViewModel @Inject constructor(
     override fun onClickTvShow(tvShowId: Int) {
         _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickTvShowEvent(tvShowId)) }
     }
+
+    override fun onBackClick() {}
 }

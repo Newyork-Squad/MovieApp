@@ -99,7 +99,6 @@ class DetailUIStateAdapter(
                 }
             }
 
-            is DetailItemUIState.ReviewText -> {}
             is DetailItemUIState.SimilarTvShows -> {
                 holder.binding.run {
                     setVariable(

@@ -130,7 +130,7 @@
                 app:layout_constraintTop_toBottomOf="@id/text_confirmation" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_go_to_home"
+                android:id="@+id/btn_go_to_explore"
                 style="@style/Body_MD.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -19,29 +19,28 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_color"
         android:layout_marginBottom="@dimen/spacing_medium">
 
         <TextView
             android:id="@+id/text_title"
-            style="@style/SemiBold.Medium"
+            style="@style/Title.SM"
             tools:text="Now Streaming"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{movieType.value}"
+            android:textColor="@color/shade_primary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            style="@style/Regular.Small"
+            style="@style/Body_MD.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_medium"
             android:onClick="@{() -> adapterRecycler.listener.onClickSeeTVShow(AllMediaType.ON_THE_AIR)}"
             android:text="@string/show_more"
-            android:textColor="@color/brand_color"
-            app:drawableEndCompat="@drawable/ic_arrow_right"
+            android:textColor="@color/brand_primary"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_title"
             app:layout_constraintEnd_toEndOf="parent" />
 

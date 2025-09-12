@@ -6,6 +6,7 @@ import com.karrar.movieapp.data.remote.response.BaseListResponse
 import com.karrar.movieapp.data.remote.response.CreatedListDto
 import com.karrar.movieapp.data.remote.response.CreditsDto
 import com.karrar.movieapp.data.remote.response.DailyTrendingDto
+import com.karrar.movieapp.data.remote.response.DefaultResponse
 import com.karrar.movieapp.data.remote.response.LogoutResponse
 import com.karrar.movieapp.data.remote.response.MovieDto
 import com.karrar.movieapp.data.remote.response.MyListsDto
@@ -34,6 +35,7 @@ import retrofit2.http.Field
 import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -274,4 +276,13 @@ interface MovieService {
 
     @GET("tv/{series_id}/similar")
     suspend fun getSimilarSeries(@Path("series_id") seriesId: Int): Response<BaseListResponse<TVShowsDTO>>
+
+    @FormUrlEncoded
+    @POST("list/{collection_id}/remove_item")
+    @Headers("need_session_id: true")
+    suspend fun removeMovieFromCollection(
+        @Path("collection_id") collectionId: String,
+        @Query("session_id") sessionId: String,
+        @Field("media_id") movieId: Int
+    ): Response<DefaultResponse>
 }

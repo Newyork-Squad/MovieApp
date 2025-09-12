@@ -54,6 +54,9 @@ class AccountRepositoryImp @Inject constructor(
     }
 
     override suspend fun loginAsGuest(): Boolean {
+        if (!isGuestUser() && getAccountDetails() != null) {
+            return false
+        }
         return try {
             val guestSessionResponse = service.createGuestSession()
             if (guestSessionResponse.isSuccessful) {

@@ -19,7 +19,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/airing_today_shape"
         android:layout_marginTop="@dimen/spacing_small"
         android:layout_marginBottom="@dimen/spacing_medium"
         android:layout_marginHorizontal="@dimen/spacing_medium"
@@ -27,25 +26,25 @@
 
         <TextView
             android:id="@+id/text_airing_today"
-            style="@style/SemiBold.Medium"
+            style="@style/Title.SM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
             android:text="@string/title_airing_today"
-            android:textColor="@color/shade_primary_color"
+            android:textColor="@color/shade_primary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text_count_airing_movies"
-            style="@style/Regular.Small"
+            style="@style/Body_MD.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="20 Movies"
             android:layout_marginEnd="@dimen/spacing_medium"
             android:text="@{@string/text_movies(count.toString())}"
-            android:textColor="@color/shade_ternary_color"
+            android:textColor="@color/brand_primary"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_airing_today"
             app:layout_constraintEnd_toEndOf="@id/recycler_airing_movies" />
 

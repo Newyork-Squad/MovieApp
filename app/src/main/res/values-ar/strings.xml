@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">تطبيق الأفلام</string>
 
-    <string name="see_all">عرض الكل</string>
     <string name="show_more">عرض المزيد</string>
     <string name="top_rated">الأعلى تقييمًا</string>
     <string name="latest">الأحدث</string>
@@ -110,20 +109,7 @@
     <string name="you_must_be_logged_in_to_save_a_movie">يجب تسجيل الدخول لحفظ الفيلم</string>
     <string name="this_list_has_no_lists">لا توجد قوائم</string>
     <string name="episode_title">%1$d. %2$s</string>
-    <string name="youtube">يوتيوب</string>
-    <string name="instagram">إنستجرام</string>
-    <string name="facebook">فيسبوك</string>
-    <string name="twitter">تويتر</string>
-    <string name="tiktok">تيك توك</string>
 
-    <string name="welcome_back_to_cineverse">مرحبًا بعودتك إلى CineVerse!</string>
-    <string name="create_a_new_account">إنشاء حساب جديد</string>
-    <string name="forgot_password">نسيت كلمة المرور؟</string>
-    <string name="join_as_guest">الدخول كضيف</string>
-    <string name="enter_your_username">أدخل اسم المستخدم</string>
-    <string name="enter_your_password">أدخل كلمة المرور</string>
-    <string name="join_cineverse">انضم إلى CineVerse</string>
-    <string name="let_s_get_you_set_up_we_ll_take_you_to_the_website_to_create_your_account">لنجهز حسابك! سنأخذك إلى الموقع لإنشاء حساب جديد.</string>
     <string name="logout_dialog_title">هل أنت متأكد أنك تريد تسجيل الخروج؟</string>
     <string name="logout_dialog_caption">يمكنك دائمًا تسجيل الدخول مرة أخرى بحسابك.</string>
     <string name="login_dialog_title">أوشكت على الوصول!</string>
@@ -138,13 +124,7 @@
     <string name="dark_mode">الوضع الداكن</string>
     <string name="my_collections">مجموعاتي</string>
     <string name="history">السجل</string>
-    <string name="get_started">ابدأ الآن</string>
-    <string name="onboarding_first_page_title">مرحبًا بك في عالم الأفلام الخاص بك</string>
-    <string name="onboarding_first_page_des">اكتشف، تتبع، وقيم أفلامك ومسلسلاتك المفضلة.</string>
-    <string name="onboarding_second_page_des">قائمة المشاهدة وتقييماتك في مكان واحد.</string>
-    <string name="onboarding_third_page_des">أجب عن أسئلة ممتعة لتحصل على توصيات مخصصة.</string>
-    <string name="onboarding_third_page_title">توصيات مخصصة</string>
-    <string name="onboarding_second_page_title">تتبع كل شيء</string>
+
     <string name="season_number">%1$s مواسم</string>
     <string name="movie">فيلم</string>
     <string name="series">مسلسل</string>
@@ -181,13 +161,6 @@
     <string name="no_collections_yet">لا توجد مجموعات بعد</string>
     <string name="add_collection">إضافة مجموعة</string>
     <string name="e_g_my_watchlist">مثال: قائمة مشاهدتي</string>
-    <string name="select_movies_or_series_tab">اختر تبويب الأفلام أو المسلسلات</string>
-    <string name="you_gave_it">لقد قيمته</string>
-    <string name="no_ratings_yet">لا توجد تقييمات بعد</string>
-    <string name="rate_movies_and_series_you_ve_watched_to_track_what_you_love_and_what_you_don_t">قيّم الأفلام والمسلسلات التي شاهدتها لتتعقب ما تحبه وما لا تحبه.</string>
-    <string name="start_rating">ابدأ التقييم</string>
-    <string name="you_ll_be_taken_to_the_website_to_update_your_name_username_or_profile_picture">سيتم توجيهك إلى الموقع لتحديث اسمك أو اسم المستخدم أو صورتك الشخصية.</string>
-    <string name="go_to_website">الذهاب إلى الموقع</string>
 
     <string name="welcome_back_to_cineverse">مرحبًا بعودتك إلى سينيفيرس!</string>
     <string name="create_a_new_account">إنشاء حساب جديد</string>

@@ -97,12 +97,11 @@ class MainActivity : AppCompatActivity() {
 
         setBottomNavigationVisibility(navController)
         setNavigationController(navController)
-        navController.navigate(R.id.matchFragment)
-//        lifecycleScope.launchWhenResumed {
-//            viewModel.mainUiState.collect {
-//                if (!it.isFirstLaunch) navController.navigate(R.id.onboardingFragment)
-//            }
-//        }
+        lifecycleScope.launchWhenResumed {
+            viewModel.mainUiState.collect {
+                if (!it.isFirstLaunch) navController.navigate(R.id.onboardingFragment)
+            }
+        }
     }
 
     private fun setBottomNavigationVisibility(navController: NavController) {

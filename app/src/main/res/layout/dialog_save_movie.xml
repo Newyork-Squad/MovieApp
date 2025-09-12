@@ -9,74 +9,116 @@
             name="viewModel"
             type="com.karrar.movieapp.ui.movieDetails.saveMovie.SaveMovieViewModel" />
 
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.movieDetails.saveMovie.SaveListInteractionListener" />
+
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_sheet_corners">
+        android:padding="16dp"
+        android:backgroundTint="@color/background_bottomSheet">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:showWhenListNotEmpty="@{viewModel.myListsUIState.myListItemUI}"
-            app:title="@string/save_to"
-            app:titleCentered="true"
-            app:titleTextColor="@color/shade_primary_color" />
+            android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/save_list_adapter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/spacing_medium"
-            app:items="@{viewModel.myListsUIState.myListItemUI}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            tools:listitem="@layout/item_list" />
+            <View
+                android:id="@+id/view"
+                android:layout_width="36dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bottom_sheet_handle"
+                android:backgroundTint="@color/shade_quaternary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_message_wrong"
-            style="@style/SemiBold.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/spacing_large"
-            android:gravity="center"
-            android:text="@string/you_must_be_logged_in_to_save_a_movie"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:showWhenNoLogin="@{viewModel.myListsUIState.error}" />
+            <TextView
+                android:id="@+id/toolbar"
+                style="@style/Title.SM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_to_collection"
+                android:textColor="@color/shade_primary"
+                android:layout_marginVertical="20dp"
+                android:textFontWeight="500"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/save_list_adapter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view"
+                app:showWhenListNotEmpty="@{viewModel.myListsUIState.myListItemUI}" />
 
-        <TextView
-            android:id="@+id/text_message_empty_list"
-            style="@style/SemiBold.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/spacing_large"
-            android:gravity="center"
-            android:text="@string/this_list_has_no_lists"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:doneLoad="@{viewModel.myListsUIState.loading}"
-            app:noError="@{viewModel.myListsUIState.error}"
-            app:emptyData="@{viewModel.myListsUIState.myListItemUI}" />
+            <TextView
+                android:id="@+id/new_collection"
+                style="@style/Body_MD.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:text="@string/new_collection"
+                android:textColor="@color/brand_primary"
+                android:textFontWeight="500"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:clickable="true"
+                android:onClick="@{() -> listener.onClickNewCollection()}"
+                app:layout_constraintBottom_toBottomOf="@id/toolbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/toolbar"
+                app:showWhenListNotEmpty="@{viewModel.myListsUIState.myListItemUI}" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/save_list_adapter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/spacing_small"
+                app:items="@{viewModel.myListsUIState.myListItemUI}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                tools:listitem="@layout/item_list" />
+
+            <TextView
+                android:id="@+id/text_message_wrong"
+                style="@style/SemiBold.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/spacing_large"
+                android:gravity="center"
+                android:text="@string/you_must_be_logged_in_to_save_a_movie"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:showWhenNoLogin="@{viewModel.myListsUIState.error}" />
+
+            <TextView
+                android:id="@+id/text_message_empty_list"
+                style="@style/SemiBold.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/spacing_large"
+                android:gravity="center"
+                android:text="@string/this_list_has_no_lists"
+                android:visibility="gone"
+                app:doneLoad="@{viewModel.myListsUIState.loading}"
+                app:emptyData="@{viewModel.myListsUIState.myListItemUI}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:noError="@{viewModel.myListsUIState.error}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

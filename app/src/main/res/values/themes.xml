@@ -331,4 +331,8 @@
         <item name="cornerSizeBottomRight">@dimen/radius_xs</item>
     </style>
 
+    <style name="NoBackgroundDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@null</item>
+    </style>
+
 </resources>

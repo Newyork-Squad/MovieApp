@@ -17,25 +17,43 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/spacing_small"
-        android:layout_marginVertical="@dimen/spacing_too_small"
+        android:layout_marginBottom="@dimen/spacing_small"
         android:onClick="@{() -> listener.onClickSaveList(item.listID)}"
-        app:cardBackgroundColor="@color/background_color"
-        app:cardCornerRadius="@dimen/radius_large"
+        app:cardBackgroundColor="@color/background_bottomSheetCard"
+        app:cardCornerRadius="@dimen/radius_lg"
         app:cardElevation="0dp">
 
-        <TextView
-            android:id="@+id/list_name"
-            style="@style/Regular.Medium.Primary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="16dp"
-            android:layout_marginStart="16dp"
-            android:text="@{item.name}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="list name" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/folder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="14dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/due_tone_folder"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/brand_primary" />
+
+            <TextView
+                android:id="@+id/list_name"
+                style="@style/Body_MD.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_too_small"
+                android:text="@{item.name}"
+                android:textColor="@color/shade_primary"
+                android:textFontWeight="500"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/folder"
+                app:layout_constraintStart_toEndOf="@id/folder"
+                app:layout_constraintTop_toTopOf="@id/folder"
+                tools:text="list name" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </com.google.android.material.card.MaterialCardView>

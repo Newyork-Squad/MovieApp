@@ -64,7 +64,11 @@ class SaveMovieViewModel @Inject constructor(
             } catch (t: Throwable) {
                 t.message.toString()
             }
-            _saveMovieUIEvent.update { Event(SaveMovieUIEvent.DisplayMessage(message ?: "")) }
+            _saveMovieUIEvent.update { Event(SaveMovieUIEvent.DisplayMessage(message)) }
         }
+    }
+
+    override fun onClickNewCollection() {
+        _saveMovieUIEvent.update { Event(SaveMovieUIEvent.NavigateToCollectionScreen )}
     }
 }

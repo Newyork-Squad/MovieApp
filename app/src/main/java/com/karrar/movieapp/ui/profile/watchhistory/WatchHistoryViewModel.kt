@@ -3,6 +3,7 @@ package com.karrar.movieapp.ui.profile.watchhistory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.mappers.WatchHistoryMapper
+import com.karrar.movieapp.domain.usecases.DeleteMovieFromHistoryUseCase
 import com.karrar.movieapp.domain.usecases.GetWatchHistoryUseCase
 import com.karrar.movieapp.utilities.Constants
 import com.karrar.movieapp.utilities.Event
@@ -16,11 +17,17 @@ import javax.inject.Inject
 @HiltViewModel
 class WatchHistoryViewModel @Inject constructor(
     private val getWatchHistoryUseCase: GetWatchHistoryUseCase,
+    private val deleteMovieFromHistoryUseCase: DeleteMovieFromHistoryUseCase,
     private val watchHistoryMapper: WatchHistoryMapper
-) : ViewModel(), WatchHistoryInteractionListener {
+) : ViewModel(), WatchHistoryInteractionListener,WatchHistoryListener {
 
     private val _uiState = MutableStateFlow(WatchHistoryUiState())
     val uiState = _uiState.asStateFlow()
+
+
+    private val _cardVisibility = MutableStateFlow(true)
+    val cardVisibility = _cardVisibility.asStateFlow()
+
 
     private val _watchHistoryUIEvent: MutableStateFlow<Event<WatchHistoryUIEvent?>> =
         MutableStateFlow(Event(null))
@@ -53,4 +60,25 @@ class WatchHistoryViewModel @Inject constructor(
         }
     }
 
+
+    override fun onDeleteClick(item: MediaHistoryUiState) {
+        viewModelScope.launch {
+            deleteMovieFromHistoryUseCase(watchHistoryMapper.map(item))
+
+            _uiState.update { currentState ->
+                val updatedList = currentState.allMedia.filter { it.id != item.id }
+                currentState.copy(allMedia = updatedList)
+            }
+
+        }
+    }
+
+
+
+    fun closeInfoCard() {
+        _cardVisibility.value = false
+        _uiState.update { currentState ->
+            currentState.copy(isVisible = false)
+        }
+    }
 }

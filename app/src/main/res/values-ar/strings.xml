@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">تطبيق الأفلام</string>
 
+    <string name="see_all">عرض الكل</string>
     <string name="show_more">عرض المزيد</string>
     <string name="top_rated">الأعلى تقييماً</string>
     <string name="latest">الأحدث</string>
@@ -20,12 +21,15 @@
     <string name="don_t_have_an_account">ليس لديك حساب؟</string>
     <string name="sign_up">إنشاء حساب</string>
     <string name="place_of_birth">مكان الميلاد</string>
+    <string name="in">في %1$s</string>
     <string name="konwn_for">المعروف عنه</string>
     <string name="todo">المهام</string>
     <string name="gender">الجنس</string>
     <string name="birthday">تاريخ الميلاد</string>
+<!--    <string name="born_on">s$1% ولد في</string>-->
     <string name="biography">السيرة الذاتية</string>
     <string name="movies">أفلام</string>
+<!--    <string name="best_of">%1$الأفضل ل</string>-->
     <string name="actors">ممثلون</string>
     <string name="oops_no_internet">عذرًا! لا يوجد اتصال بالإنترنت</string>
     <string name="description">يبدو أنك غير متصل بالإنترنت. دعنا نعيد الاتصال لتستمر في التصفح!</string>
@@ -131,6 +135,7 @@
     <string name="tv_show_image">صورة المسلسل</string>
     <string name="clock_icon_for_number_of_seasons">أيقونة ساعة لعدد المواسم</string>
     <string name="calendar_icon_for_release_date">أيقونة التقويم لتاريخ الإصدار</string>
+    <string name="welcome">مرحبا</string>
     <string name="behind_the_scenes">كواليس</string>
     <string name="give_it_stars">امنحه نجوم!</string>
     <string name="let_the_world_know_how_you_felt">أخبر العالم برأيك</string>
@@ -170,4 +175,10 @@
     <string name="onboarding_third_page_des">أجب عن أسئلة ممتعة لتحصل على توصيات مختارة خصيصًا لك.</string>
     <string name="onboarding_third_page_title">توصيات مخصصة</string>
     <string name="onboarding_second_page_title">تابع كل شيء</string>
+
+    <string name="select_movies_or_series_tab">اختر نافذة الأفلام أو المسلسلات</string>
+    <string name="you_gave_it">لقد قمت بتقييمه</string>
+    <string name="no_ratings_yet">لا توجد تقييمات بعد</string>
+    <string name="rate_movies_and_series_you_ve_watched_to_track_what_you_love_and_what_you_don_t">قيّم الأفلام والمسلسلات التي شاهدتها لتتبع ما تحب.</string>
+    <string name="start_rating">ابدأ التقييم</string>
 </resources>

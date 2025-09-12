@@ -159,6 +159,9 @@
         <action
             android:id="@+id/action_myListFragment_to_savedListFragment"
             app:destination="@id/listDetailsFragment" />
+        <action
+            android:id="@+id/action_myListFragment_to_exploringFragment"
+            app:destination="@id/exploringFragment" />
     </fragment>
 
     <fragment
@@ -275,6 +278,9 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_logoutDialog_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </dialog>
     <dialog
         android:id="@+id/createSavedList"
@@ -311,6 +317,13 @@
         <action
             android:id="@+id/action_watchHistoryFragment_to_tvShowDetailsFragment"
             app:destination="@id/tvShowDetailsFragment" />
+
+        <action
+            android:id="@+id/action_watchHistoryFragment_to_exploringFragment"
+            app:destination="@id/exploringFragment" />
+        <action
+            android:id="@+id/action_watchHistoryFragment_to_ratedMoviesFragment"
+            app:destination="@id/ratedMoviesFragment" />
     </fragment>
 
     <activity
@@ -341,6 +354,9 @@
         <action
             android:id="@+id/action_listDetailsFragment_to_tvShowDetailsFragment"
             app:destination="@id/tvShowDetailsFragment" />
+        <action
+            android:id="@+id/action_listDetailsFragment_to_exploringFragment"
+            app:destination="@id/exploringFragment" />
     </fragment>
 
     <fragment
@@ -380,6 +396,9 @@
         <action
             android:id="@+id/action_tvShowDetailsFragment_self"
             app:destination="@id/tvShowDetailsFragment" />
+        <action
+            android:id="@+id/action_tvShowDetailsFragment_to_seasonsFragment"
+            app:destination="@id/seasonsFragment" />
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"
@@ -426,5 +445,15 @@
             android:id="@+id/action_editProfileConfirmDialog_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
     </dialog>
+
+    <fragment
+        android:id="@+id/seasonsFragment"
+        android:name="com.karrar.movieapp.ui.tvShowDetails.seasons.SeasonsFragment"
+        android:label="fragment_seasons"
+        tools:layout="@layout/fragment_seasons">
+        <argument
+            android:name="tvShowId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

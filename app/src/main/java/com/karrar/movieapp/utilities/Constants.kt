@@ -33,6 +33,8 @@ object Constants {
     const val NUMBER_OF_SEASONS = 3
     const val SEASON_YEAR_LENGTH = 4
     const val RATE_DISPLAY_LENGTH = 3
+    const val LOGOUT = 3
+
 }
 
 object ErrorUI {

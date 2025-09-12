@@ -6,6 +6,8 @@ import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.domain.mappers.WatchHistoryMapper
 import com.karrar.movieapp.domain.usecase.home.HomeUseCasesContainer
 import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
+import com.karrar.movieapp.domain.usecases.GetAccountDetailsUseCase
+import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
 import com.karrar.movieapp.domain.usecases.mylist.GetMyListUseCase
 import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.MediaInteractionListener
@@ -16,6 +18,7 @@ import com.karrar.movieapp.ui.home.homeUiState.HomeUIEvent
 import com.karrar.movieapp.ui.home.homeUiState.HomeUiState
 import com.karrar.movieapp.ui.mappers.ActorUiMapper
 import com.karrar.movieapp.ui.mappers.MediaUiMapper
+import com.karrar.movieapp.ui.profile.ProfileUIState
 import com.karrar.movieapp.ui.myList.CreatedListInteractionListener
 import com.karrar.movieapp.ui.myList.CreatedListUIMapper
 import com.karrar.movieapp.ui.myList.myListUIState.CreatedListUIState
@@ -25,7 +28,11 @@ import com.karrar.movieapp.utilities.Constants
 import com.karrar.movieapp.utilities.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,6 +40,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val homeUseCasesContainer: HomeUseCasesContainer,
+    private val getAccountDetailsUseCase: GetAccountDetailsUseCase,
     private val mediaUiMapper: MediaUiMapper,
     private val actorUiMapper: ActorUiMapper,
     private val popularUiMapper: PopularUiMapper,
@@ -50,6 +58,9 @@ class HomeViewModel @Inject constructor(
     private val _homeUIEvent = MutableStateFlow<Event<HomeUIEvent?>>(Event(null))
     val homeUIEvent = _homeUIEvent.asStateFlow()
 
+    private val _profileDetailsUIState = MutableStateFlow(ProfileUIState())
+    val profileDetailsUIState = _profileDetailsUIState.asStateFlow()
+
     init {
         getHomeData()
     }
@@ -57,6 +68,7 @@ class HomeViewModel @Inject constructor(
 
     private fun getHomeData() {
         _homeUiState.update { it.copy(isLoading = true) }
+        getProfileDetails()
         getTrending()
         getNowStreaming()
         getUpcoming()
@@ -75,6 +87,52 @@ class HomeViewModel @Inject constructor(
         getHomeData()
         _homeUiState.update { it.copy(error = emptyList()) }
     }
+
+    fun refreshProfile() {
+        getProfileDetails()
+    }
+
+    private fun getProfileDetails() {
+        if (checkIfLoggedInUseCase()) {
+            _profileDetailsUIState.update {
+                it.copy(isLoggedIn = true, error = false)
+            }
+
+            viewModelScope.launch {
+                try {
+                    val accountDetails = getAccountDetailsUseCase()
+                    _profileDetailsUIState.update {
+                        it.copy(
+                            name = accountDetails.name,
+                            username = accountDetails.username,
+                            isLoading = false
+                        )
+                    }
+                } catch (t: Throwable) {
+                    _profileDetailsUIState.update {
+                        it.copy(isLoading = false, error = true)
+                    }
+                }
+            }
+        } else {
+            _profileDetailsUIState.update {
+                it.copy(isLoggedIn = false)
+            }
+        }
+    }
+
+    val displayName: StateFlow<String> = profileDetailsUIState.map { state ->
+        if (state.isLoggedIn) {
+            state.name.ifBlank { state.username }
+        } else {
+            "Home"
+        }
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.Lazily,
+        "Home"
+    )
+
 
 
     private fun getPopularMovies() {

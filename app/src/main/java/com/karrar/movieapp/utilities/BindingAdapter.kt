@@ -1,5 +1,4 @@
 package com.karrar.movieapp.utilities
-
 import android.annotation.SuppressLint
 import android.text.InputType
 import android.view.View
@@ -301,6 +300,18 @@ fun setOneDecimalAfterPoint(textView: View, value: Float?) {
         (textView as TextView).text = String.format("%.1f", value)
     }
 }
+
+
+@BindingAdapter("app:cardVisibility")
+fun setCardVisibility(view: View, isVisible: Boolean) {
+    view.visibility = if (isVisible) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("app:deleteButtonVisibility")
+fun setDeleteButtonVisibility(view: View, isVisible: Boolean) {
+    view.visibility = if (isVisible) View.VISIBLE else View.GONE
+}
+
 @BindingAdapter("genresText")
 fun TextView.setGenres(genres: List<String>?) {
     text = genres?.joinToString(", ") ?: ""
@@ -342,4 +353,14 @@ fun setPasswordToggle(
     editText?.setSelection(editText.text?.length ?: 0)
 
     layout.setEndIconOnClickListener { onToggle?.invoke() }
+}
+@BindingAdapter("genresText")
+fun TextView.setGenresText(genres: List<String>?) {
+    text = genres?.joinToString(", ") ?: ""
+}
+@BindingAdapter("app:oneDecimal")
+fun setOneDecimal(textView: TextView, number: Double?) {
+    number?.let {
+        textView.text = String.format("%.1f", it)
+    }
 }

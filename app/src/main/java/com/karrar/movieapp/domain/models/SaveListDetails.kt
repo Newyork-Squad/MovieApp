@@ -8,4 +8,5 @@ data class SaveListDetails(
     val releaseDate: String,
     val voteAverage: Double,
     val posterPath: String,
+    val genres: List<Int>
 )

@@ -23,6 +23,7 @@ import com.karrar.movieapp.data.remote.response.BaseListResponse
 import com.karrar.movieapp.data.remote.response.CreatedListDto
 import com.karrar.movieapp.data.remote.response.CreditsDto
 import com.karrar.movieapp.data.remote.response.DailyTrendingDto
+import com.karrar.movieapp.data.remote.response.DefaultResponse
 import com.karrar.movieapp.data.remote.response.MovieDto
 import com.karrar.movieapp.data.remote.response.MyListsDto
 import com.karrar.movieapp.data.remote.response.RatedMoviesDto
@@ -149,6 +150,10 @@ class MovieRepositoryImp @Inject constructor(
 
     override suspend fun insertMovie(movie: WatchHistoryEntity) {
         return movieDao.insert(movie)
+    }
+
+    override suspend fun deleteMovieFromHistory(movie: WatchHistoryEntity) {
+        movieDao.delete(movie)
     }
 
     override fun getAllWatchedMovies(): Flow<List<WatchHistoryEntity>> {
@@ -444,12 +449,12 @@ class MovieRepositoryImp @Inject constructor(
 
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun getMatchingMovies(
-        mood: Mood,
+        moods: List<Mood>,
         genres: List<MatchingGenre>,
         runtime: Runtime,
         era: Era
     ): List<MovieDto>? {
-        val keyword = queryMapper.mapMood(mood)
+        val keyword = queryMapper.mapMoods(moods)
         val genreIds = queryMapper.mapGenres(genres)
         val (minRuntime, maxRuntime) = queryMapper.mapRuntime(runtime)
         val (fromDate, toDate) = queryMapper.mapEra(era)
@@ -463,6 +468,18 @@ class MovieRepositoryImp @Inject constructor(
             latestDate = toDate
         )
         return response.body()?.items
+    }
+
+    override suspend fun removeMovieFromCollection(
+        sessionId: String,
+        collectionId: String,
+        movieId: Int
+    ): DefaultResponse? {
+        return movieService.removeMovieFromCollection(
+            collectionId = collectionId,
+            sessionId = sessionId,
+            movieId = movieId
+        ).body()
     }
 
 }

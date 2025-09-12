@@ -63,6 +63,7 @@ class RateDialogViewModel @Inject constructor(
                 }
                 _rateDialogUIState.update { it.copy(rate = rate) }
             } catch (t: Throwable) {
+                _rateDialogUIEvent.update { Event(RateDialogUIEvent.ShowMessage("Error occurred. Please try again.")) }
             }
         }
     }

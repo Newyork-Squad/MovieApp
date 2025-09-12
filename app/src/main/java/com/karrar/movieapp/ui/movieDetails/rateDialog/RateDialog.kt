@@ -2,6 +2,7 @@ package com.karrar.movieapp.ui.movieDetails.rateDialog
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.karrar.movieapp.R
@@ -44,24 +45,12 @@ class RateDialog : BaseDialogFragment<DialogRateBinding>() {
 
     private fun onEvent(event: RateDialogUIEvent) {
         when (event) {
-            is RateDialogUIEvent.ChooseRate -> {
-                // TODO
-            }
-
-            is RateDialogUIEvent.SubmitRate -> {
-//                val genresNames = when (rated.mediaType) {
-//                    Constants.MOVIE -> rated.genres.mapNotNull { movieGenresMap[it]?.genreName }
-//                    Constants.TV_SHOWS -> rated.genres.mapNotNull { seriesGenresMap[it]?.genreName }
-//                    else -> emptyList()
-//                }
-            }
-
             is RateDialogUIEvent.CloseDialog -> {
                 dismiss()
             }
 
             is RateDialogUIEvent.ShowMessage -> {
-
+                Toast.makeText(requireContext(), event.message, Toast.LENGTH_SHORT).show()
             }
         }
     }

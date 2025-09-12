@@ -192,4 +192,6 @@
     <string name="start_rating">Start Rating</string>
     <string name="seasons_title">Seasons</string>
     <string name="new_collection">New Collection</string>
+    <string name="start_saving">Create a new collection to start saving your favorite movies and series.</string>
+    <string name="create_collection">Create Collection</string>
 </resources>

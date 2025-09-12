@@ -19,8 +19,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:backgroundTint="@color/background_bottomSheet">
+        android:backgroundTint="@color/background_bottomSheet"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -42,43 +43,55 @@
                 style="@style/Title.SM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="@string/add_to_collection"
                 android:textColor="@color/shade_primary"
-                android:layout_marginVertical="20dp"
                 android:textFontWeight="500"
                 android:textSize="16sp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@id/save_list_adapter"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view"
-                app:showWhenListNotEmpty="@{viewModel.myListsUIState.myListItemUI}" />
+                app:layout_constraintTop_toBottomOf="@id/view" />
 
             <TextView
                 android:id="@+id/new_collection"
                 style="@style/Body_MD.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:focusable="true"
+                android:onClick="@{() -> listener.onClickNewCollection()}"
                 android:text="@string/new_collection"
                 android:textColor="@color/brand_primary"
                 android:textFontWeight="500"
                 android:textSize="14sp"
                 android:visibility="gone"
-                android:clickable="true"
-                android:onClick="@{() -> listener.onClickNewCollection()}"
                 app:layout_constraintBottom_toBottomOf="@id/toolbar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/toolbar"
                 app:showWhenListNotEmpty="@{viewModel.myListsUIState.myListItemUI}" />
 
+            <ImageView
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> listener.onClickNewCollection()}"
+                android:src="@drawable/cancel"
+                android:textFontWeight="500"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/toolbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/toolbar"
+                app:showWhenListEmpty="@{viewModel.myListsUIState.myListItemUI}"
+                app:tint="@color/shade_secondary" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/save_list_adapter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_medium"
+                android:layout_marginTop="20dp"
                 android:clipToPadding="false"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/spacing_small"
+                app:showWhenListNotEmpty="@{viewModel.myListsUIState.myListItemUI}"
                 app:items="@{viewModel.myListsUIState.myListItemUI}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -102,22 +115,78 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:showWhenNoLogin="@{viewModel.myListsUIState.error}" />
 
-            <TextView
-                android:id="@+id/text_message_empty_list"
-                style="@style/SemiBold.Medium"
+            <FrameLayout
+                android:id="@+id/icon_container"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/oval_background_red"
+                android:backgroundTint="@color/brand_tertiary"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:showWhenListEmpty="@{viewModel.myListsUIState.myListItemUI}">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/due_tone_video_library"
+                    app:tint="@color/brand_primary" />
+            </FrameLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_confirmation"
+                style="@style/Title.SM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/spacing_large"
-                android:gravity="center"
-                android:text="@string/this_list_has_no_lists"
+                android:layout_marginTop="10dp"
+                android:text="@string/no_collections_yet"
+                android:textColor="@color/shade_primary"
                 android:visibility="gone"
-                app:doneLoad="@{viewModel.myListsUIState.loading}"
-                app:emptyData="@{viewModel.myListsUIState.myListItemUI}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/icon_container"
+                app:showWhenListEmpty="@{viewModel.myListsUIState.myListItemUI}" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_confirmation_message"
+                style="@style/Body_SM.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/start_saving"
+                android:textAlignment="center"
+                android:textColor="@color/shade_secondary_color"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_confirmation"
+                app:showWhenListEmpty="@{viewModel.myListsUIState.myListItemUI}" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_create"
+                style="@style/Body_MD.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:onClick="@{() -> listener.onClickNewCollection()}"
+                android:background="@drawable/btn_rectangle"
+                android:text="@string/create_collection"
+                android:textAllCaps="false"
+                android:textColor="@color/button_onPrimary"
+                android:visibility="gone"
+                app:backgroundTint="@color/button_primary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:noError="@{viewModel.myListsUIState.error}" />
+                app:layout_constraintTop_toBottomOf="@id/text_confirmation_message"
+                app:showWhenListEmpty="@{viewModel.myListsUIState.myListItemUI}" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

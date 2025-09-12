@@ -206,9 +206,6 @@ class MovieDetailsViewModel @Inject constructor(
             onAddMovieDetailsItemOfNestedView(DetailItemUIState.Comment(it))
         }
         onAddMovieDetailsItemOfNestedView(DetailItemUIState.ReviewText)
-//        if (showSeeAll) {
-//            onAddMovieDetailsItemOfNestedView(DetailItemUIState.SeeAllReviewsButton)
-//        }
     }
 
     private fun onAddMovieDetailsItemOfNestedView(item: DetailItemUIState) {

@@ -182,11 +182,24 @@
         <include
             android:id="@+id/error"
             layout="@layout/error_search"
-            app:isError="@{!viewModel.uiState.error.isEmpty()}"
+            app:isError="@{!viewModel.uiState.error}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel}" />
+
+
+        <include
+            android:id="@+id/empty_view"
+            layout="@layout/no_search_results"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:isVisible="@{viewModel.uiState.isEmpty()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_media_type"
             app:viewModel="@{viewModel}" />
 
 

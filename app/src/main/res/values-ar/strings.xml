@@ -166,4 +166,23 @@
     <string name="onboarding_third_page_des">أجب عن أسئلة ممتعة لتحصل على توصيات مختارة خصيصًا لك.</string>
     <string name="onboarding_third_page_title">توصيات مخصصة</string>
     <string name="onboarding_second_page_title">تابع كل شيء</string>
+
+    <string name="nothing_found">لم يتم العثور على شيء!</string>
+    <string name="nothing_found_message">بحثنا في كل مكان... لكن لم نجد ما يطابق بحثك. جرّب شيئًا آخر؟</string>
+    <string name="select_movies_or_series_tab">اختر تبويب الأفلام أو المسلسلات</string>
+    <string name="you_gave_it">لقد أعطيت</string>
+    <string name="no_ratings_yet">لا توجد تقييمات بعد</string>
+    <string name="rate_movies_and_series_you_ve_watched_to_track_what_you_love_and_what_you_don_t">
+        قيّم الأفلام والمسلسلات التي شاهدتها لتتبع ما تحبه وما لا يعجبك.
+    </string>
+    <string name="start_rating">ابدأ التقييم</string>
+
+    <string name="youtube">يوتيوب</string>
+    <string name="instagram">إنستغرام</string>
+    <string name="facebook">فيسبوك</string>
+    <string name="twitter">تويتر</string>
+    <string name="tiktok">تيك توك</string>
+    <string name="see_all">عرض الكل</string>
+
+
 </resources>

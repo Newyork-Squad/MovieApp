@@ -51,6 +51,7 @@
                 android:lines="1"
                 android:text="@{item.mediaTitle}"
                 android:textColor="@color/shade_primary"
+                app:layout_constraintEnd_toStartOf="@+id/text_movie_rate"
                 app:layout_constraintStart_toEndOf="@id/image_movie"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="The Mandalorian" />
@@ -98,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_star"
                 android:drawablePadding="@dimen/spacing_too_small"
-                android:text="@{String.valueOf(item.mediaRate)}"
+                app:setOneDecimalAfterPoint="@{item.mediaRate}"
                 android:layout_marginTop="@dimen/spacing_normal"
                 android:layout_marginEnd="@dimen/spacing_normal"
                 android:textColor="@color/shade_primary"

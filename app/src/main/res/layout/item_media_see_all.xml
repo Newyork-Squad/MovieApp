@@ -50,7 +50,7 @@
             android:paddingTop="@dimen/spacing_too_small"
             android:paddingEnd="@dimen/spacing_xSmall"
             android:paddingBottom="@dimen/spacing_too_small"
-            android:text="@{String.valueOf(item.mediaRate)}"
+            app:setOneDecimalAfterPoint="@{item.mediaRate}"
             android:textColor="@color/shade_primary"
             app:drawableEndCompat="@drawable/ic_star" />
 

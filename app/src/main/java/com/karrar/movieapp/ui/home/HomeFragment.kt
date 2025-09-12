@@ -31,7 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.refreshProfile()
+        viewModel.refreshHomeData()
     }
 
     private fun collectHomeData() {

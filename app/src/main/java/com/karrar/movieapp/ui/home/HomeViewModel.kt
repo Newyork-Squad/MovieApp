@@ -1,5 +1,6 @@
 package com.karrar.movieapp.ui.home
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.domain.enums.HomeItemsType
@@ -7,6 +8,7 @@ import com.karrar.movieapp.domain.mappers.WatchHistoryMapper
 import com.karrar.movieapp.domain.usecase.home.HomeUseCasesContainer
 import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
 import com.karrar.movieapp.domain.usecases.GetAccountDetailsUseCase
+import com.karrar.movieapp.domain.usecases.login.LoginAsGuestUseCase
 import com.karrar.movieapp.domain.usecases.mylist.GetMyListUseCase
 import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.MediaInteractionListener
@@ -47,6 +49,7 @@ class HomeViewModel @Inject constructor(
     private val getMyListUseCase: GetMyListUseCase,
     private val createdListUIMapper: CreatedListUIMapper,
     private val checkIfLoggedInUseCase: CheckIfLoggedInUseCase,
+    private val loginAsGuestUseCase: LoginAsGuestUseCase
 ) : BaseViewModel(), HomeInteractionListener, ActorsInteractionListener, MovieInteractionListener,
     MediaInteractionListener, TVShowInteractionListener, WatchHistoryInteractionListener,
     CreatedListInteractionListener {
@@ -87,8 +90,9 @@ class HomeViewModel @Inject constructor(
         _homeUiState.update { it.copy(error = emptyList()) }
     }
 
-    fun refreshProfile() {
+    fun refreshHomeData() {
         getProfileDetails()
+        getCollections()
     }
 
     private fun getProfileDetails() {
@@ -161,6 +165,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getTrending() {
+        Log.d("HomeViewModel", "getTrending: called")
         viewModelScope.launch {
             try {
                 homeUseCasesContainer.getTrendingMoviesUseCase().collect { list ->
@@ -203,6 +208,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getUpcoming() {
+        Log.d("HomeViewModel", "getUpcoming: called")
         viewModelScope.launch {
             try {
                 homeUseCasesContainer.getUpcomingMoviesUseCase().collect { list ->
@@ -225,6 +231,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getNowStreaming() {
+        Log.d("HomeViewModel", "getNowStreaming: called")
         viewModelScope.launch {
             try {
                 homeUseCasesContainer.getNowStreamingMoviesUseCase().collect { list ->
@@ -371,29 +378,66 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getCollections() {
-        if (!checkIfLoggedInUseCase()) {
-            _homeUiState.update {
-                it.copy(isLoading = false)
-                return
-            }
-        }
-
+        Log.d("HomeViewModel", "getCollections: called")
         viewModelScope.launch {
-            try {
-                val items = getMyListUseCase().map { createdListUIMapper.map(it) }
-                if (items.isNotEmpty()) {
+            when {
+                loginAsGuestUseCase() -> {
                     _homeUiState.update {
                         it.copy(
-                            collections = HomeItem.Collections(items),
-                            isLoading = false
+                            isLoading = false,
+                            error = emptyList(),
+                            collections = HomeItem.Collections(emptyList())
                         )
                     }
                 }
 
-            } catch (th: Throwable) {
-                onError(th.message.toString())
+                checkIfLoggedInUseCase() -> {
+                    _homeUiState.update {
+                        it.copy(isLoading = true)
+                    }
+
+                    try {
+                        val items = getMyListUseCase().map { createdListUIMapper.map(it) }
+                        _homeUiState.update {
+                            it.copy(
+                                isLoading = false,
+                                collections = HomeItem.Collections(items),
+                            )
+                        }
+                    } catch (throwable: Throwable) {
+                        onError(throwable.message.toString())
+                    }
+                }
+
+                else -> {
+                    _homeUiState.update {
+                        it.copy(
+                            isLoading = false,
+                            collections = HomeItem.Collections(emptyList()),
+                            error = emptyList()
+                        )
+                    }
+                }
             }
         }
+
+//        viewModelScope.launch {
+//            try {
+//                val items = getMyListUseCase().map { createdListUIMapper.map(it) }
+//                Log.d("HomeViewModel", "getCollections: $items")
+//                if (items.isNotEmpty()) {
+//                    _homeUiState.update {
+//                        it.copy(
+//                            collections = HomeItem.Collections(items),
+//                            isLoading = false
+//                        )
+//                    }
+//                }
+//
+//            } catch (th: Throwable) {
+//                onError(th.message.toString())
+//            }
+//        }
     }
 
     override fun onClickMovie(movieId: Int) {

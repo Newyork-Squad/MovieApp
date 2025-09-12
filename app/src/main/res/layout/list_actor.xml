@@ -21,26 +21,25 @@
 
         <TextView
             android:id="@+id/text_celebrities"
-            style="@style/SemiBold.Medium"
+            style="@style/Title.SM"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_celebrity"
             tools:text="Celebrities"
-            android:textColor="@color/shade_primary_color"
+            android:textColor="@color/shade_primary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text_see_actors"
-            style="@style/Regular.Small"
+            style="@style/Body_MD.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing_too_small"
+            android:layout_marginEnd="@dimen/spacing_medium"
             android:onClick="@{() -> listener.onClickSeeAllActors()}"
             android:text="@string/show_more"
-            android:textColor="@color/brand_color"
-            app:drawableEndCompat="@drawable/ic_arrow_right"
+            android:textColor="@color/brand_primary"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_celebrities"
             app:layout_constraintEnd_toEndOf="parent" />
 

@@ -1,8 +1,8 @@
 package com.karrar.movieapp.ui.myList
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
+import com.karrar.movieapp.domain.usecases.login.LoginAsGuestUseCase
 import com.karrar.movieapp.domain.usecases.mylist.CreateMovieListUseCase
 import com.karrar.movieapp.domain.usecases.mylist.GetMyListUseCase
 import com.karrar.movieapp.ui.base.BaseViewModel
@@ -29,6 +29,7 @@ class MyListsViewModel @Inject constructor(
     private val getMyListUseCase: GetMyListUseCase,
     private val createdListUIMapper: CreatedListUIMapper,
     private val checkIfLoggedInUseCase: CheckIfLoggedInUseCase,
+    private val loginAsGuestUseCase: LoginAsGuestUseCase
 ) : BaseViewModel(), CreatedListInteractionListener {
 
     private val _createdListUIState = MutableStateFlow(MyListUIState())
@@ -41,36 +42,63 @@ class MyListsViewModel @Inject constructor(
         MutableStateFlow(Event(null))
     val myListUIEvent = _myListUIEvent.asStateFlow()
 
+    private val _isGuest = MutableStateFlow(false)
+    val isGuest = _isGuest.asStateFlow()
+
+    init {
+        getData()
+    }
+
     override fun getData() {
-        val loggedIn = checkIfLoggedInUseCase()
-        _createdListUIState.update {
-            it.copy(
-                isLoading = true,
-                isLoggedIn = loggedIn,
-                isEmpty = true,
-                error = emptyList()
-            )
-        }
-
-        if (!loggedIn) {
-            _createdListUIState.update {
-                it.copy(isLoading = false)
-            }
-            return
-        }
-
         viewModelScope.launch {
-            try {
-                val list = getMyListUseCase().map { createdListUIMapper.map(it) }
-                _createdListUIState.update {
-                    it.copy(
-                        isLoading = false,
-                        isEmpty = list.isEmpty(),
-                        createdList = list
-                    )
+            when {
+                loginAsGuestUseCase() -> {
+                    _isGuest.value = true
+                    _createdListUIState.update {
+                        it.copy(
+                            isLoggedIn = true,
+                            isGuest = true,
+                            isLoading = false,
+                            createdList = emptyList(),
+                            isEmpty = true,
+                            error = emptyList()
+                        )
+                    }
                 }
-            } catch (t: Throwable) {
-                setError(t)
+
+                checkIfLoggedInUseCase() -> {
+                    _isGuest.value = false
+                    _createdListUIState.update {
+                        it.copy(isLoading = true, isLoggedIn = true, isGuest = false, error = emptyList())
+                    }
+
+                    try {
+                        val list = getMyListUseCase().map { createdListUIMapper.map(it) }
+                        _createdListUIState.update {
+                            it.copy(
+                                isLoading = false,
+                                isEmpty = list.isEmpty(),
+                                createdList = list
+                            )
+                        }
+                    } catch (t: Throwable) {
+                        setError(t)
+                    }
+                }
+
+                else -> {
+                    _isGuest.value = false
+                    _createdListUIState.update {
+                        it.copy(
+                            isLoggedIn = false,
+                            isGuest = false,
+                            isLoading = false,
+                            createdList = emptyList(),
+                            isEmpty = true,
+                            error = emptyList()
+                        )
+                    }
+                }
             }
         }
     }
@@ -81,13 +109,20 @@ class MyListsViewModel @Inject constructor(
     }
 
     fun onCreateList() {
+        if (_isGuest.value) {
+            _myListUIEvent.update { Event(MyListUIEvent.DisplayError("Guests cannot create lists")) }
+            return
+        }
         _myListUIEvent.update { Event(MyListUIEvent.CreateButtonClicked) }
     }
 
     fun onClickAddList() {
-        viewModelScope.launch {
-            Log.d("TAG", "onClickAddList: ")
+        if (_isGuest.value) {
+            _myListUIEvent.update { Event(MyListUIEvent.DisplayError("Guests cannot add lists")) }
+            return
+        }
 
+        viewModelScope.launch {
             try {
                 _createdListUIState.update {
                     it.copy(

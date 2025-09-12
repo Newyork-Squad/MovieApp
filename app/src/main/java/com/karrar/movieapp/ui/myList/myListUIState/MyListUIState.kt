@@ -8,5 +8,8 @@ data class MyListUIState(
     val isEmpty: Boolean = false,
     val error: List<ErrorUIState> = emptyList(),
     val isLoggedIn: Boolean = false,
-
-    )
+    val isGuest: Boolean = false,
+    ){
+    val isRealUser: Boolean
+        get() = isLoggedIn && !isGuest
+}

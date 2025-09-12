@@ -1,12 +1,11 @@
-package com.karrar.movieapp.ui.tvShowDetails
+package com.karrar.movieapp.ui.tvShowDetails.seasons
 
 import com.karrar.movieapp.R
-import com.karrar.movieapp.domain.models.Season
 import com.karrar.movieapp.ui.base.BaseAdapter
 import com.karrar.movieapp.ui.base.BaseInteractionListener
 import com.karrar.movieapp.ui.tvShowDetails.tvShowUIState.SeasonUIState
 
-class SeasonAdapterUIState(
+class ShowAllSeasonsAdapterUIState(
     items: List<SeasonUIState>,
     listener: SeasonInteractionListener
 ) : BaseAdapter<SeasonUIState>(items, listener) {
@@ -14,5 +13,5 @@ class SeasonAdapterUIState(
 }
 
 interface SeasonInteractionListener : BaseInteractionListener {
-    fun onClickSeason(seasonNumber: Int)
+    fun onBackClick()
 }

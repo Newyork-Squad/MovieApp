@@ -17,6 +17,7 @@ import com.karrar.movieapp.ui.match_result.mappers.MovieDetailsUIStateMapper
 import com.karrar.movieapp.ui.match_result.mappers.ReviewUIStateMapper
 import com.karrar.movieapp.utilities.Constants
 import com.karrar.movieapp.utilities.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,6 +25,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class MatchResultViewModel @Inject constructor(
     private val getMatchingMoviesUseCase: GetMatchingMoviesUseCase,
     private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
@@ -43,7 +45,7 @@ class MatchResultViewModel @Inject constructor(
 
 
     fun getMatchingMovies(
-        mood: Mood,
+        moods: List<Mood>,
         genres: List<MatchingGenre>,
         runtime: Runtime,
         era: Era
@@ -51,14 +53,10 @@ class MatchResultViewModel @Inject constructor(
         _uiState.update { it.copy(isLoading = true, error = emptyList()) }
         viewModelScope.launch {
             try {
-                val matchingMovies = getMatchingMoviesUseCase(mood, genres, runtime, era)
-
-                Log.d("sb7-matching","${matchingMovies.first()}")
+                val matchingMovies = getMatchingMoviesUseCase(moods, genres, runtime, era)
                 val detailedMovies = matchingMovies.map { movie ->
                     getMovieDetails(movie.mediaID)
                 }
-                Log.d("sb7-detailed","${detailedMovies.first()}")
-
                 _uiState.update {
                     it.copy(
                         movies = detailedMovies,

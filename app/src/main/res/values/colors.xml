@@ -47,7 +47,7 @@
     <color name="button_secondary">#F1F3FF</color>
     <color name="button_disabled">#E5E5E5</color>
     <color name="button_onPrimary">#FFFFFF</color>
-    <color name="button_onSecondary">#313131</color>
+    <color name="button_onSecondary">#717171</color>
     <color name="button_onDisabled">#A5A5A5</color>
     <color name="button_onTertiary">#536DFE</color>
 
@@ -64,7 +64,7 @@
     <color name="primary_yellow">#FACC15</color>
 
     <!-- Additional Secondary -->
-    <color name="secondary_red">#EBEEEE</color>
+    <color name="secondary_red">#FBEEEE</color>
     <color name="secondary_green">#EEF5EF</color>
     <color name="secondary_yellow">#FFFAEB</color>
 </resources>

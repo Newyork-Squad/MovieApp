@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="item"
+            type="com.karrar.movieapp.ui.category.uiState.GenreUIState" />
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.explore.GenresInteractionListener" />
+    </data>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_genre"
+        style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_medium_small"
+        android:text="@{item.genreName}"
+        android:fontFamily="@font/manrope_medium"
+        android:checkable="true"
+        android:textSize="@dimen/text_body_sm"
+        android:onClick="@{() -> listener.onGenreSelected(item.genreID)}"
+        android:paddingStart="@dimen/spacing_medium_small"
+        android:paddingEnd="@dimen/spacing_medium_small"/>
+</layout>

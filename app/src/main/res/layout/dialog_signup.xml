@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.karrar.movieapp.ui.login.LoginViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_dialog"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_divider" />
+
+        <!-- Icon -->
+        <ImageView
+            android:id="@+id/joinIcon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_signup" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/joinTitle"
+            style="@style/Title.SM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/join_cineverse"
+            android:textColor="@color/shade_primary" />
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/joinDescription"
+            style="@style/Body_SM.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/let_s_get_you_set_up_we_ll_take_you_to_the_website_to_create_your_account"
+            android:textColor="@color/shade_secondary" />
+
+        <!-- Buttons Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancelButton"
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/button_secondary"
+                android:elevation="0dp"
+                android:onClick="@{()->viewModel.onClickCancelSignUp()}"
+                android:stateListAnimator="@null"
+                android:text="@string/cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/button_onSecondary"
+                app:cornerRadius="@dimen/radius_lg"
+                app:strokeColor="@null"
+                app:strokeWidth="0dp" />
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/goToWebsiteButton"
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/button_primary"
+                android:elevation="0dp"
+                android:onClick="@{()->viewModel.onClickSignUp()}"
+                android:stateListAnimator="@null"
+                android:text="@string/go_to_website"
+                android:textAllCaps="false"
+                android:textColor="@color/button_onPrimary"
+                app:cornerRadius="@dimen/radius_lg"
+                app:strokeColor="@null"
+                app:strokeWidth="0dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

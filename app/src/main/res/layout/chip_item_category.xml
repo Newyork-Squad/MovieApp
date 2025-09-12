@@ -7,7 +7,7 @@
 
         <variable
             name="listener"
-            type="com.karrar.movieapp.ui.category.CategoryInteractionListener" />
+            type="com.karrar.movieapp.ui.explore.GenresInteractionListener" />
 
         <variable
             name="item"
@@ -18,10 +18,10 @@
         style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/chip_height"
-        android:fontFamily="@font/plus_jakarta_sans_regular"
-        android:onClick="@{() -> listener.onClickCategory(item.genreID)}"
+        android:fontFamily="@font/manrope_medium"
+        android:onClick="@{() -> listener.onGenreSelected(item.genreID)}"
         android:text="@{item.genreName}"
-        android:textSize="@dimen/text_small"
+        android:textSize="@dimen/text_body_sm"
         app:chipMinTouchTargetSize="0dp"
         tools:backgroundTint="@color/background_color"
         tools:text="Movie Category" />

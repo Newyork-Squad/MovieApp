@@ -8,7 +8,10 @@ import com.karrar.movieapp.domain.usecases.tvShowDetails.GetTvShowDetailsUseCase
 import com.karrar.movieapp.domain.usecases.tvShowDetails.InsertTvShowUserCase
 import com.karrar.movieapp.domain.usecases.tvShowDetails.SetRatingUesCase
 import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
+import com.karrar.movieapp.ui.adapters.SimilarTvShowsInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
+import com.karrar.movieapp.ui.mappers.CrewUIStateMapper
+import com.karrar.movieapp.ui.mappers.MediaUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.DetailInteractionListener
 import com.karrar.movieapp.ui.movieDetails.mapper.ActorUIStateMapper
 import com.karrar.movieapp.ui.tvShowDetails.tvShowUIMapper.TvShowMapperContainer
@@ -33,9 +36,11 @@ class TvShowDetailsViewModel @Inject constructor(
     private val sessionIDUseCase: GetSessionIDUseCase,
     private val tvShowMapperContainer: TvShowMapperContainer,
     private val actorUIStateMapper: ActorUIStateMapper,
+    private val crewUiStateMapper: CrewUIStateMapper,
+    private val mediaUIStateMapper: MediaUIStateMapper,
     state: SavedStateHandle,
 ) : BaseViewModel(), ActorsInteractionListener, SeasonInteractionListener,
-    DetailInteractionListener {
+    SimilarTvShowsInteractionListener, DetailInteractionListener {
 
     val args = TvShowDetailsFragmentArgs.fromSavedStateHandle(state)
 
@@ -57,6 +62,8 @@ class TvShowDetailsViewModel @Inject constructor(
         getTvShowCast(args.tvShowId)
         getSeasons(args.tvShowId)
         getTvShowReviews(args.tvShowId)
+        showTvShowCrew(args.tvShowId)
+        getSimilarTvShows(args.tvShowId)
     }
 
     private fun getTvShowDetails(tvShowId: Int) {
@@ -98,7 +105,28 @@ class TvShowDetailsViewModel @Inject constructor(
                         isLoading = false
                     )
                 }
-                updateDetailItems(DetailItemUIState.Cast(_stateUI.value.seriesCastResult))
+                if (_stateUI.value.seriesCastResult.isNotEmpty()) {
+                    updateDetailItems(DetailItemUIState.Cast(_stateUI.value.seriesCastResult))
+                }
+            } catch (e: Exception) {
+            }
+
+        }
+    }
+
+    private fun showTvShowCrew(tvShowId: Int) {
+        viewModelScope.launch {
+            try {
+                val result = getTvShowDetailsUseCase.getSeriesCrew(tvShowId)
+                _stateUI.update { it ->
+                    it.copy(
+                        seriesCrewResult = result.map { crewUiStateMapper.map(it) }.take(8),
+                        isLoading = false
+                    )
+                }
+                if (_stateUI.value.seriesCrewResult.isNotEmpty()) {
+                    updateDetailItems(DetailItemUIState.Crew(_stateUI.value.seriesCrewResult))
+                }
             } catch (e: Exception) {
             }
 
@@ -117,7 +145,9 @@ class TvShowDetailsViewModel @Inject constructor(
                         isLoading = false
                     )
                 }
-                updateDetailItems(DetailItemUIState.Seasons(_stateUI.value.seriesSeasonsResult))
+                if (_stateUI.value.seriesSeasonsResult.isNotEmpty()) {
+                    updateDetailItems(DetailItemUIState.Seasons(_stateUI.value.seriesSeasonsResult))
+                }
             } catch (e: Exception) {
             }
         }
@@ -180,10 +210,6 @@ class TvShowDetailsViewModel @Inject constructor(
         _stateUI.value.seriesReviewsResult
             .forEach { updateDetailItems(DetailItemUIState.Comment(it)) }
         updateDetailItems(DetailItemUIState.ReviewText)
-
-        if (showSeeAll) {
-            updateDetailItems(DetailItemUIState.SeeAllReviewsButton)
-        }
     }
 
     private fun updateDetailItems(item: DetailItemUIState) {
@@ -218,4 +244,37 @@ class TvShowDetailsViewModel @Inject constructor(
         _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickSeasonEvent(seasonNumber)) }
     }
 
+    private fun getSimilarTvShows(tvShowId: Int) {
+        viewModelScope.launch {
+            try {
+                val result = getTvShowDetailsUseCase.getSimilarTvShows(tvShowId)
+                _stateUI.update {
+                    it.copy(
+                        similarTvShowsResult = result.map { media ->
+                            mediaUIStateMapper.map(media)
+                        }, isLoading = false
+                    )
+                }
+                if (_stateUI.value.similarTvShowsResult.isNotEmpty()) {
+                    updateDetailItems(DetailItemUIState.SimilarTvShows(_stateUI.value.similarTvShowsResult))
+                }
+            } catch (e: Exception) {
+                _stateUI.update {
+                    it.copy(
+                        errorUIState = listOf(
+                            Error(
+                                code = Constants.INTERNET_STATUS,
+                                message = e.message.toString()
+                            )
+                        ),
+                        isLoading = false
+                    )
+                }
+            }
+        }
+    }
+
+    override fun onClickTvShow(tvShowId: Int) {
+        _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickTvShowEvent(tvShowId)) }
+    }
 }

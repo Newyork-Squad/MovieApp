@@ -1,5 +1,7 @@
 package com.karrar.movieapp.data.repository
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.paging.Pager
 import com.karrar.movieapp.data.Constants
 import com.karrar.movieapp.data.local.AppConfiguration
@@ -8,11 +10,27 @@ import com.karrar.movieapp.data.local.database.daos.MovieDao
 import com.karrar.movieapp.data.local.database.entity.ActorEntity
 import com.karrar.movieapp.data.local.database.entity.SearchHistoryEntity
 import com.karrar.movieapp.data.local.database.entity.WatchHistoryEntity
-import com.karrar.movieapp.data.local.database.entity.movie.*
+import com.karrar.movieapp.data.local.database.entity.movie.AdventureMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.MysteryMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.NowStreamingMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.TrendingMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.UpcomingMovieEntity
 import com.karrar.movieapp.data.local.mappers.movie.LocalMovieMappersContainer
-import com.karrar.movieapp.data.remote.response.*
+import com.karrar.movieapp.data.remote.response.AddListResponse
+import com.karrar.movieapp.data.remote.response.AddMovieDto
+import com.karrar.movieapp.data.remote.response.BaseListResponse
+import com.karrar.movieapp.data.remote.response.CreatedListDto
+import com.karrar.movieapp.data.remote.response.CreditsDto
+import com.karrar.movieapp.data.remote.response.DailyTrendingDto
+import com.karrar.movieapp.data.remote.response.MovieDto
+import com.karrar.movieapp.data.remote.response.MyListsDto
+import com.karrar.movieapp.data.remote.response.RatedMoviesDto
+import com.karrar.movieapp.data.remote.response.SavedListDto
 import com.karrar.movieapp.data.remote.response.actor.ActorDto
 import com.karrar.movieapp.data.remote.response.actor.ActorMoviesDto
+import com.karrar.movieapp.data.remote.response.actor.ActorProfileResponse
+import com.karrar.movieapp.data.remote.response.actor.ActorSocialMediaResponse
 import com.karrar.movieapp.data.remote.response.genre.GenreDto
 import com.karrar.movieapp.data.remote.response.movie.MovieDetailsDto
 import com.karrar.movieapp.data.remote.response.movie.RatingDto
@@ -22,9 +40,14 @@ import com.karrar.movieapp.data.remote.service.MovieService
 import com.karrar.movieapp.data.repository.mediaDataSource.ActorMovieDataSource
 import com.karrar.movieapp.data.repository.mediaDataSource.movie.MovieDataSourceContainer
 import com.karrar.movieapp.data.repository.serchDataSource.SearchDataSourceContainer
+import com.karrar.movieapp.domain.enums.Era
+import com.karrar.movieapp.domain.enums.MatchingGenre
+import com.karrar.movieapp.domain.enums.Mood
+import com.karrar.movieapp.domain.enums.Runtime
 import com.karrar.movieapp.domain.mappers.MediaDataSourceContainer
+import com.karrar.movieapp.domain.mappers.MovieQueryMapper
 import kotlinx.coroutines.flow.Flow
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 class MovieRepositoryImp @Inject constructor(
@@ -36,8 +59,9 @@ class MovieRepositoryImp @Inject constructor(
     private val dataMappers: LocalMovieMappersContainer,
     private val mediaDataSourceContainer: MediaDataSourceContainer,
     private val searchDataSourceContainer: SearchDataSourceContainer,
-    private val movieMovieDataSource: MovieDataSourceContainer,
-    private val actorMovieDataSource: ActorMovieDataSource
+    private val movieDataSource: MovieDataSourceContainer,
+    private val actorMovieDataSource: ActorMovieDataSource,
+    private val queryMapper: MovieQueryMapper
 ) : BaseRepository(), MovieRepository {
 
     override suspend fun getMovieGenreList(): List<GenreDto>? {
@@ -64,6 +88,14 @@ class MovieRepositoryImp @Inject constructor(
 
     override suspend fun getActorDetails(actorId: Int): ActorDto? {
         return movieService.getActorDetails(actorId = actorId).body()
+    }
+
+    override suspend fun getActorSocialMediaIDs(actorId: Int): ActorSocialMediaResponse? {
+        return movieService.getActorExternalIds(actorId).body()
+    }
+
+    override suspend fun getActorImages(actorId: Int): ActorProfileResponse? {
+        return movieService.getActorImages(actorId).body()
     }
 
     override suspend fun getActorMovies(actorId: Int): ActorMoviesDto? {
@@ -117,6 +149,10 @@ class MovieRepositoryImp @Inject constructor(
 
     override suspend fun insertMovie(movie: WatchHistoryEntity) {
         return movieDao.insert(movie)
+    }
+
+    override suspend fun deleteMovieFromHistory(movie: WatchHistoryEntity) {
+        movieDao.delete(movie)
     }
 
     override fun getAllWatchedMovies(): Flow<List<WatchHistoryEntity>> {
@@ -209,28 +245,31 @@ class MovieRepositoryImp @Inject constructor(
 
 
     override suspend fun getTrendingMoviesPager(): Pager<Int, MovieDto> {
-        return Pager(config = config,
-            pagingSourceFactory = { movieMovieDataSource.trendingMovieDataSource })
+        return Pager(
+            config = config,
+            pagingSourceFactory = { movieDataSource.trendingMovieDataSource })
     }
 
     override suspend fun getNowPlayingMoviesPager(): Pager<Int, MovieDto> {
-        return Pager(config = config,
-            pagingSourceFactory = { movieMovieDataSource.nowStreamingMovieMovieDataSource })
+        return Pager(
+            config = config,
+            pagingSourceFactory = { movieDataSource.nowStreamingMovieMovieDataSource })
     }
 
     override suspend fun getUpcomingMoviesPager(): Pager<Int, MovieDto> {
-        return Pager(config = config,
-            pagingSourceFactory = { movieMovieDataSource.upcomingMovieMovieDataSource })
+        return Pager(
+            config = config,
+            pagingSourceFactory = { movieDataSource.upcomingMovieMovieDataSource })
     }
 
     override suspend fun getAdventureMoviesPager(): Pager<Int, MovieDto> {
-        val dataSource = movieMovieDataSource.movieByGenreDataSource
+        val dataSource = movieDataSource.movieByGenreDataSource
         dataSource.setGenre(Constants.MYSTERY_ID)
         return Pager(config = config, pagingSourceFactory = { dataSource })
     }
 
     override suspend fun getMysteryMoviesPager(): Pager<Int, MovieDto> {
-        val dataSource = movieMovieDataSource.movieByGenreDataSource
+        val dataSource = movieDataSource.movieByGenreDataSource
         dataSource.setGenre(Constants.ADVENTURE_ID)
         return Pager(config = config, pagingSourceFactory = { dataSource })
     }
@@ -387,8 +426,8 @@ class MovieRepositoryImp @Inject constructor(
         return movieService.getMovieDetails(movieId).body()
     }
 
-    override suspend fun getMovieCast(movieId: Int): CreditsDto? {
-        return movieService.getMovieCast(movieId).body()
+    override suspend fun getMovieCastAndCrew(movieId: Int): CreditsDto? {
+        return movieService.getMovieCastAndCrew(movieId).body()
     }
 
     override suspend fun getSimilarMovie(movieId: Int): List<MovieDto>? {
@@ -405,6 +444,29 @@ class MovieRepositoryImp @Inject constructor(
 
     override suspend fun getMovieTrailer(movieId: Int): TrailerDto? {
         return movieService.getMovieTrailer(movieId).body()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun getMatchingMovies(
+        mood: Mood,
+        genres: List<MatchingGenre>,
+        runtime: Runtime,
+        era: Era
+    ): List<MovieDto>? {
+        val keyword = queryMapper.mapMood(mood)
+        val genreIds = queryMapper.mapGenres(genres)
+        val (minRuntime, maxRuntime) = queryMapper.mapRuntime(runtime)
+        val (fromDate, toDate) = queryMapper.mapEra(era)
+
+        val response = movieService.getMatchingMovies(
+            moodId = keyword,
+            genreIds = genreIds,
+            minRuntime = minRuntime,
+            maxRuntime = maxRuntime,
+            earliestDate = fromDate,
+            latestDate = toDate
+        )
+        return response.body()?.items
     }
 
 }

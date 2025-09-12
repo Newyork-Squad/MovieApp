@@ -49,6 +49,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         it.adventureMovies,
                         it.trendingMovies,
                         it.actors,
+                        it.recentlyViewed
                     )
                 )
             }
@@ -97,6 +98,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     event.seriesID
                 )
             }
+
+            HomeUIEvent.ClickSeeAllRecentlyViewed -> HomeFragmentDirections.actionHomeFragmentToWatchHistoryFragment()
         }
         findNavController().navigate(action)
     }

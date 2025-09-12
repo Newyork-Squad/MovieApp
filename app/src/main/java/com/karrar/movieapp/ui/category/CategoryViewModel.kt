@@ -12,6 +12,7 @@ import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.ui.category.uiState.CategoryUIEvent
 import com.karrar.movieapp.ui.category.uiState.CategoryUIState
 import com.karrar.movieapp.ui.category.uiState.ErrorUIState
+import com.karrar.movieapp.ui.explore.GenresInteractionListener
 import com.karrar.movieapp.utilities.Constants.FIRST_CATEGORY_ID
 import com.karrar.movieapp.utilities.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +27,7 @@ class CategoryViewModel @Inject constructor(
     private val genreUIStateMapper: GenreUIStateMapper,
     private val getGenresUseCase: GetGenreListUseCase,
     state: SavedStateHandle
-) : BaseViewModel(), MediaInteractionListener, CategoryInteractionListener {
+) : BaseViewModel(), MediaInteractionListener, GenresInteractionListener {
 
     val args = CategoryFragmentArgs.fromSavedStateHandle(state)
 
@@ -78,10 +79,10 @@ class CategoryViewModel @Inject constructor(
         _categoryUIEvent.update { Event(CategoryUIEvent.ClickMovieEvent(mediaId)) }
     }
 
-    override fun onClickCategory(categoryId: Int) {
+    override fun onGenreSelected(genreId: Int) {
         viewModelScope.launch {
-            _uiState.update { it.copy(selectedCategoryID = categoryId) }
-            _categoryUIEvent.emit(Event(CategoryUIEvent.SelectedCategory(categoryId)))
+            _uiState.update { it.copy(selectedCategoryID = genreId) }
+            _categoryUIEvent.emit(Event(CategoryUIEvent.SelectedCategory(genreId)))
         }
     }
 
@@ -104,6 +105,5 @@ class CategoryViewModel @Inject constructor(
             }
         }
     }
-
 }
 

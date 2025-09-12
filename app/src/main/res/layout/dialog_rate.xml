@@ -116,7 +116,7 @@
                     android:layout_marginTop="@dimen/spacing_large"
                     android:textColor="@color/button_onPrimary"
                     app:backgroundTint="@color/button_primary"
-                    android:text="@string/login"
+                    android:text="@string/add_rating"
                     android:textAllCaps="false"/>
 
                 <com.google.android.material.button.MaterialButton
@@ -129,7 +129,8 @@
                     android:layout_weight="1"
                     android:textColor="@color/button_onTertiary"
                     app:backgroundTint="@color/background_bottomSheet"
-                    android:text="@string/login"
+                    android:text="@string/remove_rating"
+                    android:visibility="gone"
                     android:textAllCaps="false"/>
 
             </LinearLayout>

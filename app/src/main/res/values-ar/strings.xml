@@ -14,6 +14,9 @@
     <string name="username">اسم المستخدم</string>
     <string name="password">كلمة المرور</string>
     <string name="login">تسجيل الدخول</string>
+    <string name="add_rating">أضف تقييمك</string>
+    <string name="change_rating">غير التقييم</string>
+    <string name="remove_rating">إزالة التقييم</string>
     <string name="don_t_have_an_account">ليس لديك حساب؟</string>
     <string name="sign_up">إنشاء حساب</string>
     <string name="place_of_birth">مكان الميلاد</string>

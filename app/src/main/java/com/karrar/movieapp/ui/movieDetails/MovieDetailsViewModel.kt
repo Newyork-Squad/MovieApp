@@ -233,9 +233,11 @@ class MovieDetailsViewModel @Inject constructor(
         _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ClickBackEvent) }
     }
 
-    override fun onclickViewReviews() {
+    override fun onClickViewReviews() {
         _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ClickReviewsEvent) }
     }
+
+    override fun onClickViewSeasons() {}
 
     override fun onClickMovie(movieId: Int) {
         _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ClickMovieEvent(movieId)) }

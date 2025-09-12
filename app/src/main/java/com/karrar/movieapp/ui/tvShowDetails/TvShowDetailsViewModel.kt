@@ -36,8 +36,7 @@ class TvShowDetailsViewModel @Inject constructor(
     private val actorUIStateMapper: ActorUIStateMapper,
     private val crewUiStateMapper: CrewUIStateMapper,
     state: SavedStateHandle,
-) : BaseViewModel(), ActorsInteractionListener, SeasonInteractionListener,
-    DetailInteractionListener {
+) : BaseViewModel(), ActorsInteractionListener, DetailInteractionListener {
 
     val args = TvShowDetailsFragmentArgs.fromSavedStateHandle(state)
 
@@ -228,15 +227,15 @@ class TvShowDetailsViewModel @Inject constructor(
         this._tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickBackEvent) }
     }
 
-    override fun onclickViewReviews() {
+    override fun onClickViewReviews() {
         _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickReviewsEvent) }
+    }
+
+    override fun onClickViewSeasons() {
+        _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickSeasonsEvent) }
     }
 
     override fun onClickActor(actorID: Int) {
         _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickCastEvent(actorID)) }
-    }
-
-    override fun onClickSeason(seasonNumber: Int) {
-        _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickSeasonEvent(seasonNumber)) }
     }
 }

@@ -35,7 +35,7 @@
             android:text="@string/show_more"
             android:textColor="@color/brand_primary"
             android:textFontWeight="500"
-            android:onClick="@{() -> listener.onclickViewReviews()}"
+            android:onClick="@{() -> listener.onClickViewReviews()}"
             android:textSize="14sp"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="@id/reviews_comment"

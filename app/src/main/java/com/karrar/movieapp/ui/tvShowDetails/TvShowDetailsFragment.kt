@@ -87,8 +87,13 @@ class TvShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
             TvShowDetailsUIEvent.MessageAppear -> {
                 Toast.makeText(context, getString(R.string.submit_toast), Toast.LENGTH_SHORT).show()
             }
+
+            TvShowDetailsUIEvent.ClickSeasonsEvent -> {
+                action=TvShowDetailsFragmentDirections.actionTvShowDetailsFragmentToSeasonsFragment(
+                    args.tvShowId
+                )
+            }
         }
         action?.let { findNavController().navigate(it) }
     }
-
 }

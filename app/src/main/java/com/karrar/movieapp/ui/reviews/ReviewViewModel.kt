@@ -1,6 +1,5 @@
 package com.karrar.movieapp.ui.reviews
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.usecases.GetReviewsUseCase
@@ -66,8 +65,7 @@ class ReviewViewModel @Inject constructor(
         )
     }
 
-    override fun onClickBack() {
-        Log.d("ReviewViewModel", "Back button clicked")
+    override fun onBackClick() {
         this._reviewUIEvent.update { Event(ReviewUIEvent.ClickBackEvent) }
     }
 }

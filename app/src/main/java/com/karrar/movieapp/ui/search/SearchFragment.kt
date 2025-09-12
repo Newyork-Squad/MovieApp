@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
+import com.google.android.material.tabs.TabLayout
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.FragmentSearchBinding
 import com.karrar.movieapp.ui.adapters.LoadUIStateAdapter
@@ -41,6 +42,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         getSearchResult()
         setSearchHistoryAdapter()
         getSearchResultsBySearchTerm()
+        setupTabSelection()
+        setupToggle()
         collectLast(viewModel.searchUIEvent) {
             it.getContentIfNotHandled()?.let { onEvent(it) }
         }
@@ -71,13 +74,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     private fun getSearchResult() {
         when (viewModel.uiState.value.searchTypes) {
             MediaTypes.ACTOR -> {
+                binding.viewToggle.root.visibility = View.GONE
                 bindActors()
             }
             else -> {
+                binding.viewToggle.root.visibility = View.VISIBLE
                 bindMedia()
             }
         }
     }
+
 
     private fun onEvent(event: SearchUIEvent) {
         when (event) {
@@ -127,14 +133,19 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     private fun bindMedia() {
         val footerAdapter = LoadUIStateAdapter(mediaSearchAdapter::retry)
         binding.recyclerMedia.adapter = mediaSearchAdapter.withLoadStateFooter(footerAdapter)
-        binding.recyclerMedia.layoutManager =
-            LinearLayoutManager(this@SearchFragment.context, RecyclerView.VERTICAL, false)
 
-        collect(flow = mediaSearchAdapter.loadStateFlow,
-            action = { viewModel.setErrorUiState(it, mediaSearchAdapter.itemCount) })
+        val isGrid = viewModel.isGrid.value
+        binding.recyclerMedia.layoutManager =
+            if (isGrid) GridLayoutManager(requireContext(), 2)
+            else LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+
+        collect(flow = mediaSearchAdapter.loadStateFlow) {
+            viewModel.setErrorUiState(it, mediaSearchAdapter.itemCount)
+        }
 
         getMediaSearchResults()
     }
+
 
     private fun bindActors() {
         val footerAdapter = LoadUIStateAdapter(actorSearchAdapter::retry)
@@ -175,6 +186,55 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     private fun popFragment() {
         findNavController().popBackStack()
+    }
+
+    private fun setupTabSelection(){
+        binding.tabMediaType.getTabAt(0)?.select()
+
+        binding.tabMediaType.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    0 -> viewModel.onSearchForMovie()
+                    1 -> viewModel.onSearchForSeries()
+                    2 -> viewModel.onSearchForActor()
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+
+    }
+
+    private fun setupToggle() {
+        val toggleRoot = binding.viewToggle
+
+        toggleRoot.ivGrid.setOnClickListener { viewModel.setGridMode(true) }
+        toggleRoot.ivList.setOnClickListener { viewModel.setGridMode(false) }
+        toggleRoot.indicator.setOnClickListener { viewModel.toggleGridMode() }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isGrid.collect { isGrid ->
+                if (isGrid) toggleRoot.toggleMotion.transitionToStart() else toggleRoot.toggleMotion.transitionToEnd()
+
+                mediaSearchAdapter.setGridMode(isGrid)
+
+                val lm = binding.recyclerMedia.layoutManager as? GridLayoutManager
+                lm?.let {
+                    val firstPos = it.findFirstVisibleItemPosition()
+                    it.spanCount = if (isGrid) 2 else 1
+
+                    binding.recyclerMedia.post {
+                        it.requestLayout()
+                        if (firstPos != RecyclerView.NO_POSITION) binding.recyclerMedia.scrollToPosition(firstPos)
+                    }
+                }
+                val gridIcon = if (isGrid) R.drawable.ic_grid_selected else R.drawable.ic_grid_unselected
+                val listIcon = if (!isGrid) R.drawable.ic_row_vertical_selected else R.drawable.ic_row_vertical_unselected
+                toggleRoot.ivGrid.setImageResource(gridIcon)
+                toggleRoot.ivList.setImageResource(listIcon)
+            }
+        }
     }
 
 }

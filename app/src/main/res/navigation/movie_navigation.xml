@@ -259,7 +259,7 @@
             app:popUpToInclusive="true">
             <argument
                 android:name="from"
-                app:argType="integer"/>
+                app:argType="integer" />
         </action>
     </dialog>
 
@@ -390,11 +390,14 @@
         <action
             android:id="@+id/action_tvShowDetailsFragment_self"
             app:destination="@id/tvShowDetailsFragment" />
+        <action
+            android:id="@+id/action_tvShowDetailsFragment_to_seasonsFragment"
+            app:destination="@id/seasonsFragment" />
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"
         android:name="com.karrar.movieapp.ui.onboarding.OnboardingFragment"
-        android:label="OnboardingFragment" >
+        android:label="OnboardingFragment">
         <action
             android:id="@+id/action_onboardingFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -404,7 +407,7 @@
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.karrar.movieapp.ui.profile.editProfile.EditProfileFragment"
-        android:label="EditProfileFragment" >
+        android:label="EditProfileFragment">
         <action
             android:id="@+id/action_editProfileFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -412,7 +415,7 @@
     <dialog
         android:id="@+id/languagePickerDialog"
         android:name="com.karrar.movieapp.ui.profile.language.LanguagePickerDialog"
-        android:label="LanguagePickerDialog" >
+        android:label="LanguagePickerDialog">
         <action
             android:id="@+id/action_languagePickerDialog_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -420,7 +423,7 @@
     <dialog
         android:id="@+id/contentPreferencesDialog"
         android:name="com.karrar.movieapp.ui.profile.contentPreferences.ContentPreferencesDialog"
-        android:label="ContentPreferencesDialog" >
+        android:label="ContentPreferencesDialog">
         <action
             android:id="@+id/action_contentPreferencesDialog_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -428,7 +431,7 @@
     <dialog
         android:id="@+id/editProfileConfirmDialog"
         android:name="com.karrar.movieapp.ui.profile.editProfile.EditProfileConfirmDialog"
-        android:label="EditProfileConfirmDialog" >
+        android:label="EditProfileConfirmDialog">
         <action
             android:id="@+id/action_editProfileConfirmDialog_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -441,5 +444,15 @@
         android:name="com.karrar.movieapp.ui.match.MatchScreenFragment"
         android:label="fragment_match_screen"
         tools:layout="@layout/fragment_match_screen" />
+
+    <fragment
+        android:id="@+id/seasonsFragment"
+        android:name="com.karrar.movieapp.ui.tvShowDetails.seasons.SeasonsFragment"
+        android:label="fragment_seasons"
+        tools:layout="@layout/fragment_seasons">
+        <argument
+            android:name="tvShowId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

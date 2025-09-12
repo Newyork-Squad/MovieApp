@@ -9,8 +9,10 @@ import javax.inject.Inject
 class MediaUiMapper @Inject constructor() : Mapper<Media, MediaUiState> {
     override fun map(input: Media): MediaUiState {
         return MediaUiState(
-            input.mediaID,
-            input.mediaImage,
+            id = input.mediaID,
+            mediaTitle = input.mediaName,
+            mediaRate = input.mediaRate,
+            imageUrl = input.mediaImage,
         )
     }
 }

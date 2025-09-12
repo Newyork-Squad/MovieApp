@@ -153,10 +153,13 @@
     <string name="tv_show_image">tv show image</string>
     <string name="clock_icon_for_number_of_seasons">clock icon for number of seasons</string>
     <string name="calendar_icon_for_release_date">calendar icon for release date</string>
+    <string name="welcome">Welcome</string>
     <string name="behind_the_scenes">Behind the Scenes</string>
     <string name="give_it_stars">Give it Stars!</string>
     <string name="let_the_world_know_how_you_felt">Let the world know how you felt.</string>
     <string name="arrow">arrow</string>
+    <string name="no_history_yet" translatable="false">No History Yet</string>
+    <string name="find_something_to_watch" translatable="false">Find Something to Watch</string>
     <string name="change_language">Change Language</string>
     <string name="english">English</string>
     <string name="arabic">Arabic</string>

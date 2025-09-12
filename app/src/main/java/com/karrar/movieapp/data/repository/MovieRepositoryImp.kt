@@ -151,6 +151,10 @@ class MovieRepositoryImp @Inject constructor(
         return movieDao.insert(movie)
     }
 
+    override suspend fun deleteMovieFromHistory(movie: WatchHistoryEntity) {
+        movieDao.delete(movie)
+    }
+
     override fun getAllWatchedMovies(): Flow<List<WatchHistoryEntity>> {
         return movieDao.getAllWatchedMovies()
     }

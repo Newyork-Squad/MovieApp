@@ -68,7 +68,7 @@
     </style>
 
     <style name="Regular.Medium">
-        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textSize">@dimen/text_body_md</item>
     </style>
 
     <style name="Regular.Medium.Primary">
@@ -114,6 +114,11 @@
 
     <style name="CardCorners.Large">
         <item name="cornerSize">@dimen/radius_lg</item>
+    </style>
+    <style name="CardCorners.Media_Image">
+        <item name="cornerSizeTopLeft">@dimen/radius_lg</item>
+        <item name="cornerSizeTopRight">@dimen/radius_lg</item>
+        <item name="cornerSizeBottomLeft">@dimen/radius_lg</item>
     </style>
 
     <style name="Login" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
@@ -301,9 +306,8 @@
         <item name="android:fontFamily">@font/manrope_semibold</item>
     </style>
 
-    <style name="MyTabTextAppearance">
+    <style name="Body_MD.Medium.MyTabTextAppearance">
         <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="MovieAndSeriesCornerImage">

@@ -16,6 +16,7 @@ class SearchSeriesMapper @Inject constructor() : Mapper<TVShowsDTO, Media> {
             input.originalName ?: "",
             input.firstAirDate?.substringBefore('-') ?: "",
             input.voteAverage?.toFloat() ?: 0F,
+            input.genreIds ?: emptyList(),
         )
     }
 }

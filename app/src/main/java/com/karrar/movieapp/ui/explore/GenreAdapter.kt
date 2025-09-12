@@ -3,7 +3,7 @@ package com.karrar.movieapp.ui.explore
 import com.google.android.material.chip.Chip
 import com.karrar.movieapp.R
 import com.karrar.movieapp.ui.base.BaseAdapter
-import com.karrar.movieapp.ui.category.GenresInteractionListener
+import com.karrar.movieapp.ui.explore.GenresInteractionListener
 import com.karrar.movieapp.ui.category.uiState.GenreUIState
 
 class GenreAdapter(

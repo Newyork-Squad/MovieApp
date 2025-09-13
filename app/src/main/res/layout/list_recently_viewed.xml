@@ -23,8 +23,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_medium"
-        android:visibility="@{isVisible ? View.GONE : View.VISIBLE}">
+        android:layout_marginBottom="@dimen/spacing_medium">
 
         <TextView
             android:id="@+id/text_recently_viewed"
@@ -34,6 +33,7 @@
             android:layout_marginStart="@dimen/spacing_medium"
             android:text="@string/title_recently_viewed"
             android:textColor="@color/shade_primary"
+            android:visibility="@{isVisible ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/title_recently_viewed" />
@@ -46,6 +46,7 @@
             android:onClick="@{() -> listener.onClickSeeAllRecentlyViewed()}"
             android:text="@string/show_more"
             android:textColor="@color/brand_primary"
+            android:visibility="@{isVisible ? View.VISIBLE : View.GONE}"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_recently_viewed"
             app:layout_constraintEnd_toEndOf="parent" />
 

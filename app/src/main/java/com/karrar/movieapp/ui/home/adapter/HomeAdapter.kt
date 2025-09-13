@@ -76,7 +76,7 @@ class HomeAdapter(
                             BR.adapterRecycler,
                             TVShowAdapter(currentItem.items, listener as TVShowInteractionListener)
                         )
-                        setVariable(BR.movieType, currentItem.type )
+                        setVariable(BR.movieType, currentItem.type)
                         setVariable(BR.mediaType, AllMediaType.TOP_RATED)
                     }
                 }
@@ -87,7 +87,7 @@ class HomeAdapter(
                             BR.adapterRecycler,
                             TVShowAdapter(currentItem.items, listener as TVShowInteractionListener)
                         )
-                        setVariable(BR.movieType, currentItem.type )
+                        setVariable(BR.movieType, currentItem.type)
                         setVariable(BR.mediaType, AllMediaType.LATEST)
                     }
                 }
@@ -160,7 +160,7 @@ class HomeAdapter(
                             )
                         )
                         setVariable(BR.listener, listener as HomeInteractionListener)
-                        setVariable(BR.isVisible, currentItem.items.isEmpty())
+                        setVariable(BR.isVisible, currentItem.items.isNotEmpty())
                     }
                 }
 
@@ -215,6 +215,7 @@ class HomeAdapter(
                 is HomeItem.RecentlyReleased,
                 is HomeItem.TopRatedTvShows,
                 is HomeItem.OnTheAiring -> R.layout.list_tvshow
+
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
                 is HomeItem.Adventure,
                 is HomeItem.Mystery,
@@ -222,6 +223,7 @@ class HomeAdapter(
                 is HomeItem.Trending,
                 is HomeItem.Upcoming,
                     -> R.layout.list_movie
+
                 is HomeItem.Collections -> R.layout.list_home_collections
             }
         }

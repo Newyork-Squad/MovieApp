@@ -200,4 +200,6 @@
     <string name="discover_your_match">Discover Your Match</string>
     <string name="not_sure_what_to_watch">Not sure what to watch?</string>
     <string name="answer_a_few_quick_questions_and_we_ll_match_you_with_the_perfect_picks">Answer a few quick questions and we’ll match you with the perfect picks.</string>
+    <string name="match">Match</string>
+    <string name="me">Me</string>
 </resources>

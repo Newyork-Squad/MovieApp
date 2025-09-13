@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+
+        <variable
+            name="choice"
+            type="com.karrar.movieapp.ui.match.questions.Choice"/>
+
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.match.questions.adapter.ChoicesAdapter.ChoicesInteractionListener" />
+
+        <import type="android.view.View" />
+
+        <import type="android.view.Gravity" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/choice"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:onClick="@{() -> listener.onChoiceSelected(choice)}"
+        app:cardBackgroundColor="@{isSelected || choice.isSelected  ? @color/brand_tertiary : @color/background_card}"
+        app:cardCornerRadius="@dimen/radius_lg"
+        app:cardElevation="0dp"
+        app:strokeColor="@{isSelected || choice.isSelected ? @color/brand_secondary : @android:color/transparent}"
+        app:strokeWidth="@{isSelected || choice.isSelected ? 1 : 0}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="@{choice.icon != null ? Gravity.CENTER_VERTICAL : Gravity.CENTER}"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/choice_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="12dp"
+                android:scaleType="center"
+                android:background="@{isSelected || choice.isSelected  ? @color/brand_secondary : @color/brand_tertiary}"
+                android:visibility="@{choice.icon != null ? View.VISIBLE : View.GONE}"
+                app:imageRes="@{choice.icon}"
+                app:shapeAppearanceOverlay="@style/CorneredImage.Medium"
+                app:tint="@color/brand_primary"
+                tools:src="@drawable/due_tone_clock" />
+
+            <TextView
+                android:id="@+id/choice_text"
+                style="@style/Body_MD.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:text="@{choice.name}"
+                android:textColor="@{isSelected || choice.isSelected  ? @color/brand_primary : @color/shade_primary}"
+                tools:text="Short" />
+
+            <TextView
+                android:id="@+id/choice_description"
+                style="@style/Body_MD.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{choice.description}"
+                android:textColor="@color/shade_secondary"
+                tools:text="(Under 90 min)" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

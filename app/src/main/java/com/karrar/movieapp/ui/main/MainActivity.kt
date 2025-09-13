@@ -105,11 +105,12 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.bottomNavigation.isVisible =
                 when (destination.id) {
-                    R.id.loginFragment,
-                    R.id.onboardingFragment,R.id.watchHistoryFragment,
-                    R.id.myListFragment,R.id.ratedMoviesFragment,
-                    R.id.edit_profile, R.id.createSavedList,R.id.listDetailsFragment,
-                         R.id.allMovieFragment-> {
+                    R.id.loginFragment, R.id.onboardingFragment,
+                    R.id.watchHistoryFragment, R.id.myListFragment,
+                    R.id.ratedMoviesFragment, R.id.edit_profile,
+                    R.id.createSavedList, R.id.listDetailsFragment,
+                    R.id.allMovieFragment, R.id.matchQuestionsFragment,
+                    -> {
                         false
                     }
 

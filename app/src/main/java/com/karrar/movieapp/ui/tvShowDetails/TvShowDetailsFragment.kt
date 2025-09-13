@@ -101,8 +101,13 @@ class TvShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
                 action =
                     TvShowDetailsFragmentDirections.actionTvShowDetailsFragmentSelf(event.thShowId)
             }
+
+            TvShowDetailsUIEvent.ClickSeasonsEvent -> {
+                action=TvShowDetailsFragmentDirections.actionTvShowDetailsFragmentToSeasonsFragment(
+                    args.tvShowId
+                )
+            }
         }
         action?.let { findNavController().navigate(it) }
     }
-
 }

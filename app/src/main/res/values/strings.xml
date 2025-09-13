@@ -43,6 +43,7 @@
     <string name="title_streaming">Now Streaming</string>
     <string name="title_upcoming">Upcoming</string>
     <string name="title_recently_viewed">You Recently Viewed</string>
+    <string name="your_collections">Your Collections</string>
     <string name="title_celebrity">Celebrities</string>
     <string name="title_airing_today">Airing today</string>
     <string name="title_top_rated_tv_show">Top Rated Tv-Show</string>
@@ -92,7 +93,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="create">Create</string>
     <string name="list_name">List Name</string>
-    <string name="explore_some_movies_on_home_or_search_and_then_create_your_movie_list">Explore some movies on “Home” or “Search” and then create your movie list.</string>
+    <string name="explore_some_movies_on_home_or_search_and_then_create_your_movie_list">Collection Name</string>
     <string name="empty_overview_text">This season has no description.</string>
     <string name="one_season">%1$d Season</string>
     <string name="more_than_one_season">%1$d Seasons</string>
@@ -103,7 +104,7 @@
     <string name="log_in">Log In</string>
     <string name="you_must_be_logged_in_to_use_list_features">You must be logged in to use lists feature.</string>
     <string name="empty">Empty</string>
-    <string name="create_a_new_list">Create a new list</string>
+    <string name="create_a_new_list">Create New Collection</string>
     <string name="save_to">Save to…</string>
     <string name="hours_pattern">%1$s hours</string>
     <string name="minutes_pattern">%1$s minutes</string>
@@ -180,6 +181,12 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="you_ll_be_taken_to_the_website_to_update_your_name_username_or_profile_picture">You’ll be taken to the website to update your name, username, or profile picture.</string>
     <string name="go_to_website">Go to Website</string>
+    <string name="add">+</string>
+    <string name="start_collecting">Start Collecting</string>
+    <string name="start_building_your_personal_library_by_saving_movies_or_series_you_want_to_remember">Start building your personal library by saving movies or series you want to remember.</string>
+    <string name="no_collections_yet">No Collections Yet</string>
+    <string name="add_collection">add collection</string>
+    <string name="e_g_my_watchlist">e.g. My Watchlist</string>
 
 
     <string name="select_movies_or_series_tab">Select Movies or Series tab</string>
@@ -187,4 +194,8 @@
     <string name="no_ratings_yet">No Ratings Yet</string>
     <string name="rate_movies_and_series_you_ve_watched_to_track_what_you_love_and_what_you_don_t">Rate movies and series you’ve watched to track what you love, and what you don’t.</string>
     <string name="start_rating">Start Rating</string>
+    <string name="seasons_title">Seasons</string>
+    <string name="discover_your_match">Discover Your Match</string>
+    <string name="not_sure_what_to_watch">Not sure what to watch?</string>
+    <string name="answer_a_few_quick_questions_and_we_ll_match_you_with_the_perfect_picks">Answer a few quick questions and we’ll match you with the perfect picks.</string>
 </resources>

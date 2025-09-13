@@ -9,6 +9,7 @@ sealed interface TvShowDetailsUIEvent {
     object MessageAppear : TvShowDetailsUIEvent
     object ShowRateDialogEvent : TvShowDetailsUIEvent
     object ClickReviewsEvent : TvShowDetailsUIEvent
+    object ClickSeasonsEvent : TvShowDetailsUIEvent
     data class ClickSeasonEvent(val seasonId: Int) : TvShowDetailsUIEvent
     data class ClickCastEvent(val castID: Int) : TvShowDetailsUIEvent
     data class ClickTvShowEvent(val thShowId: Int) : TvShowDetailsUIEvent

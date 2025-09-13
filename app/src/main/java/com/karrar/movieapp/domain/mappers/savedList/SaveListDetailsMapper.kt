@@ -4,6 +4,7 @@ import com.karrar.movieapp.BuildConfig
 import com.karrar.movieapp.data.remote.response.SavedListDto
 import com.karrar.movieapp.domain.mappers.Mapper
 import com.karrar.movieapp.domain.models.SaveListDetails
+import com.karrar.movieapp.utilities.convertToMonthDayYearFormat
 import javax.inject.Inject
 
 class SaveListDetailsMapper @Inject constructor() : Mapper<SavedListDto, SaveListDetails> {
@@ -11,12 +12,12 @@ class SaveListDetailsMapper @Inject constructor() : Mapper<SavedListDto, SaveLis
         return SaveListDetails(
             id = input.id ?: 0,
             mediaType = input.mediaType ?: "",
-            title = listOf(input.originalTitle, input.originalName).filter { it != null }.first()
+            title = listOf(input.originalTitle, input.originalName).first { it != null }
                 .toString(),
-            releaseDate = listOf(input.firstAirDate, input.releaseDate).filter { it != null }
-                .first().toString(),
+            releaseDate = listOf(input.firstAirDate, input.releaseDate).first { it != null }.toString().convertToMonthDayYearFormat(),
             voteAverage = input.voteAverage ?: 0.0,
             posterPath = BuildConfig.IMAGE_BASE_PATH + input.backdropPath,
+            genres = input.genreIds?.filterNotNull() ?: emptyList()
         )
     }
 }

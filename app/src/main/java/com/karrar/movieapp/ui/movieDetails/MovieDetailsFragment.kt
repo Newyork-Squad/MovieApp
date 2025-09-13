@@ -55,32 +55,38 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
             MovieDetailsUIEvent.ClickBackEvent -> {
                 findNavController().navigateUp()
             }
+
             is MovieDetailsUIEvent.ClickCastEvent -> {
                 action =
                     MovieDetailsFragmentDirections.actionMovieDetailFragmentToActorDetailsFragment(
                         event.castID
                     )
             }
+
             is MovieDetailsUIEvent.ClickMovieEvent -> {
                 viewModelStore.clear()
                 action = MovieDetailsFragmentDirections.actionMovieDetailsFragment(event.movieID)
             }
+
             MovieDetailsUIEvent.ClickPlayTrailerEvent -> {
                 action =
                     MovieDetailsFragmentDirections.actionMovieDetailFragmentToYoutubePlayerActivity(
                         args.movieId, MediaType.MOVIE
                     )
             }
+
             MovieDetailsUIEvent.ClickReviewsEvent -> {
                 action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentToReviewFragment(
                     args.movieId, MediaType.MOVIE
                 )
             }
+
             MovieDetailsUIEvent.ClickSaveEvent -> {
                 action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentToSaveMovieDialog(
                     args.movieId
                 )
             }
+
             MovieDetailsUIEvent.ShowLoginDialogEvent -> {
                 action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentToLoginDialog()
             }

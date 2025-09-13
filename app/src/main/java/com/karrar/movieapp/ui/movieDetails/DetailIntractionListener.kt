@@ -2,7 +2,7 @@ package com.karrar.movieapp.ui.movieDetails
 
 import com.karrar.movieapp.ui.base.BaseInteractionListener
 
-interface DetailInteractionListener :BaseInteractionListener {
+interface DetailInteractionListener : BaseInteractionListener {
 
     fun onclickBack()
 
@@ -11,6 +11,8 @@ interface DetailInteractionListener :BaseInteractionListener {
     fun onClickPlayTrailer()
 
     fun onClickRate()
+     
+    fun onClickViewReviews()
 
-    fun onclickViewReviews()
+    fun onClickViewSeasons()
 }

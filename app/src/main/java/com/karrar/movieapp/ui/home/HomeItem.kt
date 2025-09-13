@@ -4,13 +4,16 @@ import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.ui.models.ActorUiState
 import com.karrar.movieapp.ui.home.homeUiState.PopularUiState
 import com.karrar.movieapp.ui.models.MediaUiState
+import com.karrar.movieapp.ui.myList.myListUIState.CreatedListUIState
 import com.karrar.movieapp.ui.profile.watchhistory.MediaHistoryUiState
 
 sealed class HomeItem(val priority: Int) {
 
     data class Slider(val items: List<PopularUiState>) : HomeItem(0)
 
-    data class TvShows(val items: List<MediaUiState>) : HomeItem(1)
+    data class RecentlyReleased(val items: List<MediaUiState>, val type: HomeItemsType = HomeItemsType.RECENTLY_RELEASED) : HomeItem(1)
+
+    data class TopRatedTvShows(val items: List<MediaUiState>, val type: HomeItemsType = HomeItemsType.TOP_RATED_TV_SHOWS) : HomeItem(12)
 
     data class OnTheAiring(val items: List<MediaUiState>, val type: HomeItemsType = HomeItemsType.ON_THE_AIR) : HomeItem(2)
 
@@ -29,4 +32,6 @@ sealed class HomeItem(val priority: Int) {
     data class Actor(val items: List<ActorUiState>) : HomeItem(9)
 
     data class RecentlyViewed(val items: List<MediaHistoryUiState>, val type: HomeItemsType = HomeItemsType.RECENTLY_VIEWED) : HomeItem(10)
+
+    data class Collections(val items: List<CreatedListUIState>, val type: HomeItemsType = HomeItemsType.COLLECTIONS) : HomeItem(11)
 }

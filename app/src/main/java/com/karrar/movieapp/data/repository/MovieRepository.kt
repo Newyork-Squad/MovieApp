@@ -16,6 +16,7 @@ import com.karrar.movieapp.data.remote.response.BaseListResponse
 import com.karrar.movieapp.data.remote.response.CreatedListDto
 import com.karrar.movieapp.data.remote.response.CreditsDto
 import com.karrar.movieapp.data.remote.response.DailyTrendingDto
+import com.karrar.movieapp.data.remote.response.DefaultResponse
 import com.karrar.movieapp.data.remote.response.MovieDto
 import com.karrar.movieapp.data.remote.response.MyListsDto
 import com.karrar.movieapp.data.remote.response.RatedMoviesDto
@@ -124,10 +125,12 @@ interface MovieRepository {
     suspend fun getRatedMovie(): List<RatedMoviesDto>?
 
     suspend fun getMatchingMovies(
-        mood: Mood,
+        moods: List<Mood>,
         genres: List<MatchingGenre>,
         runtime: Runtime,
         era: Era
     ): List<MovieDto>?
+
+    suspend fun removeMovieFromCollection(sessionId: String, collectionId: String, movieId: Int): DefaultResponse?
 
 }

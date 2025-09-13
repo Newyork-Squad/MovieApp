@@ -40,6 +40,7 @@
     <string name="title_streaming">Now Streaming</string>
     <string name="title_upcoming">Upcoming</string>
     <string name="title_recently_viewed">You Recently Viewed</string>
+    <string name="your_collections">Your Collections</string>
     <string name="title_celebrity">Celebrities</string>
     <string name="title_airing_today">Airing today</string>
     <string name="title_top_rated_tv_show">Top Rated Tv-Show</string>
@@ -189,6 +190,8 @@
     <string name="no_ratings_yet">No Ratings Yet</string>
     <string name="rate_movies_and_series_you_ve_watched_to_track_what_you_love_and_what_you_don_t">Rate movies and series you’ve watched to track what you love, and what you don’t.</string>
     <string name="start_rating">Start Rating</string>
+    <string name="next">Next</string>
+    <string name="start_matching">Start Matching</string>
 
 
     <string name="nothing_found">Nothing Found!</string>
@@ -196,4 +199,10 @@
     <string name="clear_all">Clear All</string>
     <string name="you_recent_viewed">You Recent Viewed</string>
 
+    <string name="seasons_title">Seasons</string>
+    <string name="discover_your_match">Discover Your Match</string>
+    <string name="not_sure_what_to_watch">Not sure what to watch?</string>
+    <string name="answer_a_few_quick_questions_and_we_ll_match_you_with_the_perfect_picks">Answer a few quick questions and we’ll match you with the perfect picks.</string>
+    <string name="match">Match</string>
+    <string name="me">Me</string>
 </resources>

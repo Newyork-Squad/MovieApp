@@ -42,6 +42,7 @@
     <string name="title_streaming">يُعرض الآن</string>
     <string name="title_upcoming">القادم قريبًا</string>
     <string name="title_recently_viewed">شاهدته مؤخرًا</string>
+    <string name="your_collections">مجموعاتك</string>
     <string name="title_celebrity">المشاهير</string>
     <string name="title_airing_today">يعرض اليوم</string>
     <string name="title_top_rated_tv_show">أعلى المسلسلات تقييمًا</string>
@@ -135,6 +136,7 @@
     <string name="tv_show_image">صورة المسلسل</string>
     <string name="clock_icon_for_number_of_seasons">أيقونة عدد المواسم</string>
     <string name="calendar_icon_for_release_date">أيقونة تاريخ الإصدار</string>
+    <string name="welcome">مرحبا</string>
     <string name="behind_the_scenes">الكواليس</string>
     <string name="give_it_stars">قيمه بالنجوم!</string>
     <string name="let_the_world_know_how_you_felt">دع العالم يعرف رأيك.</string>
@@ -190,6 +192,11 @@
         قيّم الأفلام والمسلسلات التي شاهدتها لتتبع ما تحبه وما لا يعجبك.
     </string>
     <string name="start_rating">ابدأ التقييم</string>
+    <string name="discover_your_match">اكتشف تطابقك</string>
+    <string name="not_sure_what_to_watch">لست متأكدًا مما تشاهد؟</string>
+    <string name="answer_a_few_quick_questions_and_we_ll_match_you_with_the_perfect_picks">
+    أجب عن بعض الأسئلة السريعة وسنطابقك مع الاختيارات المثالية.
+</string>
 
     <string name="youtube">يوتيوب</string>
     <string name="instagram">إنستغرام</string>
@@ -199,6 +206,9 @@
     <string name="see_all">عرض الكل</string>
     <string name="clear_all">مسح الكل</string>
     <string name="you_recent_viewed">شاهدته مؤخرًا</string>
+    <string name="seasons_title">المواسم</string>
 
 
+    <string name="match">كيفي</string>
+    <string name="me">انا</string>
 </resources>

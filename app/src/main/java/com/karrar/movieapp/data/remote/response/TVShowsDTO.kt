@@ -26,7 +26,7 @@ class TVShowsDTO(
     @SerializedName("poster_path")
     val posterPath: String? = null,
     @SerializedName("vote_average")
-    val voteAverage: Double? = null,
+    val voteAverage: Float? = null,
     @SerializedName("vote_count")
     val voteCount: Int? = null
 )

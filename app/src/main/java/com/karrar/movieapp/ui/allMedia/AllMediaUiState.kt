@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.emptyFlow
 
 data class AllMediaUiState(
     val allMedia : Flow<PagingData<MediaUiState>> = emptyFlow(),
-    val isLoading : Boolean = false,
     val error : List<Error> = emptyList(),
     )
 

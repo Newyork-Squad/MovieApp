@@ -13,6 +13,7 @@ import com.karrar.movieapp.ui.adapters.SimilarTvShowsInteractionListener
 import com.karrar.movieapp.ui.base.BaseAdapter
 import com.karrar.movieapp.ui.base.BaseInteractionListener
 import com.karrar.movieapp.ui.movieDetails.DetailInteractionListener
+import com.karrar.movieapp.ui.tvShowDetails.seasons.SeasonsAdapter
 import com.karrar.movieapp.ui.tvShowDetails.tvShowUIState.DetailItemUIState
 import com.karrar.movieapp.utilities.Constants
 
@@ -76,11 +77,12 @@ class DetailUIStateAdapter(
                 holder.binding.run {
                     setVariable(
                         BR.adapterRecycler,
-                        SeasonAdapterUIState(
+                        SeasonsAdapter(
                             currentItem.data.take(Constants.NUMBER_OF_SEASONS),
-                            listener as SeasonInteractionListener
+                            listener as DetailInteractionListener
                         )
                     )
+                    setVariable(BR.listener, listener)
                 }
             }
 
@@ -97,7 +99,6 @@ class DetailUIStateAdapter(
                 }
             }
 
-            is DetailItemUIState.ReviewText -> {}
             is DetailItemUIState.SimilarTvShows -> {
                 holder.binding.run {
                     setVariable(
@@ -107,6 +108,11 @@ class DetailUIStateAdapter(
                             listener as SimilarTvShowsInteractionListener,
                         )
                     )
+                }
+            }
+            is DetailItemUIState.ReviewText -> {
+                holder.binding.run {
+                    setVariable(BR.listener, listener)
                 }
             }
         }

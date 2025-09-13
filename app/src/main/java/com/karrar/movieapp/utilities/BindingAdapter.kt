@@ -354,6 +354,16 @@ fun setPasswordToggle(
 
     layout.setEndIconOnClickListener { onToggle?.invoke() }
 }
+
+@BindingAdapter("app:imageRes")
+fun setImageRes(view: ShapeableImageView, resId: Int?) {
+    if (resId != null) {
+        view.setImageResource(resId)
+    } else {
+        view.setImageDrawable(null)
+    }
+}
+
 @BindingAdapter("genresText")
 fun TextView.setGenresText(genres: List<String>?) {
     text = genres?.joinToString(", ") ?: ""

@@ -10,13 +10,15 @@ import javax.inject.Inject
 
 class MovieQueryMapper @Inject constructor(){
 
-    fun mapMood(mood: Mood): String? = when (mood) {
-        Mood.CHILL -> MOOD_CHILL_ID
-        Mood.EXCITED -> MOOD_EXCITED_ID
-        Mood.EMOTIONAL -> MOOD_EMOTIONAL_ID
-        Mood.CURIOUS -> MOOD_CURIOUS_ID
-    }
-
+    fun mapMoods(moods: List<Mood>): String {
+        return moods.mapNotNull { mood ->
+            when (mood) {
+                Mood.CHILL -> MOOD_CHILL_ID
+                Mood.EXCITED -> MOOD_EXCITED_ID
+                Mood.EMOTIONAL -> MOOD_EMOTIONAL_ID
+                Mood.CURIOUS -> MOOD_CURIOUS_ID
+            }
+        }.joinToString(" AND ")}
     fun mapGenres(genres: List<MatchingGenre>): String =
         genres.mapNotNull { genre ->
             when (genre) {

@@ -72,7 +72,6 @@ class HomeViewModel @Inject constructor(
         getUpcoming()
         getTopRatedTvShow()
         getRecentlyReleasedTvShow()
-        getAiringToday()
         getPopularMovies()
         getMystery()
         getAdventure()
@@ -261,49 +260,6 @@ class HomeViewModel @Inject constructor(
                 onError(th.message.toString())
             }
         }
-    }
-
-//    private fun getOnTheAir() {
-//        viewModelScope.launch {
-//            try {
-//                homeUseCasesContainer.getOnTheAirUseCase().collect { list ->
-//                    if (list.isNotEmpty()) {
-//                        val items = list.map(mediaUiMapper::map)
-//                        _homeUiState.update {
-//                            it.copy(
-//                                onTheAiringSeries = HomeItem.OnTheAiring(items),
-//                                isLoading = false
-//                            )
-//                        }
-//                    }
-//                }
-//            } catch (th: Throwable) {
-//                onError(th.message.toString())
-//            }
-//        }
-//
-//    }
-
-    private fun getAiringToday() {
-        viewModelScope.launch {
-            try {
-                homeUseCasesContainer.getAiringTodayUseCase().collect { list ->
-                    if (list.isNotEmpty()) {
-                        val items = list.map(mediaUiMapper::map)
-                        _homeUiState.update {
-                            it.copy(
-                                airingTodaySeries = HomeItem.AiringToday(items),
-                                isLoading = false
-                            )
-                        }
-                    }
-                }
-            } catch (th: Throwable) {
-                onError(th.message.toString())
-            }
-        }
-
-
     }
 
     private fun getMystery() {

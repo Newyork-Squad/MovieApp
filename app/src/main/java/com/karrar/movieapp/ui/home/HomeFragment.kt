@@ -42,7 +42,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         it.popularMovies,
                         it.recentlyReleasedSeries,
                         it.topRatedSeries,
-                        it.airingTodaySeries,
                         it.upcomingMovies,
                         it.nowStreamingMovies,
                         it.mysteryMovies,

@@ -14,8 +14,6 @@ import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.ui.adapters.ActorAdapter
 import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
-import com.karrar.movieapp.ui.adapters.MediaAdapter
-import com.karrar.movieapp.ui.adapters.MediaInteractionListener
 import com.karrar.movieapp.ui.adapters.MovieAdapter
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseAdapter
@@ -26,7 +24,6 @@ import com.karrar.movieapp.ui.models.MediaUiState
 import com.karrar.movieapp.ui.myList.CreatedListAdapter
 import com.karrar.movieapp.ui.myList.CreatedListInteractionListener
 import com.karrar.movieapp.ui.profile.watchhistory.WatchHistoryInteractionListener
-import com.karrar.movieapp.utilities.Constants
 
 class HomeAdapter(
     private var homeItems: MutableList<HomeItem>,
@@ -106,20 +103,6 @@ class HomeAdapter(
 
                 }
 
-                is HomeItem.AiringToday -> {
-                    holder.binding.run {
-                        setVariable(
-                            BR.adapterRecycler,
-                            MediaAdapter(
-                                currentItem.items.take(Constants.MAX_NUMBER_AIRING_TODAY),
-                                R.layout.item_airing_today,
-                                listener as MediaInteractionListener
-                            )
-                        )
-                        setVariable(BR.count, currentItem.items.size)
-                    }
-                }
-
                 is HomeItem.Adventure -> {
                     bindMovie(holder, currentItem.items, currentItem.type)
                 }
@@ -196,10 +179,10 @@ class HomeAdapter(
             return when (homeItems[position]) {
                 is HomeItem.Actor -> R.layout.list_actor
                 is HomeItem.Slider -> R.layout.list_popular
-                is HomeItem.AiringToday -> R.layout.list_airing_today
                 is HomeItem.RecentlyReleased,
                 is HomeItem.TopRatedTvShows,
                     -> R.layout.list_tvshow
+
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
                 is HomeItem.Adventure,
                 is HomeItem.Mystery,

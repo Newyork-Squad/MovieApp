@@ -25,29 +25,29 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:alpha="@{isCurrent ? 1f : 0.2f}">
+        android:layout_marginTop="32dp">
 
-        
+
         <TextView
             android:id="@+id/question"
             style="@style/Title.SM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:alpha="@{isCurrent ? 1f : 0.2f}"
             android:text="@{question}"
             android:textColor="@color/shade_primary"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="What mood are you in?"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="What mood are you in?" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/choices"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:alpha="@{isCurrent ? 1f : 0.2f}"
             android:adapter="@{adapter}"
-            android:clickable="@{isCurrent}"
             app:layoutManager="@{layoutManager}"
-            app:layout_constraintTop_toBottomOf="@id/question"/>
+            app:layout_constraintTop_toBottomOf="@id/question" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

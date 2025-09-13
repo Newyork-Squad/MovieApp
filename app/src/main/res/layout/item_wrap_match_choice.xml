@@ -27,7 +27,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
         android:onClick="@{() -> listener.onChoiceSelected(choice)}"
-        app:cardBackgroundColor="@{isSelected ? @color/brand_tertiary : @color/background_card}"
+        app:cardBackgroundColor="@{isSelected || choice.isSelected ? @color/brand_tertiary : @color/background_card}"
         app:cardCornerRadius="@dimen/radius_lg"
         app:cardElevation="0dp"
         app:contentPaddingRight="20dp"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@{choice.name}"
-            android:textColor="@{isSelected ? @color/brand_primary : @color/shade_primary}"
+            android:textColor="@{isSelected || choice.isSelected ? @color/brand_primary : @color/shade_primary}"
             tools:text="Short" />
 
     </com.google.android.material.card.MaterialCardView>

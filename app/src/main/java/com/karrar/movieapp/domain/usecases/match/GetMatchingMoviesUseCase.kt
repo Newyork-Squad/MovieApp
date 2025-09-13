@@ -14,12 +14,12 @@ class GetMatchingMoviesUseCase @Inject constructor(
     private val movieMapper: MovieMapper
 ) {
     suspend operator fun invoke(
-        mood: Mood,
+        moods: List<Mood>,
         genres: List<MatchingGenre>,
         runtime: Runtime,
         era: Era
     ): List<Media> {
-        val response = moviesRepository.getMatchingMovies(mood, genres, runtime, era)
+        val response = moviesRepository.getMatchingMovies(moods, genres, runtime, era)
         return response?.map{ it -> movieMapper.map(it) } ?: throw Throwable("No Available Matches")
 
 

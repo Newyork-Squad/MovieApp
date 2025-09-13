@@ -13,8 +13,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color">
+        android:background="@color/background_screen">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/background_screen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/outline_alt_arrow_left"
+            app:titleTextColor="@color/shade_primary" />
+        <!-- RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_media"
             android:layout_width="match_parent"
@@ -24,35 +35,47 @@
             android:overScrollMode="never"
             android:paddingVertical="@dimen/spacing_small"
             android:scrollbars="none"
+            android:visibility="gone"
+            app:hideIfTrue="@{viewModel.uiState.loading}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintTop_toTopOf="parent"
-            app:spanCount="3"
-            android:visibility="gone"
-            tools:listitem="@layout/item_media_search_grid"
-            app:hideIfTrue="@{viewModel.uiState.loading}" />
+            app:spanCount="2"
+            tools:listitem="@layout/item_media_see_all" />
 
+        <!-- Toggle -->
+        <include
+            android:id="@+id/view_toggle"
+            layout="@layout/media_toggle_view"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:elevation="@dimen/spacing_xSmall"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Loading & Error -->
         <include
             android:id="@+id/loading"
             layout="@layout/loading2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:isLoading="@{viewModel.uiState.loading}" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/error"
             layout="@layout/error2"
+            app:isError="@{!viewModel.uiState.error.isEmpty()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:isError="@{!viewModel.uiState.error.isEmpty()}"
             app:viewModel="@{viewModel}" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

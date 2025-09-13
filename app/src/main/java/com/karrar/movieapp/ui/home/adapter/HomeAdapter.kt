@@ -148,6 +148,13 @@ class HomeAdapter(
                         setVariable(BR.listener, listener as HomeInteractionListener)
                     }
                 }
+                ////////////////////////
+                is HomeItem.WhatShouldWatch->{
+                    holder.binding.run {
+                        setVariable(BR.listener, listener as WhatShouldWatchListener)
+
+                    }
+                }
             }
     }
 
@@ -186,11 +193,13 @@ class HomeAdapter(
                 is HomeItem.AiringToday -> R.layout.list_airing_today
                 is HomeItem.OnTheAiring -> R.layout.list_tvshow
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
+                is HomeItem.WhatShouldWatch->R.layout.item_whatshouldwatch
                 is HomeItem.Adventure,
                 is HomeItem.Mystery,
                 is HomeItem.NowStreaming,
                 is HomeItem.Trending,
                 is HomeItem.Upcoming,
+
                     -> R.layout.list_movie
             }
         }

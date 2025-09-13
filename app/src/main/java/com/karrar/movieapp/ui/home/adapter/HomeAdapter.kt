@@ -1,14 +1,14 @@
 package com.karrar.movieapp.ui.home.adapter
 
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
 import com.karrar.movieapp.BR
 import com.karrar.movieapp.R
-import android.os.Handler
-import android.os.Looper
-import android.view.View
 import com.karrar.movieapp.databinding.ItemPopularMovieBinding
 import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.domain.enums.HomeItemsType
@@ -23,7 +23,8 @@ import com.karrar.movieapp.ui.base.BaseInteractionListener
 import com.karrar.movieapp.ui.home.HomeInteractionListener
 import com.karrar.movieapp.ui.home.HomeItem
 import com.karrar.movieapp.ui.models.MediaUiState
-import com.karrar.movieapp.ui.profile.watchhistory.WatchHistoryAdapter
+import com.karrar.movieapp.ui.myList.CreatedListAdapter
+import com.karrar.movieapp.ui.myList.CreatedListInteractionListener
 import com.karrar.movieapp.ui.profile.watchhistory.WatchHistoryInteractionListener
 import com.karrar.movieapp.utilities.Constants
 
@@ -75,7 +76,7 @@ class HomeAdapter(
                             BR.adapterRecycler,
                             TVShowAdapter(currentItem.items, listener as TVShowInteractionListener)
                         )
-                        setVariable(BR.movieType, currentItem.type )
+                        setVariable(BR.movieType, currentItem.type)
                         setVariable(BR.mediaType, AllMediaType.TOP_RATED)
                     }
                 }
@@ -86,7 +87,7 @@ class HomeAdapter(
                             BR.adapterRecycler,
                             TVShowAdapter(currentItem.items, listener as TVShowInteractionListener)
                         )
-                        setVariable(BR.movieType, currentItem.type )
+                        setVariable(BR.movieType, currentItem.type)
                         setVariable(BR.mediaType, AllMediaType.LATEST)
                     }
                 }
@@ -159,6 +160,21 @@ class HomeAdapter(
                             )
                         )
                         setVariable(BR.listener, listener as HomeInteractionListener)
+                        setVariable(BR.isVisible, currentItem.items.isNotEmpty())
+                    }
+                }
+
+                is HomeItem.Collections -> {
+                    holder.binding.run {
+                        setVariable(
+                            BR.adapterRecycler, CreatedListAdapter(
+                                currentItem.items,
+                                listener as CreatedListInteractionListener,
+                                isFullWidth = true
+                            )
+                        )
+                        setVariable(BR.listener, listener as HomeInteractionListener)
+                        setVariable(BR.isVisible, currentItem.items.isNotEmpty())
                     }
                 }
             }
@@ -199,6 +215,7 @@ class HomeAdapter(
                 is HomeItem.RecentlyReleased,
                 is HomeItem.TopRatedTvShows,
                 is HomeItem.OnTheAiring -> R.layout.list_tvshow
+
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
                 is HomeItem.Adventure,
                 is HomeItem.Mystery,
@@ -206,12 +223,14 @@ class HomeAdapter(
                 is HomeItem.Trending,
                 is HomeItem.Upcoming,
                     -> R.layout.list_movie
+
+                is HomeItem.Collections -> R.layout.list_home_collections
             }
         }
         return -1
     }
 
-    private fun setupPageTransformer(viewPager: ViewPager2){
+    private fun setupPageTransformer(viewPager: ViewPager2) {
         viewPager.offscreenPageLimit = 3
         val sideScale = 1.1f
         val sideTranslationY = 100f
@@ -241,7 +260,7 @@ class HomeAdapter(
         }
     }
 
-    private fun setupAutoScroll(viewPager: ViewPager2, adapter: PopularMovieAdapter){
+    private fun setupAutoScroll(viewPager: ViewPager2, adapter: PopularMovieAdapter) {
         val handler = Handler(Looper.getMainLooper())
         val runnable = object : Runnable {
             override fun run() {

@@ -9,7 +9,7 @@
 
         <variable
             name="adapterRecycler"
-            type="com.karrar.movieapp.ui.home.adapter.RecentlyViewedAdapter" />
+            type="com.karrar.movieapp.ui.myList.CreatedListAdapter" />
 
         <variable
             name="listener"
@@ -22,51 +22,52 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_medium">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/text_recently_viewed"
+            android:id="@+id/text_section_title"
             style="@style/Title.SM"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
-            android:text="@string/title_recently_viewed"
+            android:text="@string/your_collections"
             android:textColor="@color/shade_primary"
             android:visibility="@{isVisible ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/title_recently_viewed" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/text_show_more"
             style="@style/Body_MD.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/spacing_medium"
-            android:onClick="@{() -> listener.onClickSeeAllRecentlyViewed()}"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{() -> listener.onClickSeeAllCollections()}"
+            android:paddingVertical="4dp"
             android:text="@string/show_more"
             android:textColor="@color/brand_primary"
             android:visibility="@{isVisible ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_recently_viewed"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_movie"
-            android:layout_width="0dp"
+            android:id="@+id/recycler_view_collections"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
             android:adapter="@{adapterRecycler}"
             android:clipToPadding="false"
             android:orientation="horizontal"
             android:overScrollMode="never"
-            android:paddingStart="@dimen/spacing_medium"
-            android:scrollbars="none"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_recently_viewed"
-            tools:listitem="@layout/item_movie" />
+            app:layout_constraintTop_toBottomOf="@+id/text_section_title"
+            app:spanCount="2"
+            tools:listitem="@layout/item_saved_list" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

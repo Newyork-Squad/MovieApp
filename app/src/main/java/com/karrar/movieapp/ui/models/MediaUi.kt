@@ -5,5 +5,8 @@ data class MediaUiState(
     val imageUrl: String = "",
     val mediaTitle: String = "",
     val mediaRate: Float = 0f,
-    val mediaImage: String= ""
-)
+    val mediaImage: String= "",
+    val mediaDate: String = "",
+    val genresIds: List<Int> = emptyList(),
+    val genres: List<String> = emptyList(),
+    )

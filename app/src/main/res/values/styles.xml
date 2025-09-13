@@ -5,4 +5,9 @@
         <item name="android:windowMinWidthMinor">100%</item>
     </style>
 
+    <style name="RoundedCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius_lg</item>
+    </style>
+
 </resources>

@@ -12,8 +12,6 @@ import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.ItemPopularMovieBinding
 import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.domain.enums.HomeItemsType
-import com.karrar.movieapp.ui.adapters.ActorAdapter
-import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.MovieAdapter
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseAdapter
@@ -89,32 +87,6 @@ class HomeAdapter(
                     }
                 }
 
-                is HomeItem.Actor -> {
-                    holder.binding.run {
-                        setVariable(
-                            BR.adapterRecycler, ActorAdapter(
-                                currentItem.items,
-                                R.layout.item_actor_home,
-                                listener as ActorsInteractionListener
-                            )
-                        )
-                        setVariable(BR.listener, listener as HomeInteractionListener)
-                    }
-
-                }
-
-                is HomeItem.Adventure -> {
-                    bindMovie(holder, currentItem.items, currentItem.type)
-                }
-
-                is HomeItem.Mystery -> {
-                    bindMovie(holder, currentItem.items, currentItem.type)
-                }
-
-                is HomeItem.NowStreaming -> {
-                    bindMovie(holder, currentItem.items, currentItem.type)
-                }
-
                 is HomeItem.Upcoming -> {
                     bindMovie(holder, currentItem.items, currentItem.type)
                 }
@@ -177,16 +149,12 @@ class HomeAdapter(
     override fun getItemViewType(position: Int): Int {
         if (homeItems.isNotEmpty()) {
             return when (homeItems[position]) {
-                is HomeItem.Actor -> R.layout.list_actor
                 is HomeItem.Slider -> R.layout.list_popular
                 is HomeItem.RecentlyReleased,
                 is HomeItem.TopRatedTvShows,
                     -> R.layout.list_tvshow
 
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
-                is HomeItem.Adventure,
-                is HomeItem.Mystery,
-                is HomeItem.NowStreaming,
                 is HomeItem.Upcoming,
                     -> R.layout.list_movie
 

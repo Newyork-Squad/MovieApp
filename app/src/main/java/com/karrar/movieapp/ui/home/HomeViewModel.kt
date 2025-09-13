@@ -15,7 +15,6 @@ import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.ui.home.adapter.TVShowInteractionListener
 import com.karrar.movieapp.ui.home.homeUiState.HomeUIEvent
 import com.karrar.movieapp.ui.home.homeUiState.HomeUiState
-import com.karrar.movieapp.ui.mappers.ActorUiMapper
 import com.karrar.movieapp.ui.mappers.MediaUiMapper
 import com.karrar.movieapp.ui.myList.CreatedListInteractionListener
 import com.karrar.movieapp.ui.myList.CreatedListUIMapper
@@ -41,7 +40,6 @@ class HomeViewModel @Inject constructor(
     private val homeUseCasesContainer: HomeUseCasesContainer,
     private val getAccountDetailsUseCase: GetAccountDetailsUseCase,
     private val mediaUiMapper: MediaUiMapper,
-    private val actorUiMapper: ActorUiMapper,
     private val popularUiMapper: PopularUiMapper,
     private val watchHistoryMapper: WatchHistoryMapper,
     private val getMyListUseCase: GetMyListUseCase,
@@ -68,14 +66,10 @@ class HomeViewModel @Inject constructor(
     private fun getHomeData() {
         _homeUiState.update { it.copy(isLoading = true) }
         getProfileDetails()
-        getNowStreaming()
         getUpcoming()
         getTopRatedTvShow()
         getRecentlyReleasedTvShow()
         getPopularMovies()
-        getMystery()
-        getAdventure()
-        getActors()
         getRecentlyViewed()
         getCollections()
     }
@@ -158,27 +152,6 @@ class HomeViewModel @Inject constructor(
         _homeUiState.update { it.copy(error = errors, isLoading = false) }
     }
 
-    private fun getActors() {
-        viewModelScope.launch {
-            try {
-                homeUseCasesContainer.getTrendingActorsUseCase().collect { list ->
-                    if (list.isNotEmpty()) {
-                        val items = list.map(actorUiMapper::map)
-                        _homeUiState.update {
-                            it.copy(
-                                actors = HomeItem.Actor(items),
-                                isLoading = false
-                            )
-                        }
-                    }
-                }
-            } catch (th: Throwable) {
-                onError(th.message.toString())
-            }
-        }
-
-    }
-
     private fun getUpcoming() {
         viewModelScope.launch {
             try {
@@ -198,27 +171,6 @@ class HomeViewModel @Inject constructor(
             }
         }
 
-
-    }
-
-    private fun getNowStreaming() {
-        viewModelScope.launch {
-            try {
-                homeUseCasesContainer.getNowStreamingMoviesUseCase().collect { list ->
-                    if (list.isNotEmpty()) {
-                        val items = list.map(mediaUiMapper::map)
-                        _homeUiState.update {
-                            it.copy(
-                                nowStreamingMovies = HomeItem.NowStreaming(items),
-                                isLoading = false
-                            )
-                        }
-                    }
-                }
-            } catch (th: Throwable) {
-                onError(th.message.toString())
-            }
-        }
 
     }
 
@@ -260,48 +212,6 @@ class HomeViewModel @Inject constructor(
                 onError(th.message.toString())
             }
         }
-    }
-
-    private fun getMystery() {
-        viewModelScope.launch {
-            try {
-                homeUseCasesContainer.getMysteryMoviesUseCase().collect { list ->
-                    if (list.isNotEmpty()) {
-                        val items = list.map(mediaUiMapper::map)
-                        _homeUiState.update {
-                            it.copy(
-                                mysteryMovies = HomeItem.Mystery(items),
-                                isLoading = false
-                            )
-                        }
-                    }
-                }
-            } catch (th: Throwable) {
-                onError(th.message.toString())
-            }
-        }
-
-    }
-
-    private fun getAdventure() {
-        viewModelScope.launch {
-            try {
-                homeUseCasesContainer.getAdventureMoviesUseCase().collect { list ->
-                    if (list.isNotEmpty()) {
-                        val items = list.map(mediaUiMapper::map)
-                        _homeUiState.update {
-                            it.copy(
-                                adventureMovies = HomeItem.Adventure(items),
-                                isLoading = false
-                            )
-                        }
-                    }
-                }
-            } catch (th: Throwable) {
-                onError(th.message.toString())
-            }
-        }
-
     }
 
     private fun getRecentlyViewed() {

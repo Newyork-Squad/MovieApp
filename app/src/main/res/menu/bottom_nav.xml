@@ -13,7 +13,7 @@
         android:title="@string/explore" />
 
     <item
-        android:id="@+id/myListFragment"
+        android:id="@+id/matchScreenFragment"
         android:enabled="true"
         android:icon="@drawable/outline_magic_stick"
         android:title="@string/match" />

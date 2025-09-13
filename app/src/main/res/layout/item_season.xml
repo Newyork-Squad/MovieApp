@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="listener"
-            type="com.karrar.movieapp.ui.tvShowDetails.SeasonInteractionListener" />
-
-        <variable
             name="item"
             type="com.karrar.movieapp.ui.tvShowDetails.tvShowUIState.SeasonUIState" />
     </data>
@@ -21,7 +17,6 @@
         android:layout_marginVertical="@dimen/spacing_small"
         android:layout_marginTop="@dimen/spacing_normal"
         android:background="@drawable/card_background"
-        android:onClick="@{() -> listener.onClickSeason(item.seasonNumber)}"
         android:padding="12dp">
 
         <com.google.android.material.imageview.ShapeableImageView

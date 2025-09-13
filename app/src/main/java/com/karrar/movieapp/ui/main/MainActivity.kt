@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.homeFragment,
                 R.id.exploringFragment,
-                R.id.myListFragment,
+                R.id.matchScreenFragment,
                 R.id.profileFragment,
             )
         )
@@ -109,7 +109,8 @@ class MainActivity : AppCompatActivity() {
                     R.id.loginFragment,
                     R.id.onboardingFragment,R.id.watchHistoryFragment,
                     R.id.myListFragment,R.id.ratedMoviesFragment,
-                    R.id.edit_profile, R.id.createSavedList,R.id.listDetailsFragment -> {
+                    R.id.edit_profile, R.id.createSavedList,R.id.listDetailsFragment,
+                         R.id.allMovieFragment-> {
                         false
                     }
 

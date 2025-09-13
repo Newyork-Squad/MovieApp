@@ -90,11 +90,6 @@ class MyRatingsViewModel @Inject constructor(
         }
     }
 
-    fun retryConnect() {
-        _ratedUiState.update { it.copy(error = emptyList()) }
-        getData()
-    }
-
     fun deleteMovie(movieId: Int) {
         viewModelScope.launch {
             try {

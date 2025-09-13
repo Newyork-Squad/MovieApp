@@ -46,7 +46,6 @@ class RateDialog : BaseDialogFragment<DialogRateBinding>() {
     private fun onEvent(event: RateDialogUIEvent) {
         when (event) {
             is RateDialogUIEvent.CloseDialog -> {
-                parentFragmentManager.setFragmentResult("rate_dialog_dismissed", Bundle())
                 dismiss()
             }
 

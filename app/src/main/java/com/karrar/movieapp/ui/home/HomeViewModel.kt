@@ -72,6 +72,7 @@ class HomeViewModel @Inject constructor(
         getNowStreaming()
         getUpcoming()
         getTopRatedTvShow()
+        getRecentlyReleasedTvShow()
         getOnTheAir()
         getAiringToday()
         getPopularMovies()
@@ -253,7 +254,27 @@ class HomeViewModel @Inject constructor(
                         val items = list.map(mediaUiMapper::map)
                         _homeUiState.update {
                             it.copy(
-                                tvShowsSeries = HomeItem.TvShows(items),
+                                topRatedSeries = HomeItem.TopRatedTvShows(items),
+                                isLoading = false
+                            )
+                        }
+                    }
+                }
+            } catch (th: Throwable) {
+                onError(th.message.toString())
+            }
+        }
+    }
+
+    private fun getRecentlyReleasedTvShow() {
+        viewModelScope.launch {
+            try {
+                homeUseCasesContainer.getAiringTodayUseCase().collect { list ->
+                    if (list.isNotEmpty()) {
+                        val items = list.map(mediaUiMapper::map)
+                        _homeUiState.update {
+                            it.copy(
+                                recentlyReleasedSeries = HomeItem.RecentlyReleased(items),
                                 isLoading = false
                             )
                         }
@@ -412,6 +433,8 @@ class HomeViewModel @Inject constructor(
             HomeItemsType.UPCOMING -> AllMediaType.UPCOMING
             HomeItemsType.MYSTERY -> AllMediaType.MYSTERY
             HomeItemsType.ADVENTURE -> AllMediaType.ADVENTURE
+            HomeItemsType.TOP_RATED_TV_SHOWS -> AllMediaType.TOP_RATED
+            HomeItemsType.RECENTLY_RELEASED -> AllMediaType.LATEST
             HomeItemsType.RECENTLY_VIEWED -> {
                 onClickSeeAllRecentlyViewed()
                 return

@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.karrar.movieapp.BR
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.ItemPopularMovieBinding
+import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.ui.adapters.ActorAdapter
 import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
@@ -69,14 +70,25 @@ class HomeAdapter(
 
                 }
 
-                is HomeItem.TvShows -> {
+                is HomeItem.TopRatedTvShows -> {
                     holder.binding.run {
-                        if (currentItem.items.isNotEmpty()) {
-                            setVariable(BR.topRated, currentItem.items.first())
-                            setVariable(BR.popular, currentItem.items[1])
-                            setVariable(BR.latest, currentItem.items.last())
-                            setVariable(BR.listener, listener as TVShowInteractionListener)
-                        }
+                        setVariable(
+                            BR.adapterRecycler,
+                            TVShowAdapter(currentItem.items, listener as TVShowInteractionListener)
+                        )
+                        setVariable(BR.movieType, currentItem.type )
+                        setVariable(BR.mediaType, AllMediaType.TOP_RATED)
+                    }
+                }
+
+                is HomeItem.RecentlyReleased -> {
+                    holder.binding.run {
+                        setVariable(
+                            BR.adapterRecycler,
+                            TVShowAdapter(currentItem.items, listener as TVShowInteractionListener)
+                        )
+                        setVariable(BR.movieType, currentItem.type )
+                        setVariable(BR.mediaType, AllMediaType.LATEST)
                     }
                 }
 
@@ -127,6 +139,7 @@ class HomeAdapter(
                             TVShowAdapter(currentItem.items, listener as TVShowInteractionListener)
                         )
                         setVariable(BR.movieType, currentItem.type)
+                        setVariable(BR.mediaType, AllMediaType.ON_THE_AIR)
                     }
                 }
 
@@ -197,9 +210,10 @@ class HomeAdapter(
         if (homeItems.isNotEmpty()) {
             return when (homeItems[position]) {
                 is HomeItem.Actor -> R.layout.list_actor
-                is HomeItem.TvShows -> R.layout.list_tv_shows
                 is HomeItem.Slider -> R.layout.list_popular
                 is HomeItem.AiringToday -> R.layout.list_airing_today
+                is HomeItem.RecentlyReleased,
+                is HomeItem.TopRatedTvShows,
                 is HomeItem.OnTheAiring -> R.layout.list_tvshow
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
                 is HomeItem.Adventure,

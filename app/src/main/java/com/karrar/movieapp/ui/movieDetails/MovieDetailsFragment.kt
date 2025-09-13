@@ -28,6 +28,9 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        parentFragmentManager.setFragmentResultListener("rate_dialog_dismissed", viewLifecycleOwner) { _, _ ->
+            viewModel.getLoginStatus()
+        }
         setTitle(false)
         collectMovieDetailsItems()
         collectEvents()

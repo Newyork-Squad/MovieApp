@@ -155,7 +155,7 @@ class MovieDetailsViewModel @Inject constructor(
         }
     }
 
-    private fun getLoginStatus() {
+    fun getLoginStatus() {
         if (!sessionIDUseCase().isNullOrEmpty()) {
             _uiState.update { it.copy(isLogin = true) }
             getRatedMovie(args.movieId)
@@ -166,11 +166,21 @@ class MovieDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _uiState.update { it.copy(ratingValue = getMovieRate(movieId)) }
-                onAddMovieDetailsItemOfNestedView(DetailItemUIState.Rating(this@MovieDetailsViewModel))
+                if (uiState.value.ratingValue == 0.0f) {
+                    onAddMovieDetailsItemOfNestedView(DetailItemUIState.Rating(this@MovieDetailsViewModel))
+                }
+                else{
+                    // TODO: add item that shows the rating
+                    onAddMovieDetailsItemOfNestedView(DetailItemUIState.Rating(this@MovieDetailsViewModel))
+                }
             } catch (e: Throwable) {
             }
         }
     }
+
+
+
+
 
     fun onChangeRating(value: Float) {
         viewModelScope.launch {
@@ -213,6 +223,8 @@ class MovieDetailsViewModel @Inject constructor(
 
     private fun onAddMovieDetailsItemOfNestedView(item: DetailItemUIState) {
         val list = _uiState.value.detailItemResult.toMutableList()
+        list.removeAll { it.priority == item.priority }
+        _uiState.update { it.copy(detailItemResult = list.toList()) }
         list.add(item)
         _uiState.update { it.copy(detailItemResult = list.toList()) }
     }

@@ -9,7 +9,6 @@ data class HomeUiState (
     val adventureMovies: HomeItem = HomeItem.Adventure(emptyList()),
     val mysteryMovies: HomeItem = HomeItem.Mystery(emptyList()),
     val upcomingMovies: HomeItem = HomeItem.Upcoming(emptyList()),
-    val onTheAiringSeries: HomeItem = HomeItem.OnTheAiring(emptyList()),
     val airingTodaySeries: HomeItem = HomeItem.AiringToday(emptyList()),
     val topRatedSeries: HomeItem = HomeItem.TopRatedTvShows(emptyList()),
     val recentlyReleasedSeries: HomeItem = HomeItem.RecentlyReleased(emptyList()),

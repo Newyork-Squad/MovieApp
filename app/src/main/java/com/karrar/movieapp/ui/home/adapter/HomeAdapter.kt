@@ -132,17 +132,6 @@ class HomeAdapter(
                     bindMovie(holder, currentItem.items, currentItem.type)
                 }
 
-                is HomeItem.OnTheAiring -> {
-                    holder.binding.run {
-                        setVariable(
-                            BR.adapterRecycler,
-                            TVShowAdapter(currentItem.items, listener as TVShowInteractionListener)
-                        )
-                        setVariable(BR.movieType, currentItem.type)
-                        setVariable(BR.mediaType, AllMediaType.ON_THE_AIR)
-                    }
-                }
-
                 is HomeItem.Trending -> {
                     bindMovie(holder, currentItem.items, currentItem.type)
                 }
@@ -214,8 +203,7 @@ class HomeAdapter(
                 is HomeItem.AiringToday -> R.layout.list_airing_today
                 is HomeItem.RecentlyReleased,
                 is HomeItem.TopRatedTvShows,
-                is HomeItem.OnTheAiring -> R.layout.list_tvshow
-
+                    -> R.layout.list_tvshow
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
                 is HomeItem.Adventure,
                 is HomeItem.Mystery,

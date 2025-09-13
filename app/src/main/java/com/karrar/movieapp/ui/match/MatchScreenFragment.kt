@@ -19,7 +19,7 @@ class MatchScreenFragment : BaseFragment<FragmentMatchScreenBinding>() {
     ) {
         super.onViewCreated(view, savedInstanceState)
         setTitle(true, getString(R.string.discover_your_match))
-        binding.buttonRetry.setOnClickListener {
+        binding.startMatchingButton.setOnClickListener {
             // findNavController().navigate() -> to the MatchQuestionScreen
         }
     }

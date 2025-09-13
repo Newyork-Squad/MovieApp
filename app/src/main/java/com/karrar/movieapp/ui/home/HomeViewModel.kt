@@ -68,7 +68,6 @@ class HomeViewModel @Inject constructor(
     private fun getHomeData() {
         _homeUiState.update { it.copy(isLoading = true) }
         getProfileDetails()
-        getTrending()
         getNowStreaming()
         getUpcoming()
         getTopRatedTvShow()
@@ -158,27 +157,6 @@ class HomeViewModel @Inject constructor(
         val errors = _homeUiState.value.error.toMutableList()
         errors.add(message)
         _homeUiState.update { it.copy(error = errors, isLoading = false) }
-    }
-
-    private fun getTrending() {
-        viewModelScope.launch {
-            try {
-                homeUseCasesContainer.getTrendingMoviesUseCase().collect { list ->
-                    if (list.isNotEmpty()) {
-                        val items = list.map(mediaUiMapper::map)
-                        _homeUiState.update {
-                            it.copy(
-                                trendingMovies = HomeItem.Trending(items),
-                                isLoading = false
-                            )
-                        }
-                    }
-                }
-            } catch (th: Throwable) {
-                onError(th.message.toString())
-            }
-        }
-
     }
 
     private fun getActors() {

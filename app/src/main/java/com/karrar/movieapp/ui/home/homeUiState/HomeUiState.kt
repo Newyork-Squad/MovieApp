@@ -4,7 +4,6 @@ import com.karrar.movieapp.ui.home.HomeItem
 
 data class HomeUiState (
     val popularMovies: HomeItem = HomeItem.Slider(emptyList()),
-    val trendingMovies: HomeItem = HomeItem.Trending(emptyList()),
     val nowStreamingMovies: HomeItem = HomeItem.NowStreaming(emptyList()),
     val adventureMovies: HomeItem = HomeItem.Adventure(emptyList()),
     val mysteryMovies: HomeItem = HomeItem.Mystery(emptyList()),

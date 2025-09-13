@@ -132,10 +132,6 @@ class HomeAdapter(
                     bindMovie(holder, currentItem.items, currentItem.type)
                 }
 
-                is HomeItem.Trending -> {
-                    bindMovie(holder, currentItem.items, currentItem.type)
-                }
-
                 is HomeItem.Upcoming -> {
                     bindMovie(holder, currentItem.items, currentItem.type)
                 }
@@ -208,7 +204,6 @@ class HomeAdapter(
                 is HomeItem.Adventure,
                 is HomeItem.Mystery,
                 is HomeItem.NowStreaming,
-                is HomeItem.Trending,
                 is HomeItem.Upcoming,
                     -> R.layout.list_movie
 

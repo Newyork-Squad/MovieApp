@@ -156,7 +156,8 @@ class HomeAdapter(
                         setVariable(
                             BR.adapterRecycler, CreatedListAdapter(
                                 currentItem.items,
-                                listener as CreatedListInteractionListener
+                                listener as CreatedListInteractionListener,
+                                isFullWidth = true
                             )
                         )
                         setVariable(BR.listener, listener as HomeInteractionListener)

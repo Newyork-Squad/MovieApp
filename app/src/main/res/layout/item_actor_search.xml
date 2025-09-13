@@ -24,18 +24,19 @@
             android:layout_height="0dp"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="1:1"
-            android:background="@color/gray"
+            android:background="@drawable/bg_card_rounded"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/Circle"
             tools:src="@drawable/actor"
+            app:shapeAppearanceOverlay="@style/RoundedCorners"
             app:posterImage="@{item.mediaImage}"
             android:onClick="@{() -> listener.onClickActorResult(item.mediaID, item.mediaName)}"/>
 
         <TextView
             android:id="@+id/cast_name"
-            style="@style/Regular.Small.Secondary"
+            style="@style/Body_SM.Medium"
+            android:textColor="@color/shade_secondary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

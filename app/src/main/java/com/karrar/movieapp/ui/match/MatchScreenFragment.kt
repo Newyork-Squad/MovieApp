@@ -3,6 +3,7 @@ package com.karrar.movieapp.ui.match
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.FragmentMatchScreenBinding
 import com.karrar.movieapp.ui.base.BaseFragment
@@ -19,8 +20,8 @@ class MatchScreenFragment : BaseFragment<FragmentMatchScreenBinding>() {
     ) {
         super.onViewCreated(view, savedInstanceState)
         setTitle(true, getString(R.string.discover_your_match))
-        binding.buttonRetry.setOnClickListener {
-            // findNavController().navigate() -> to the MatchQuestionScreen
+        binding.startMatchingButton.setOnClickListener {
+            findNavController().navigate(R.id.action_matchScreenFragment_to_matchQuestionsFragment)
         }
     }
 }

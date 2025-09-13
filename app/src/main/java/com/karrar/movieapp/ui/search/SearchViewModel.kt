@@ -4,7 +4,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.map
-import com.karrar.movieapp.domain.usecases.searchUseCase.*
+import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForActorUseCase
+import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForMovieUseCase
+import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForSeriesUserCase
+import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchHistoryUseCase
+import com.karrar.movieapp.domain.usecases.searchUseCase.PostSaveSearchResultUseCase
 import com.karrar.movieapp.ui.allMedia.Error
 import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.ui.search.adapters.ActorSearchInteractionListener
@@ -18,6 +22,7 @@ import com.karrar.movieapp.ui.search.uiStatMapper.SearchMediaUIStateMapper
 import com.karrar.movieapp.utilities.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
@@ -33,12 +38,18 @@ class SearchViewModel @Inject constructor(
     private val getSearchForSeriesUserCase: GetSearchForSeriesUserCase,
     private val getSearchForActorUseCase: GetSearchForActorUseCase,
     private val getSearchHistoryUseCase: GetSearchHistoryUseCase,
-    private val postSaveSearchResultUseCase: PostSaveSearchResultUseCase
+    private val postSaveSearchResultUseCase: PostSaveSearchResultUseCase,
 ) : BaseViewModel(), MediaSearchInteractionListener, ActorSearchInteractionListener,
     SearchHistoryInteractionListener {
 
     private val _uiState = MutableStateFlow(MediaSearchUIState())
     val uiState = _uiState.asStateFlow()
+
+    private val _isGrid = MutableStateFlow(true)
+    val isGrid: StateFlow<Boolean> = _isGrid.asStateFlow()
+
+    private val _showToggle = MutableStateFlow(false)
+    val showToggle = _showToggle.asStateFlow()
 
     private val _searchUIEvent = MutableStateFlow<Event<SearchUIEvent?>>(Event(null))
     val searchUIEvent = _searchUIEvent.asStateFlow()
@@ -156,11 +167,13 @@ class SearchViewModel @Inject constructor(
                     it.copy(isLoading = true, error = emptyList(), isEmpty = false)
                 }
             }
+
             is LoadState.Error -> {
                 _uiState.update {
                     it.copy(isLoading = false, error = listOf(Error(404, "")), isEmpty = false)
                 }
             }
+
             is LoadState.NotLoading -> {
                 if (itemCount < 1) {
                     _uiState.update {
@@ -181,6 +194,16 @@ class SearchViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun setGridMode(grid: Boolean) {
+        _isGrid.value = grid
+    }
+
+    fun toggleGridMode() = setGridMode(!_isGrid.value)
+
+    fun setToggleVisibility(visible: Boolean) {
+        _showToggle.value = visible
     }
 
 }

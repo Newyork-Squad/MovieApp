@@ -10,4 +10,6 @@ sealed interface HomeUIEvent {
     data class ClickSeriesEvent(val seriesID: Int) : HomeUIEvent
     data class ClickSeeAllMovieEvent(val mediaType: AllMediaType) : HomeUIEvent
     data class ClickSeeAllTVShowsEvent(val mediaType: AllMediaType) : HomeUIEvent
+    data class ClickFeaturedCollection(val target: FeaturedCollectionsTarget) : HomeUIEvent
+
 }

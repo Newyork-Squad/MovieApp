@@ -245,7 +245,7 @@ class MovieDetailsViewModel @Inject constructor(
         }
     }
 
-    override fun onclickViewReviews() {
+    override fun onClickViewReviews() {
         _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ClickReviewsEvent) }
     }
 

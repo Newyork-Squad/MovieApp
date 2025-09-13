@@ -41,8 +41,8 @@ class MatchAdapter(
                         justifyContent = JustifyContent.FLEX_START
                     }
 
-                MatchQuestionType.TIME -> LinearLayoutManager(holder.itemView.context)
-                MatchQuestionType.RELEASE -> GridLayoutManager(holder.itemView.context, 3)
+                MatchQuestionType.MEDIA_RUNTIME -> LinearLayoutManager(holder.itemView.context)
+                MatchQuestionType.TIME_PERIOD -> GridLayoutManager(holder.itemView.context, 3)
             }
 
         holder.binding.apply {

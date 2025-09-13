@@ -1,12 +1,11 @@
 package com.karrar.movieapp.ui.match.questions
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.karrar.movieapp.R
-import com.karrar.movieapp.databinding.FragmentMatchBinding
+import com.karrar.movieapp.databinding.FragmentMatchQuestionsBinding
 import com.karrar.movieapp.ui.base.BaseFragment
 import com.karrar.movieapp.ui.match.questions.adapter.MatchAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,9 +13,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MatchFragment : BaseFragment<FragmentMatchBinding>() {
-    override val layoutIdFragment: Int = R.layout.fragment_match
-    override val viewModel: MatchViewModel by viewModels()
+class MatchQuestionsFragment : BaseFragment<FragmentMatchQuestionsBinding>() {
+    override val layoutIdFragment: Int = R.layout.fragment_match_questions
+    override val viewModel: MatchQuestionsViewModel by viewModels()
     var currentMathType = MatchQuestionType.MOOD
     private lateinit var questionAdapter: MatchAdapter
 
@@ -48,7 +47,6 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
 
         lifecycleScope.launch {
             viewModel.questions.collectLatest { state ->
-                Log.d("TAG", "collectData: $state")
                 questionAdapter.emitItems(state)
             }
         }
@@ -60,7 +58,7 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
             progressIndicator.setProgressCompat(state.progress, true)
             matchQuestionsRv.scrollToPosition(state.currentQuestionType.ordinal)
             isLoading = state.isLoading
-            if (state.currentQuestionType == MatchQuestionType.RELEASE) {
+            if (state.currentQuestionType == MatchQuestionType.TIME_PERIOD) {
                 buttonContinue.setText(R.string.start_matching)
             }
         }

@@ -10,6 +10,6 @@ data class MatchQuestion(
 enum class MatchQuestionType {
     MOOD,
     GENRE,
-    TIME,
-    RELEASE,
+    MEDIA_RUNTIME,
+    TIME_PERIOD,
 }

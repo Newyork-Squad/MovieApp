@@ -11,7 +11,7 @@
 
         <variable
             name="vm"
-            type="com.karrar.movieapp.ui.match.questions.MatchViewModel" />
+            type="com.karrar.movieapp.ui.match.questions.MatchQuestionsViewModel" />
 
         <import type="android.view.View" />
     </data>
@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:background="@color/background_screen"
         android:padding="16dp"
-        tools:context=".ui.match.questions.MatchFragment">
+        tools:context=".ui.match.questions.MatchQuestionsFragment">
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progress_indicator"

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class MatchViewModel
+class MatchQuestionsViewModel
     @Inject
     constructor() :
     BaseViewModel(),
@@ -25,7 +25,7 @@ class MatchViewModel
 
         override fun onNextClicked() {
             if (getSelectedChoices(_uiState.value.currentQuestionType).isEmpty()) return
-            if (_uiState.value.currentQuestionType == MatchQuestionType.RELEASE) {
+            if (_uiState.value.currentQuestionType == MatchQuestionType.TIME_PERIOD) {
                 _uiState.update {
                     it.copy(isLoading = true)
                 }
@@ -34,9 +34,9 @@ class MatchViewModel
             val nextType =
                 when (_uiState.value.currentQuestionType) {
                     MatchQuestionType.MOOD -> MatchQuestionType.GENRE
-                    MatchQuestionType.GENRE -> MatchQuestionType.TIME
-                    MatchQuestionType.TIME -> MatchQuestionType.RELEASE
-                    MatchQuestionType.RELEASE -> return
+                    MatchQuestionType.GENRE -> MatchQuestionType.MEDIA_RUNTIME
+                    MatchQuestionType.MEDIA_RUNTIME -> MatchQuestionType.TIME_PERIOD
+                    MatchQuestionType.TIME_PERIOD -> return
                 }
 
             _questions.update { currentList ->
@@ -75,8 +75,8 @@ class MatchViewModel
             when (type) {
                 MatchQuestionType.MOOD -> _uiState.value.moodSelected
                 MatchQuestionType.GENRE -> _uiState.value.genreSelected
-                MatchQuestionType.TIME -> _uiState.value.mediaTimeDurationSelected
-                MatchQuestionType.RELEASE -> _uiState.value.releaseSelected
+                MatchQuestionType.MEDIA_RUNTIME -> _uiState.value.mediaRuntimeSelected
+                MatchQuestionType.TIME_PERIOD -> _uiState.value.timePeriodSelected
             }
 
         override fun getData() {
@@ -138,13 +138,13 @@ class MatchViewModel
                     ),
                     MatchQuestion(
                         question = "What time of day are you in?",
-                        type = MatchQuestionType.TIME,
+                        type = MatchQuestionType.MEDIA_RUNTIME,
                         choices = time,
                         isAnswered = false,
                     ),
                     MatchQuestion(
                         question = "What year are you in?",
-                        type = MatchQuestionType.RELEASE,
+                        type = MatchQuestionType.TIME_PERIOD,
                         choices = release,
                         isAnswered = false,
                     ),
@@ -169,12 +169,12 @@ class MatchViewModel
                         state.copy(genreSelected = choices)
                     }
 
-                    MatchQuestionType.TIME -> {
-                        state.copy(mediaTimeDurationSelected = choices)
+                    MatchQuestionType.MEDIA_RUNTIME -> {
+                        state.copy(mediaRuntimeSelected = choices)
                     }
 
-                    MatchQuestionType.RELEASE -> {
-                        state.copy(releaseSelected = choices)
+                    MatchQuestionType.TIME_PERIOD -> {
+                        state.copy(timePeriodSelected = choices)
                     }
                 }
             }

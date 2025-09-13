@@ -447,9 +447,9 @@
     </dialog>
     <fragment
         android:id="@+id/matchFragment"
-        android:name="com.karrar.movieapp.ui.match.questions.MatchFragment"
+        android:name="com.karrar.movieapp.ui.match.questions.MatchQuestionsFragment"
         android:label="fragment_match"
-        tools:layout="@layout/fragment_match" />
+        tools:layout="@layout/fragment_match_questions" />
     <fragment
         android:id="@+id/matchScreenFragment"
         android:name="com.karrar.movieapp.ui.match.MatchScreenFragment"

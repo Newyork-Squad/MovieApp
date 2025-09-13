@@ -31,7 +31,7 @@ class ChoicesAdapter(
             object : ChoicesInteractionListener {
                 override fun onChoiceSelected(choice: Choice) {
                     when (type) {
-                        MatchQuestionType.TIME, MatchQuestionType.RELEASE -> {
+                        MatchQuestionType.MEDIA_RUNTIME, MatchQuestionType.TIME_PERIOD -> {
                             if (selectedItems.isNotEmpty()) {
                                 val previousSelectedIndex = selectedItems.first()
                                 selectedItems.clear()

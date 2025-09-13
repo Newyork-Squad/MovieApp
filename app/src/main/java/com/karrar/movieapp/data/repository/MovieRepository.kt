@@ -8,6 +8,7 @@ import com.karrar.movieapp.data.local.database.entity.movie.AdventureMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.MysteryMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.NowStreamingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.RecentMovieViewedEntity
 import com.karrar.movieapp.data.local.database.entity.movie.TrendingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.UpcomingMovieEntity
 import com.karrar.movieapp.data.remote.response.AddListResponse
@@ -111,6 +112,10 @@ interface MovieRepository {
     suspend fun getActorData(): Pager<Int, ActorDto>
 
     suspend fun getMovieDetails(movieId: Int): MovieDetailsDto?
+
+    suspend fun getRecentMovieViewed(): Flow<List<RecentMovieViewedEntity>>
+
+    suspend fun clearRecentMovieViewed()
 
     suspend fun getMovieCastAndCrew(movieId: Int): CreditsDto?
 

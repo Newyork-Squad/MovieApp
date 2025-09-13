@@ -1,10 +1,20 @@
 package com.karrar.movieapp.data.local.database.daos
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.karrar.movieapp.data.local.database.entity.SearchHistoryEntity
 import com.karrar.movieapp.data.local.database.entity.WatchHistoryEntity
 import com.karrar.movieapp.data.local.database.entity.WatchList
-import com.karrar.movieapp.data.local.database.entity.movie.*
+import com.karrar.movieapp.data.local.database.entity.movie.AdventureMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.MysteryMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.NowStreamingMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.RecentMovieViewedEntity
+import com.karrar.movieapp.data.local.database.entity.movie.TrendingMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.UpcomingMovieEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -58,6 +68,15 @@ interface MovieDao {
 
     @Query("SELECT * FROM TRENDING_MOVIE_TABLE")
     fun getTrendingMovies(): Flow<List<TrendingMovieEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertRecentMovieViewed(item: RecentMovieViewedEntity)
+
+    @Query("DELETE FROM RECENT_MOVIE_VIEWED_TABLE")
+    suspend fun clearRecentMovieViewed()
+
+    @Query("SELECT * FROM RECENT_MOVIE_VIEWED_TABLE")
+    fun getRecentMovieViewed(): Flow<List<RecentMovieViewedEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNowStreamingMovie(items: List<NowStreamingMovieEntity>)

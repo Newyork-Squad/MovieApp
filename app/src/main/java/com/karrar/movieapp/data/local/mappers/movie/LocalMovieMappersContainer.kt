@@ -7,6 +7,7 @@ import javax.inject.Inject
 class LocalMovieMappersContainer @Inject constructor(
     val popularMovieMapper: PopularMovieMapper,
     val trendingMovieMapper: TrendingMovieMapper,
+    val recentMovieViewedMapper: RecentMovieViewedMapper,
     val nowStreamingMovieMapper: NowStreamingMovieMapper,
     val upcomingMovieMapper: UpcomingMovieMapper,
     val mysteryMovieMapper: MysteryMovieMapper,

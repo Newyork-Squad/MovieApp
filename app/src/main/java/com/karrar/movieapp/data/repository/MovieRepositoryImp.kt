@@ -14,6 +14,7 @@ import com.karrar.movieapp.data.local.database.entity.movie.AdventureMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.MysteryMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.NowStreamingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.RecentMovieViewedEntity
 import com.karrar.movieapp.data.local.database.entity.movie.TrendingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.UpcomingMovieEntity
 import com.karrar.movieapp.data.local.mappers.movie.LocalMovieMappersContainer
@@ -424,7 +425,19 @@ class MovieRepositoryImp @Inject constructor(
      * */
 
     override suspend fun getMovieDetails(movieId: Int): MovieDetailsDto? {
-        return movieService.getMovieDetails(movieId).body()
+        val movieDetails = movieService.getMovieDetails(movieId).body()
+        if (movieDetails != null) {
+            movieDao.insertRecentMovieViewed(dataMappers.recentMovieViewedMapper.map(movieDetails))
+        }
+        return movieDetails
+    }
+
+    override suspend fun getRecentMovieViewed(): Flow<List<RecentMovieViewedEntity>> {
+        return movieDao.getRecentMovieViewed()
+    }
+
+    override suspend fun clearRecentMovieViewed() {
+        movieDao.clearRecentMovieViewed()
     }
 
     override suspend fun getMovieCastAndCrew(movieId: Int): CreditsDto? {

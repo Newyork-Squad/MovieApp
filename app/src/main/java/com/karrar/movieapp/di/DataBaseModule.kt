@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.karrar.movieapp.data.local.DataStorePreferences
 import com.karrar.movieapp.data.local.SharedPreferences
 import com.karrar.movieapp.data.local.database.Converters
+import com.karrar.movieapp.data.local.database.MIGRATION_2_3
 import com.karrar.movieapp.data.local.database.MovieDataBase
 import com.karrar.movieapp.data.local.database.daos.ActorDao
 import com.karrar.movieapp.data.local.database.daos.MovieDao
@@ -29,6 +30,7 @@ object DataBaseModule {
     ): MovieDataBase =
         Room.databaseBuilder(context, MovieDataBase::class.java, "MovieDatabase")
             .addTypeConverter(converters)
+            .addMigrations(MIGRATION_2_3)
             .fallbackToDestructiveMigration()
             .build()
 

@@ -4,6 +4,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.map
+import com.karrar.movieapp.domain.usecases.home.getData.ClearAllRecentViewedUseCase
+import com.karrar.movieapp.domain.usecases.home.getData.GetRecentViewedUseCase
 import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForActorUseCase
 import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForMovieUseCase
 import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForSeriesUserCase
@@ -13,10 +15,15 @@ import com.karrar.movieapp.ui.allMedia.Error
 import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.ui.search.adapters.ActorSearchInteractionListener
 import com.karrar.movieapp.ui.search.adapters.MediaSearchInteractionListener
+import com.karrar.movieapp.ui.search.adapters.RecentViewedInteractionListener
 import com.karrar.movieapp.ui.search.adapters.SearchHistoryInteractionListener
+import com.karrar.movieapp.ui.search.adapters.SearchItemInteractionListener
 import com.karrar.movieapp.ui.search.mediaSearchUIState.MediaSearchUIState
 import com.karrar.movieapp.ui.search.mediaSearchUIState.MediaTypes
 import com.karrar.movieapp.ui.search.mediaSearchUIState.MediaUIState
+import com.karrar.movieapp.ui.search.mediaSearchUIState.RecentMovieViewedUiState
+import com.karrar.movieapp.ui.search.mediaSearchUIState.SearchItemUiState
+import com.karrar.movieapp.ui.search.uiStatMapper.RecentMovieViewedUiStateMapper
 import com.karrar.movieapp.ui.search.uiStatMapper.SearchHistoryUIStateMapper
 import com.karrar.movieapp.ui.search.uiStatMapper.SearchMediaUIStateMapper
 import com.karrar.movieapp.utilities.Event
@@ -39,8 +46,12 @@ class SearchViewModel @Inject constructor(
     private val getSearchForActorUseCase: GetSearchForActorUseCase,
     private val getSearchHistoryUseCase: GetSearchHistoryUseCase,
     private val postSaveSearchResultUseCase: PostSaveSearchResultUseCase,
+    private val getRecentViewedUseCase: GetRecentViewedUseCase,
+    private val recentMovieViewedUiStateMapper: RecentMovieViewedUiStateMapper,
+    private val clearAllRecentViewedUseCase: ClearAllRecentViewedUseCase,
 ) : BaseViewModel(), MediaSearchInteractionListener, ActorSearchInteractionListener,
-    SearchHistoryInteractionListener {
+    SearchHistoryInteractionListener, RecentViewedInteractionListener ,
+    SearchItemInteractionListener {
 
     private val _uiState = MutableStateFlow(MediaSearchUIState())
     val uiState = _uiState.asStateFlow()
@@ -54,12 +65,35 @@ class SearchViewModel @Inject constructor(
     private val _searchUIEvent = MutableStateFlow<Event<SearchUIEvent?>>(Event(null))
     val searchUIEvent = _searchUIEvent.asStateFlow()
 
+    private val _searchSections = MutableStateFlow<List<SearchItemUiState>>(emptyList())
+    val searchSections = _searchSections.asStateFlow()
+
     init {
         getAllSearchHistory()
+        getRecentViewed()
     }
 
     override fun getData() {
         _searchUIEvent.update { Event(SearchUIEvent.ClickRetryEvent) }
+    }
+
+    private fun getRecentViewed() {
+        _uiState.update { it.copy(isLoading = true) }
+        viewModelScope.launch {
+            try {
+                getRecentViewedUseCase().collect { result ->
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            recentMovieViewed = result.map { recentMovieViewedUiStateMapper.map(it) },
+                        )
+                    }
+                    updateSearchSections()
+                }
+            } catch (_: Throwable) {
+                _uiState.update { it.copy(isLoading = false) }
+            }
+        }
     }
 
     private fun getAllSearchHistory() {
@@ -68,12 +102,13 @@ class SearchViewModel @Inject constructor(
             try {
                 getSearchHistoryUseCase().collect { list ->
                     _uiState.update {
-                        it.copy(searchHistory = list.map { item ->
-                            searchHistoryUIStateMapper.map(
-                                item
-                            )
-                        }, isLoading = false, isEmpty = false)
+                        it.copy(
+                            searchHistory = list.map { item -> searchHistoryUIStateMapper.map(item) },
+                            isLoading = false,
+                            isEmpty = false
+                        )
                     }
+                    updateSearchSections()
                 }
             } catch (e: Throwable) {
                 _uiState.update {
@@ -82,6 +117,21 @@ class SearchViewModel @Inject constructor(
             }
         }
     }
+
+    private fun updateSearchSections() {
+        val sections = mutableListOf<SearchItemUiState>()
+        val ui = _uiState.value
+
+        if (ui.searchHistory.isNotEmpty()) {
+            sections.add(SearchItemUiState.SearchItemHistory(ui.searchHistory))
+        }
+        if (ui.recentMovieViewed.isNotEmpty()) {
+            sections.add(SearchItemUiState.RecentViewed(ui.recentMovieViewed))
+        }
+
+        _searchSections.value = sections.sortedBy { it.priority }
+    }
+
 
     fun onSearchInputChange(searchTerm: CharSequence) {
         _uiState.update { it.copy(searchInput = searchTerm.toString(), isLoading = true) }
@@ -204,6 +254,18 @@ class SearchViewModel @Inject constructor(
 
     fun setToggleVisibility(visible: Boolean) {
         _showToggle.value = visible
+    }
+
+    override fun onClickRecentViewed(item: RecentMovieViewedUiState) {
+        _searchUIEvent.update { Event(SearchUIEvent.ClickRecentViewedEvent(item)) }
+    }
+
+
+
+    override fun onClearAllClicked() {
+        viewModelScope.launch { clearAllRecentViewedUseCase() }
+        getAllSearchHistory()
+        getRecentViewed()
     }
 
 }

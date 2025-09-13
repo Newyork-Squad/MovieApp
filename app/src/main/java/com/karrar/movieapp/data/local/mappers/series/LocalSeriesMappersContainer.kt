@@ -6,4 +6,5 @@ class LocalSeriesMappersContainer @Inject constructor(
     val topRatedSeriesMapper: TopRatedSeriesMapper,
     val onTheAirSeriesMapper: OnTheAirSeriesMapper,
     val airingTodaySeriesMapper: AiringTodaySeriesMapper,
+    val recentSeriesViewedMapper: RecentSeriesViewedMapper,
     )

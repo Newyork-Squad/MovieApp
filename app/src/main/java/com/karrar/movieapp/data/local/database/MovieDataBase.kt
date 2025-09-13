@@ -13,7 +13,7 @@ import com.karrar.movieapp.data.local.database.entity.series.*
         ActorEntity::class, TrendingMovieEntity::class, NowStreamingMovieEntity::class,UpcomingMovieEntity::class,
         MysteryMovieEntity::class,AdventureMovieEntity::class, AiringTodaySeriesEntity::class,
         OnTheAirSeriesEntity::class,TopRatedSeriesEntity::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(Converters::class)
 abstract class MovieDataBase : RoomDatabase() {

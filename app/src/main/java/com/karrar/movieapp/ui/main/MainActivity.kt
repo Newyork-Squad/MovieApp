@@ -54,8 +54,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
     private fun observeViewModel() {
         lifecycleScope.launchWhenStarted {
             viewModel.darkMode.collect { darkMode ->
@@ -80,14 +78,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     override fun onResume() {
         super.onResume()
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
                 R.id.exploringFragment,
-                R.id.myListFragment,
+                R.id.matchScreenFragment,
                 R.id.profileFragment,
             )
         )
@@ -108,8 +105,14 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.bottomNavigation.isVisible =
                 when (destination.id) {
-                    R.id.loginFragment -> false
-                    R.id.onboardingFragment -> false
+                    R.id.loginFragment,
+                    R.id.onboardingFragment,R.id.watchHistoryFragment,
+                    R.id.myListFragment,R.id.ratedMoviesFragment,
+                    R.id.edit_profile, R.id.createSavedList,R.id.listDetailsFragment,
+                         R.id.allMovieFragment-> {
+                        false
+                    }
+
                     else -> true
                 }
         }
@@ -126,7 +129,8 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment).navigateUp() || super.onSupportNavigateUp()
     }
-     fun updateLocale(language: String) {
+
+    fun updateLocale(language: String) {
         val locale = when (language) {
             "Arabic" -> Locale("ar")
             else -> Locale("en")
@@ -139,5 +143,7 @@ class MainActivity : AppCompatActivity() {
         binding.root.layoutDirection = direction
         resources.updateConfiguration(config, resources.displayMetrics)
     }
+
+
 
 }

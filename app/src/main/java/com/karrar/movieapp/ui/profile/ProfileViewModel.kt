@@ -1,10 +1,9 @@
 package com.karrar.movieapp.ui.profile
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
 import com.karrar.movieapp.domain.usecases.GetAccountDetailsUseCase
+import com.karrar.movieapp.domain.usecases.login.LoginAsGuestUseCase
 import com.karrar.movieapp.domain.usecases.setting.GetDarkModeUseCase
 import com.karrar.movieapp.domain.usecases.setting.SaveDarkModeUseCase
 import com.karrar.movieapp.ui.base.BaseViewModel
@@ -22,18 +21,20 @@ class ProfileViewModel @Inject constructor(
     private val accountUIStateMapper: AccountUIStateMapper,
     private val checkIfLoggedInUseCase: CheckIfLoggedInUseCase,
     private val getDarkModeUseCase: GetDarkModeUseCase,
+    private val loginAsGuestUseCase: LoginAsGuestUseCase,
     private val saveDarkModeUseCase: SaveDarkModeUseCase,
 ) : BaseViewModel() {
 
     private val _profileDetailsUIState = MutableStateFlow(ProfileUIState())
     val profileDetailsUIState = _profileDetailsUIState.asStateFlow()
 
-    private val _profileUIEvent: MutableStateFlow<Event<ProfileUIEvent?>> = MutableStateFlow(Event(null))
-    val profileUIEvent= _profileUIEvent.asStateFlow()
+    private val _profileUIEvent: MutableStateFlow<Event<ProfileUIEvent?>> =
+        MutableStateFlow(Event(null))
+    val profileUIEvent = _profileUIEvent.asStateFlow()
 
     private val _darkMode = MutableStateFlow(false)
     val darkMode = _darkMode.asStateFlow()
-    private val _language = MutableStateFlow("English") // القيمة الافتراضية
+    private val _language = MutableStateFlow("English")
     val language = _language.asStateFlow()
 
 
@@ -47,34 +48,44 @@ class ProfileViewModel @Inject constructor(
     }
 
     private fun getProfileDetails() {
-        if (checkIfLoggedInUseCase()) {
-            _profileDetailsUIState.update {
-                it.copy(isLoading = true, isLoggedIn = true, error = false)
-            }
+        viewModelScope.launch {
+            when {
 
-            viewModelScope.launch {
-                try {
-                    val accountDetails = accountUIStateMapper.map(getAccountDetailsUseCase())
+                loginAsGuestUseCase() -> {
                     _profileDetailsUIState.update {
-                        it.copy(
-                            avatarPath = accountDetails.avatarPath,
-                            name = accountDetails.name,
-                            username = accountDetails.username,
-                            isLoading = false
-                        )
-                    }
-                } catch (t: Throwable) {
-                    _profileDetailsUIState.update {
-                        it.copy(isLoading = false, error = true)
+                        it.copy(isLoggedIn = true, isGuest = true)
                     }
                 }
-            }
-        } else {
-            _profileDetailsUIState.update {
-                it.copy(isLoggedIn = false)
+
+
+                checkIfLoggedInUseCase() -> {
+                    _profileDetailsUIState.update {
+                        it.copy(isLoading = true, isLoggedIn = true, isGuest = false, error = false)
+                    }
+
+                    try {
+                        val accountDetails = accountUIStateMapper.map(getAccountDetailsUseCase())
+                        _profileDetailsUIState.update {
+                            it.copy(
+                                avatarPath = accountDetails.avatarPath,
+                                name = accountDetails.name,
+                                username = accountDetails.username,
+                                isLoading = false
+                            )
+                        }
+                    } catch (t: Throwable) {
+                        _profileDetailsUIState.update { it.copy(isLoading = false, error = true) }
+                    }
+                }
+
+
+                else -> {
+                    _profileDetailsUIState.update { it.copy(isLoggedIn = false, isGuest = false) }
+                }
             }
         }
     }
+
 
     fun onClickRatedMovies() {
         _profileUIEvent.update { Event(ProfileUIEvent.RatedMoviesEvent) }
@@ -87,38 +98,40 @@ class ProfileViewModel @Inject constructor(
     fun onClickWatchHistory() {
         _profileUIEvent.update { Event(ProfileUIEvent.WatchHistoryEvent) }
     }
+
     fun onClickMyCollections() {
         _profileUIEvent.update { Event(ProfileUIEvent.MyCollectionsEvent) }
     }
+
     fun onClickLanguagePicker() {
         _profileUIEvent.update { Event(ProfileUIEvent.ShowLanguagePicker) }
     }
+
     fun onClickContentPreferences() {
         _profileUIEvent.update { Event(ProfileUIEvent.ShowContentPreferences) }
     }
 
+
     fun onClickProfileCard() {
-        _profileUIEvent.update { Event(
-            if(profileDetailsUIState.value.isLoggedIn)
-                ProfileUIEvent.EditProfileEvent
-            else
-                ProfileUIEvent.LoginEvent
-        )}
+        _profileUIEvent.update {
+            Event(
+                if(profileDetailsUIState.value.isLoggedIn && !profileDetailsUIState.value.isGuest)
+                    ProfileUIEvent.EditProfileEvent
+                else
+                    ProfileUIEvent.LoginEvent
+            )
+        }
     }
+
     private fun loadDarkMode() {
         viewModelScope.launch {
-            getDarkModeUseCase().collect { value ->
-                _darkMode.value = value
-            }
+            getDarkModeUseCase().collect { value -> _darkMode.value = value }
         }
     }
 
 
-
     fun toggleDarkMode(enabled: Boolean) {
         viewModelScope.launch {
-            Log.d("ProfileViewModel", "toggleDarkMode: $enabled")
-
             saveDarkModeUseCase(enabled)
             _darkMode.value = enabled
         }

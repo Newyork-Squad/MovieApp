@@ -363,3 +363,14 @@ fun setImageRes(view: ShapeableImageView, resId: Int?) {
         view.setImageDrawable(null)
     }
 }
+
+@BindingAdapter("genresText")
+fun TextView.setGenresText(genres: List<String>?) {
+    text = genres?.joinToString(", ") ?: ""
+}
+@BindingAdapter("app:oneDecimal")
+fun setOneDecimal(textView: TextView, number: Double?) {
+    number?.let {
+        textView.text = String.format("%.1f", it)
+    }
+}

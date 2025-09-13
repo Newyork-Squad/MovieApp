@@ -3,9 +3,11 @@ package com.karrar.movieapp.ui.allMedia
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.appbar.MaterialToolbar
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.FragmentAllMovieBinding
 import com.karrar.movieapp.domain.enums.AllMediaType
@@ -16,39 +18,87 @@ import com.karrar.movieapp.utilities.collect
 import com.karrar.movieapp.utilities.collectLast
 import com.karrar.movieapp.utilities.setSpanSize
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AllMovieFragment : BaseFragment<FragmentAllMovieBinding>() {
     override val layoutIdFragment = R.layout.fragment_all_movie
     override val viewModel: AllMovieViewModel by viewModels()
+
     private val allMediaAdapter: AllMediaAdapter by lazy { AllMediaAdapter(viewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitle(true, getTitle(viewModel.args.type))
+        setTitle(false, getTitle(viewModel.args.type))
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
+        toolbar.setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+        val title =getTitle(viewModel.args.type)
+        binding.toolbar.title = title
         setMovieAdapter()
+        setupToggle()
         collectEvent()
+    }
+
+    private fun setupToggle() {
+        val toggleRoot = binding.viewToggle
+
+        toggleRoot.ivGrid.setOnClickListener { viewModel.setGridMode(true) }
+        toggleRoot.ivList.setOnClickListener { viewModel.setGridMode(false) }
+        toggleRoot.indicator.setOnClickListener { viewModel.toggleGridMode() }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isGrid.collect { isGrid ->
+                toggleRoot.toggleMotion.transitionToState(
+                    if (isGrid) R.id.start else R.id.end
+                )
+                allMediaAdapter.setGridMode(isGrid)
+
+                val gridLayoutManager = GridLayoutManager(requireContext(), 2)
+                gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        val isGrid = viewModel.isGrid.value
+                        return if (isGrid) 1 else gridLayoutManager.spanCount
+                    }
+                }
+                binding.recyclerMedia.layoutManager = gridLayoutManager
+
+
+
+                val gridIcon = if (isGrid) R.drawable.ic_grid_selected else R.drawable.ic_grid_unselected
+                val listIcon =
+                    if (!isGrid) R.drawable.ic_row_vertical_selected else R.drawable.ic_row_vertical_unselected
+                toggleRoot.ivGrid.setImageResource(gridIcon)
+                toggleRoot.ivList.setImageResource(listIcon)
+            }
+        }
     }
 
     private fun setMovieAdapter() {
         val footerAdapter = LoadUIStateAdapter(allMediaAdapter::retry)
         binding.recyclerMedia.adapter = allMediaAdapter.withLoadStateFooter(footerAdapter)
 
-        val mManager = binding.recyclerMedia.layoutManager as GridLayoutManager
+        val mManager = GridLayoutManager(requireContext(), 2)
+        binding.recyclerMedia.layoutManager = mManager
         mManager.setSpanSize(footerAdapter, allMediaAdapter, mManager.spanCount)
 
-        collect(flow = allMediaAdapter.loadStateFlow,
-            action = {
-                viewModel.setErrorUiState(it)
-            })
+        collect(flow = allMediaAdapter.loadStateFlow) {
+            viewModel.setErrorUiState(it)
+        }
 
-        collectLast(viewModel.uiState.value.allMedia, ::setAllMedia)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.uiState.collectLatest { uiState ->
+                uiState.allMedia.collectLatest { pagingData ->
+                    setAllMedia(pagingData)
+                }
+            }
+        }
     }
 
-
-    private suspend fun setAllMedia(itemsPagingData: PagingData<MediaUiState>) {
-        allMediaAdapter.submitData(itemsPagingData)
+    private fun setAllMedia(itemsPagingData: PagingData<MediaUiState>) {
+        allMediaAdapter.submitData(viewLifecycleOwner.lifecycle, itemsPagingData)
     }
+
 
     private fun collectEvent() {
         collectLast(viewModel.mediaUIEvent) {
@@ -58,9 +108,7 @@ class AllMovieFragment : BaseFragment<FragmentAllMovieBinding>() {
 
     private fun onEvent(event: MediaUIEvent) {
         when (event) {
-            MediaUIEvent.BackEvent -> {
-                removeFragment()
-            }
+            MediaUIEvent.BackEvent -> removeFragment()
             is MediaUIEvent.ClickMovieEvent -> {
                 findNavController().navigate(
                     AllMovieFragmentDirections.actionAllMovieFragmentToMovieDetailFragment(
@@ -75,9 +123,7 @@ class AllMovieFragment : BaseFragment<FragmentAllMovieBinding>() {
                     )
                 )
             }
-            MediaUIEvent.RetryEvent -> {
-                allMediaAdapter.retry()
-            }
+            MediaUIEvent.RetryEvent -> allMediaAdapter.retry()
         }
     }
 
@@ -87,18 +133,17 @@ class AllMovieFragment : BaseFragment<FragmentAllMovieBinding>() {
 
     private fun getTitle(type: AllMediaType): String {
         return when (type) {
-            AllMediaType.ON_THE_AIR -> resources.getString(R.string.title_on_air)
-            AllMediaType.AIRING_TODAY -> resources.getString(R.string.title_airing_today)
-            AllMediaType.LATEST -> resources.getString(R.string.latest)
-            AllMediaType.POPULAR -> resources.getString(R.string.popular)
-            AllMediaType.TOP_RATED -> resources.getString(R.string.title_top_rated_tv_show)
-            AllMediaType.TRENDING -> resources.getString(R.string.title_trending)
-            AllMediaType.NOW_STREAMING -> resources.getString(R.string.title_streaming)
-            AllMediaType.UPCOMING -> resources.getString(R.string.title_upcoming)
-            AllMediaType.MYSTERY -> resources.getString(R.string.title_mystery)
-            AllMediaType.ADVENTURE -> resources.getString(R.string.title_adventure)
+            AllMediaType.ON_THE_AIR -> getString(R.string.title_on_air)
+            AllMediaType.AIRING_TODAY -> getString(R.string.title_airing_today)
+            AllMediaType.LATEST -> getString(R.string.latest)
+            AllMediaType.POPULAR -> getString(R.string.popular)
+            AllMediaType.TOP_RATED -> getString(R.string.title_top_rated_tv_show)
+            AllMediaType.TRENDING -> getString(R.string.title_trending)
+            AllMediaType.NOW_STREAMING -> getString(R.string.title_streaming)
+            AllMediaType.UPCOMING -> getString(R.string.title_upcoming)
+            AllMediaType.MYSTERY -> getString(R.string.title_mystery)
+            AllMediaType.ADVENTURE -> getString(R.string.title_adventure)
             AllMediaType.ACTOR_MOVIES -> ""
         }
     }
-
 }

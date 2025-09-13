@@ -20,7 +20,7 @@ class ChoicesAdapter(
                 MatchQuestionType.GENRE -> R.layout.item_wrap_match_choice
                 else -> R.layout.item_match_choice
             }
-    var selectedItems = mutableListOf<Choice>()
+    private var selectedItems = mutableListOf<Choice>()
 
     override fun bind(
         holder: ItemViewHolder,

@@ -29,6 +29,19 @@ class MatchQuestionsViewModel
                 _uiState.update {
                     it.copy(isLoading = true)
                 }
+                _questions.update { currentList ->
+                    currentList.map { q ->
+                        if (q.type == _uiState.value.currentQuestionType) {
+                            val selectedChoices = getSelectedChoices(q.type)
+                            q.copy(
+                                choices = selectedChoices.map { it.copy(isSelected = true) },
+                                isAnswered = true,
+                            )
+                        } else {
+                            q
+                        }
+                    }
+                }
                 return
             }
             val nextType =
@@ -54,7 +67,6 @@ class MatchQuestionsViewModel
                             }
                         }.toMutableList()
 
-                // append next question if it's not already there
                 val nextQuestion = items.firstOrNull { it.type == nextType }
                 if (nextQuestion != null && updatedList.none { it.type == nextType }) {
                     updatedList.add(nextQuestion)

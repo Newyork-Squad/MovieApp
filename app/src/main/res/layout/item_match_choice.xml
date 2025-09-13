@@ -29,7 +29,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
         android:onClick="@{() -> listener.onChoiceSelected(choice)}"
-        app:cardBackgroundColor="@{isSelected ? @color/brand_tertiary : @color/background_card}"
+        app:cardBackgroundColor="@{isSelected || choice.isSelected  ? @color/brand_tertiary : @color/background_card}"
         app:cardCornerRadius="@dimen/radius_lg"
         app:cardElevation="0dp"
         app:strokeColor="@{isSelected || choice.isSelected ? @color/brand_secondary : @android:color/transparent}"
@@ -48,7 +48,7 @@
                 android:layout_height="32dp"
                 android:layout_marginEnd="12dp"
                 android:scaleType="center"
-                android:background="@{isSelected ? @color/brand_secondary : @color/brand_tertiary}"
+                android:background="@{isSelected || choice.isSelected  ? @color/brand_secondary : @color/brand_tertiary}"
                 android:visibility="@{choice.icon != null ? View.VISIBLE : View.GONE}"
                 app:imageRes="@{choice.icon}"
                 app:shapeAppearanceOverlay="@style/CorneredImage.Medium"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
                 android:text="@{choice.name}"
-                android:textColor="@{isSelected ? @color/brand_primary : @color/shade_primary}"
+                android:textColor="@{isSelected || choice.isSelected  ? @color/brand_primary : @color/shade_primary}"
                 tools:text="Short" />
 
             <TextView

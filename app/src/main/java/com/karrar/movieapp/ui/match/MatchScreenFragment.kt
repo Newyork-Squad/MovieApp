@@ -21,7 +21,7 @@ class MatchScreenFragment : BaseFragment<FragmentMatchScreenBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setTitle(true, getString(R.string.discover_your_match))
         binding.startMatchingButton.setOnClickListener {
-            findNavController().navigate(R.id.action_matchScreenFragment_to_matchFragment)
+            findNavController().navigate(R.id.action_matchScreenFragment_to_matchQuestionsFragment)
         }
     }
 }

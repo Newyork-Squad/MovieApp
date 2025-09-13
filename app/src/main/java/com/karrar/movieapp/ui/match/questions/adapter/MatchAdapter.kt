@@ -42,14 +42,20 @@ class MatchAdapter(
                     }
 
                 MatchQuestionType.MEDIA_RUNTIME -> LinearLayoutManager(holder.itemView.context)
-                MatchQuestionType.TIME_PERIOD -> GridLayoutManager(holder.itemView.context, 3)
+                MatchQuestionType.TIME_PERIOD -> {
+                    if (item.choices.size <= 3) {
+                        GridLayoutManager(holder.itemView.context, item.choices.size)
+                    } else {
+                        GridLayoutManager(holder.itemView.context, 1)
+                    }
+                }
             }
 
         holder.binding.apply {
             setVariable(BR.question, item.question)
             setVariable(BR.layoutManager, layoutManager)
             setVariable(BR.adapter, choicesAdapter)
-            setVariable(BR.isCurrent, item.type == listener.getCurrentQuestionType())
+            setVariable(BR.isCurrent, !item.isAnswered)
             executePendingBindings()
         }
     }
@@ -57,6 +63,7 @@ class MatchAdapter(
     fun emitItems(items: List<MatchQuestion>) {
         this.items.clear()
         this.items.addAll(items)
-        notifyDataSetChanged()
+        notifyItemInserted(itemCount)
+        notifyItemRangeChanged(0, itemCount)
     }
 }

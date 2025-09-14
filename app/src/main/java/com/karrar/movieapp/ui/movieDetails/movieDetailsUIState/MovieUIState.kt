@@ -14,5 +14,6 @@ data class MovieUIState(
     val ratingValue: Float = 0F,
     val isLoading: Boolean = false,
     val isLogin: Boolean = false,
+    val isGuest: Boolean = true,
     val errorUIStates: List<ErrorUIState> = emptyList(),
 )

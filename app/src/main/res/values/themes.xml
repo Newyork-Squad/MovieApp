@@ -333,6 +333,7 @@
 
     <style name="NoBackgroundDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@null</item>
+    </style>
 
     <style name="CorneredImage">
         <item name="cornerSize">@dimen/radius_md</item>

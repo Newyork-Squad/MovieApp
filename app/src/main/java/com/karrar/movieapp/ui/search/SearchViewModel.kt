@@ -4,8 +4,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.map
+import com.karrar.movieapp.domain.usecases.GetWatchHistoryUseCase
 import com.karrar.movieapp.domain.usecases.home.getData.ClearAllRecentViewedUseCase
-import com.karrar.movieapp.domain.usecases.home.getData.GetRecentViewedUseCase
 import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForActorUseCase
 import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForMovieUseCase
 import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForSeriesUserCase
@@ -46,11 +46,11 @@ class SearchViewModel @Inject constructor(
     private val getSearchForActorUseCase: GetSearchForActorUseCase,
     private val getSearchHistoryUseCase: GetSearchHistoryUseCase,
     private val postSaveSearchResultUseCase: PostSaveSearchResultUseCase,
-    private val getRecentViewedUseCase: GetRecentViewedUseCase,
+    private val getRecentViewedUseCase: GetWatchHistoryUseCase,
     private val recentMovieViewedUiStateMapper: RecentMovieViewedUiStateMapper,
     private val clearAllRecentViewedUseCase: ClearAllRecentViewedUseCase,
 ) : BaseViewModel(), MediaSearchInteractionListener, ActorSearchInteractionListener,
-    SearchHistoryInteractionListener, RecentViewedInteractionListener ,
+    SearchHistoryInteractionListener, RecentViewedInteractionListener,
     SearchItemInteractionListener {
 
     private val _uiState = MutableStateFlow(MediaSearchUIState())
@@ -78,14 +78,14 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun getRecentViewed() {
-        _uiState.update { it.copy(isLoading = true) }
         viewModelScope.launch {
             try {
-                getRecentViewedUseCase().collect { result ->
+                getRecentViewedUseCase().collect { list ->
+                    val items = list.map(recentMovieViewedUiStateMapper::map)
                     _uiState.update {
                         it.copy(
-                            isLoading = false,
-                            recentMovieViewed = result.map { recentMovieViewedUiStateMapper.map(it) },
+                            recentMovieViewed = items,
+                            isLoading = false
                         )
                     }
                     updateSearchSections()
@@ -131,7 +131,6 @@ class SearchViewModel @Inject constructor(
 
         _searchSections.value = sections.sortedBy { it.priority }
     }
-
 
     fun onSearchInputChange(searchTerm: CharSequence) {
         _uiState.update { it.copy(searchInput = searchTerm.toString(), isLoading = true) }
@@ -186,7 +185,6 @@ class SearchViewModel @Inject constructor(
             }
         }
     }
-
 
     override fun onClickMediaResult(media: MediaUIState) {
         saveSearchResult(media.mediaID, media.mediaName)
@@ -259,8 +257,6 @@ class SearchViewModel @Inject constructor(
     override fun onClickRecentViewed(item: RecentMovieViewedUiState) {
         _searchUIEvent.update { Event(SearchUIEvent.ClickRecentViewedEvent(item)) }
     }
-
-
 
     override fun onClearAllClicked() {
         viewModelScope.launch { clearAllRecentViewedUseCase() }

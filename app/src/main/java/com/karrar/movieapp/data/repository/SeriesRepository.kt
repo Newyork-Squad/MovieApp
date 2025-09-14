@@ -4,7 +4,6 @@ import androidx.paging.Pager
 import com.karrar.movieapp.data.local.database.entity.WatchHistoryEntity
 import com.karrar.movieapp.data.local.database.entity.series.AiringTodaySeriesEntity
 import com.karrar.movieapp.data.local.database.entity.series.OnTheAirSeriesEntity
-import com.karrar.movieapp.data.local.database.entity.series.RecentSeriesViewedEntity
 import com.karrar.movieapp.data.local.database.entity.series.TopRatedSeriesEntity
 import com.karrar.movieapp.data.remote.response.CreditsDto
 import com.karrar.movieapp.data.remote.response.RatedTvShowDto
@@ -46,10 +45,6 @@ interface SeriesRepository {
     suspend fun searchForSeriesPager(query: String): Pager<Int, TVShowsDTO>
 
     suspend fun getTvShowDetails(tvShowId: Int): TvShowDetailsDto?
-
-    suspend fun getRecentSeriesViewed(): Flow<List<RecentSeriesViewedEntity>>
-
-    suspend fun clearRecentSeriesViewed()
 
     suspend fun getTvShowCastAndCrew(tvShowId: Int): CreditsDto?
 

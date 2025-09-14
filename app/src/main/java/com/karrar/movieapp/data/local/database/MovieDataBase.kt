@@ -16,12 +16,10 @@ import com.karrar.movieapp.data.local.database.entity.movie.AdventureMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.MysteryMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.NowStreamingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
-import com.karrar.movieapp.data.local.database.entity.movie.RecentMovieViewedEntity
 import com.karrar.movieapp.data.local.database.entity.movie.TrendingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.UpcomingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.series.AiringTodaySeriesEntity
 import com.karrar.movieapp.data.local.database.entity.series.OnTheAirSeriesEntity
-import com.karrar.movieapp.data.local.database.entity.series.RecentSeriesViewedEntity
 import com.karrar.movieapp.data.local.database.entity.series.TopRatedSeriesEntity
 
 @Database(
@@ -30,29 +28,13 @@ import com.karrar.movieapp.data.local.database.entity.series.TopRatedSeriesEntit
         PopularMovieEntity::class, ActorEntity::class, TrendingMovieEntity::class,
         NowStreamingMovieEntity::class, UpcomingMovieEntity::class, MysteryMovieEntity::class,
         AdventureMovieEntity::class, AiringTodaySeriesEntity::class, OnTheAirSeriesEntity::class,
-        TopRatedSeriesEntity::class, RecentMovieViewedEntity::class, RecentSeriesViewedEntity::class
+        TopRatedSeriesEntity::class,
     ],
-    version = 3
+    version = 2
 )
 @TypeConverters(Converters::class)
 abstract class MovieDataBase : RoomDatabase() {
     abstract fun movieDao(): MovieDao
     abstract fun actorDao(): ActorDao
     abstract fun seriesDao(): SeriesDao
-}
-
-val MIGRATION_2_3 = object : Migration(2, 3) {
-    override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL(
-            """
-            CREATE TABLE IF NOT EXISTS `Recent_MOVIE_VIEWED_TABLE` (
-                `id` INTEGER NOT NULL,
-                `name` TEXT NOT NULL,
-                `imageUrl` TEXT NOT NULL,
-                `movieRate` REAL NOT NULL,
-                PRIMARY KEY(`id`)
-            )
-            """.trimIndent()
-        )
-    }
 }

@@ -115,6 +115,7 @@
     <style name="CardCorners.Large">
         <item name="cornerSize">@dimen/radius_lg</item>
     </style>
+
     <style name="CardCorners.Media_Image">
         <item name="cornerSizeTopLeft">@dimen/radius_lg</item>
         <item name="cornerSizeTopRight">@dimen/radius_lg</item>
@@ -333,6 +334,7 @@
 
     <style name="NoBackgroundDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@null</item>
+    </style>
 
     <style name="CorneredImage">
         <item name="cornerSize">@dimen/radius_md</item>

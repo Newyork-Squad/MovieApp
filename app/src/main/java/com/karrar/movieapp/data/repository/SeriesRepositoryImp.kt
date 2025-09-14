@@ -8,7 +8,6 @@ import com.karrar.movieapp.data.local.database.daos.SeriesDao
 import com.karrar.movieapp.data.local.database.entity.WatchHistoryEntity
 import com.karrar.movieapp.data.local.database.entity.series.AiringTodaySeriesEntity
 import com.karrar.movieapp.data.local.database.entity.series.OnTheAirSeriesEntity
-import com.karrar.movieapp.data.local.database.entity.series.RecentSeriesViewedEntity
 import com.karrar.movieapp.data.local.database.entity.series.TopRatedSeriesEntity
 import com.karrar.movieapp.data.local.mappers.series.LocalSeriesMappersContainer
 import com.karrar.movieapp.data.remote.response.CreditsDto
@@ -179,23 +178,9 @@ class SeriesRepositoryImp @Inject constructor(
         }
     }
 
-
     //tv
-
     override suspend fun getTvShowDetails(tvShowId: Int): TvShowDetailsDto? {
-        val tvShowDetails = service.getTvShowDetails(tvShowId).body()
-        if (tvShowDetails != null) {
-            seriesDao.insertRecentSeriesViewed(localSeriesMappersContainer.recentSeriesViewedMapper.map(tvShowDetails))
-        }
-        return tvShowDetails
-    }
-
-    override suspend fun getRecentSeriesViewed(): Flow<List<RecentSeriesViewedEntity>> {
-        return seriesDao.getRecentSeriesViewed()
-    }
-
-    override suspend fun clearRecentSeriesViewed() {
-        seriesDao.clearRecentSeriesViewed()
+        return service.getTvShowDetails(tvShowId).body()
     }
 
     override suspend fun getTvShowCastAndCrew(tvShowId: Int): CreditsDto? {

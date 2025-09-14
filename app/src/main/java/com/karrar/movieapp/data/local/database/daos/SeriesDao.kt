@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.karrar.movieapp.data.local.database.entity.series.AiringTodaySeriesEntity
 import com.karrar.movieapp.data.local.database.entity.series.OnTheAirSeriesEntity
-import com.karrar.movieapp.data.local.database.entity.series.RecentSeriesViewedEntity
 import com.karrar.movieapp.data.local.database.entity.series.TopRatedSeriesEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -32,15 +31,6 @@ interface SeriesDao {
 
     @Query("SELECT * FROM AIRING_TODAY_SERIES_TABLE")
     fun getAiringTodaySeries(): Flow<List<AiringTodaySeriesEntity>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRecentSeriesViewed(item: RecentSeriesViewedEntity)
-
-    @Query("DELETE FROM Recent_SERIES_VIEWED_TABLE")
-    suspend fun clearRecentSeriesViewed()
-
-    @Query("SELECT * FROM RECENT_SERIES_VIEWED_TABLE")
-    fun getRecentSeriesViewed(): Flow<List<RecentSeriesViewedEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTopRatedSeries(items: List<TopRatedSeriesEntity>)

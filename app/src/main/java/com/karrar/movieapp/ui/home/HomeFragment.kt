@@ -46,6 +46,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         it.actors,
                         it.recentlyViewed,
                         it.whatShouldIWatch,
+                        it.needMoreToWatch
                     )
                 )
             }
@@ -98,6 +99,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             HomeUIEvent.clickToMatchScreen->HomeFragmentDirections.actionHomeFragmentToWatchHistoryFragment()
 
             HomeUIEvent.ClickSeeAllRecentlyViewed -> HomeFragmentDirections.actionHomeFragmentToWatchHistoryFragment()
+            HomeUIEvent.clickToExploreScreen->HomeFragmentDirections.actionHomeFragmentToExploringFragment()
+
         }
         findNavController().navigate(action)
     }

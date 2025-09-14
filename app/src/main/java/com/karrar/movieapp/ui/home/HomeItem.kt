@@ -31,6 +31,7 @@ sealed class HomeItem(val priority: Int) {
     data class RecentlyViewed(val items: List<MediaHistoryUiState>, val type: HomeItemsType = HomeItemsType.RECENTLY_VIEWED) : HomeItem(10)
 
     object WhatShouldWatch:HomeItem(1)
+    object NeedMoreToWatch:HomeItem(11)
 
 
 }

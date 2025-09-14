@@ -155,6 +155,11 @@ class HomeAdapter(
 
                     }
                 }
+                is HomeItem.NeedMoreToWatch->{
+                    holder.binding.run {
+                        setVariable(BR.listener,listener as NeedMoreToWatchListener)
+                    }
+                }
             }
     }
 
@@ -194,6 +199,7 @@ class HomeAdapter(
                 is HomeItem.OnTheAiring -> R.layout.list_tvshow
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
                 is HomeItem.WhatShouldWatch->R.layout.item_whatshouldwatch
+                is HomeItem.NeedMoreToWatch->R.layout.item_needmoretowatch
                 is HomeItem.Adventure,
                 is HomeItem.Mystery,
                 is HomeItem.NowStreaming,
@@ -201,6 +207,8 @@ class HomeAdapter(
                 is HomeItem.Upcoming,
 
                     -> R.layout.list_movie
+
+
             }
         }
         return -1

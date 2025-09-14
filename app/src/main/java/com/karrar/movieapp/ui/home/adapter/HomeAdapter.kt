@@ -151,13 +151,13 @@ class HomeAdapter(
                 ////////////////////////
                 is HomeItem.WhatShouldWatch->{
                     holder.binding.run {
-                        setVariable(BR.listener, listener as WhatShouldWatchListener)
+                        setVariable(BR.listener, listener as HomeInteractionListener)
 
                     }
                 }
                 is HomeItem.NeedMoreToWatch->{
                     holder.binding.run {
-                        setVariable(BR.listener,listener as NeedMoreToWatchListener)
+                        setVariable(BR.listener,listener as HomeInteractionListener)
                     }
                 }
             }

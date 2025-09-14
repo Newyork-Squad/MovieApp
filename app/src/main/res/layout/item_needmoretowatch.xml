@@ -6,7 +6,7 @@
     <data>
     <variable
         name="listener"
-        type="com.karrar.movieapp.ui.home.adapter.NeedMoreToWatchListener" />
+        type="com.karrar.movieapp.ui.home.HomeInteractionListener" />
     </data>
 
 

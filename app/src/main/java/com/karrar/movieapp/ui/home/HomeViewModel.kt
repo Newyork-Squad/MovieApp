@@ -9,9 +9,7 @@ import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.MediaInteractionListener
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
-import com.karrar.movieapp.ui.home.adapter.NeedMoreToWatchListener
 import com.karrar.movieapp.ui.home.adapter.TVShowInteractionListener
-import com.karrar.movieapp.ui.home.adapter.WhatShouldWatchListener
 import com.karrar.movieapp.ui.home.homeUiState.HomeUIEvent
 import com.karrar.movieapp.ui.home.homeUiState.HomeUiState
 import com.karrar.movieapp.ui.mappers.ActorUiMapper
@@ -35,7 +33,7 @@ class HomeViewModel @Inject constructor(
     private val popularUiMapper: PopularUiMapper,
     private val watchHistoryMapper: WatchHistoryMapper
 ) : BaseViewModel(), HomeInteractionListener, ActorsInteractionListener, MovieInteractionListener,
-    MediaInteractionListener, TVShowInteractionListener, WatchHistoryInteractionListener,WhatShouldWatchListener,NeedMoreToWatchListener {
+    MediaInteractionListener, TVShowInteractionListener, WatchHistoryInteractionListener{
 
     private val _homeUiState = MutableStateFlow(HomeUiState())
     val homeUiState = _homeUiState.asStateFlow()

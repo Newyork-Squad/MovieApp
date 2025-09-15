@@ -32,7 +32,6 @@ interface SeriesDao {
     @Query("SELECT * FROM AIRING_TODAY_SERIES_TABLE")
     fun getAiringTodaySeries(): Flow<List<AiringTodaySeriesEntity>>
 
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTopRatedSeries(items: List<TopRatedSeriesEntity>)
 

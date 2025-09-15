@@ -1,10 +1,8 @@
 package com.karrar.movieapp.ui.search
 
-import android.content.Context
 import android.os.Bundle
 import android.transition.ChangeTransform
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,7 +16,7 @@ import com.karrar.movieapp.ui.adapters.LoadUIStateAdapter
 import com.karrar.movieapp.ui.base.BaseFragment
 import com.karrar.movieapp.ui.search.adapters.ActorSearchAdapter
 import com.karrar.movieapp.ui.search.adapters.MediaSearchAdapter
-import com.karrar.movieapp.ui.search.adapters.SearchHistoryAdapter
+import com.karrar.movieapp.ui.search.adapters.SearchAdapter
 import com.karrar.movieapp.ui.search.mediaSearchUIState.MediaSearchUIState
 import com.karrar.movieapp.ui.search.mediaSearchUIState.MediaTypes
 import com.karrar.movieapp.utilities.Constants
@@ -37,9 +35,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     override val layoutIdFragment: Int = R.layout.fragment_search
     override val viewModel: SearchViewModel by viewModels()
-
     private val mediaSearchAdapter by lazy { MediaSearchAdapter(viewModel) }
     private val actorSearchAdapter by lazy { ActorSearchAdapter(viewModel) }
+
+    private val searchAdapter by lazy { SearchAdapter(emptyList(), viewModel) }
 
     private val oldValue = MutableStateFlow(MediaSearchUIState())
 
@@ -48,23 +47,25 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         sharedElementEnterTransition = ChangeTransform()
         setTitle(false)
         getSearchResult()
-        setSearchHistoryAdapter()
         getSearchResultsBySearchTerm()
         setupTabSelection()
         setupToggle()
         observeToggleVisibility()
+        observeSearchSections()
 
         collectLast(viewModel.searchUIEvent) {
             it.getContentIfNotHandled()?.let { onEvent(it) }
         }
     }
 
-    private fun setSearchHistoryAdapter() {
-        val inputMethodManager =
-            binding.inputSearch.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(binding.inputSearch, InputMethodManager.SHOW_IMPLICIT)
+    private fun observeSearchSections() {
+        binding.recyclerSearchHistory.adapter = searchAdapter
 
-        binding.recyclerSearchHistory.adapter = SearchHistoryAdapter(mutableListOf(), viewModel)
+        lifecycleScope.launch {
+            viewModel.searchSections.collectLatest { sections ->
+                searchAdapter.setItems(sections)
+            }
+        }
     }
 
     @OptIn(FlowPreview::class)
@@ -118,6 +119,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 actorSearchAdapter.retry()
                 mediaSearchAdapter.retry()
             }
+
+            is SearchUIEvent.ClickRecentViewedEvent -> navigateToMovieDetails(event.recentMovieViewedUiState.mediaID)
         }
     }
 

@@ -169,6 +169,8 @@ class HomeAdapter(
                 is HomeItem.Upcoming,
                     -> R.layout.list_movie
                 is HomeItem.Collections -> R.layout.list_home_collections
+                is HomeItem.WhatShouldWatch->R.layout.item_whatshouldwatch
+                is HomeItem.NeedMoreToWatch->R.layout.item_needmoretowatch
             }
         }
         return -1

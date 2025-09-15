@@ -34,4 +34,7 @@ sealed class HomeItem(val priority: Int) {
         val items: List<CreatedListUIState>,
         val type: HomeItemsType = HomeItemsType.COLLECTIONS
     ) : HomeItem(11)
+
+    object WhatShouldWatch:HomeItem(1)
+    object NeedMoreToWatch:HomeItem(11)
 }

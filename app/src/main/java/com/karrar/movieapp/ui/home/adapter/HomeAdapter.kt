@@ -117,6 +117,18 @@ class HomeAdapter(
                         setVariable(BR.isVisible, currentItem.items.isNotEmpty())
                     }
                 }
+                ////////////////////////
+                is HomeItem.WhatShouldWatch->{
+                    holder.binding.run {
+                        setVariable(BR.listener, listener as HomeInteractionListener)
+
+                    }
+                }
+                is HomeItem.NeedMoreToWatch->{
+                    holder.binding.run {
+                        setVariable(BR.listener,listener as HomeInteractionListener)
+                    }
+                }
             }
     }
 
@@ -153,11 +165,9 @@ class HomeAdapter(
                 is HomeItem.RecentlyReleased,
                 is HomeItem.TopRatedTvShows,
                     -> R.layout.list_tvshow
-
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
                 is HomeItem.Upcoming,
                     -> R.layout.list_movie
-
                 is HomeItem.Collections -> R.layout.list_home_collections
             }
         }

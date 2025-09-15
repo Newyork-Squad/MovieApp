@@ -9,6 +9,8 @@ data class HomeUiState (
     val recentlyReleasedSeries: HomeItem = HomeItem.RecentlyReleased(emptyList()),
     val recentlyViewed: HomeItem = HomeItem.RecentlyViewed(emptyList()),
     val collections: HomeItem = HomeItem.Collections(emptyList()),
+    val whatShouldIWatch:HomeItem=HomeItem.WhatShouldWatch,
+    val needMoreToWatch:HomeItem=HomeItem.NeedMoreToWatch,
     val isLoading:Boolean = false,
     val error : List<String> = emptyList(),
 )

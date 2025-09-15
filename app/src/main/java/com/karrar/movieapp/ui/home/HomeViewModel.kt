@@ -330,4 +330,12 @@ class HomeViewModel @Inject constructor(
         _homeUIEvent.update { Event(HomeUIEvent.ClickListEvent(item)) }
     }
 
+    override fun onClickWhatShouldWatch() {
+       _homeUIEvent.update { Event(HomeUIEvent.clickToMatchScreen) }
+    }
+
+    override fun onClickNeedMoreToWatch() {
+        _homeUIEvent.update { Event(HomeUIEvent.clickToExploreScreen) }
+    }
+
 }

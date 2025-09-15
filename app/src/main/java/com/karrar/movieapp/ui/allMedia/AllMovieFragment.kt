@@ -133,16 +133,10 @@ class AllMovieFragment : BaseFragment<FragmentAllMovieBinding>() {
 
     private fun getTitle(type: AllMediaType): String {
         return when (type) {
-            AllMediaType.ON_THE_AIR -> getString(R.string.title_on_air)
-            AllMediaType.AIRING_TODAY -> getString(R.string.title_airing_today)
             AllMediaType.RECENTLY_RELEASED -> getString(R.string.recently_released)
             AllMediaType.POPULAR -> getString(R.string.popular)
             AllMediaType.TOP_RATED -> getString(R.string.title_top_rated_tv_show)
-            AllMediaType.TRENDING -> getString(R.string.title_trending)
-            AllMediaType.NOW_STREAMING -> getString(R.string.title_streaming)
             AllMediaType.UPCOMING -> getString(R.string.title_upcoming)
-            AllMediaType.MYSTERY -> getString(R.string.title_mystery)
-            AllMediaType.ADVENTURE -> getString(R.string.title_adventure)
             AllMediaType.ACTOR_MOVIES -> ""
         }
     }

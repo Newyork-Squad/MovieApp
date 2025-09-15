@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.domain.mappers.WatchHistoryMapper
-import com.karrar.movieapp.domain.usecase.home.HomeUseCasesContainer
+import com.karrar.movieapp.domain.usecases.home.HomeUseCasesContainer
 import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
 import com.karrar.movieapp.domain.usecases.GetAccountDetailsUseCase
 import com.karrar.movieapp.domain.usecases.mylist.GetMyListUseCase
@@ -270,12 +270,7 @@ class HomeViewModel @Inject constructor(
 
     override fun onClickSeeAllMovie(homeItemsType: HomeItemsType) {
         val type = when (homeItemsType) {
-            HomeItemsType.ON_THE_AIR -> AllMediaType.ON_THE_AIR
-            HomeItemsType.TRENDING -> AllMediaType.TRENDING
-            HomeItemsType.NOW_STREAMING -> AllMediaType.NOW_STREAMING
             HomeItemsType.UPCOMING -> AllMediaType.UPCOMING
-            HomeItemsType.MYSTERY -> AllMediaType.MYSTERY
-            HomeItemsType.ADVENTURE -> AllMediaType.ADVENTURE
             HomeItemsType.TOP_RATED_TV_SHOWS -> AllMediaType.TOP_RATED
             HomeItemsType.RECENTLY_RELEASED -> AllMediaType.RECENTLY_RELEASED
             HomeItemsType.RECENTLY_VIEWED -> {

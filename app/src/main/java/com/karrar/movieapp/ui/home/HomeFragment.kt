@@ -51,8 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         it.trendingMovies,
                         it.actors,
                         it.recentlyViewed,
-                        it.collections
-                        it.recentlyViewed,
+                        it.collections,
                         it.whatShouldIWatch,
                         it.needMoreToWatch
                     )
@@ -103,8 +102,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     event.seriesID
                 )
             }
-            /////////////
-            HomeUIEvent.clickToMatchScreen->HomeFragmentDirections.actionHomeFragmentToWatchHistoryFragment()
+
+            HomeUIEvent.clickToMatchScreen->HomeFragmentDirections.actionHomeFragmentToMatchScreenFragment()
 
             HomeUIEvent.ClickSeeAllRecentlyViewed -> HomeFragmentDirections.actionHomeFragmentToWatchHistoryFragment()
             HomeUIEvent.clickToExploreScreen->HomeFragmentDirections.actionHomeFragmentToExploringFragment()

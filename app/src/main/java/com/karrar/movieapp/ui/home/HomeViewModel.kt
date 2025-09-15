@@ -48,7 +48,6 @@ class HomeViewModel @Inject constructor(
     private val createdListUIMapper: CreatedListUIMapper,
     private val checkIfLoggedInUseCase: CheckIfLoggedInUseCase,
 ) : BaseViewModel(), HomeInteractionListener, ActorsInteractionListener, MovieInteractionListener,
-    MediaInteractionListener, TVShowInteractionListener, WatchHistoryInteractionListener{
     MediaInteractionListener, TVShowInteractionListener, WatchHistoryInteractionListener,
     CreatedListInteractionListener {
 

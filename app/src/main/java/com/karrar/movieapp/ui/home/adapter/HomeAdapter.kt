@@ -83,7 +83,7 @@ class HomeAdapter(
                             TVShowAdapter(currentItem.items, listener as TVShowInteractionListener)
                         )
                         setVariable(BR.movieType, currentItem.type)
-                        setVariable(BR.mediaType, AllMediaType.LATEST)
+                        setVariable(BR.mediaType, AllMediaType.RECENTLY_RELEASED)
                     }
                 }
 

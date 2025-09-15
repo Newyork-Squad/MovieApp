@@ -26,7 +26,7 @@ class GetMediaByTypeUseCase @Inject constructor(
             AllMediaType.ACTOR_MOVIES -> {
                 wrapper({ movieRepository.getActorMoviesPager(actorId) }, movieMapper::map)
             }
-            AllMediaType.LATEST,
+            AllMediaType.RECENTLY_RELEASED,
             AllMediaType.AIRING_TODAY,
             -> {
                 wrapper(seriesRepository::getAiringTodayTvShowPager, tvShowMapper::map)

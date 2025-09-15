@@ -277,7 +277,7 @@ class HomeViewModel @Inject constructor(
             HomeItemsType.MYSTERY -> AllMediaType.MYSTERY
             HomeItemsType.ADVENTURE -> AllMediaType.ADVENTURE
             HomeItemsType.TOP_RATED_TV_SHOWS -> AllMediaType.TOP_RATED
-            HomeItemsType.RECENTLY_RELEASED -> AllMediaType.LATEST
+            HomeItemsType.RECENTLY_RELEASED -> AllMediaType.RECENTLY_RELEASED
             HomeItemsType.RECENTLY_VIEWED -> {
                 onClickSeeAllRecentlyViewed()
                 return

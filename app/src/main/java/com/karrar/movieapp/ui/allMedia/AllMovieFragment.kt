@@ -135,7 +135,7 @@ class AllMovieFragment : BaseFragment<FragmentAllMovieBinding>() {
         return when (type) {
             AllMediaType.ON_THE_AIR -> getString(R.string.title_on_air)
             AllMediaType.AIRING_TODAY -> getString(R.string.title_airing_today)
-            AllMediaType.LATEST -> getString(R.string.latest)
+            AllMediaType.RECENTLY_RELEASED -> getString(R.string.recently_released)
             AllMediaType.POPULAR -> getString(R.string.popular)
             AllMediaType.TOP_RATED -> getString(R.string.title_top_rated_tv_show)
             AllMediaType.TRENDING -> getString(R.string.title_trending)

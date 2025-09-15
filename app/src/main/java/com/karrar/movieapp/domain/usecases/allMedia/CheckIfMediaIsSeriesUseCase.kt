@@ -9,7 +9,7 @@ class CheckIfMediaIsSeriesUseCase @Inject constructor() {
                 || type == AllMediaType.POPULAR
                 || type == AllMediaType.AIRING_TODAY
                 || type == AllMediaType.TOP_RATED
-                || type == AllMediaType.LATEST
+                || type == AllMediaType.RECENTLY_RELEASED
                 )
     }
 }

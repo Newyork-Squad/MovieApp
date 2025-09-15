@@ -25,6 +25,7 @@ import com.karrar.movieapp.ui.home.HomeItem
 import com.karrar.movieapp.ui.models.MediaUiState
 import com.karrar.movieapp.ui.myList.CreatedListAdapter
 import com.karrar.movieapp.ui.myList.CreatedListInteractionListener
+import com.karrar.movieapp.ui.profile.watchhistory.WatchHistoryAdapter
 import com.karrar.movieapp.ui.profile.watchhistory.WatchHistoryInteractionListener
 import com.karrar.movieapp.utilities.Constants
 
@@ -177,6 +178,18 @@ class HomeAdapter(
                         setVariable(BR.isVisible, currentItem.items.isNotEmpty())
                     }
                 }
+                ////////////////////////
+                is HomeItem.WhatShouldWatch->{
+                    holder.binding.run {
+                        setVariable(BR.listener, listener as HomeInteractionListener)
+
+                    }
+                }
+                is HomeItem.NeedMoreToWatch->{
+                    holder.binding.run {
+                        setVariable(BR.listener,listener as HomeInteractionListener)
+                    }
+                }
             }
     }
 
@@ -217,12 +230,17 @@ class HomeAdapter(
                 is HomeItem.OnTheAiring -> R.layout.list_tvshow
 
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
+                is HomeItem.WhatShouldWatch->R.layout.item_whatshouldwatch
+                is HomeItem.NeedMoreToWatch->R.layout.item_needmoretowatch
                 is HomeItem.Adventure,
                 is HomeItem.Mystery,
                 is HomeItem.NowStreaming,
                 is HomeItem.Trending,
                 is HomeItem.Upcoming,
+
                     -> R.layout.list_movie
+
+
 
                 is HomeItem.Collections -> R.layout.list_home_collections
             }

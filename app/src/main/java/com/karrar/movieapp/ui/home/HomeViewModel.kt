@@ -4,9 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.domain.mappers.WatchHistoryMapper
-import com.karrar.movieapp.domain.usecases.home.HomeUseCasesContainer
 import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
 import com.karrar.movieapp.domain.usecases.GetAccountDetailsUseCase
+import com.karrar.movieapp.domain.usecases.home.HomeUseCasesContainer
 import com.karrar.movieapp.domain.usecases.mylist.GetMyListUseCase
 import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.MediaInteractionListener
@@ -218,14 +218,12 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 homeUseCasesContainer.getWatchHistoryUseCase().collect { list ->
-                    if (list.isNotEmpty()) {
-                        val items = list.map(watchHistoryMapper::map)
-                        _homeUiState.update {
-                            it.copy(
-                                recentlyViewed = HomeItem.RecentlyViewed(items),
-                                isLoading = false
-                            )
-                        }
+                    val items = list.map(watchHistoryMapper::map)
+                    _homeUiState.update {
+                        it.copy(
+                            recentlyViewed = HomeItem.RecentlyViewed(items),
+                            isLoading = false
+                        )
                     }
                 }
             } catch (th: Throwable) {
@@ -245,13 +243,11 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val items = getMyListUseCase().map { createdListUIMapper.map(it) }
-                if (items.isNotEmpty()) {
-                    _homeUiState.update {
-                        it.copy(
-                            collections = HomeItem.Collections(items),
-                            isLoading = false
-                        )
-                    }
+                _homeUiState.update {
+                    it.copy(
+                        collections = HomeItem.Collections(items),
+                        isLoading = false
+                    )
                 }
 
             } catch (th: Throwable) {
@@ -326,7 +322,7 @@ class HomeViewModel @Inject constructor(
     }
 
     override fun onClickWhatShouldWatch() {
-       _homeUIEvent.update { Event(HomeUIEvent.clickToMatchScreen) }
+        _homeUIEvent.update { Event(HomeUIEvent.clickToMatchScreen) }
     }
 
     override fun onClickNeedMoreToWatch() {

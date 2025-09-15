@@ -62,7 +62,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         }
     }
 
-
     private fun onEvent(event: ProfileUIEvent) {
         val action = when (event) {
             ProfileUIEvent.DialogLogoutEvent ->
@@ -89,13 +88,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         val state = viewModel.profileDetailsUIState.value
 
         binding.textNameActor.text = when {
-            !state.isLoggedIn -> getString(R.string.login_or_sign_up)
+            !state.isLoggedIn || state.isGuest -> getString(R.string.login_or_sign_up)
             state.name.isEmpty() -> getString(R.string.tap_to_add_your_name)
             else -> state.name
         }
 
         binding.textUsername.text = when {
-            !state.isLoggedIn -> getString(R.string.to_personalize_your_profile)
+            !state.isLoggedIn || state.isGuest -> getString(R.string.to_personalize_your_profile)
             else -> "@${state.username}"
         }
     }

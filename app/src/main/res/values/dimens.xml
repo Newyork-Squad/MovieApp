@@ -40,6 +40,7 @@
     <!-- radius -->
     <dimen name="radius_large">24dp</dimen>
     <dimen name="radius_medium">16dp</dimen>
+    <dimen name="radius_normal">12dp</dimen>
     <dimen name="radius_small">8dp</dimen>
     <dimen name="radius_too_small">4dp</dimen>
 
@@ -59,6 +60,7 @@
 
     <!-- chips -->
     <dimen name="chip_height">32dp</dimen>
+    <dimen name="card_width_small">280dp</dimen>
 
     <!--dialog-->
     <dimen name="dialog_bottom_margin">48dp</dimen>

@@ -29,13 +29,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         collectHomeData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshHomeData()
+    }
+
     private fun collectHomeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.homeUiState.collect {
                 homeAdapter.setItems(
                     mutableListOf(
                         it.popularMovies,
-                        it.tvShowsSeries,
+                        it.recentlyReleasedSeries,
+                        it.topRatedSeries,
                         it.onTheAiringSeries,
                         it.airingTodaySeries,
                         it.upcomingMovies,
@@ -44,6 +50,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         it.adventureMovies,
                         it.trendingMovies,
                         it.actors,
+                        it.recentlyViewed,
+                        it.collections
                         it.recentlyViewed,
                         it.whatShouldIWatch,
                         it.needMoreToWatch
@@ -101,6 +109,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             HomeUIEvent.ClickSeeAllRecentlyViewed -> HomeFragmentDirections.actionHomeFragmentToWatchHistoryFragment()
             HomeUIEvent.clickToExploreScreen->HomeFragmentDirections.actionHomeFragmentToExploringFragment()
 
+
+            HomeUIEvent.ClickSeeAllCollections -> HomeFragmentDirections.actionHomeFragmentToSavedListFragment()
+
+            is HomeUIEvent.ClickListEvent -> HomeFragmentDirections.actionHomeFragmentToListDetailsFragment(
+                event.createdListUIState.listID,
+                event.createdListUIState.name
+            )
         }
         findNavController().navigate(action)
     }

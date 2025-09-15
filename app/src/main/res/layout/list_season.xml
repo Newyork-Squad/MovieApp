@@ -7,7 +7,11 @@
 
         <variable
             name="adapterRecycler"
-            type="com.karrar.movieapp.ui.tvShowDetails.SeasonAdapterUIState" />
+            type="com.karrar.movieapp.ui.tvShowDetails.seasons.SeasonsAdapter" />
+
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.movieDetails.DetailInteractionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,6 +40,7 @@
             android:text="@string/show_more"
             android:textColor="@color/brand_primary"
             android:textFontWeight="500"
+            android:onClick="@{() -> listener.onClickViewSeasons()}"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/text_seasons"
             app:layout_constraintEnd_toEndOf="parent"

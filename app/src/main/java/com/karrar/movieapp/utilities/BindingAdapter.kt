@@ -354,3 +354,23 @@ fun setPasswordToggle(
 
     layout.setEndIconOnClickListener { onToggle?.invoke() }
 }
+
+@BindingAdapter("app:imageRes")
+fun setImageRes(view: ShapeableImageView, resId: Int?) {
+    if (resId != null) {
+        view.setImageResource(resId)
+    } else {
+        view.setImageDrawable(null)
+    }
+}
+
+@BindingAdapter("genresText")
+fun TextView.setGenresText(genres: List<String>?) {
+    text = genres?.joinToString(", ") ?: ""
+}
+@BindingAdapter("app:oneDecimal")
+fun setOneDecimal(textView: TextView, number: Double?) {
+    number?.let {
+        textView.text = String.format("%.1f", it)
+    }
+}

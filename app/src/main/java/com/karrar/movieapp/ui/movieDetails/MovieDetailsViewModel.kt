@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.domain.models.MovieDetails
+import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
 import com.karrar.movieapp.domain.usecases.GetSessionIDUseCase
 import com.karrar.movieapp.domain.usecases.movieDetails.GetMovieDetailsUseCase
 import com.karrar.movieapp.domain.usecases.movieDetails.GetMovieRateUseCase
@@ -13,8 +14,8 @@ import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.ui.mappers.CrewUIStateMapper
-import com.karrar.movieapp.ui.movieDetails.mapper.ActorUIStateMapper
 import com.karrar.movieapp.ui.mappers.MediaUIStateMapper
+import com.karrar.movieapp.ui.movieDetails.mapper.ActorUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.mapper.MovieDetailsUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.mapper.ReviewUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.movieDetailsUIState.DetailItemUIState
@@ -206,9 +207,6 @@ class MovieDetailsViewModel @Inject constructor(
             onAddMovieDetailsItemOfNestedView(DetailItemUIState.Comment(it))
         }
         onAddMovieDetailsItemOfNestedView(DetailItemUIState.ReviewText)
-//        if (showSeeAll) {
-//            onAddMovieDetailsItemOfNestedView(DetailItemUIState.SeeAllReviewsButton)
-//        }
     }
 
     private fun onAddMovieDetailsItemOfNestedView(item: DetailItemUIState) {
@@ -222,7 +220,11 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     override fun onClickSave() {
-        _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ClickSaveEvent) }
+        if (_uiState.value.isLogin) {
+            _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ClickSaveEvent) }
+        } else {
+            showLoginDialog()
+        }
     }
 
     override fun onClickPlayTrailer() {
@@ -233,9 +235,11 @@ class MovieDetailsViewModel @Inject constructor(
         _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ClickBackEvent) }
     }
 
-    override fun onclickViewReviews() {
+    override fun onClickViewReviews() {
         _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ClickReviewsEvent) }
     }
+
+    override fun onClickViewSeasons() {}
 
     override fun onClickMovie(movieId: Int) {
         _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ClickMovieEvent(movieId)) }

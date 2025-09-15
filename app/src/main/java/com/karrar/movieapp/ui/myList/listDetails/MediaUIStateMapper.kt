@@ -14,7 +14,8 @@ class MediaUIStateMapper @Inject constructor() : Mapper<SaveListDetails, SavedMe
             title = input.title,
             voteAverage = input.voteAverage,
             releaseDate = input.releaseDate,
-            mediaType = input.mediaType
+            mediaType = input.mediaType,
+            genres = emptyList()
         )
     }
 }

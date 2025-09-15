@@ -10,6 +10,10 @@ class SearchHistoryAdapter(items: List<SearchHistoryUIState>, listener: SearchHi
     override val layoutID: Int = R.layout.item_search_history
 }
 
+
 interface SearchHistoryInteractionListener : BaseInteractionListener {
     fun onClickSearchHistory(name: String)
+    fun onClickDeleteSearchHistoryItem(item : SearchHistoryUIState)
+
+
 }

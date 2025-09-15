@@ -446,6 +446,7 @@ class HomeViewModel @Inject constructor(
             }
 
             HomeItemsType.NON -> AllMediaType.ACTOR_MOVIES
+            HomeItemsType.Recommendations -> TODO()
         }
         _homeUIEvent.update { Event(HomeUIEvent.ClickSeeAllMovieEvent(type)) }
     }

@@ -16,6 +16,7 @@ data class HomeUiState (
     val actors: HomeItem = HomeItem.Actor(emptyList()),
     val recentlyViewed: HomeItem = HomeItem.RecentlyViewed(emptyList()),
     val collections: HomeItem = HomeItem.Collections(emptyList()),
+    val recommendations: HomeItem = HomeItem.Recommendations(emptyList()),
     val isLoading:Boolean = false,
     val error : List<String> = emptyList(),
 )

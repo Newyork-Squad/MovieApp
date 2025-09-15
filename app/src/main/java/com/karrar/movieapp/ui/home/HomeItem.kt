@@ -34,4 +34,6 @@ sealed class HomeItem(val priority: Int) {
     data class RecentlyViewed(val items: List<MediaHistoryUiState>, val type: HomeItemsType = HomeItemsType.RECENTLY_VIEWED) : HomeItem(10)
 
     data class Collections(val items: List<CreatedListUIState>, val type: HomeItemsType = HomeItemsType.COLLECTIONS) : HomeItem(11)
+
+    data class Recommendations(val items: List<MediaUiState>, val type: HomeItemsType = HomeItemsType.Recommendations) : HomeItem(13)
 }

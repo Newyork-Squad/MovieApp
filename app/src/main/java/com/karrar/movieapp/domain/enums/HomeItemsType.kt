@@ -11,5 +11,6 @@ enum class HomeItemsType(val value :String) {
     ADVENTURE("Adventure"),
     RECENTLY_VIEWED("Recently viewed"),
     COLLECTIONS("Your Collections"),
+    Recommendations("Recommendations"),
     NON("")
 }

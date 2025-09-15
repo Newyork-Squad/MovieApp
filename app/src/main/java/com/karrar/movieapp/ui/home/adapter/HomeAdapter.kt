@@ -177,6 +177,19 @@ class HomeAdapter(
                         setVariable(BR.isVisible, currentItem.items.isNotEmpty())
                     }
                 }
+
+                is HomeItem.Recommendations -> {
+                    holder.binding.run {
+                        setVariable(
+                            BR.adapterRecycler,
+                            MediaAdapter(
+                                currentItem.items,
+                                R.layout.item_airing_today,
+                                listener as MediaInteractionListener
+                            )
+                        )
+                    }
+                }
             }
     }
 
@@ -222,6 +235,7 @@ class HomeAdapter(
                 is HomeItem.NowStreaming,
                 is HomeItem.Trending,
                 is HomeItem.Upcoming,
+                is HomeItem.Recommendations,
                     -> R.layout.list_movie
 
                 is HomeItem.Collections -> R.layout.list_home_collections

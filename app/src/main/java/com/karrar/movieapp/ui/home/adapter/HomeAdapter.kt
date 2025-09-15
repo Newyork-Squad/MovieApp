@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.karrar.movieapp.BR
 import com.karrar.movieapp.R
@@ -110,23 +112,35 @@ class HomeAdapter(
                             BR.adapterRecycler, CreatedListAdapter(
                                 currentItem.items,
                                 listener as CreatedListInteractionListener,
-                                isFullWidth = true
+                                isFullWidth = false
                             )
                         )
                         setVariable(BR.listener, listener as HomeInteractionListener)
                         setVariable(BR.isVisible, currentItem.items.isNotEmpty())
+
+                        val recyclerView =
+                            root.findViewById<RecyclerView>(R.id.recycler_view_collections)
+                        val layoutManager =
+                            GridLayoutManager(root.context, 2, GridLayoutManager.HORIZONTAL, false)
+                        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                            override fun getSpanSize(position: Int): Int {
+                                return if (currentItem.items.size == 1) 2 else 1
+                            }
+                        }
+                        recyclerView.layoutManager = layoutManager
                     }
                 }
 
-                is HomeItem.WhatShouldWatch->{
+                is HomeItem.WhatShouldWatch -> {
                     holder.binding.run {
                         setVariable(BR.listener, listener as HomeInteractionListener)
 
                     }
                 }
-                is HomeItem.NeedMoreToWatch->{
+
+                is HomeItem.NeedMoreToWatch -> {
                     holder.binding.run {
-                        setVariable(BR.listener,listener as HomeInteractionListener)
+                        setVariable(BR.listener, listener as HomeInteractionListener)
                     }
                 }
             }
@@ -169,8 +183,8 @@ class HomeAdapter(
                 is HomeItem.Upcoming,
                     -> R.layout.list_movie
                 is HomeItem.Collections -> R.layout.list_home_collections
-                is HomeItem.WhatShouldWatch->R.layout.item_whatshouldwatch
-                is HomeItem.NeedMoreToWatch->R.layout.item_needmoretowatch
+                is HomeItem.WhatShouldWatch -> R.layout.item_whatshouldwatch
+                is HomeItem.NeedMoreToWatch -> R.layout.item_needmoretowatch
             }
         }
         return -1

@@ -117,7 +117,7 @@ class HomeAdapter(
                         setVariable(BR.isVisible, currentItem.items.isNotEmpty())
                     }
                 }
-                ////////////////////////
+
                 is HomeItem.WhatShouldWatch->{
                     holder.binding.run {
                         setVariable(BR.listener, listener as HomeInteractionListener)

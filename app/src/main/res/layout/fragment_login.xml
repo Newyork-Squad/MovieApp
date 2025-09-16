@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.karrar.movieapp.ui.login.LoginViewModel" />
@@ -175,38 +177,52 @@
                 app:layout_constraintTop_toBottomOf="@id/forgotPassword" />
 
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/loginButton"
+            <FrameLayout
+                android:id="@+id/loginButtonLayout"
                 style="@style/Body_MD"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="12dp"
-                android:elevation="0dp"
-                android:enabled="@{viewModel.loginUIState.validForm}"
-                android:onClick="@{()->viewModel.onClickLogin()}"
-                android:stateListAnimator="@null"
-                android:text="@string/login"
-                android:textAllCaps="false"
-                android:textColor="@color/login_button_text_color"
                 app:backgroundTint="@color/button_login_background"
                 app:cornerRadius="@dimen/radius_lg"
-                app:hideIfTrue="@{viewModel.loginUIState.loading}"
-                app:layout_constraintTop_toBottomOf="@id/forgotPassword"
-                app:strokeColor="@null"
-                app:strokeWidth="0dp" />
+                app:layout_constraintTop_toBottomOf="@id/forgotPassword">
 
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:indeterminate="true"
-                app:indicatorColor="@color/background_card"
-                app:isVisible="@{viewModel.loginUIState.loading}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/forgotPassword" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/loginButton"
+                    style="@style/Body_MD"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="0dp"
+                    android:enabled="@{viewModel.loginUIState.validForm}"
+                    android:onClick="@{()->viewModel.onClickLogin()}"
+                    android:stateListAnimator="@null"
+                    android:textAllCaps="false"
+                    android:textColor="@color/login_button_text_color"
+                    app:backgroundTint="@color/button_login_background"
+                    app:cornerRadius="@dimen/radius_lg"
+                    app:strokeColor="@null"
+                    app:strokeWidth="0dp" />
 
+                <TextView
+                    android:id="@+id/loginButtonText"
+                    style="@style/Body_MD"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/login"
+                    android:textColor="@color/login_button_text_color"
+                    android:visibility="@{viewModel.loginUIState.loading ? View.INVISIBLE : View.VISIBLE}" />
+
+                <ProgressBar
+                    android:id="@+id/loginLoading"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    android:indeterminateDrawable="@drawable/circular_progress"
+                    app:isVisible="@{viewModel.loginUIState.loading}" />
+            </FrameLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/guestButton"
@@ -223,7 +239,7 @@
                 android:textColor="@color/button_onSecondary"
                 app:backgroundTint="@color/button_secondary"
                 app:cornerRadius="@dimen/radius_lg"
-                app:layout_constraintTop_toBottomOf="@id/loginButton"
+                app:layout_constraintTop_toBottomOf="@id/loginButtonLayout"
                 app:strokeColor="@null"
                 app:strokeWidth="0dp" />
 

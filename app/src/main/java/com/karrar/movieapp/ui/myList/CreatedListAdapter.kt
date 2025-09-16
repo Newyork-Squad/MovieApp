@@ -10,7 +10,7 @@ import com.karrar.movieapp.ui.myList.myListUIState.CreatedListUIState
 class CreatedListAdapter(
     items: List<CreatedListUIState>,
     listener: CreatedListInteractionListener,
-    private val isFullWidth: Boolean = false
+    private val isFullWidth: Boolean = true
 ) : BaseAdapter<CreatedListUIState>(items, listener) {
     override val layoutID: Int = R.layout.item_saved_list
 
@@ -21,10 +21,10 @@ class CreatedListAdapter(
         val layoutParams = cardView.layoutParams
 
         if (isFullWidth) {
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+        } else {
             layoutParams.width =
                 holder.itemView.context.resources.getDimensionPixelSize(R.dimen.card_width_small)
-        } else {
-            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
         }
         cardView.layoutParams = layoutParams
     }

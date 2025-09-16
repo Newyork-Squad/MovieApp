@@ -5,5 +5,5 @@ import javax.inject.Inject
 class LocalSeriesMappersContainer @Inject constructor(
     val topRatedSeriesMapper: TopRatedSeriesMapper,
     val onTheAirSeriesMapper: OnTheAirSeriesMapper,
-    val airingTodaySeriesMapper: AiringTodaySeriesMapper,
-    )
+    val airingTodaySeriesMapper: AiringTodaySeriesMapper
+)

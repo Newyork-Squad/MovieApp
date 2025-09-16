@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.home.HomeInteractionListener" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_extra_large"
+        android:layout_marginBottom="@dimen/spacing_large"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/should_watch_title"
+            style="@style/Title.SM"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:text="@string/need_more_to_watch"
+            android:textColor="@color/shade_primary"
+
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/spacing_medium_small"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:background="@drawable/background_cast_item">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/img_whatshouldwatch"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:backgroundTint="@color/shade_quinary"
+                app:cardCornerRadius="@dimen/radius_full"
+                app:cardElevation="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/need_more_to_watch"
+                    android:src="@drawable/outline_magic_stick"
+                    app:tint="@color/brand_primary" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_shoose"
+                style="@style/Title.SM"
+                android:layout_width="0dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="@dimen/spacing_medium_small"
+                android:layout_marginTop="11dp"
+                android:text="@string/browse_everything"
+                android:textColor="@color/shade_primary"
+                app:layout_constraintStart_toEndOf="@id/img_whatshouldwatch"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_shoose_description"
+                style="@style/Body_MD.Medium"
+                android:layout_width="208dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/spacing_too_small"
+                android:layout_marginBottom="11dp"
+                android:lines="2"
+                android:text="@string/explore_all_movies_and_series_by_genre_or_search_for_anything_you_like"
+                android:textColor="@color/shade_secondary"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_shoose"
+                app:layout_constraintTop_toBottomOf="@id/tv_shoose"
+
+                />
+
+
+            <ImageButton
+                android:id="@+id/go_to_exploring"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="@dimen/spacing_small"
+                android:background="@color/background_card"
+                android:backgroundTint="@color/background_card"
+                android:contentDescription="@string/arrow"
+                android:onClick="@{()->listener.onClickNeedMoreToWatch()}"
+                android:src="@drawable/outline_alt_arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_shoose_description"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+
+</layout>

@@ -75,28 +75,13 @@
                 tools:text="Drama, Action, Crime, Thriller" />
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_movie_time"
-                style="@style/Label_MD.Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_normal"
-                android:layout_marginBottom="@dimen/spacing_lSmall"
-                android:layout_marginTop="@dimen/spacing_small"
-                android:drawableStart="@drawable/ic_clock"
-                android:drawablePadding="@dimen/spacing_too_small"
-                android:text="2h 32m"
-                android:textColor="@color/shade_secondary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/image_movie"
-                tools:text="2h 32m" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_Movie_date"
                 style="@style/Label_MD.Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_small"
+                android:layout_marginStart="@dimen/spacing_normal"
                 android:layout_marginBottom="@dimen/spacing_lSmall"
                 android:layout_marginTop="@dimen/spacing_small"
                 android:drawableStart="@drawable/ic_calendar"
@@ -104,7 +89,7 @@
                 android:text="@{item.mediaDate}"
                 android:textColor="@color/shade_secondary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/text_movie_time"
+                app:layout_constraintStart_toEndOf="@id/image_movie"
                 tools:text="12-1-2012" />
 
             <com.google.android.material.textview.MaterialTextView

@@ -13,4 +13,6 @@ sealed interface HomeUIEvent {
     data class ClickSeeAllMovieEvent(val mediaType: AllMediaType) : HomeUIEvent
     data class ClickSeeAllTVShowsEvent(val mediaType: AllMediaType) : HomeUIEvent
     data class ClickListEvent(val createdListUIState: CreatedListUIState) : HomeUIEvent
+    object clickToMatchScreen:HomeUIEvent
+    object clickToExploreScreen:HomeUIEvent
 }

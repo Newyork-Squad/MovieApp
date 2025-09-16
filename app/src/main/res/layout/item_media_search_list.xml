@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.karrar.movieapp.ui.search.mediaSearchUIState.MediaUIState" />
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.search.adapters.MediaSearchInteractionListener" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_normal"
+        android:layout_marginVertical="@dimen/spacing_small"
+        android:onClick="@{() -> listener.onClickMediaResult(item)}"
+        app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="@dimen/radius_small"
+        app:cardElevation="0dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_card">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_movie"
+                android:layout_width="64dp"
+                android:layout_height="88dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:mediaPoster="@{item.mediaImage}"
+                app:shapeAppearanceOverlay="@style/CardCorners.Media_Image"
+                tools:src="@drawable/test" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_title_movie"
+                style="@style/Body_MD.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@{item.mediaName}"
+                android:textColor="@color/shade_primary"
+                app:layout_constraintEnd_toStartOf="@id/text_movie_rate"
+                app:layout_constraintStart_toEndOf="@id/image_movie"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="The Mandalorian" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_genres"
+                style="@style/Body_SM.Regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_normal"
+                android:layout_marginTop="@dimen/spacing_too_small"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@{item.mediaTypes}"
+                android:textColor="@color/shade_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_movie"
+                app:layout_constraintTop_toBottomOf="@id/text_title_movie"
+                tools:text="Drama, Action, Crime, Thriller" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_movie_time"
+                style="@style/Label_MD.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_marginBottom="@dimen/spacing_lSmall"
+                android:drawableStart="@drawable/ic_clock"
+                android:drawablePadding="@dimen/spacing_too_small"
+                android:text="2h 32m"
+                android:textColor="@color/shade_secondary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_movie"
+                tools:text="2h 32m" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_Movie_date"
+                style="@style/Label_MD.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_small"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_marginBottom="@dimen/spacing_lSmall"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="@dimen/spacing_too_small"
+                android:text="@{item.mediaReleaseDate}"
+                android:textColor="@color/shade_secondary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/text_movie_time"
+                tools:text="12-1-2012" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_movie_rate"
+                style="@style/Label_MD.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                android:drawableEnd="@drawable/ic_star"
+                android:drawablePadding="@dimen/spacing_too_small"
+                android:text="@{String.valueOf(item.mediaVoteAverage)}"
+                android:textColor="@color/shade_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="7.5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>

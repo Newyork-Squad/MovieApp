@@ -9,74 +9,185 @@
             name="viewModel"
             type="com.karrar.movieapp.ui.movieDetails.saveMovie.SaveMovieViewModel" />
 
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.movieDetails.saveMovie.SaveListInteractionListener" />
+
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_sheet_corners">
+        android:backgroundTint="@color/background_bottomSheet"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:showWhenListNotEmpty="@{viewModel.myListsUIState.myListItemUI}"
-            app:title="@string/save_to"
-            app:titleCentered="true"
-            app:titleTextColor="@color/shade_primary_color" />
+            android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/save_list_adapter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/spacing_medium"
-            app:items="@{viewModel.myListsUIState.myListItemUI}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            tools:listitem="@layout/item_list" />
+            <View
+                android:id="@+id/view"
+                android:layout_width="36dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bottom_sheet_handle"
+                android:backgroundTint="@color/shade_quaternary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_message_wrong"
-            style="@style/SemiBold.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/spacing_large"
-            android:gravity="center"
-            android:text="@string/you_must_be_logged_in_to_save_a_movie"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:showWhenNoLogin="@{viewModel.myListsUIState.error}" />
+            <TextView
+                android:id="@+id/toolbar"
+                style="@style/Title.SM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/add_to_collection"
+                android:textColor="@color/shade_primary"
+                android:textFontWeight="500"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view" />
 
-        <TextView
-            android:id="@+id/text_message_empty_list"
-            style="@style/SemiBold.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/spacing_large"
-            android:gravity="center"
-            android:text="@string/this_list_has_no_lists"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:doneLoad="@{viewModel.myListsUIState.loading}"
-            app:noError="@{viewModel.myListsUIState.error}"
-            app:emptyData="@{viewModel.myListsUIState.myListItemUI}" />
+            <TextView
+                android:id="@+id/new_collection"
+                style="@style/Body_MD.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{() -> listener.onClickNewCollection()}"
+                android:text="@string/new_collection"
+                android:textColor="@color/brand_primary"
+                android:textFontWeight="500"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/toolbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/toolbar"
+                app:showWhenListNotEmpty="@{viewModel.myListsUIState.myListItemUI}" />
 
+            <ImageView
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> listener.onClickNewCollection()}"
+                android:src="@drawable/cancel"
+                android:textFontWeight="500"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/toolbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/toolbar"
+                app:showWhenListEmpty="@{viewModel.myListsUIState.myListItemUI}"
+                app:tint="@color/shade_secondary" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/save_list_adapter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/spacing_small"
+                app:showWhenListNotEmpty="@{viewModel.myListsUIState.myListItemUI}"
+                app:items="@{viewModel.myListsUIState.myListItemUI}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                tools:listitem="@layout/item_list" />
+
+            <TextView
+                android:id="@+id/text_message_wrong"
+                style="@style/SemiBold.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/spacing_large"
+                android:gravity="center"
+                android:text="@string/you_must_be_logged_in_to_save_a_movie"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:showWhenNoLogin="@{viewModel.myListsUIState.error}" />
+
+            <FrameLayout
+                android:id="@+id/icon_container"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/oval_background_red"
+                android:backgroundTint="@color/brand_tertiary"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:showWhenListEmpty="@{viewModel.myListsUIState.myListItemUI}">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/due_tone_video_library"
+                    app:tint="@color/brand_primary" />
+            </FrameLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_confirmation"
+                style="@style/Title.SM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/no_collections_yet"
+                android:textColor="@color/shade_primary"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/icon_container"
+                app:showWhenListEmpty="@{viewModel.myListsUIState.myListItemUI}" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_confirmation_message"
+                style="@style/Body_SM.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/start_saving"
+                android:textAlignment="center"
+                android:textColor="@color/shade_secondary_color"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_confirmation"
+                app:showWhenListEmpty="@{viewModel.myListsUIState.myListItemUI}" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_create"
+                style="@style/Body_MD.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:onClick="@{() -> listener.onClickNewCollection()}"
+                android:background="@drawable/btn_rectangle"
+                android:text="@string/create_collection"
+                android:textAllCaps="false"
+                android:textColor="@color/button_onPrimary"
+                android:visibility="gone"
+                app:backgroundTint="@color/button_primary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_confirmation_message"
+                app:showWhenListEmpty="@{viewModel.myListsUIState.myListItemUI}" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

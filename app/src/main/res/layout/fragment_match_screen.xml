@@ -50,7 +50,7 @@
                 android:textColor="@color/shade_secondary" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_retry"
+                android:id="@+id/start_matching_button"
                 style="@style/Body_SM.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -12,9 +12,18 @@
         <action
             android:id="@+id/action_homeFragment_to_actorsFragment"
             app:destination="@id/actorsFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_exploringFragment"
+            app:destination="@id/exploringFragment" />
+
         <action
             android:id="@+id/action_homeFragment_to_watchHistoryFragment"
             app:destination="@id/watchHistoryFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_matchScreenFragment"
+            app:destination="@id/matchScreenFragment" />
         <action
             android:id="@+id/action_homeFragment_to_actorDetailsFragment"
             app:destination="@id/actorDetailsFragment" />
@@ -258,6 +267,9 @@
         <argument
             android:name="movie_id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_saveMovieDialog_to_myListFragment"
+            app:destination="@id/myListFragment" />
     </dialog>
 
     <dialog
@@ -471,10 +483,19 @@
             app:destination="@id/editProfileFragment" />
     </dialog>
     <fragment
+        android:id="@+id/matchQuestionsFragment"
+        android:name="com.karrar.movieapp.ui.match.questions.MatchQuestionsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_match_questions" />
+    <fragment
         android:id="@+id/matchScreenFragment"
         android:name="com.karrar.movieapp.ui.match.MatchScreenFragment"
         android:label="fragment_match_screen"
-        tools:layout="@layout/fragment_match_screen" />
+        tools:layout="@layout/fragment_match_screen" >
+        <action
+            android:id="@+id/action_matchScreenFragment_to_matchQuestionsFragment"
+            app:destination="@id/matchQuestionsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/seasonsFragment"

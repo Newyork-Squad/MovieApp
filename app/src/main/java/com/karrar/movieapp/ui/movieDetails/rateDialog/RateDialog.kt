@@ -21,6 +21,14 @@ class RateDialog : BaseDialogFragment<DialogRateBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setWidthPercent(90)
+
+        // collect UI state
+        collectLast(viewModel.rateDialogUIState) { state ->
+            binding.apply {
+                ratingBar.rating = state.rate
+            }
+        }
+
         collectLast(viewModel.rateDialogUIEvent) {
             it.getContentIfNotHandled()?.let { onEvent(it) }
         }

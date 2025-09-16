@@ -46,86 +46,135 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view" />
-            
+
             <ImageView
                 android:id="@+id/btn_close"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/outline_close"
                 android:contentDescription="@string/cancel"
-                app:tint="@color/shade_secondary"
+                android:src="@drawable/outline_close"
+                app:layout_constraintBottom_toBottomOf="@id/text_confirmation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/text_confirmation"
-                app:layout_constraintBottom_toBottomOf="@id/text_confirmation"
+                app:tint="@color/shade_secondary" />
+
+
+            <ImageView
+                android:id="@+id/emoji_rate1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/not_now"
+                android:src="@drawable/colored_frowning_face"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/spacing_too_small"
+                app:layout_constraintTop_toBottomOf="@+id/text_confirmation"
+                app:layout_constraintStart_toStartOf="@id/rating_bar"
+                app:layout_constraintEnd_toStartOf="@+id/emoji_rate2"
                 />
 
+            <ImageView
+                android:id="@+id/emoji_rate2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/not_now"
+                android:src="@drawable/colored_confused_face"
+                android:layout_marginEnd="@dimen/spacing_too_small"
+                app:layout_constraintTop_toTopOf="@+id/emoji_rate1"
+                app:layout_constraintBottom_toBottomOf="@+id/emoji_rate1"
+                app:layout_constraintStart_toEndOf="@+id/emoji_rate1"
+                app:layout_constraintEnd_toStartOf="@+id/emoji_rate3"
+                />
 
+            <ImageView
+                android:id="@+id/emoji_rate3"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/not_now"
+                android:src="@drawable/colored_neutral_face"
+                android:layout_marginEnd="@dimen/spacing_too_small"
+                app:layout_constraintTop_toTopOf="@+id/emoji_rate1"
+                app:layout_constraintBottom_toBottomOf="@+id/emoji_rate1"
+                app:layout_constraintStart_toEndOf="@+id/emoji_rate2"
+                app:layout_constraintEnd_toStartOf="@+id/emoji_rate4"
+                />
 
+            <ImageView
+                android:id="@+id/emoji_rate4"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/not_now"
+                android:src="@drawable/colored_smiling_face_with_smiling_eyes"
+                android:layout_marginEnd="@dimen/spacing_too_small"
+                app:layout_constraintTop_toTopOf="@+id/emoji_rate1"
+                app:layout_constraintBottom_toBottomOf="@+id/emoji_rate1"
+                app:layout_constraintStart_toEndOf="@+id/emoji_rate3"
+                app:layout_constraintEnd_toStartOf="@+id/emoji_rate5"
+                />
+
+            <ImageView
+                android:id="@+id/emoji_rate5"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/not_now"
+                android:src="@drawable/colored_star_struck"
+                android:layout_marginStart="@dimen/spacing_too_small"
+                app:layout_constraintTop_toTopOf="@+id/emoji_rate1"
+                app:layout_constraintBottom_toBottomOf="@+id/emoji_rate1"
+                app:layout_constraintStart_toEndOf="@+id/emoji_rate4"
+                app:layout_constraintEnd_toEndOf="@id/rating_bar"
+                />
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:backgroundTint="@color/shade_secondary"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:progressDrawable="@drawable/rating_bar"
+                android:rating="@{rate}"
+                android:stepSize="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emoji_rate1"
+                tools:ignore="TouchTargetSizeCheck"
+                tools:rating="3.5" />
 
             <LinearLayout
                 android:id="@+id/buttons_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="24dp"
                 android:orientation="vertical"
-                android:weightSum="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_confirmation">
-
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_medium"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    >
-                </LinearLayout>
-
-
-                <RatingBar
-                    android:id="@+id/rating_bar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:stepSize="0.5"
-                    android:layout_gravity="center"
-                    android:rating="@{rate}"
-                    tools:rating="3.5"
-                    android:isIndicator="false"
-                    android:progressDrawable="@drawable/rating_bar"
-                    android:backgroundTint="@color/shade_secondary"
-                    app:layout_constraintTop_toBottomOf="@id/text_confirmation"
-                    tools:ignore="TouchTargetSizeCheck"
-                    />
+                app:layout_constraintTop_toBottomOf="@id/rating_bar">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_rate"
-                    android:background="@drawable/btn_rectangle_disable"
-                    android:layout_width="match_parent"
                     style="@style/Body_MD.Medium"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginTop="@dimen/spacing_large"
-                    android:textColor="@color/button_onPrimary"
+                    android:background="@drawable/btn_rectangle_disable"
                     android:text="@string/change_rating"
-                    android:textAllCaps="false"/>
+                    android:textAllCaps="false"
+                    android:textColor="@color/button_onPrimary" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_remove_rate"
-                    android:background="@drawable/btn_rectangle"
-                    android:layout_width="match_parent"
                     style="@style/Body_MD.Medium"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
-                    android:layout_weight="1"
-                    android:textColor="@color/button_onTertiary"
-                    app:backgroundTint="@color/background_bottomSheet"
+                    android:background="@drawable/btn_rectangle"
                     android:text="@string/remove_rating"
+                    android:textAllCaps="false"
+                    android:textColor="@color/button_onTertiary"
                     android:visibility="visible"
-                    android:textAllCaps="false"/>
+                    app:backgroundTint="@color/background_bottomSheet" />
 
             </LinearLayout>
 

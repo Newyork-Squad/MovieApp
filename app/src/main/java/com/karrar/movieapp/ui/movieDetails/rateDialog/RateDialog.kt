@@ -10,6 +10,8 @@ import com.karrar.movieapp.ui.base.BaseDialogFragment
 import com.karrar.movieapp.utilities.collectLast
 import com.karrar.movieapp.utilities.setWidthPercent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.ceil
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class RateDialog : BaseDialogFragment<DialogRateBinding>() {
@@ -25,6 +27,14 @@ class RateDialog : BaseDialogFragment<DialogRateBinding>() {
         collectLast(viewModel.rateDialogUIState) { state ->
             binding.apply {
                 ratingBar.rating = state.inputRate
+                val emojiRates = listOf(binding.emojiRate1, binding.emojiRate2, binding.emojiRate3, binding.emojiRate4, binding.emojiRate5)
+                emojiRates.forEachIndexed { index, emoji ->
+                    if (index + 1 == ceil(state.inputRate).toInt()) {
+                        emoji.apply { alpha = 1f; scaleX = 1.3f; scaleY = 1.3f }
+                    } else {
+                        emoji.apply { alpha = 0.7f; scaleX = 1f; scaleY = 1f }
+                    }
+                }
                 if (state.rate == 0f && state.inputRate == 0f){
                     btnRate.text = getString(R.string.add_rating)
                     btnRate.isEnabled = false

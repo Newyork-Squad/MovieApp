@@ -231,13 +231,11 @@ class SearchViewModel @Inject constructor(
         }
     }
     fun onClearSearchHistory() {
-        Log.d("SearchViewModel", "Clear All clicked")
         viewModelScope.launch {
             try {
                 clearSearchHistoryUseCase()
                 _uiState.update { it.copy(searchHistory = emptyList()) }
             } catch (e: Throwable) {
-                Log.d("SearchViewModel", e.message.toString())
                 _uiState.update {
                     it.copy(error = listOf(Error(0, e.message.toString())))
                 }

@@ -61,7 +61,12 @@ class RateDialogViewModel @Inject constructor(
                         0.0f
                     }
                 }
-                _rateDialogUIState.update { it.copy(rate = rate) }
+                _rateDialogUIState.update {
+                    it.copy(
+                        rate = rate,
+                        inputRate = rate
+                    )
+                }
             } catch (t: Throwable) {
                 _rateDialogUIEvent.update { Event(RateDialogUIEvent.ShowMessage("Error occurred. Please try again.")) }
             }
@@ -69,17 +74,13 @@ class RateDialogViewModel @Inject constructor(
     }
 
     override fun onStarClick(newRate: Float) {
-        _rateDialogUIState.update { it.copy(rate = newRate) }
+        _rateDialogUIState.update { it.copy(inputRate = newRate) }
     }
 
     override fun onSubmitClick() {
         val mediaId = args.mediaId
         val mediaType = args.mediaType
-        val rate = _rateDialogUIState.value.rate
-        if (rate == null) {
-            _rateDialogUIEvent.update { Event(RateDialogUIEvent.ShowMessage("Please select a rating")) }
-            return
-        }
+        val rate = _rateDialogUIState.value.inputRate
         viewModelScope.launch {
             try {
                 when (mediaType) {

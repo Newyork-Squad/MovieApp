@@ -8,11 +8,6 @@
         <variable
             name="rate"
             type="Float" />
-
-        <variable
-            name="listener"
-            type="com.karrar.movieapp.ui.movieDetails.rateDialog.RateDialogViewModel" />
-
     </data>
 
 

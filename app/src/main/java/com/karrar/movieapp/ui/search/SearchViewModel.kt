@@ -270,8 +270,14 @@ class SearchViewModel @Inject constructor(
         _searchUIEvent.update { Event(SearchUIEvent.ClickRecentViewedEvent(item)) }
     }
 
-    override fun onClearAllClicked() {
+    override fun onClearAllRecentHistoryClicked() {
         viewModelScope.launch { clearAllRecentViewedUseCase() }
+        getAllSearchHistory()
+        getRecentViewed()
+    }
+
+    override fun onClearAllQueryHistoryClicked() {
+        viewModelScope.launch { clearSearchHistoryUseCase() }
         getAllSearchHistory()
         getRecentViewed()
     }

@@ -1,5 +1,6 @@
 package com.karrar.movieapp.ui.movieDetails.rateDialog
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -26,6 +27,16 @@ class RateDialog : BaseDialogFragment<DialogRateBinding>() {
         collectLast(viewModel.rateDialogUIState) { state ->
             binding.apply {
                 ratingBar.rating = state.rate
+                if (state.rate == 0f){
+                    btnRate.text = getString(R.string.add_rating)
+                    btnRate.isEnabled = false
+                    btnRemoveRate.visibility = View.GONE
+                }
+                else{
+                    btnRate.text = getString(R.string.change_rating)
+                    btnRate.isEnabled = true
+                    btnRemoveRate.visibility = View.VISIBLE
+                }
             }
         }
 

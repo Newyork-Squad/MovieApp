@@ -211,4 +211,6 @@
 
     <string name="match">كيفي</string>
     <string name="me">انا</string>
+    <string name="search_suggestions">اقتراحات البحث</string>
+
 </resources>

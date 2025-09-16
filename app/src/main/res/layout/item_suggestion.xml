@@ -1,0 +1,61 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.karrar.movieapp.ui.search.mediaSearchUIState.SuggestionUiState" />
+
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.search.adapters.SuggestionsInteractionListener" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{() -> listener.onSuggestionsClicked(item)}"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp">
+
+            <ImageView
+                android:id="@+id/iv_start_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
+                app:srcCompat="@{item.isHistory ? @drawable/ic_history : @drawable/ic_search}"
+                app:tint="@color/shade_tertiary" />
+
+            <TextView
+                android:id="@+id/tv_suggestion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{item}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_end_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:onClick="@{() -> listener.onSuggestionFill(item)}"
+                android:src="@drawable/outline_arrow_left_up"
+                app:tint="@color/shade_tertiary" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+    </LinearLayout>
+</layout>

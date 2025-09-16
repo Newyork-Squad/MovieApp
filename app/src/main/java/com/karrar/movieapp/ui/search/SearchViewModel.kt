@@ -18,11 +18,13 @@ import com.karrar.movieapp.ui.search.adapters.MediaSearchInteractionListener
 import com.karrar.movieapp.ui.search.adapters.RecentViewedInteractionListener
 import com.karrar.movieapp.ui.search.adapters.SearchHistoryInteractionListener
 import com.karrar.movieapp.ui.search.adapters.SearchItemInteractionListener
+import com.karrar.movieapp.ui.search.adapters.SuggestionsInteractionListener
 import com.karrar.movieapp.ui.search.mediaSearchUIState.MediaSearchUIState
 import com.karrar.movieapp.ui.search.mediaSearchUIState.MediaTypes
 import com.karrar.movieapp.ui.search.mediaSearchUIState.MediaUIState
 import com.karrar.movieapp.ui.search.mediaSearchUIState.RecentMovieViewedUiState
 import com.karrar.movieapp.ui.search.mediaSearchUIState.SearchItemUiState
+import com.karrar.movieapp.ui.search.mediaSearchUIState.SuggestionUiState
 import com.karrar.movieapp.ui.search.uiStatMapper.RecentMovieViewedUiStateMapper
 import com.karrar.movieapp.ui.search.uiStatMapper.SearchHistoryUIStateMapper
 import com.karrar.movieapp.ui.search.uiStatMapper.SearchMediaUIStateMapper
@@ -51,7 +53,7 @@ class SearchViewModel @Inject constructor(
     private val clearAllRecentViewedUseCase: ClearAllRecentViewedUseCase,
 ) : BaseViewModel(), MediaSearchInteractionListener, ActorSearchInteractionListener,
     SearchHistoryInteractionListener, RecentViewedInteractionListener,
-    SearchItemInteractionListener {
+    SearchItemInteractionListener, SuggestionsInteractionListener {
 
     private val _uiState = MutableStateFlow(MediaSearchUIState())
     val uiState = _uiState.asStateFlow()
@@ -68,9 +70,14 @@ class SearchViewModel @Inject constructor(
     private val _searchSections = MutableStateFlow<List<SearchItemUiState>>(emptyList())
     val searchSections = _searchSections.asStateFlow()
 
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery
+
+
     init {
         getAllSearchHistory()
         getRecentViewed()
+        updateSearchSections()
     }
 
     override fun getData() {
@@ -263,5 +270,16 @@ class SearchViewModel @Inject constructor(
         getAllSearchHistory()
         getRecentViewed()
     }
+
+    override fun onSuggestionsClicked(name: String) {
+        onSearchInputChange(name)
+    }
+
+    override fun onSuggestionFill(name: String) {
+        _searchQuery.value = name
+    }
+
+
+
 
 }

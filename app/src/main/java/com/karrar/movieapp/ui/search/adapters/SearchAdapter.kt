@@ -59,6 +59,21 @@ class SearchAdapter(
                     executePendingBindings()
                 }
             }
+
+            is SearchItemUiState.SuggestionsItems -> {
+                holder.binding.run {
+                    setVariable(
+                        BR.adapterRecycler,
+                        SuggestionsAdapter(
+                            currentItem.data,
+                            R.layout.item_suggestion,
+                            listener as SuggestionsInteractionListener
+                        )
+                    )
+                    setVariable(BR.listener,listener)
+                    executePendingBindings()
+                }
+            }
         }
     }
 
@@ -75,7 +90,7 @@ class SearchAdapter(
         return when (items[position]) {
             is SearchItemUiState.SearchItemHistory -> R.layout.list_search_history
             is SearchItemUiState.RecentViewed -> R.layout.list_recent_viewed
-
+            is SearchItemUiState.SuggestionsItems -> R.layout.item_suggestion
         }
     }
 

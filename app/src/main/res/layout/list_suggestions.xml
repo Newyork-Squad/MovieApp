@@ -1,0 +1,45 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="adapterRecycler"
+            type="com.karrar.movieapp.ui.search.adapters.SuggestionsAdapter" />
+
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.search.adapters.SuggestionsInteractionListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/tv_section_title"
+            style="@style/Title.SM"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:textStyle="bold"
+            android:text="@string/search_suggestions"
+            android:textColor="@color/shade_primary" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_suggestions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:overScrollMode="never"
+            app:adapterRecycler="@{adapterRecycler}"
+            />
+
+    </LinearLayout>
+</layout>

@@ -12,6 +12,7 @@ data class MediaSearchUIState(
     val searchResult: Flow<PagingData<MediaUIState>> = emptyFlow(),
     val searchHistory: List<SearchHistoryUIState> = emptyList(),
     val recentMovieViewed: List<RecentMovieViewedUiState> = emptyList(),
+    val suggestions: List<SuggestionUiState> = emptyList(),
     val isLoading : Boolean = false,
     val isEmpty: Boolean = false,
     val error : List<Error> = emptyList(),

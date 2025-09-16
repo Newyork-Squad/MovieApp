@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.karrar.movieapp.ui.search.SearchViewModel" />
@@ -29,11 +29,14 @@
             style="@style/Body_MD.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{() -> viewModel.onClearSearchHistory()}"
             android:text="@string/clear_all"
             android:textColor="@color/brand_primary"
-            app:hideWhenListIsEmpty="@{viewModel.uiState.searchHistory}"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            />
+
     </LinearLayout>
 </layout>

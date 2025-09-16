@@ -62,7 +62,7 @@ class MovieRepositoryImp @Inject constructor(
     private val searchDataSourceContainer: SearchDataSourceContainer,
     private val movieDataSource: MovieDataSourceContainer,
     private val actorMovieDataSource: ActorMovieDataSource,
-    private val queryMapper: MovieQueryMapper
+    private val queryMapper: MovieQueryMapper,
 ) : BaseRepository(), MovieRepository {
 
     override suspend fun getMovieGenreList(): List<GenreDto>? {
@@ -146,6 +146,10 @@ class MovieRepositoryImp @Inject constructor(
 
     override suspend fun deleteSearchItem(item: SearchHistoryEntity) {
         return movieDao.delete(item)
+    }
+
+    override suspend fun clearSearchHistory() {
+        movieDao.clearSearchHistory()
     }
 
     override suspend fun insertMovie(movie: WatchHistoryEntity) {
@@ -452,7 +456,7 @@ class MovieRepositoryImp @Inject constructor(
         moods: List<Mood>,
         genres: List<MatchingGenre>,
         runtime: Runtime,
-        era: Era
+        era: Era,
     ): List<MovieDto>? {
         val keyword = queryMapper.mapMoods(moods)
         val genreIds = queryMapper.mapGenres(genres)
@@ -473,7 +477,7 @@ class MovieRepositoryImp @Inject constructor(
     override suspend fun removeMovieFromCollection(
         sessionId: String,
         collectionId: String,
-        movieId: Int
+        movieId: Int,
     ): DefaultResponse? {
         return movieService.removeMovieFromCollection(
             collectionId = collectionId,

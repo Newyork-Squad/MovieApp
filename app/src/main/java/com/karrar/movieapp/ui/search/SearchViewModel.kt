@@ -1,9 +1,13 @@
 package com.karrar.movieapp.ui.search
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.map
+import com.karrar.movieapp.domain.mappers.search.SearchHistoryItemMapper
+import com.karrar.movieapp.domain.usecases.searchUseCase.ClearSearchHistoryUseCase
+import com.karrar.movieapp.domain.usecases.searchUseCase.DeleteSearchHistoryItemUseCase
 import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForActorUseCase
 import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForMovieUseCase
 import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForSeriesUserCase
@@ -17,6 +21,7 @@ import com.karrar.movieapp.ui.search.adapters.SearchHistoryInteractionListener
 import com.karrar.movieapp.ui.search.mediaSearchUIState.MediaSearchUIState
 import com.karrar.movieapp.ui.search.mediaSearchUIState.MediaTypes
 import com.karrar.movieapp.ui.search.mediaSearchUIState.MediaUIState
+import com.karrar.movieapp.ui.search.mediaSearchUIState.SearchHistoryUIState
 import com.karrar.movieapp.ui.search.uiStatMapper.SearchHistoryUIStateMapper
 import com.karrar.movieapp.ui.search.uiStatMapper.SearchMediaUIStateMapper
 import com.karrar.movieapp.utilities.Event
@@ -34,11 +39,14 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val searchHistoryUIStateMapper: SearchHistoryUIStateMapper,
     private val searchMediaUIStateMapper: SearchMediaUIStateMapper,
+    private val searchHistoryItemMapper: SearchHistoryItemMapper,
     private val getSearchForMovieUseCase: GetSearchForMovieUseCase,
     private val getSearchForSeriesUserCase: GetSearchForSeriesUserCase,
     private val getSearchForActorUseCase: GetSearchForActorUseCase,
     private val getSearchHistoryUseCase: GetSearchHistoryUseCase,
     private val postSaveSearchResultUseCase: PostSaveSearchResultUseCase,
+    private val deleteSearchHistoryItemUseCase: DeleteSearchHistoryItemUseCase,
+    private val clearSearchHistoryUseCase: ClearSearchHistoryUseCase
 ) : BaseViewModel(), MediaSearchInteractionListener, ActorSearchInteractionListener,
     SearchHistoryInteractionListener {
 
@@ -156,6 +164,11 @@ class SearchViewModel @Inject constructor(
         onSearchInputChange(name)
     }
 
+    override fun onClickDeleteSearchHistoryItem(item: SearchHistoryUIState) {
+        onDeleteSearchHistoryItem(item)
+    }
+
+
     fun onClickBack() {
         _searchUIEvent.update { Event(SearchUIEvent.ClickBackEvent) }
     }
@@ -205,5 +218,32 @@ class SearchViewModel @Inject constructor(
     fun setToggleVisibility(visible: Boolean) {
         _showToggle.value = visible
     }
+
+    fun onDeleteSearchHistoryItem(item: SearchHistoryUIState) {
+        viewModelScope.launch {
+            try {
+                deleteSearchHistoryItemUseCase(searchHistoryItemMapper.map(item))
+            } catch (e: Throwable) {
+                _uiState.update {
+                    it.copy(error = listOf(Error(0, e.message.toString())))
+                }
+            }
+        }
+    }
+    fun onClearSearchHistory() {
+        Log.d("SearchViewModel", "Clear All clicked")
+        viewModelScope.launch {
+            try {
+                clearSearchHistoryUseCase()
+                _uiState.update { it.copy(searchHistory = emptyList()) }
+            } catch (e: Throwable) {
+                Log.d("SearchViewModel", e.message.toString())
+                _uiState.update {
+                    it.copy(error = listOf(Error(0, e.message.toString())))
+                }
+            }
+        }
+    }
+
 
 }

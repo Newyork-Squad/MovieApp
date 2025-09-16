@@ -4,7 +4,7 @@
     <string name="see_all">See all</string>
     <string name="show_more">Show More</string>
     <string name="top_rated">Top Rated</string>
-    <string name="latest">Latest</string>
+    <string name="recently_released">Recently Released</string>
     <string name="popular">Popular</string>
     <string name="tv_shows">TV Shows</string>
     <string name="search_hint">Search…</string>
@@ -38,12 +38,12 @@
     <string name="title_adventure">Adventure</string>
     <string name="title_trending">Trending</string>
     <string name="title_streaming">Now Streaming</string>
-    <string name="title_upcoming">Upcoming</string>
+    <string name="title_upcoming">Upcoming Movies</string>
     <string name="title_recently_viewed">You Recently Viewed</string>
     <string name="your_collections">Your Collections</string>
     <string name="title_celebrity">Celebrities</string>
     <string name="title_airing_today">Airing today</string>
-    <string name="title_top_rated_tv_show">Top Rated Tv-Show</string>
+    <string name="title_top_rated_tv_show">Top Rated TV Shows</string>
     <string name="text_movies">%s Movies</string>
     <string name="movies_label">Movies</string>
     <string name="series_label">Series</string>
@@ -198,6 +198,7 @@
     <string name="nothing_found">Nothing Found!</string>
     <string name="nothing_found_message">We searched the entire universe… but\n found nothing matching your query. Try\n something else?</string>
     <string name="clear_all">Clear All</string>
+    <string name="you_recent_viewed">You Recent Viewed</string>
 
     <string name="seasons_title">Seasons</string>
     <string name="new_collection">New Collection</string>
@@ -208,4 +209,10 @@
     <string name="answer_a_few_quick_questions_and_we_ll_match_you_with_the_perfect_picks">Answer a few quick questions and we’ll match you with the perfect picks.</string>
     <string name="match">Match</string>
     <string name="me">Me</string>
+    <string name="let_us_choose_for_you">Let Us Choose For You!</string>
+    <string name="what_should_i_watch">What Should I Watch?</string>
+    <string name="we_ll_help_you_skip_the_scroll_and_go_straight_to_the_good_stuff">We’ll help you skip the scroll and go straight to the good stuff.</string>
+    <string name="need_more_to_watch">Need More to Watch?</string>
+    <string name="browse_everything">Browse Everything</string>
+    <string name="explore_all_movies_and_series_by_genre_or_search_for_anything_you_like">Explore all movies and series by genre or search for anything you like.</string>
 </resources>

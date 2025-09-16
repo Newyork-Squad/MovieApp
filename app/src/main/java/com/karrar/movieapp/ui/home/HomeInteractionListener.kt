@@ -6,4 +6,7 @@ interface HomeInteractionListener : BaseInteractionListener {
     fun onClickSeeAllActors()
     fun onClickSeeAllRecentlyViewed()
     fun onClickSeeAllCollections()
+    fun onClickNeedMoreToWatch()
+    fun onClickWhatShouldWatch()
+
 }

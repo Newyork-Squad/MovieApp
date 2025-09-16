@@ -142,7 +142,7 @@
             android:paddingVertical="@dimen/spacing_too_small"
             android:scrollbars="none"
             app:hideWhenSearch="@{viewModel.uiState.searchInput}"
-            app:items="@{viewModel.uiState.searchHistory}"
+            app:items="@{viewModel.searchSections}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/input_search"

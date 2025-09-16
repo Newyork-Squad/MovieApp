@@ -3,7 +3,7 @@
 
     <string name="show_more">عرض المزيد</string>
     <string name="top_rated">الأعلى تقييمًا</string>
-    <string name="latest">الأحدث</string>
+    <string name="recently_released">الأحدث</string>
     <string name="popular">الشائع</string>
     <string name="tv_shows">المسلسلات</string>
     <string name="search_hint">ابحث…</string>
@@ -205,6 +205,7 @@
     <string name="tiktok">تيك توك</string>
     <string name="see_all">عرض الكل</string>
     <string name="clear_all">مسح الكل</string>
+    <string name="you_recent_viewed">شاهدته مؤخرًا</string>
     <string name="seasons_title">المواسم</string>
 
 

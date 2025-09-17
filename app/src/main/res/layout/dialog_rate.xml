@@ -63,14 +63,14 @@
                 android:id="@+id/emoji_rate1"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_marginTop="20dp"
                 android:contentDescription="@string/not_now"
                 android:src="@drawable/colored_frowning_face"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/spacing_too_small"
-                app:layout_constraintTop_toBottomOf="@+id/text_confirmation"
-                app:layout_constraintStart_toStartOf="@id/rating_bar"
+                android:layout_marginStart="@dimen/spacing_small"
                 app:layout_constraintEnd_toStartOf="@+id/emoji_rate2"
-                />
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/rating_bar"
+                app:layout_constraintTop_toBottomOf="@+id/text_confirmation" />
 
             <ImageView
                 android:id="@+id/emoji_rate2"
@@ -78,7 +78,6 @@
                 android:layout_height="24dp"
                 android:contentDescription="@string/not_now"
                 android:src="@drawable/colored_confused_face"
-                android:layout_marginEnd="@dimen/spacing_too_small"
                 app:layout_constraintTop_toTopOf="@+id/emoji_rate1"
                 app:layout_constraintBottom_toBottomOf="@+id/emoji_rate1"
                 app:layout_constraintStart_toEndOf="@+id/emoji_rate1"
@@ -91,7 +90,6 @@
                 android:layout_height="24dp"
                 android:contentDescription="@string/not_now"
                 android:src="@drawable/colored_neutral_face"
-                android:layout_marginEnd="@dimen/spacing_too_small"
                 app:layout_constraintTop_toTopOf="@+id/emoji_rate1"
                 app:layout_constraintBottom_toBottomOf="@+id/emoji_rate1"
                 app:layout_constraintStart_toEndOf="@+id/emoji_rate2"
@@ -104,7 +102,6 @@
                 android:layout_height="24dp"
                 android:contentDescription="@string/not_now"
                 android:src="@drawable/colored_smiling_face_with_smiling_eyes"
-                android:layout_marginEnd="@dimen/spacing_too_small"
                 app:layout_constraintTop_toTopOf="@+id/emoji_rate1"
                 app:layout_constraintBottom_toBottomOf="@+id/emoji_rate1"
                 app:layout_constraintStart_toEndOf="@+id/emoji_rate3"
@@ -117,12 +114,11 @@
                 android:layout_height="24dp"
                 android:contentDescription="@string/not_now"
                 android:src="@drawable/colored_star_struck"
-                android:layout_marginStart="@dimen/spacing_too_small"
-                app:layout_constraintTop_toTopOf="@+id/emoji_rate1"
+                android:layout_marginEnd="@dimen/spacing_small"
                 app:layout_constraintBottom_toBottomOf="@+id/emoji_rate1"
+                app:layout_constraintEnd_toEndOf="@+id/rating_bar"
                 app:layout_constraintStart_toEndOf="@+id/emoji_rate4"
-                app:layout_constraintEnd_toEndOf="@id/rating_bar"
-                />
+                app:layout_constraintTop_toTopOf="@+id/emoji_rate1" />
 
             <RatingBar
                 android:id="@+id/rating_bar"
@@ -157,7 +153,6 @@
                     style="@style/Body_MD.Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_large"
                     android:background="@drawable/btn_rectangle_disable"
                     android:text="@string/change_rating"
                     android:textAllCaps="false"

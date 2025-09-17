@@ -58,6 +58,7 @@ class AccountRepositoryImp @Inject constructor(
             return false
         }
         appConfiguration.saveSessionId("")
+        appConfiguration.setIsGuest(true)
         return true
     }
 

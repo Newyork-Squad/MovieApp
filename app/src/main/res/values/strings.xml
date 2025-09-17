@@ -162,7 +162,9 @@
     <string name="welcome">Welcome</string>
     <string name="behind_the_scenes">Behind the Scenes</string>
     <string name="give_it_stars">Give it Stars!</string>
+    <string name="you_rated_it">You rated it</string>
     <string name="let_the_world_know_how_you_felt">Let the world know how you felt.</string>
+    <string name="tap_to_change_your_rating">Tap to change your rating</string>
     <string name="arrow">arrow</string>
     <string name="no_history_yet" translatable="false">No History Yet</string>
     <string name="find_something_to_watch" translatable="false">Find Something to Watch</string>

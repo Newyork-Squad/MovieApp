@@ -142,7 +142,9 @@
     <string name="welcome">مرحبا</string>
     <string name="behind_the_scenes">الكواليس</string>
     <string name="give_it_stars">قيمه بالنجوم!</string>
+    <string name="you_rated_it">لقد قيمته</string>
     <string name="let_the_world_know_how_you_felt">دع العالم يعرف رأيك.</string>
+    <string name="tap_to_change_your_rating">إضغط لتغيير تقييمك</string>
     <string name="arrow">سهم</string>
     <string name="change_language">تغيير اللغة</string>
     <string name="english">الإنجليزية</string>

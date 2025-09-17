@@ -58,10 +58,11 @@ class HomeViewModel @Inject constructor(
     private val _profileDetailsUIState = MutableStateFlow(ProfileUIState())
     val profileDetailsUIState = _profileDetailsUIState.asStateFlow()
 
+    private var lastRefreshTime = 0L
+
     init {
         getHomeData()
     }
-
 
     private fun getHomeData() {
         _homeUiState.update { it.copy(isLoading = true) }
@@ -80,8 +81,15 @@ class HomeViewModel @Inject constructor(
     }
 
     fun refreshHomeData() {
-        getProfileDetails()
-        getCollections()
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastRefreshTime < 1000) {
+            return
+        }
+        lastRefreshTime = currentTime
+        _homeUiState.update {
+            HomeUiState().copy(isLoading = true)
+        }
+        getHomeData()
     }
 
     private fun getProfileDetails() {
@@ -124,7 +132,6 @@ class HomeViewModel @Inject constructor(
         SharingStarted.Lazily,
         "Home"
     )
-
 
     private fun getPopularMovies() {
         viewModelScope.launch {
@@ -170,8 +177,6 @@ class HomeViewModel @Inject constructor(
                 onError(th.message.toString())
             }
         }
-
-
     }
 
     private fun getTopRatedTvShow() {
@@ -236,8 +241,8 @@ class HomeViewModel @Inject constructor(
         if (!checkIfLoggedInUseCase()) {
             _homeUiState.update {
                 it.copy(isLoading = false)
-                return
             }
+            return
         }
 
         viewModelScope.launch {
@@ -249,7 +254,6 @@ class HomeViewModel @Inject constructor(
                         isLoading = false
                     )
                 }
-
             } catch (th: Throwable) {
                 onError(th.message.toString())
             }
@@ -273,12 +277,10 @@ class HomeViewModel @Inject constructor(
                 onClickSeeAllRecentlyViewed()
                 return
             }
-
             HomeItemsType.COLLECTIONS -> {
                 onClickSeeAllCollections()
                 return
             }
-
             HomeItemsType.NON -> AllMediaType.ACTOR_MOVIES
         }
         _homeUIEvent.update { Event(HomeUIEvent.ClickSeeAllMovieEvent(type)) }
@@ -286,7 +288,6 @@ class HomeViewModel @Inject constructor(
 
     override fun onClickSeeAllActors() {
         _homeUIEvent.update { Event(HomeUIEvent.ClickSeeAllActorEvent) }
-
     }
 
     override fun onClickSeeAllRecentlyViewed() {
@@ -328,5 +329,4 @@ class HomeViewModel @Inject constructor(
     override fun onClickNeedMoreToWatch() {
         _homeUIEvent.update { Event(HomeUIEvent.clickToExploreScreen) }
     }
-
 }

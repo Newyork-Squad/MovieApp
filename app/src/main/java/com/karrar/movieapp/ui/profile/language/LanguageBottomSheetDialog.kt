@@ -1,11 +1,13 @@
 package com.karrar.movieapp.ui.profile.language
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.BottomSheetLanguageBinding
 import com.karrar.movieapp.ui.base.BaseDialog
@@ -13,12 +15,13 @@ import com.karrar.movieapp.ui.main.MainActivity
 import com.karrar.movieapp.utilities.collectLast
 import com.karrar.movieapp.utilities.setWidthPercent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LanguagePickerDialog : BaseDialog<BottomSheetLanguageBinding>() {
 
     override val layoutIdFragment: Int = R.layout.bottom_sheet_language
-     val viewModel: LanguageViewModel by viewModels()
+    private val viewModel: LanguageViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,9 +83,18 @@ class LanguagePickerDialog : BaseDialog<BottomSheetLanguageBinding>() {
         when (event) {
             is LanguageUIEvent.LanguageSelected -> {
                 dismiss()
+
                 (requireActivity() as? MainActivity)?.let { activity ->
-                    activity.updateLocale(event.language)
-                    activity.recreate()
+                    activity.lifecycleScope.launch {
+                        try {
+                            activity.updateLocale(event.language)
+                            activity.refreshHomeData()
+                            activity.recreate()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            activity.recreate()
+                        }
+                    }
                 }
             }
             LanguageUIEvent.CloseDialogEvent -> dismiss()

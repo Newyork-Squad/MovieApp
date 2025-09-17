@@ -171,7 +171,7 @@ class TvShowDetailsViewModel @Inject constructor(
                         )
                     )
                 }
-                updateDetailItems(DetailItemUIState.Rating(this@TvShowDetailsViewModel))
+                updateDetailItems(DetailItemUIState.Rating(this@TvShowDetailsViewModel,_stateUI.value.ratingValue))
             } catch (e: Throwable) {
             }
         }
@@ -182,7 +182,6 @@ class TvShowDetailsViewModel @Inject constructor(
             try {
                 setRatingUesCase(args.tvShowId, value)
                 _stateUI.update { it.copy(ratingValue = value) }
-                _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.MessageAppear) }
             } catch (e: Throwable) {
             }
         }

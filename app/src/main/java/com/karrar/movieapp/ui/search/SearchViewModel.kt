@@ -220,6 +220,7 @@ class SearchViewModel @Inject constructor(
     override fun onClickSearchHistory(name: String) {
         onSearchInputChange(name)
         setSearchFocus(false)
+        _searchUIEvent.update { Event(SearchUIEvent.ClickSearchHistoryEvent) }
     }
 
     override fun onClickDeleteSearchHistoryItem(item: SearchHistoryUIState) {

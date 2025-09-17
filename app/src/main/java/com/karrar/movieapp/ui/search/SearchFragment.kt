@@ -123,6 +123,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             }
 
             is SearchUIEvent.ClickRecentViewedEvent -> navigateToMovieDetails(event.recentMovieViewedUiState.mediaID)
+            SearchUIEvent.ClickSearchHistoryEvent -> binding.inputSearch.clearFocus()
         }
     }
 

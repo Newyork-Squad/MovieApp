@@ -90,7 +90,7 @@ class SearchAdapter(
         return when (items[position]) {
             is SearchItemUiState.SearchItemHistory -> R.layout.list_search_history
             is SearchItemUiState.RecentViewed -> R.layout.list_recent_viewed
-            is SearchItemUiState.SuggestionsItems -> R.layout.item_suggestion
+            is SearchItemUiState.SuggestionsItems -> R.layout.list_suggest_search
         }
     }
 

@@ -16,6 +16,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{() -> listener.onSuggestionFill(item)}"
         android:orientation="vertical">
 
         <LinearLayout
@@ -29,26 +30,28 @@
 
             <ImageView
                 android:id="@+id/iv_start_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_gravity="center"
                 app:srcCompat="@{item.isHistory ? @drawable/ic_history : @drawable/ic_search}"
                 app:tint="@color/shade_tertiary" />
 
             <TextView
                 android:id="@+id/tv_suggestion"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@{item}"
+                android:text="@{item.name}"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/iv_end_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:onClick="@{() -> listener.onSuggestionFill(item)}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
                 android:src="@drawable/outline_arrow_left_up"
                 app:tint="@color/shade_tertiary" />
         </LinearLayout>
@@ -56,6 +59,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            android:background="@color/shade_quaternary" />
     </LinearLayout>
 </layout>

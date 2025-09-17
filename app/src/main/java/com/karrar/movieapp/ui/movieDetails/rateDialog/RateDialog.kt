@@ -7,11 +7,12 @@ import androidx.fragment.app.viewModels
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.DialogRateBinding
 import com.karrar.movieapp.ui.base.BaseDialogFragment
+import com.karrar.movieapp.utilities.Constants.INPUT_RATE_KEY
+import com.karrar.movieapp.utilities.Constants.RATE_DIALOG_DISMISSED_KEY
 import com.karrar.movieapp.utilities.collectLast
 import com.karrar.movieapp.utilities.setWidthPercent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.ceil
-import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class RateDialog : BaseDialogFragment<DialogRateBinding>() {
@@ -78,6 +79,8 @@ class RateDialog : BaseDialogFragment<DialogRateBinding>() {
     private fun onEvent(event: RateDialogUIEvent) {
         when (event) {
             is RateDialogUIEvent.CloseDialog -> {
+                val result = Bundle().apply { putFloat(INPUT_RATE_KEY, viewModel.rateDialogUIState.value.inputRate) }
+                parentFragmentManager.setFragmentResult(RATE_DIALOG_DISMISSED_KEY, result)
                 dismiss()
             }
 

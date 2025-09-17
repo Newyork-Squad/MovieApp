@@ -79,7 +79,7 @@ class RateDialog : BaseDialogFragment<DialogRateBinding>() {
     private fun onEvent(event: RateDialogUIEvent) {
         when (event) {
             is RateDialogUIEvent.CloseDialog -> {
-                val result = Bundle().apply { putFloat(INPUT_RATE_KEY, viewModel.rateDialogUIState.value.inputRate) }
+                val result = Bundle().apply { putFloat(INPUT_RATE_KEY, viewModel.rateDialogUIState.value.rate) }
                 parentFragmentManager.setFragmentResult(RATE_DIALOG_DISMISSED_KEY, result)
                 dismiss()
             }

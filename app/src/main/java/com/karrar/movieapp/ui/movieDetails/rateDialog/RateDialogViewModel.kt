@@ -92,6 +92,7 @@ class RateDialogViewModel @Inject constructor(
                         setTvShowsRatingUseCase(mediaId, rate)
                     }
                 }
+                _rateDialogUIState.update { it.copy(rate = rate) }
                 onCancelClick()
             } catch (e: Throwable) {
                 _rateDialogUIEvent.update { Event(RateDialogUIEvent.ShowMessage("Error occurred. Please try again.")) }

@@ -178,8 +178,8 @@ class MovieDetailsViewModel @Inject constructor(
     fun onChangeRating(value: Float) {
         viewModelScope.launch {
             try {
-                setRatingUseCase(args.movieId, value)
                 _uiState.update { it.copy(ratingValue = value) }
+                updateRateItemOfNestedView(value)
             } catch (e: Throwable) {
             }
         }
@@ -215,6 +215,19 @@ class MovieDetailsViewModel @Inject constructor(
         list.add(item)
         _uiState.update { it.copy(detailItemResult = list.toList()) }
     }
+
+    private fun updateRateItemOfNestedView(value : Float) {
+        val list = _uiState.value.detailItemResult.toMutableList()
+        val newList = list.map {
+            if (it is DetailItemUIState.Rating) {
+                DetailItemUIState.Rating(this@MovieDetailsViewModel, value)
+            } else {
+                it
+            }
+        }
+        _uiState.update { it.copy( detailItemResult = newList ) }
+    }
+
 
     private fun showLoginDialog() {
         _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ShowLoginDialogEvent) }

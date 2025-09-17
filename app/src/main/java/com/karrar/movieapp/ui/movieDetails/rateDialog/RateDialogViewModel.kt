@@ -92,7 +92,6 @@ class RateDialogViewModel @Inject constructor(
                         setTvShowsRatingUseCase(mediaId, rate)
                     }
                 }
-                _rateDialogUIEvent.update { Event(RateDialogUIEvent.ShowMessage("We submitted your rate")) }
                 onCancelClick()
             } catch (e: Throwable) {
                 _rateDialogUIEvent.update { Event(RateDialogUIEvent.ShowMessage("Error occurred. Please try again.")) }
@@ -114,7 +113,12 @@ class RateDialogViewModel @Inject constructor(
                         deleteSeriesRatingUseCase(mediaId)
                     }
                 }
-                _rateDialogUIEvent.update { Event(RateDialogUIEvent.ShowMessage("We removed your rate")) }
+                _rateDialogUIState.update {
+                    it.copy(
+                        rate = 0f,
+                        inputRate = 0f
+                    )
+                }
                 onCancelClick()
             } catch (e: Throwable) {
                 _rateDialogUIEvent.update { Event(RateDialogUIEvent.ShowMessage("Error occurred. Please try again.")) }

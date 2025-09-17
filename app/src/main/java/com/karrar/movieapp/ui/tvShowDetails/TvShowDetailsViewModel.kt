@@ -180,8 +180,8 @@ class TvShowDetailsViewModel @Inject constructor(
     fun onChangeRating(value: Float) {
         viewModelScope.launch {
             try {
-                setRatingUesCase(args.tvShowId, value)
                 _stateUI.update { it.copy(ratingValue = value) }
+                updateRateItemOfNestedView(value)
             } catch (e: Throwable) {
             }
         }
@@ -216,6 +216,18 @@ class TvShowDetailsViewModel @Inject constructor(
         val list = _stateUI.value.detailItemResult.toMutableList()
         list.add(item)
         _stateUI.update { it.copy(detailItemResult = list.toList()) }
+    }
+
+    private fun updateRateItemOfNestedView(value : Float) {
+        val list = _stateUI.value.detailItemResult.toMutableList()
+        val newList = list.map {
+            if (it is DetailItemUIState.Rating) {
+                DetailItemUIState.Rating(this@TvShowDetailsViewModel, value)
+            } else {
+                it
+            }
+        }
+        _stateUI.update { it.copy( detailItemResult = newList ) }
     }
 
     private suspend fun insertMovieToWatchHistory(tvShow: TvShowDetails) {

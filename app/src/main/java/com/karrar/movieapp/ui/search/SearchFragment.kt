@@ -52,7 +52,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         setupToggle()
         observeToggleVisibility()
         observeSearchSections()
-
+        binding.inputSearch.setOnFocusChangeListener { _, hasFocus ->
+            viewModel.setSearchFocus(hasFocus)
+        }
         collectLast(viewModel.searchUIEvent) {
             it.getContentIfNotHandled()?.let { onEvent(it) }
         }

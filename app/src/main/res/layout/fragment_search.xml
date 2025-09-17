@@ -71,10 +71,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
             android:backgroundTint="@color/background_screen"
+            app:hideWhenFocused="@{viewModel.isSearchFocused}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/imagw_back_arrow"
             app:layout_constraintTop_toBottomOf="@id/input_search"
-            app:showWhenSearch="@{viewModel.uiState.searchInput}"
             app:tabIndicatorColor="@color/brand_primary"
             app:tabSelectedTextColor="@color/brand_primary"
             app:tabTextAppearance="@style/Body_MD.Medium.MyTabTextAppearance"
@@ -116,8 +116,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tab_media_type"
             app:loadingSearch="@{viewModel.uiState.loading}"
-            app:searchInput="@{viewModel.uiState.searchInput}"
-            />
+            app:isSearchFocused="@{viewModel.isSearchFocused}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_search_history"
@@ -128,7 +127,7 @@
             android:overScrollMode="never"
             android:paddingVertical="@dimen/spacing_too_small"
             android:scrollbars="none"
-            app:hideWhenSearch="@{viewModel.uiState.searchInput}"
+            app:showWhenFocused="@{viewModel.isSearchFocused}"
             app:items="@{viewModel.searchSections}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

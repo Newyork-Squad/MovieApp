@@ -113,14 +113,18 @@ fun showWhenIsLoggedInWithoutFail(view: View, isLoggedIn: Boolean, isFail: Boole
 }
 
 //Search
-@BindingAdapter(value = ["app:showWhenSearch"])
-fun showWhenSearch(view: View, text: String) {
-    view.isVisible = text.isNotBlank()
+@BindingAdapter("app:showHistory")
+fun showHistory(view: View, show: Boolean) {
+    view.isVisible = show
+}
+@BindingAdapter("app:showWhenFocused")
+fun showWhenFocused(view: View, isFocused: Boolean) {
+    view.isVisible = isFocused
 }
 
-@BindingAdapter(value = ["app:hideWhenSearch"])
-fun hideWhenSearch(view: View, text: String) {
-    view.isVisible = text.isBlank()
+@BindingAdapter("app:hideWhenFocused")
+fun hideWhenFocused(view: View, isFocused: Boolean) {
+    view.isVisible = !isFocused
 }
 
 @BindingAdapter(value = ["app:hideWhenBlankSearch"])
@@ -130,10 +134,9 @@ fun hideWhenBlankSearch(view: View, text: String) {
     }
 }
 
-
-@BindingAdapter(value = ["app:searchInput", "app:errorSearch", "app:loadingSearch"])
-fun <T> hideWhenSuccessSearch(view: View, text: String, error: List<T>?, loading: Boolean) {
-    view.visibility = if (text.isNotBlank() && error.isNullOrEmpty() && !loading) {
+@BindingAdapter(value = ["app:isSearchFocused", "app:errorSearch", "app:loadingSearch"])
+fun <T> hideWhenSuccessSearch(view: View, isFocused: Boolean, error: List<T>?, loading: Boolean) {
+    view.visibility = if (!isFocused && error.isNullOrEmpty() && !loading) {
         View.VISIBLE
     } else {
         View.INVISIBLE

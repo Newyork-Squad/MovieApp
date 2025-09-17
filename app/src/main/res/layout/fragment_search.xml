@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -127,11 +128,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            app:hideWhenListIsEmpty="@{viewModel.uiState.searchHistory}"
-            app:hideWhenSearch="@{viewModel.uiState.searchInput}"
+            android:visibility="@{(viewModel.uiState.searchHistory.size() > 0) &amp;&amp; (viewModel.uiState.searchInput.isEmpty()) ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="@id/imagw_back_arrow"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_search_input" />
+            app:layout_constraintTop_toBottomOf="@id/ll_search_input"
+            app:viewModel="@{viewModel}"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_media"

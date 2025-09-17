@@ -34,6 +34,10 @@ interface MovieDao {
     @Delete
     suspend fun delete(search: SearchHistoryEntity)
 
+    @Query("DELETE FROM SEARCH_HISTORY_TABLE")
+    suspend fun clearSearchHistory()
+
+
     @Query("SELECT * FROM SEARCH_HISTORY_TABLE")
     fun getAllSearchHistory(): Flow<List<SearchHistoryEntity>>
 

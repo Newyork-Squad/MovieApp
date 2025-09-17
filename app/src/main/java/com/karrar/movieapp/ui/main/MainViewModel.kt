@@ -35,7 +35,6 @@ class MainViewModel @Inject constructor(
     private val _darkMode = MutableStateFlow(false)
     val darkMode: StateFlow<Boolean> = _darkMode
 
-    // Event للتنبيه بتحديث البيانات
     private val _dataRefreshEvent = MutableStateFlow(false)
     val dataRefreshEvent: StateFlow<Boolean> = _dataRefreshEvent
 
@@ -62,7 +61,6 @@ class MainViewModel @Inject constructor(
     fun refreshData() {
         viewModelScope.launch {
             getData()
-            // إطلاق event لتحديث البيانات في كل الـ ViewModels
             _dataRefreshEvent.value = !_dataRefreshEvent.value
         }
     }
@@ -82,11 +80,8 @@ class MainViewModel @Inject constructor(
     suspend fun clearCache(language: String) {
         try {
             clearAppCacheUseCase(language)
-            // انتظار إضافي للتأكد من مسح الكاش
-            kotlinx.coroutines.delay(200)
         } catch (e: Exception) {
             e.printStackTrace()
-            // في حالة فشل مسح الكاش، المتابعة بدونه
         }
     }
 }

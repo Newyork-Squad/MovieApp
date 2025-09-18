@@ -9,6 +9,7 @@ import com.karrar.movieapp.data.local.database.entity.SearchHistoryEntity
 import com.karrar.movieapp.data.local.database.entity.WatchHistoryEntity
 import com.karrar.movieapp.data.local.database.entity.WatchList
 import com.karrar.movieapp.data.local.database.entity.movie.AdventureMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.MovieGenreEntity
 import com.karrar.movieapp.data.local.database.entity.movie.MysteryMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.NowStreamingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
@@ -110,4 +111,13 @@ interface MovieDao {
 
     @Query("SELECT * FROM ADVENTURE_MOVIE_TABLE")
     fun getAdventureMovies(): Flow<List<AdventureMovieEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertGenre(genre: MovieGenreEntity)
+
+    @Query("SELECT * FROM MOVIE_GENRE_TABLE")
+    fun getAllGenres(): Flow<List<MovieGenreEntity>>
+
+    @Query("DELETE FROM MOVIE_GENRE_TABLE")
+    suspend fun deleteAllGenres()
 }

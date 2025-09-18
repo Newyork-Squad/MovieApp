@@ -34,6 +34,7 @@ import com.karrar.movieapp.domain.enums.Era
 import com.karrar.movieapp.domain.enums.MatchingGenre
 import com.karrar.movieapp.domain.enums.Mood
 import com.karrar.movieapp.domain.enums.Runtime
+import com.karrar.movieapp.domain.models.Genre
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
@@ -41,6 +42,8 @@ interface MovieRepository {
     suspend fun getMovieGenreList(): List<GenreDto>?
 
     suspend fun increaseMovieGenreVisitCount(genreId: Int)
+
+    suspend fun getMostVisitedMovieGenres(): Flow<List<Genre>>
 
     suspend fun getDailyTrending(): BaseListResponse<DailyTrendingDto>
 

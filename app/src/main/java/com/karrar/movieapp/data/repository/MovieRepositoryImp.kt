@@ -47,7 +47,10 @@ import com.karrar.movieapp.domain.enums.Mood
 import com.karrar.movieapp.domain.enums.Runtime
 import com.karrar.movieapp.domain.mappers.MediaDataSourceContainer
 import com.karrar.movieapp.domain.mappers.MovieQueryMapper
+import com.karrar.movieapp.domain.mappers.movie.MovieGenreMapper
+import com.karrar.movieapp.domain.models.Genre
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.util.Date
 import javax.inject.Inject
 
@@ -63,6 +66,7 @@ class MovieRepositoryImp @Inject constructor(
     private val movieDataSource: MovieDataSourceContainer,
     private val actorMovieDataSource: ActorMovieDataSource,
     private val queryMapper: MovieQueryMapper,
+    private val movieGenreMapper: MovieGenreMapper
 ) : BaseRepository(), MovieRepository {
 
     override suspend fun getMovieGenreList(): List<GenreDto>? {
@@ -76,6 +80,12 @@ class MovieRepositoryImp @Inject constructor(
 
     override suspend fun increaseMovieGenreVisitCount(genreId: Int) {
         movieDao.increaseGenreVisitCount(genreId)
+    }
+
+    override suspend fun getMostVisitedMovieGenres(): Flow<List<Genre>> {
+        return movieDao.getMostVisitedMovieGenres().map { genreEntities ->
+            genreEntities.map { movieGenreMapper.map(it) }
+        }
     }
 
     override suspend fun getDailyTrending(): BaseListResponse<DailyTrendingDto> {

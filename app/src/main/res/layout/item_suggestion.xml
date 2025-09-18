@@ -5,7 +5,7 @@
 
         <variable
             name="item"
-            type="com.karrar.movieapp.ui.search.mediaSearchUIState.SuggestionUiState" />
+            type="com.karrar.movieapp.ui.search.mediaSearchUIState.SearchKeywordUIState" />
 
         <variable
             name="listener"
@@ -35,7 +35,6 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_gravity="center"
-                app:srcCompat="@{item.isHistory ? @drawable/ic_history : @drawable/ic_search}"
                 app:tint="@color/shade_tertiary" />
 
             <TextView
@@ -43,7 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@{item.name}"
+                android:text="@{item.keyword}"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 

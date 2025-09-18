@@ -1,4 +1,4 @@
-package com.karrar.movieapp.domain.usecases.searchUseCase
+package com.karrar.movieapp.domain.usecases.search
 
 import androidx.paging.*
 import com.karrar.movieapp.data.repository.SeriesRepository

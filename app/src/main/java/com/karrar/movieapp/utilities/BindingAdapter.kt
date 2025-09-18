@@ -374,3 +374,11 @@ fun setOneDecimal(textView: TextView, number: Double?) {
         textView.text = String.format("%.1f", it)
     }
 }
+
+@BindingAdapter("adapterRecycler")
+fun bindRecyclerAdapter(
+    recyclerView: RecyclerView,
+    adapter: RecyclerView.Adapter<*>?
+) {
+    recyclerView.adapter = adapter
+}

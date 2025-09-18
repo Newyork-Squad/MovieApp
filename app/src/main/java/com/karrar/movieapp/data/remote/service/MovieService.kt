@@ -26,6 +26,7 @@ import com.karrar.movieapp.data.remote.response.login.SessionResponse
 import com.karrar.movieapp.data.remote.response.movie.MovieDetailsDto
 import com.karrar.movieapp.data.remote.response.movie.RatingDto
 import com.karrar.movieapp.data.remote.response.review.ReviewsDto
+import com.karrar.movieapp.data.remote.response.search.SearchKeywordResponse
 import com.karrar.movieapp.data.remote.response.trailerVideosDto.TrailerDto
 import com.karrar.movieapp.data.remote.response.tvShow.TvShowDetailsDto
 import com.karrar.movieapp.domain.enums.TrendingTimeWindow
@@ -285,4 +286,11 @@ interface MovieService {
         @Query("session_id") sessionId: String,
         @Field("media_id") movieId: Int
     ): Response<DefaultResponse>
+
+    @GET("search/keyword")
+    suspend fun getSearchKeywords(
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): Response<SearchKeywordResponse>
+
 }

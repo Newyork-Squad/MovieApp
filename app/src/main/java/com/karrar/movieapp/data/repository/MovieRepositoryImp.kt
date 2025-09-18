@@ -36,6 +36,7 @@ import com.karrar.movieapp.data.remote.response.genre.GenreDto
 import com.karrar.movieapp.data.remote.response.movie.MovieDetailsDto
 import com.karrar.movieapp.data.remote.response.movie.RatingDto
 import com.karrar.movieapp.data.remote.response.review.ReviewsDto
+import com.karrar.movieapp.data.remote.response.search.SearchKeywordDto
 import com.karrar.movieapp.data.remote.response.trailerVideosDto.TrailerDto
 import com.karrar.movieapp.data.remote.service.MovieService
 import com.karrar.movieapp.data.repository.mediaDataSource.ActorMovieDataSource
@@ -62,7 +63,7 @@ class MovieRepositoryImp @Inject constructor(
     private val searchDataSourceContainer: SearchDataSourceContainer,
     private val movieDataSource: MovieDataSourceContainer,
     private val actorMovieDataSource: ActorMovieDataSource,
-    private val queryMapper: MovieQueryMapper
+    private val queryMapper: MovieQueryMapper,
 ) : BaseRepository(), MovieRepository {
 
     override suspend fun getMovieGenreList(): List<GenreDto>? {
@@ -414,7 +415,6 @@ class MovieRepositoryImp @Inject constructor(
         return Pager(config = config, pagingSourceFactory = { dataSource })
     }
 
-
     override suspend fun getAllSearchHistory(): Flow<List<SearchHistoryEntity>> {
         return movieDao.getAllSearchHistory()
     }
@@ -452,7 +452,7 @@ class MovieRepositoryImp @Inject constructor(
         moods: List<Mood>,
         genres: List<MatchingGenre>,
         runtime: Runtime,
-        era: Era
+        era: Era,
     ): List<MovieDto>? {
         val keyword = queryMapper.mapMoods(moods)
         val genreIds = queryMapper.mapGenres(genres)
@@ -473,7 +473,7 @@ class MovieRepositoryImp @Inject constructor(
     override suspend fun removeMovieFromCollection(
         sessionId: String,
         collectionId: String,
-        movieId: Int
+        movieId: Int,
     ): DefaultResponse? {
         return movieService.removeMovieFromCollection(
             collectionId = collectionId,
@@ -482,4 +482,19 @@ class MovieRepositoryImp @Inject constructor(
         ).body()
     }
 
+
+    override suspend fun getSearchKeywords(query: String, page: Int): List<SearchKeywordDto>? {
+        return movieService.getSearchKeywords(query, page).body()?.results
+    }
+
+    override fun searchKeywordsPager(query: String): Pager<Int, SearchKeywordDto> {
+        val dataSource = searchDataSourceContainer.keywordSearchDataSource
+        dataSource.setSearchText(query)
+        return Pager(
+            config = config,
+            pagingSourceFactory = {
+                dataSource
+            }
+        )
+    }
 }

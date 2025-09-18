@@ -7,7 +7,7 @@ import com.karrar.movieapp.ui.search.mediaSearchUIState.RecentMovieViewedUiState
 class RecentViewAdapter(
     items: List<RecentMovieViewedUiState>,
     val layout: Int,
-    listener: RecentViewedInteractionListener
+    listener: RecentViewedInteractionListener,
 ) : BaseAdapter<RecentMovieViewedUiState>(items, listener) {
     override val layoutID: Int = layout
 }

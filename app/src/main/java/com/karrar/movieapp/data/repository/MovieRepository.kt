@@ -40,6 +40,8 @@ interface MovieRepository {
 
     suspend fun getMovieGenreList(): List<GenreDto>?
 
+    suspend fun increaseMovieGenreVisitCount(genreId: Int)
+
     suspend fun getDailyTrending(): BaseListResponse<DailyTrendingDto>
 
     suspend fun getMovieTrailer(movieId: Int): TrailerDto?

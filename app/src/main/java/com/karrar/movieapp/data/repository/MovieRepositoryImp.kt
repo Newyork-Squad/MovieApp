@@ -74,6 +74,9 @@ class MovieRepositoryImp @Inject constructor(
         }
     }
 
+    override suspend fun increaseMovieGenreVisitCount(genreId: Int) {
+        movieDao.increaseGenreVisitCount(genreId)
+    }
 
     override suspend fun getDailyTrending(): BaseListResponse<DailyTrendingDto> {
         return movieService.getDailyTrending().body()!!

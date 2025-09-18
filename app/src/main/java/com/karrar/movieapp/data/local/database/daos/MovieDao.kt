@@ -120,4 +120,7 @@ interface MovieDao {
 
     @Query("DELETE FROM MOVIE_GENRE_TABLE")
     suspend fun deleteAllGenres()
+
+    @Query("UPDATE MOVIE_GENRE_TABLE SET visitCount = visitCount + 1 WHERE id = :genreId")
+    suspend fun increaseGenreVisitCount(genreId: Int)
 }

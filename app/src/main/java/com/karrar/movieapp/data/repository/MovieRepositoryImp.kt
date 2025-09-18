@@ -66,7 +66,12 @@ class MovieRepositoryImp @Inject constructor(
 ) : BaseRepository(), MovieRepository {
 
     override suspend fun getMovieGenreList(): List<GenreDto>? {
-        return movieService.getGenreList().body()?.genres
+        val genres = movieService.getGenreList().body()?.genres
+        return genres?.onEach { genre ->
+            movieDao.insertGenre(
+                dataMappers.movieGenreMapper.map(genre)
+            )
+        }
     }
 
 

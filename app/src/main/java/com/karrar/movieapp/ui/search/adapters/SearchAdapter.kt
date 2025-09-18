@@ -62,16 +62,17 @@ class SearchAdapter(
 
             is SearchItemUiState.SuggestionsItems -> {
                 holder.binding.run {
-                    setVariable(
-                        BR.adapterRecycler,
-                        SuggestionsAdapter(
-                            currentItem.data,
-                            R.layout.item_suggestion,
-                            listener as SuggestionsInteractionListener
-                        )
-                    )
-                    setVariable(BR.listener,listener)
-                    executePendingBindings()
+//                    setVariable(
+//                        BR.adapterRecycler,
+//                        SuggestionsAdapter(
+//                            currentItem.data,
+//                            R.layout.item_suggestion,
+//                            listener as SuggestionsInteractionListener
+//                        )
+//                    )
+//
+//                setVariable(BR.listener,listener)
+//                    executePendingBindings()
                 }
             }
         }

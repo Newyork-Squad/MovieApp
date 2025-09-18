@@ -5,7 +5,7 @@ sealed class SearchItemUiState(val priority: Int) {
     class RecentViewed(val data: List<RecentMovieViewedUiState>) : SearchItemUiState(1)
 
     class SuggestionsItems(
-        val data: List<SuggestionUiState>,
+        val data: List<SearchKeywordUIState>,
         priority: Int = 0,
     ) : SearchItemUiState(priority)
 }

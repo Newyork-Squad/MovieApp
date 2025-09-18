@@ -1,6 +1,5 @@
 package com.karrar.movieapp.ui.profile.language
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -88,7 +87,6 @@ class LanguagePickerDialog : BaseDialog<BottomSheetLanguageBinding>() {
                     activity.lifecycleScope.launch {
                         try {
                             activity.updateLocale(event.language)
-                            activity.refreshHomeData()
                             activity.recreate()
                         } catch (e: Exception) {
                             e.printStackTrace()

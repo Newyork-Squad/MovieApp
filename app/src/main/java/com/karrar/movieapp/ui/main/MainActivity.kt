@@ -1,6 +1,5 @@
 package com.karrar.movieapp.ui.main
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.view.Window
@@ -19,7 +18,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.ActivityMainBinding
-import com.karrar.movieapp.ui.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -162,12 +160,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun refreshHomeData() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-        val currentFragment = navHostFragment?.childFragmentManager?.fragments?.firstOrNull()
-
-        if (currentFragment is HomeFragment) {
-            currentFragment.refreshHomeData()
-        }
-    }
 }

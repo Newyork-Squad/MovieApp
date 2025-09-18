@@ -6,11 +6,12 @@ import androidx.paging.LoadState
 import androidx.paging.map
 import com.karrar.movieapp.domain.usecases.GetWatchHistoryUseCase
 import com.karrar.movieapp.domain.usecases.home.getData.ClearAllRecentViewedUseCase
-import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForActorUseCase
-import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForMovieUseCase
-import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForSeriesUserCase
-import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchHistoryUseCase
-import com.karrar.movieapp.domain.usecases.searchUseCase.PostSaveSearchResultUseCase
+import com.karrar.movieapp.domain.usecases.search.GetSearchForActorUseCase
+import com.karrar.movieapp.domain.usecases.search.GetSearchForKeywordUseCase
+import com.karrar.movieapp.domain.usecases.search.GetSearchForMovieUseCase
+import com.karrar.movieapp.domain.usecases.search.GetSearchForSeriesUserCase
+import com.karrar.movieapp.domain.usecases.search.GetSearchHistoryUseCase
+import com.karrar.movieapp.domain.usecases.search.PostSaveSearchResultUseCase
 import com.karrar.movieapp.ui.allMedia.Error
 import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.ui.search.adapters.ActorSearchInteractionListener
@@ -24,9 +25,10 @@ import com.karrar.movieapp.ui.search.mediaSearchUIState.MediaTypes
 import com.karrar.movieapp.ui.search.mediaSearchUIState.MediaUIState
 import com.karrar.movieapp.ui.search.mediaSearchUIState.RecentMovieViewedUiState
 import com.karrar.movieapp.ui.search.mediaSearchUIState.SearchItemUiState
-import com.karrar.movieapp.ui.search.mediaSearchUIState.SuggestionUiState
+import com.karrar.movieapp.ui.search.mediaSearchUIState.SearchKeywordUIState
 import com.karrar.movieapp.ui.search.uiStatMapper.RecentMovieViewedUiStateMapper
 import com.karrar.movieapp.ui.search.uiStatMapper.SearchHistoryUIStateMapper
+import com.karrar.movieapp.ui.search.uiStatMapper.SearchKeywordUIStateMapper
 import com.karrar.movieapp.ui.search.uiStatMapper.SearchMediaUIStateMapper
 import com.karrar.movieapp.utilities.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,7 +52,9 @@ class SearchViewModel @Inject constructor(
     private val postSaveSearchResultUseCase: PostSaveSearchResultUseCase,
     private val getRecentViewedUseCase: GetWatchHistoryUseCase,
     private val recentMovieViewedUiStateMapper: RecentMovieViewedUiStateMapper,
+    private val searchKeywordMapper: SearchKeywordUIStateMapper,
     private val clearAllRecentViewedUseCase: ClearAllRecentViewedUseCase,
+    private val getSearchForKeywordUseCase: GetSearchForKeywordUseCase,
 ) : BaseViewModel(), MediaSearchInteractionListener, ActorSearchInteractionListener,
     SearchHistoryInteractionListener, RecentViewedInteractionListener,
     SearchItemInteractionListener, SuggestionsInteractionListener {
@@ -69,9 +73,6 @@ class SearchViewModel @Inject constructor(
 
     private val _searchSections = MutableStateFlow<List<SearchItemUiState>>(emptyList())
     val searchSections = _searchSections.asStateFlow()
-
-    private val _searchQuery = MutableStateFlow("")
-    val searchQuery: StateFlow<String> = _searchQuery
 
 
     init {
@@ -146,6 +147,7 @@ class SearchViewModel @Inject constructor(
                 MediaTypes.MOVIE -> onSearchForMovie()
                 MediaTypes.TVS_SHOW -> onSearchForSeries()
                 MediaTypes.ACTOR -> onSearchForActor()
+                MediaTypes.KEYWORD -> onSearchForKeyword()
             }
         }
     }
@@ -271,15 +273,28 @@ class SearchViewModel @Inject constructor(
         getRecentViewed()
     }
 
-    override fun onSuggestionsClicked(name: String) {
-        onSearchInputChange(name)
+    override fun onSuggestionsClicked(name: SearchKeywordUIState) {
+        onSearchInputChange(name.keyword)
     }
 
-    override fun onSuggestionFill(name: String) {
-        _searchQuery.value = name
+    override fun onSuggestionFill(name: SearchKeywordUIState) {
+        _uiState.update { it.copy(searchInput = name.keyword) }
+        onSearchInputChange(name.keyword)
     }
 
-
+    fun onSearchForKeyword() {
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(
+                    searchTypes = MediaTypes.KEYWORD,
+                    isLoading = false,
+                    searchKeywordResult = getSearchForKeywordUseCase(it.searchInput).map { pagingData ->
+                        pagingData.map { keyword -> searchKeywordMapper.map(keyword) }
+                    }
+                )
+            }
+        }
+    }
 
 
 }

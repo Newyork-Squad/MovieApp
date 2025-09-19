@@ -14,6 +14,9 @@
     <string name="username">اسم المستخدم</string>
     <string name="password">كلمة المرور</string>
     <string name="login">تسجيل الدخول</string>
+    <string name="add_rating">أضف تقييمك</string>
+    <string name="change_rating">غير التقييم</string>
+    <string name="remove_rating">إزالة التقييم</string>
     <string name="don_t_have_an_account">ليس لديك حساب؟</string>
     <string name="sign_up">إنشاء حساب</string>
     <string name="place_of_birth">مكان الميلاد</string>
@@ -139,7 +142,9 @@
     <string name="welcome">مرحبا</string>
     <string name="behind_the_scenes">الكواليس</string>
     <string name="give_it_stars">قيمه بالنجوم!</string>
+    <string name="you_rated_it">لقد قيمته</string>
     <string name="let_the_world_know_how_you_felt">دع العالم يعرف رأيك.</string>
+    <string name="tap_to_change_your_rating">إضغط لتغيير تقييمك</string>
     <string name="arrow">سهم</string>
     <string name="change_language">تغيير اللغة</string>
     <string name="english">الإنجليزية</string>

@@ -15,6 +15,9 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="add_rating">Add Rating</string>
+    <string name="change_rating">Change Rating</string>
+    <string name="remove_rating">Remove Rating</string>
     <string name="don_t_have_an_account">Don’t have an account?</string>
     <string name="sign_up">Sign up</string>
     <string name="place_of_birth">place of Birth</string>
@@ -127,6 +130,7 @@
     <string name="logout_dialog_title">Are you sure you want to logout?</string>
     <string name="logout_dialog_caption">You can always sign back in with your account.</string>
     <string name="login_dialog_title">You\'re Almost There!</string>
+    <string name="rate_the_movie">Rate the Movie</string>
     <string name="login_dialog_caption">Log in to save movies, create collections, and get personalized recommendations.</string>
     <string name="not_now">Not Now</string>
     <string name="login_or_signup">Login &amp; Sign Up</string>
@@ -158,7 +162,9 @@
     <string name="welcome">Welcome</string>
     <string name="behind_the_scenes">Behind the Scenes</string>
     <string name="give_it_stars">Give it Stars!</string>
+    <string name="you_rated_it">You rated it</string>
     <string name="let_the_world_know_how_you_felt">Let the world know how you felt.</string>
+    <string name="tap_to_change_your_rating">Tap to change your rating</string>
     <string name="arrow">arrow</string>
     <string name="no_history_yet" translatable="false">No History Yet</string>
     <string name="find_something_to_watch" translatable="false">Find Something to Watch</string>

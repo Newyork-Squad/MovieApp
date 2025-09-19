@@ -9,7 +9,7 @@ class AiringTodaySeriesMapper @Inject constructor() : Mapper<TVShowsDTO, AiringT
     override fun map(input: TVShowsDTO): AiringTodaySeriesEntity {
         return AiringTodaySeriesEntity(
             id = input.id ?: 0,
-            name = input.originalName ?: "",
+            name = input.name ?: input.originalName ?: "",
             imageUrl = input.posterPath ?: "",
             rate = input.voteAverage ?: 0.0f,
         )

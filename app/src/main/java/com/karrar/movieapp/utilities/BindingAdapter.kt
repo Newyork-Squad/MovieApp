@@ -17,6 +17,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.ShapeAppearanceModel
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputLayout
 import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.MediaType
@@ -376,4 +377,8 @@ fun setOneDecimal(textView: TextView, number: Double?) {
     number?.let {
         textView.text = String.format("%.1f", it)
     }
+}
+@BindingAdapter("showWhenSearch")
+fun TabLayout.showWhenSearch(searchInput: String?) {
+    visibility = if (searchInput.isNullOrEmpty()) View.VISIBLE else View.GONE
 }

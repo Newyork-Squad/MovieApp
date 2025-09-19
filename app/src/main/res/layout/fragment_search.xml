@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -37,29 +38,29 @@
             android:id="@+id/ll_search_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imagw_back_arrow"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/edit_text_background"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
             android:layout_marginEnd="@dimen/spacing_medium"
+            android:background="@drawable/edit_text_background"
+            android:orientation="horizontal"
             android:paddingStart="@dimen/spacing_medium"
             android:paddingEnd="@dimen/spacing_normal"
-            android:orientation="horizontal">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imagw_back_arrow"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_search"
                 style="@style/Body_MD.Regular"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:afterTextChanged="@{(text) -> viewModel.onSearchInputChange(text)}"
-                android:drawableStart="@drawable/ic_search"
-                android:drawablePadding="@dimen/spacing_small"
                 android:layout_weight="1"
-                android:focusable="true"
+                android:afterTextChanged="@{(text) -> viewModel.onSearchInputChange(text)}"
                 android:background="@android:color/transparent"
                 android:backgroundTint="@android:color/transparent"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="@dimen/spacing_small"
+                android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:hint="@string/search_hint"
                 android:inputType="text"
@@ -77,9 +78,9 @@
                 android:id="@+id/image_search_voice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/spacing_small"
                 android:layout_gravity="center"
                 android:onClick="@{() -> viewModel.onClickVoice()}"
+                android:padding="@dimen/spacing_small"
                 android:src="@drawable/ic_microphone"
                 app:layout_constraintBottom_toBottomOf="@id/ll_search_input"
                 app:layout_constraintStart_toStartOf="parent"
@@ -134,13 +135,13 @@
             app:doneLoading="@{viewModel.uiState.loading}"
             app:errorNotEmpty="@{viewModel.uiState.error}"
             app:errorSearch="@{viewModel.uiState.error}"
+            app:isSearchFocused="@{viewModel.isSearchFocused}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tab_media_type"
-            app:loadingSearch="@{viewModel.uiState.loading}"
-            app:isSearchFocused="@{viewModel.isSearchFocused}" />
+            app:loadingSearch="@{viewModel.uiState.loading}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_search_history"
@@ -151,14 +152,13 @@
             android:overScrollMode="never"
             android:paddingVertical="@dimen/spacing_too_small"
             android:scrollbars="none"
-            app:showWhenFocused="@{viewModel.isSearchFocused}"
             app:items="@{viewModel.searchSections}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/ll_search_input"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@id/ll_search_input"
+            app:showWhenFocused="@{viewModel.isSearchFocused}"
             tools:listitem="@layout/item_search_history" />
 
         <include
@@ -167,9 +167,9 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginEnd="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_medium"
             android:elevation="@dimen/spacing_xSmall"
             android:visibility="gone"
-            android:layout_marginBottom="@dimen/spacing_medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -213,7 +213,7 @@
 
         <include
             android:id="@+id/includeMicOverlay"
-            layout="@layout/mic_overlay"/>
+            layout="@layout/mic_overlay" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

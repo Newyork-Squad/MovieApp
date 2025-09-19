@@ -9,7 +9,7 @@ class TrendingMovieMapper @Inject constructor() : Mapper<MovieDto, TrendingMovie
     override fun map(input: MovieDto): TrendingMovieEntity {
         return TrendingMovieEntity(
             id = input.id ?:0,
-            name = input.originalTitle?:"",
+            name = input.title ?: input.originalTitle ?: "",
             imageUrl = input.posterPath ?:""
         )
     }

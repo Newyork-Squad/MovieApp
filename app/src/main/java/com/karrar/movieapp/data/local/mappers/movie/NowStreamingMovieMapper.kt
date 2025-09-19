@@ -9,7 +9,7 @@ class NowStreamingMovieMapper @Inject constructor() : Mapper<MovieDto, NowStream
     override fun map(input: MovieDto): NowStreamingMovieEntity {
         return NowStreamingMovieEntity(
             id = input.id ?: 0,
-            name = input.originalTitle ?: "",
+            name = input.title ?: input.originalTitle ?: "",
             imageUrl = input.posterPath ?: ""
         )
     }

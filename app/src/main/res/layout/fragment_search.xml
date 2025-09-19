@@ -28,42 +28,65 @@
             android:layout_marginStart="@dimen/spacing_medium"
             android:onClick="@{() -> viewModel.onClickBack()}"
             android:src="@drawable/ic_arrow_left"
-            app:layout_constraintBottom_toBottomOf="@id/input_search"
+            app:layout_constraintBottom_toBottomOf="@id/ll_search_input"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/input_search"
+            app:layout_constraintTop_toTopOf="@id/ll_search_input"
             app:tint="@color/shade_primary" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_search"
-            style="@style/Body_MD.Regular"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_search_input"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imagw_back_arrow"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/edit_text_background"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
             android:layout_marginEnd="@dimen/spacing_medium"
-            android:afterTextChanged="@{(text) -> viewModel.onSearchInputChange(text)}"
-            android:background="@drawable/edit_text_background"
-            android:drawableStart="@drawable/ic_search"
-            android:drawableEnd="@drawable/ic_microphone"
-            android:drawablePadding="@dimen/spacing_small"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:hint="@string/search_hint"
-            android:inputType="text"
-            android:maxLines="1"
             android:paddingStart="@dimen/spacing_medium"
             android:paddingEnd="@dimen/spacing_normal"
-            android:text="@{viewModel.uiState.searchInput}"
-            android:textColor="@color/shade_primary_color"
-            android:textColorHint="@color/shade_ternary_color"
-            android:textCursorDrawable="@drawable/color_cursor"
-            android:transitionName="search_box"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imagw_back_arrow"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="horizontal">
 
-            <requestFocus />
-        </com.google.android.material.textfield.TextInputEditText>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_search"
+                style="@style/Body_MD.Regular"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:afterTextChanged="@{(text) -> viewModel.onSearchInputChange(text)}"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="@dimen/spacing_small"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@android:color/transparent"
+                android:focusableInTouchMode="true"
+                android:hint="@string/search_hint"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="@{viewModel.uiState.searchInput}"
+                android:textColor="@color/shade_primary_color"
+                android:textColorHint="@color/shade_ternary_color"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:transitionName="search_box">
+
+                <requestFocus />
+            </com.google.android.material.textfield.TextInputEditText>
+
+            <ImageView
+                android:id="@+id/image_search_voice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_small"
+                android:layout_gravity="center"
+                android:onClick="@{() -> viewModel.onClickVoice()}"
+                android:src="@drawable/ic_microphone"
+                app:layout_constraintBottom_toBottomOf="@id/ll_search_input"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ll_search_input"
+                app:tint="@color/shade_primary" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_media_type"
@@ -74,7 +97,8 @@
             app:hideWhenFocused="@{viewModel.isSearchFocused}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/imagw_back_arrow"
-            app:layout_constraintTop_toBottomOf="@id/input_search"
+            app:layout_constraintTop_toBottomOf="@id/ll_search_input"
+            app:showWhenSearch="@{viewModel.uiState.searchInput}"
             app:tabIndicatorColor="@color/brand_primary"
             app:tabSelectedTextColor="@color/brand_primary"
             app:tabTextAppearance="@style/Body_MD.Medium.MyTabTextAppearance"
@@ -131,10 +155,9 @@
             app:items="@{viewModel.searchSections}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/ll_search_input"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_search"
             app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/item_search_history" />
 
@@ -188,6 +211,9 @@
             app:layout_constraintTop_toBottomOf="@id/tab_media_type"
             app:viewModel="@{viewModel}" />
 
+        <include
+            android:id="@+id/includeMicOverlay"
+            layout="@layout/mic_overlay"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

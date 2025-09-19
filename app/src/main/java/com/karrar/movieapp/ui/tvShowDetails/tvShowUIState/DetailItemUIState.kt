@@ -17,7 +17,7 @@ sealed class DetailItemUIState(val priority: Int) {
 
     class SimilarTvShows(val data: List<MediaUiState>) : DetailItemUIState(4)
 
-    class Rating(val viewModel: ViewModel) : DetailItemUIState(5)
+    class Rating(val viewModel: ViewModel, val rate: Float)  : DetailItemUIState(5)
 
     object ReviewText : DetailItemUIState(6)
 

@@ -103,6 +103,12 @@
             android:id="@+id/action_movieDetailsFragment_to_loginDialog"
             app:destination="@id/loginDialog" />
         <action
+            android:id="@+id/action_movie_details_fragment_to_rateDialog"
+            app:destination="@id/rateDialog">
+            <argument android:name="media_id" app:argType="integer" />
+            <argument android:name="media_type" app:argType="string" />
+        </action>
+        <action
             android:id="@+id/action_movieDetailsFragment"
             app:destination="@id/movieDetailFragment"
             app:popUpToInclusive="true" />
@@ -267,6 +273,18 @@
     </dialog>
 
     <dialog
+        android:id="@+id/rateDialog"
+        android:name="com.karrar.movieapp.ui.movieDetails.rateDialog.RateDialog"
+        tools:layout="@layout/dialog_rate">
+        <argument
+            android:name="media_id"
+            app:argType="integer" />
+        <argument
+            android:name="media_type"
+            app:argType="string" />
+    </dialog>
+
+    <dialog
         android:id="@+id/loginDialog"
         android:name="com.karrar.movieapp.ui.movieDetails.loginDialog.LoginDialog"
         tools:layout="@layout/dialog_login">
@@ -409,6 +427,13 @@
             android:id="@+id/action_tvShowDetailsFragment_self"
             app:destination="@id/tvShowDetailsFragment" />
         <action
+            android:id="@+id/action_tv_show_details_fragment_to_rate_dialog"
+            app:destination="@id/rateDialog"
+            >
+            <argument android:name="media_id" app:argType="integer" />
+            <argument android:name="media_type" app:argType="string" />
+        </action>
+        <action        
             android:id="@+id/action_tvShowDetailsFragment_to_seasonsFragment"
             app:destination="@id/seasonsFragment" />
     </fragment>

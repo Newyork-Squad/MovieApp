@@ -10,7 +10,7 @@ class AdventureMovieMapper @Inject constructor() : Mapper<MovieDto, AdventureMov
     override fun map(input: MovieDto): AdventureMovieEntity {
         return AdventureMovieEntity(
             id = input.id ?: 0,
-            name = input.originalTitle ?: "",
+            name = input.title ?: input.originalTitle ?: "",
             imageUrl = input.posterPath ?: ""
         )
     }

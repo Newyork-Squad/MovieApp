@@ -486,4 +486,16 @@ class MovieRepositoryImp @Inject constructor(
         ).body()
     }
 
+    override suspend fun clearCache() {
+        movieDao.deletePopularMovies()
+        movieDao.deleteAllTrendingMovies()
+        movieDao.deleteAllNowStreamingMovies()
+        movieDao.deleteAllUpcomingMovies()
+        movieDao.deleteAllMysteryMovies()
+        movieDao.deleteAllAdventureMovies()
+        actorDao.deleteActors()
+        appConfiguration.clearRequestDates()
+
+    }
+
 }

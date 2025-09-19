@@ -14,8 +14,6 @@ import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.ItemPopularMovieBinding
 import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.domain.enums.HomeItemsType
-import com.karrar.movieapp.ui.adapters.MediaAdapter
-import com.karrar.movieapp.ui.adapters.MediaInteractionListener
 import com.karrar.movieapp.ui.adapters.MovieAdapter
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseAdapter
@@ -147,16 +145,7 @@ class HomeAdapter(
                 }
 
                 is HomeItem.Recommendations -> {
-                    holder.binding.run {
-                        setVariable(
-                            BR.adapterRecycler,
-                            MediaAdapter(
-                                currentItem.items,
-                                R.layout.item_airing_today,
-                                listener as MediaInteractionListener
-                            )
-                        )
-                    }
+                    bindMovie(holder, currentItem.items, currentItem.type)
                 }
             }
     }
@@ -194,10 +183,12 @@ class HomeAdapter(
                 is HomeItem.RecentlyReleased,
                 is HomeItem.TopRatedTvShows,
                     -> R.layout.list_tvshow
+
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
                 is HomeItem.Upcoming,
                 is HomeItem.Recommendations,
                     -> R.layout.list_movie
+
                 is HomeItem.Collections -> R.layout.list_home_collections
                 is HomeItem.WhatShouldWatch -> R.layout.item_whatshouldwatch
                 is HomeItem.NeedMoreToWatch -> R.layout.item_needmoretowatch

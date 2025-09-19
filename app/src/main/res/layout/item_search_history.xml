@@ -22,10 +22,11 @@
         android:layout_marginBottom="@dimen/spacing_too_small"
         tools:text="Star Wars"
         android:text="@{item.name}"
-        style="@style/Regular.Medium"
-        android:textColor="@color/shade_secondary_color"
+        style="@style/Body_SM.Medium"
+        android:drawableStart="@drawable/outline_history"
+        android:textColor="@color/shade_secondary"
         android:drawablePadding="6dp"
-        app:drawableEndCompat="@drawable/ic_arrow_up_left"
-        android:onClick="@{() -> listener.onClickSearchHistory(item.name)}"/>
+        app:drawableEndCompat="@drawable/outline_close"
+        android:onClick="@{() -> listener.onClickDeleteSearchHistoryItem(item)}"/>
 
 </layout>

@@ -20,7 +20,6 @@ import com.karrar.movieapp.data.remote.response.actor.ActorMoviesDto
 import com.karrar.movieapp.data.remote.response.actor.ActorProfileResponse
 import com.karrar.movieapp.data.remote.response.actor.ActorSocialMediaResponse
 import com.karrar.movieapp.data.remote.response.genre.GenreResponse
-import com.karrar.movieapp.data.remote.response.login.GuestSessionResponse
 import com.karrar.movieapp.data.remote.response.login.RequestTokenResponse
 import com.karrar.movieapp.data.remote.response.login.SessionResponse
 import com.karrar.movieapp.data.remote.response.movie.MovieDetailsDto
@@ -96,9 +95,6 @@ interface MovieService {
 
     @GET("authentication/token/new")
     suspend fun getRequestToken(): Response<RequestTokenResponse>
-
-    @GET("authentication/guest_session/new")
-    suspend fun createGuestSession(): Response<GuestSessionResponse>
 
     @GET("genre/movie/list")
     suspend fun getGenreList(): Response<GenreResponse>

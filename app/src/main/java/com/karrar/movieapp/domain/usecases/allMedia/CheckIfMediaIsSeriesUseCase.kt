@@ -5,11 +5,9 @@ import javax.inject.Inject
 
 class CheckIfMediaIsSeriesUseCase @Inject constructor() {
     operator fun invoke(type: AllMediaType): Boolean {
-        return (type == AllMediaType.ON_THE_AIR
-                || type == AllMediaType.POPULAR
-                || type == AllMediaType.AIRING_TODAY
+        return (type == AllMediaType.POPULAR
                 || type == AllMediaType.TOP_RATED
-                || type == AllMediaType.LATEST
+                || type == AllMediaType.RECENTLY_RELEASED
                 )
     }
 }

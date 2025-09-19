@@ -12,9 +12,18 @@
         <action
             android:id="@+id/action_homeFragment_to_actorsFragment"
             app:destination="@id/actorsFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_exploringFragment"
+            app:destination="@id/exploringFragment" />
+
         <action
             android:id="@+id/action_homeFragment_to_watchHistoryFragment"
             app:destination="@id/watchHistoryFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_matchScreenFragment"
+            app:destination="@id/matchScreenFragment" />
         <action
             android:id="@+id/action_homeFragment_to_actorDetailsFragment"
             app:destination="@id/actorDetailsFragment" />
@@ -27,6 +36,12 @@
         <action
             android:id="@+id/action_homeFragment_to_tvShowDetailsFragment"
             app:destination="@id/tvShowDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_savedListFragment"
+            app:destination="@id/myListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_listDetailsFragment"
+            app:destination="@id/listDetailsFragment" />
 
     </fragment>
 
@@ -246,6 +261,9 @@
         <argument
             android:name="movie_id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_saveMovieDialog_to_myListFragment"
+            app:destination="@id/myListFragment" />
     </dialog>
 
     <dialog
@@ -439,6 +457,20 @@
             android:id="@+id/action_editProfileConfirmDialog_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/matchQuestionsFragment"
+        android:name="com.karrar.movieapp.ui.match.questions.MatchQuestionsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_match_questions" />
+    <fragment
+        android:id="@+id/matchScreenFragment"
+        android:name="com.karrar.movieapp.ui.match.MatchScreenFragment"
+        android:label="fragment_match_screen"
+        tools:layout="@layout/fragment_match_screen" >
+        <action
+            android:id="@+id/action_matchScreenFragment_to_matchQuestionsFragment"
+            app:destination="@id/matchQuestionsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/seasonsFragment"

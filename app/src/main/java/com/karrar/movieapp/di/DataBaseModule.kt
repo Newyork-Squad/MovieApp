@@ -29,6 +29,7 @@ object DataBaseModule {
     ): MovieDataBase =
         Room.databaseBuilder(context, MovieDataBase::class.java, "MovieDatabase")
             .addTypeConverter(converters)
+            .fallbackToDestructiveMigration()
             .build()
 
     @Singleton

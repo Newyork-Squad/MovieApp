@@ -38,10 +38,6 @@ class MainActivity : AppCompatActivity() {
             if (initialMode) AppCompatDelegate.MODE_NIGHT_YES
             else AppCompatDelegate.MODE_NIGHT_NO
         )
-        lifecycleScope.launchWhenStarted {
-            val language = viewModel.language.first()
-            updateLocale(language)
-        }
         supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY)
         setTheme(R.style.Theme_MovieApp)
 
@@ -49,34 +45,35 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         viewModel.getData()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        val language = runBlocking { viewModel.language.first() }
+        updateLocale(language)
         observeViewModel()
     }
 
 
     private fun observeViewModel() {
         lifecycleScope.launchWhenStarted {
-            viewModel.darkMode.collect { darkMode ->
+            viewModel.darkMode
+                .collect { darkMode ->
+                    val mode = if (darkMode) {
+                        AppCompatDelegate.MODE_NIGHT_YES
+                    } else {
+                        AppCompatDelegate.MODE_NIGHT_NO
+                    }
 
-                val mode = if (darkMode) {
-                    AppCompatDelegate.MODE_NIGHT_YES
-                } else {
-                    AppCompatDelegate.MODE_NIGHT_NO
+                    if (AppCompatDelegate.getDefaultNightMode() != mode) {
+                        AppCompatDelegate.setDefaultNightMode(mode)
+                    }
                 }
-
-                if (AppCompatDelegate.getDefaultNightMode() != mode) {
-                    AppCompatDelegate.setDefaultNightMode(mode)
-                }
-            }
         }
 
         lifecycleScope.launchWhenStarted {
-            viewModel.language.collect { language ->
-                updateLocale(language)
-            }
+            viewModel.language
+                .collect { language ->
+                    updateLocale(language)
+                }
         }
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -84,7 +81,7 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.homeFragment,
                 R.id.exploringFragment,
-                R.id.myListFragment,
+                R.id.matchScreenFragment,
                 R.id.profileFragment,
             )
         )
@@ -94,7 +91,6 @@ class MainActivity : AppCompatActivity() {
 
         setBottomNavigationVisibility(navController)
         setNavigationController(navController)
-
         lifecycleScope.launchWhenResumed {
             viewModel.mainUiState.collect {
                 if (!it.isFirstLaunch) navController.navigate(R.id.onboardingFragment)
@@ -106,10 +102,12 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.bottomNavigation.isVisible =
                 when (destination.id) {
-                    R.id.loginFragment,
-                    R.id.onboardingFragment,R.id.watchHistoryFragment,
-                    R.id.myListFragment,R.id.ratedMoviesFragment,
-                    R.id.edit_profile, R.id.createSavedList,R.id.listDetailsFragment -> {
+                    R.id.loginFragment, R.id.onboardingFragment,
+                    R.id.watchHistoryFragment, R.id.myListFragment,
+                    R.id.ratedMoviesFragment, R.id.edit_profile,
+                    R.id.createSavedList, R.id.listDetailsFragment,
+                    R.id.allMovieFragment, R.id.matchQuestionsFragment,
+                        -> {
                         false
                     }
 
@@ -136,14 +134,15 @@ class MainActivity : AppCompatActivity() {
             else -> Locale("en")
         }
         Locale.setDefault(locale)
+
         val config = resources.configuration
         config.setLocale(locale)
-        val direction =
-            if (locale.language == "ar") View.LAYOUT_DIRECTION_RTL else View.LAYOUT_DIRECTION_LTR
-        binding.root.layoutDirection = direction
         resources.updateConfiguration(config, resources.displayMetrics)
-    }
 
+        window.decorView.layoutDirection =
+            if (locale.language == "ar") View.LAYOUT_DIRECTION_RTL
+            else View.LAYOUT_DIRECTION_LTR
+    }
 
 
 }

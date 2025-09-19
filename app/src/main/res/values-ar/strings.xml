@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">تطبيق الأفلام</string>
 
-    <string name="see_all">عرض الكل</string>
     <string name="show_more">عرض المزيد</string>
     <string name="top_rated">الأعلى تقييمًا</string>
-    <string name="latest">الأحدث</string>
+    <string name="recently_released">الأحدث</string>
     <string name="popular">الشائع</string>
     <string name="tv_shows">المسلسلات</string>
     <string name="search_hint">ابحث…</string>
@@ -23,11 +22,11 @@
     <string name="todo">قيد التطوير</string>
     <string name="gender">النوع</string>
     <string name="birthday">تاريخ الميلاد</string>
-<!--    <string name="born_on">s$1% ولد في</string>-->
+    <!--    <string name="born_on">s$1% ولد في</string>-->
     <string name="born_on">ولد في %1$s</string>
     <string name="biography">السيرة الذاتية</string>
     <string name="movies">أفلام</string>
-<!--    <string name="best_of">%1$الأفضل ل</string>-->
+    <!--    <string name="best_of">%1$الأفضل ل</string>-->
     <string name="best_of">أفضل أعمال %1$s</string>
     <string name="actors">الممثلون</string>
     <string name="oops_no_internet">عذرًا! لا يوجد اتصال بالإنترنت</string>
@@ -43,6 +42,7 @@
     <string name="title_streaming">يُعرض الآن</string>
     <string name="title_upcoming">القادم قريبًا</string>
     <string name="title_recently_viewed">شاهدته مؤخرًا</string>
+    <string name="your_collections">مجموعاتك</string>
     <string name="title_celebrity">المشاهير</string>
     <string name="title_airing_today">يعرض اليوم</string>
     <string name="title_top_rated_tv_show">أعلى المسلسلات تقييمًا</string>
@@ -110,20 +110,7 @@
     <string name="you_must_be_logged_in_to_save_a_movie">يجب تسجيل الدخول لحفظ الفيلم</string>
     <string name="this_list_has_no_lists">لا توجد قوائم</string>
     <string name="episode_title">%1$d. %2$s</string>
-    <string name="youtube">يوتيوب</string>
-    <string name="instagram">إنستجرام</string>
-    <string name="facebook">فيسبوك</string>
-    <string name="twitter">تويتر</string>
-    <string name="tiktok">تيك توك</string>
 
-    <string name="welcome_back_to_cineverse">مرحبًا بعودتك إلى CineVerse!</string>
-    <string name="create_a_new_account">إنشاء حساب جديد</string>
-    <string name="forgot_password">نسيت كلمة المرور؟</string>
-    <string name="join_as_guest">الدخول كضيف</string>
-    <string name="enter_your_username">أدخل اسم المستخدم</string>
-    <string name="enter_your_password">أدخل كلمة المرور</string>
-    <string name="join_cineverse">انضم إلى CineVerse</string>
-    <string name="let_s_get_you_set_up_we_ll_take_you_to_the_website_to_create_your_account">لنجهز حسابك! سنأخذك إلى الموقع لإنشاء حساب جديد.</string>
     <string name="logout_dialog_title">هل أنت متأكد أنك تريد تسجيل الخروج؟</string>
     <string name="logout_dialog_caption">يمكنك دائمًا تسجيل الدخول مرة أخرى بحسابك.</string>
     <string name="login_dialog_title">أوشكت على الوصول!</string>
@@ -138,13 +125,7 @@
     <string name="dark_mode">الوضع الداكن</string>
     <string name="my_collections">مجموعاتي</string>
     <string name="history">السجل</string>
-    <string name="get_started">ابدأ الآن</string>
-    <string name="onboarding_first_page_title">مرحبًا بك في عالم الأفلام الخاص بك</string>
-    <string name="onboarding_first_page_des">اكتشف، تتبع، وقيم أفلامك ومسلسلاتك المفضلة.</string>
-    <string name="onboarding_second_page_des">قائمة المشاهدة وتقييماتك في مكان واحد.</string>
-    <string name="onboarding_third_page_des">أجب عن أسئلة ممتعة لتحصل على توصيات مخصصة.</string>
-    <string name="onboarding_third_page_title">توصيات مخصصة</string>
-    <string name="onboarding_second_page_title">تتبع كل شيء</string>
+
     <string name="season_number">%1$s مواسم</string>
     <string name="movie">فيلم</string>
     <string name="series">مسلسل</string>
@@ -155,6 +136,7 @@
     <string name="tv_show_image">صورة المسلسل</string>
     <string name="clock_icon_for_number_of_seasons">أيقونة عدد المواسم</string>
     <string name="calendar_icon_for_release_date">أيقونة تاريخ الإصدار</string>
+    <string name="welcome">مرحبا</string>
     <string name="behind_the_scenes">الكواليس</string>
     <string name="give_it_stars">قيمه بالنجوم!</string>
     <string name="let_the_world_know_how_you_felt">دع العالم يعرف رأيك.</string>
@@ -181,9 +163,65 @@
     <string name="no_collections_yet">لا توجد مجموعات بعد</string>
     <string name="add_collection">إضافة مجموعة</string>
     <string name="e_g_my_watchlist">مثال: قائمة مشاهدتي</string>
+
+    <string name="welcome_back_to_cineverse">مرحبًا بعودتك إلى سينيفيرس!</string>
+    <string name="create_a_new_account">إنشاء حساب جديد</string>
+    <string name="forgot_password">هل نسيت كلمة المرور؟</string>
+    <string name="join_as_guest">الانضمام كزائر</string>
+    <string name="enter_your_username">أدخل اسم المستخدم</string>
+    <string name="enter_your_password">أدخل كلمة المرور</string>
+    <string name="join_cineverse">انضم إلى سينيفيرس</string>
+    <string name="let_s_get_you_set_up_we_ll_take_you_to_the_website_to_create_your_account">
+        دعنا نجهزك! سنأخذك إلى الموقع لإنشاء حسابك.
+    </string>
+
+    <string name="get_started">ابدأ الآن</string>
+    <string name="onboarding_first_page_title">مرحبًا بك في عالم أفلامك</string>
+    <string name="onboarding_first_page_des"><![CDATA[اكتشف، وتابع، وقيّم أفلامك ومسلسلاتك المفضلة.]]></string>
+    <string name="onboarding_second_page_des">قائمة مشاهداتك، وتقييماتك، كلها في مكان واحد.</string>
+    <string name="onboarding_third_page_des">أجب عن أسئلة ممتعة لتحصل على توصيات مختارة خصيصًا لك.</string>
+    <string name="onboarding_third_page_title">توصيات مخصصة</string>
+    <string name="onboarding_second_page_title">تابع كل شيء</string>
+
+    <string name="nothing_found">لم يتم العثور على شيء!</string>
+    <string name="nothing_found_message">بحثنا في كل مكان... لكن لم نجد ما يطابق بحثك. جرّب شيئًا آخر؟</string>
     <string name="select_movies_or_series_tab">اختر تبويب الأفلام أو المسلسلات</string>
-    <string name="you_gave_it">لقد قيمته</string>
+    <string name="you_gave_it">لقد أعطيت</string>
     <string name="no_ratings_yet">لا توجد تقييمات بعد</string>
-    <string name="rate_movies_and_series_you_ve_watched_to_track_what_you_love_and_what_you_don_t">قيّم الأفلام والمسلسلات التي شاهدتها لتتعقب ما تحبه وما لا تحبه.</string>
+    <string name="rate_movies_and_series_you_ve_watched_to_track_what_you_love_and_what_you_don_t">
+        قيّم الأفلام والمسلسلات التي شاهدتها لتتبع ما تحبه وما لا يعجبك.
+    </string>
     <string name="start_rating">ابدأ التقييم</string>
+    <string name="discover_your_match">اكتشف تطابقك</string>
+    <string name="not_sure_what_to_watch">لست متأكدًا مما تشاهد؟</string>
+    <string name="answer_a_few_quick_questions_and_we_ll_match_you_with_the_perfect_picks">
+    أجب عن بعض الأسئلة السريعة وسنطابقك مع الاختيارات المثالية.
+</string>
+
+    <string name="youtube">يوتيوب</string>
+    <string name="instagram">إنستغرام</string>
+    <string name="facebook">فيسبوك</string>
+    <string name="twitter">تويتر</string>
+    <string name="tiktok">تيك توك</string>
+    <string name="see_all">عرض الكل</string>
+    <string name="clear_all">مسح الكل</string>
+    <string name="you_recent_viewed">شاهدته مؤخرًا</string>
+    <string name="seasons_title">المواسم</string>
+
+
+    <string name="match">كيفي</string>
+    <string name="me">انا</string>
+
+    <string name="speech_error_no_match">لم أتمكن من فهمك جيدًا — يُرجى المحاولة مرة أخرى.</string>
+    <string name="speech_error_timeout">لم يتم التقاط أي كلام — يُرجى التحدث مجددًا.</string>
+    <string name="speech_error_permissions">يلزم الحصول على إذن الميكروفون. افتح إعدادات التطبيق وفعّل الميكروفون.</string>
+    <string name="speech_error_busy">خدمة التعرّف على الصوت مشغولة حاليًا. حاول مرة أخرى لاحقًا.</string>
+    <string name="speech_error_network">حدثت مشكلة في الشبكة — يُرجى التحقق من اتصالك بالإنترنت.</string>
+    <string name="speech_error_unknown">حدث خطأ غير معروف. حاول مرة أخرى.</string>
+    <string name="speech_recognition_is_not_available">خدمة التعرّف على الكلام غير متاحة.</string>
+    <string name="cannot_start_speech_recognizer">لا يمكن بدء تشغيل خدمة التعرّف على الكلام: %1$s</string>
+    <string name="no_results">لا توجد نتيجة للكلام</string>
+    <string name="speech_recognition_not_available_on_this_device">التعرّف على الكلام غير متاح على هذا الجهاز</string>
+    <string name="permission_denied_for_microphone">تم رفض إذن استخدام الميكروفون</string>
+
 </resources>

@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_medium">
+        android:layout_marginTop="@dimen/spacing_extra_large">
 
         <TextView
             android:id="@+id/text_title"
@@ -46,12 +46,13 @@
             android:id="@+id/recycler_movie"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_normal"
             android:adapter="@{adapterRecycler}"
             android:clipToPadding="false"
             android:orientation="horizontal"
             android:overScrollMode="never"
-            android:paddingHorizontal="@dimen/spacing_small"
+            android:paddingStart="@dimen/spacing_medium"
+            android:paddingEnd="0dp"
             android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

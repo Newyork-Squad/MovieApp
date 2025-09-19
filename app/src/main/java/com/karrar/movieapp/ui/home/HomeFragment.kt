@@ -31,7 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.refreshProfile()
+        viewModel.refreshHomeData()
     }
 
     private fun collectHomeData() {
@@ -42,15 +42,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         it.popularMovies,
                         it.recentlyReleasedSeries,
                         it.topRatedSeries,
-                        it.onTheAiringSeries,
-                        it.airingTodaySeries,
                         it.upcomingMovies,
-                        it.nowStreamingMovies,
-                        it.mysteryMovies,
-                        it.adventureMovies,
-                        it.trendingMovies,
-                        it.actors,
-                        it.recentlyViewed
+                        it.recentlyViewed,
+                        it.collections,
+                        it.whatShouldIWatch,
+                        it.needMoreToWatch
                     )
                 )
             }
@@ -100,7 +96,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 )
             }
 
+            HomeUIEvent.clickToMatchScreen->HomeFragmentDirections.actionHomeFragmentToMatchScreenFragment()
+
             HomeUIEvent.ClickSeeAllRecentlyViewed -> HomeFragmentDirections.actionHomeFragmentToWatchHistoryFragment()
+            HomeUIEvent.clickToExploreScreen->HomeFragmentDirections.actionHomeFragmentToExploringFragment()
+
+
+            HomeUIEvent.ClickSeeAllCollections -> HomeFragmentDirections.actionHomeFragmentToSavedListFragment()
+
+            is HomeUIEvent.ClickListEvent -> HomeFragmentDirections.actionHomeFragmentToListDetailsFragment(
+                event.createdListUIState.listID,
+                event.createdListUIState.name
+            )
         }
         findNavController().navigate(action)
     }

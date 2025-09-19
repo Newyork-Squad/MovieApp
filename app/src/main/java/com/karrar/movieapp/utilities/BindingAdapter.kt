@@ -379,8 +379,4 @@ fun setOneDecimal(textView: TextView, number: Double?) {
     }
 }
 
-@BindingAdapter("showWhenSearch")
-fun TabLayout.showWhenSearch(searchInput: String?) {
-    isVisible = !searchInput.isNullOrBlank()
-}
 

@@ -220,6 +220,10 @@ class SearchViewModel @Inject constructor(
         _searchUIEvent.update { Event(SearchUIEvent.ClickBackEvent) }
     }
 
+    fun onClickVoice(){
+        _searchUIEvent.update { Event(SearchUIEvent.ClickVoiceEvent) }
+    }
+
     fun setErrorUiState(combinedLoadStates: CombinedLoadStates, itemCount: Int) {
         when (combinedLoadStates.refresh) {
             is LoadState.Loading -> {

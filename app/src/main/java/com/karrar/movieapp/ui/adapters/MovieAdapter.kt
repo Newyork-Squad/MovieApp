@@ -11,8 +11,8 @@ class MovieAdapter(items: List<MediaUiState>, val listener: MovieInteractionList
     override val layoutID: Int = R.layout.item_movie
 }
 
-interface MovieInteractionListener : BaseInteractionListener {
-    fun onClickMovie(movieId: Int)
-    fun onClickSeeAllMovie(homeItemsType: HomeItemsType)
-}
+    interface MovieInteractionListener : BaseInteractionListener {
+        fun onClickMovie(movieId: Int)
+        fun onClickSeeAllMovie(homeItemsType: HomeItemsType)
+    }
 

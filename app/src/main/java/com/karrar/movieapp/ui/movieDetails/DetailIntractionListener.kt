@@ -10,6 +10,8 @@ interface DetailInteractionListener : BaseInteractionListener {
 
     fun onClickPlayTrailer()
 
+    fun onClickRate()
+     
     fun onClickViewReviews()
 
     fun onClickViewSeasons()

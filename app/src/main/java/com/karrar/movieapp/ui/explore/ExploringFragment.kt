@@ -18,14 +18,13 @@ import com.karrar.movieapp.ui.adapters.LoadUIStateAdapter
 import com.karrar.movieapp.ui.base.BaseFragment
 import com.karrar.movieapp.ui.category.CategoryAdapter
 import com.karrar.movieapp.ui.explore.exploreUIState.ExploringUIEvent
-import com.karrar.movieapp.ui.explore.exploreUIState.TrendyMediaUIState
 import com.karrar.movieapp.utilities.Constants
 import com.karrar.movieapp.utilities.collect
 import com.karrar.movieapp.utilities.collectLast
 import com.karrar.movieapp.utilities.setSpanSize
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-
 
 @AndroidEntryPoint
 class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
@@ -34,6 +33,29 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
 
     private val allMediaAdapter by lazy { CategoryAdapter(viewModel) }
     private lateinit var genreAdapter: GenreAdapter
+
+    private var ignoreTabChanges = false
+
+    private val tabListener = object : TabLayout.OnTabSelectedListener {
+        override fun onTabSelected(tab: TabLayout.Tab) {
+            if (ignoreTabChanges) return
+            when (tab.position) {
+                0 -> {
+                    if (viewModel.uiState.value.selectedMediaId != Constants.MOVIE_CATEGORIES_ID) {
+                        viewModel.setMediaType(Constants.MOVIE_CATEGORIES_ID)
+                    }
+                }
+                1 -> {
+                    if (viewModel.uiState.value.selectedMediaId != Constants.TV_CATEGORIES_ID) {
+                        viewModel.setMediaType(Constants.TV_CATEGORIES_ID)
+                    }
+                }
+            }
+        }
+
+        override fun onTabUnselected(tab: TabLayout.Tab) {}
+        override fun onTabReselected(tab: TabLayout.Tab) {}
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,19 +106,17 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
         }
     }
 
-
     private fun initTabLayout() {
-        binding.tabExplore.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                when (tab.position) {
-                    0 -> viewModel.setMediaType(Constants.MOVIE_CATEGORIES_ID)
-                    1 -> viewModel.setMediaType(Constants.TV_CATEGORIES_ID)
-                }
-            }
+        binding.tabExplore.removeOnTabSelectedListener(tabListener)
+        binding.tabExplore.addOnTabSelectedListener(tabListener)
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
-        })
+        val currentMediaId = viewModel.uiState.value.selectedMediaId
+        val tabIndex = if (currentMediaId == Constants.TV_CATEGORIES_ID) 1 else 0
+        if (binding.tabExplore.selectedTabPosition != tabIndex) {
+            ignoreTabChanges = true
+            binding.tabExplore.getTabAt(tabIndex)?.select()
+            ignoreTabChanges = false
+        }
     }
 
     private fun setGenreAdapter() {
@@ -121,12 +141,22 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
     }
 
     private fun collectData() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.uiState.collect { state ->
                 genreAdapter.setItems(state.genre)
                 genreAdapter.setSelectedGenre(state.selectedCategoryID)
-                collectLast(viewModel.uiState.value.media) { paging ->
-                    allMediaAdapter.submitData(paging)
+
+                val desiredTab = if (state.selectedMediaId == Constants.TV_CATEGORIES_ID) 1 else 0
+                if (binding.tabExplore.selectedTabPosition != desiredTab) {
+                    ignoreTabChanges = true
+                    binding.tabExplore.getTabAt(desiredTab)?.select()
+                    ignoreTabChanges = false
+                }
+
+                launch {
+                    state.media.collectLatest { paging ->
+                        allMediaAdapter.submitData(paging)
+                    }
                 }
             }
         }
@@ -197,5 +227,4 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
                 extras
             )
     }
-
 }

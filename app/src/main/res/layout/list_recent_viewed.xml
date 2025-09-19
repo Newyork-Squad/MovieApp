@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="adapterRecycler"
+            type="com.karrar.movieapp.ui.search.adapters.RecentViewAdapter" />
+
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.search.adapters.SearchItemInteractionListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_medium">
+
+        <TextView
+            android:id="@+id/star_cast"
+            style="@style/Title.SM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@string/you_recent_viewed"
+            android:textColor="@color/shade_primary"
+            android:textFontWeight="500"
+            android:textSize="@dimen/text_body_lg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_clear"
+            style="@style/Body_MD.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@string/clear_all"
+            android:onClick="@{ () -> listener.onClearAllClicked()}"
+            android:layout_marginEnd="@dimen/spacing_small"
+            android:textColor="@color/brand_primary"
+            android:clickable="true"
+            android:enabled="true"
+            android:focusable="true"
+            android:textSize="@dimen/text_body_md"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_recent_viewed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adapter="@{adapterRecycler}"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginStart="@dimen/spacing_small"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/star_cast"
+            app:spanCount="1"
+            tools:listitem="@layout/item_recent_viewed" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

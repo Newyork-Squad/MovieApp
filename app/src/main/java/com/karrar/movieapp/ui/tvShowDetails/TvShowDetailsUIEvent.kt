@@ -1,10 +1,13 @@
 package com.karrar.movieapp.ui.tvShowDetails
 
+import com.karrar.movieapp.ui.movieDetails.MovieDetailsUIEvent
+
 
 sealed interface TvShowDetailsUIEvent {
     object ClickBackEvent : TvShowDetailsUIEvent
     object ClickPlayTrailerEvent : TvShowDetailsUIEvent
     object MessageAppear : TvShowDetailsUIEvent
+    object ShowRateDialogEvent : TvShowDetailsUIEvent
     object ClickReviewsEvent : TvShowDetailsUIEvent
     object ClickSeasonsEvent : TvShowDetailsUIEvent
     data class ClickSeasonEvent(val seasonId: Int) : TvShowDetailsUIEvent

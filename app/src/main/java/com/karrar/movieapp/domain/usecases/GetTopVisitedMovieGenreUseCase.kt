@@ -5,10 +5,10 @@ import com.karrar.movieapp.domain.models.Genre
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetTopVisitedMovieGenresUseCase @Inject constructor(
+class GetTopVisitedMovieGenreUseCase @Inject constructor(
     private val movieRepository: MovieRepository
 ) {
-    suspend operator fun invoke(): Flow<List<Genre>> {
-        return movieRepository.getTopVisitedMovieGenres()
+    suspend operator fun invoke(): Flow<Genre> {
+        return movieRepository.getTopVisitedMovieGenre()
     }
 }

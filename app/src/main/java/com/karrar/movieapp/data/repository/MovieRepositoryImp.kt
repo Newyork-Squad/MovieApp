@@ -82,10 +82,8 @@ class MovieRepositoryImp @Inject constructor(
         movieDao.increaseGenreVisitCount(genreId)
     }
 
-    override suspend fun getTopVisitedMovieGenres(): Flow<List<Genre>> {
-        return movieDao.getTopVisitedMovieGenres().map { genreEntities ->
-            genreEntities.map { movieGenreMapper.map(it) }
-        }
+    override suspend fun getTopVisitedMovieGenre(): Flow<Genre> {
+        return movieDao.getTopVisitedMovieGenre().map { movieGenreMapper.map(it)  }
     }
 
     override suspend fun getDailyTrending(): BaseListResponse<DailyTrendingDto> {

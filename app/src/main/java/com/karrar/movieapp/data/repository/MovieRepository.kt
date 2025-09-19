@@ -43,7 +43,7 @@ interface MovieRepository {
 
     suspend fun increaseMovieGenreVisitCount(genreId: Int)
 
-    suspend fun getTopVisitedMovieGenres(): Flow<List<Genre>>
+    suspend fun getTopVisitedMovieGenre(): Flow<Genre>
 
     suspend fun getDailyTrending(): BaseListResponse<DailyTrendingDto>
 

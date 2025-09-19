@@ -171,7 +171,7 @@ class TvShowDetailsViewModel @Inject constructor(
                         )
                     )
                 }
-                updateDetailItems(DetailItemUIState.Rating(this@TvShowDetailsViewModel))
+                updateDetailItems(DetailItemUIState.Rating(this@TvShowDetailsViewModel,_stateUI.value.ratingValue))
             } catch (e: Throwable) {
             }
         }
@@ -180,9 +180,8 @@ class TvShowDetailsViewModel @Inject constructor(
     fun onChangeRating(value: Float) {
         viewModelScope.launch {
             try {
-                setRatingUesCase(args.tvShowId, value)
                 _stateUI.update { it.copy(ratingValue = value) }
-                _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.MessageAppear) }
+                updateRateItemOfNestedView(value)
             } catch (e: Throwable) {
             }
         }
@@ -219,6 +218,18 @@ class TvShowDetailsViewModel @Inject constructor(
         _stateUI.update { it.copy(detailItemResult = list.toList()) }
     }
 
+    private fun updateRateItemOfNestedView(value : Float) {
+        val list = _stateUI.value.detailItemResult.toMutableList()
+        val newList = list.map {
+            if (it is DetailItemUIState.Rating) {
+                DetailItemUIState.Rating(this@TvShowDetailsViewModel, value)
+            } else {
+                it
+            }
+        }
+        _stateUI.update { it.copy( detailItemResult = newList ) }
+    }
+
     private suspend fun insertMovieToWatchHistory(tvShow: TvShowDetails) {
         getInsertTvShowUserCase(tvShow)
     }
@@ -227,6 +238,14 @@ class TvShowDetailsViewModel @Inject constructor(
 
     override fun onClickPlayTrailer() {
         _tvShowDetailsUIEvent.update { Event(TvShowDetailsUIEvent.ClickPlayTrailerEvent) }
+    }
+
+    override fun onClickRate() {
+        _tvShowDetailsUIEvent.update {
+            Event(
+                TvShowDetailsUIEvent.ShowRateDialogEvent
+            )
+        }
     }
 
     override fun onclickBack() {

@@ -14,6 +14,9 @@
     <string name="username">اسم المستخدم</string>
     <string name="password">كلمة المرور</string>
     <string name="login">تسجيل الدخول</string>
+    <string name="add_rating">أضف تقييمك</string>
+    <string name="change_rating">غير التقييم</string>
+    <string name="remove_rating">إزالة التقييم</string>
     <string name="don_t_have_an_account">ليس لديك حساب؟</string>
     <string name="sign_up">إنشاء حساب</string>
     <string name="place_of_birth">مكان الميلاد</string>
@@ -139,7 +142,9 @@
     <string name="welcome">مرحبا</string>
     <string name="behind_the_scenes">الكواليس</string>
     <string name="give_it_stars">قيمه بالنجوم!</string>
+    <string name="you_rated_it">لقد قيمته</string>
     <string name="let_the_world_know_how_you_felt">دع العالم يعرف رأيك.</string>
+    <string name="tap_to_change_your_rating">إضغط لتغيير تقييمك</string>
     <string name="arrow">سهم</string>
     <string name="change_language">تغيير اللغة</string>
     <string name="english">الإنجليزية</string>
@@ -211,4 +216,17 @@
 
     <string name="match">كيفي</string>
     <string name="me">انا</string>
+
+    <string name="speech_error_no_match">لم أتمكن من فهمك جيدًا — يُرجى المحاولة مرة أخرى.</string>
+    <string name="speech_error_timeout">لم يتم التقاط أي كلام — يُرجى التحدث مجددًا.</string>
+    <string name="speech_error_permissions">يلزم الحصول على إذن الميكروفون. افتح إعدادات التطبيق وفعّل الميكروفون.</string>
+    <string name="speech_error_busy">خدمة التعرّف على الصوت مشغولة حاليًا. حاول مرة أخرى لاحقًا.</string>
+    <string name="speech_error_network">حدثت مشكلة في الشبكة — يُرجى التحقق من اتصالك بالإنترنت.</string>
+    <string name="speech_error_unknown">حدث خطأ غير معروف. حاول مرة أخرى.</string>
+    <string name="speech_recognition_is_not_available">خدمة التعرّف على الكلام غير متاحة.</string>
+    <string name="cannot_start_speech_recognizer">لا يمكن بدء تشغيل خدمة التعرّف على الكلام: %1$s</string>
+    <string name="no_results">لا توجد نتيجة للكلام</string>
+    <string name="speech_recognition_not_available_on_this_device">التعرّف على الكلام غير متاح على هذا الجهاز</string>
+    <string name="permission_denied_for_microphone">تم رفض إذن استخدام الميكروفون</string>
+
 </resources>

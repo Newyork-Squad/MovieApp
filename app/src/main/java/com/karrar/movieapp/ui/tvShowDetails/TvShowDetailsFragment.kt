@@ -12,6 +12,9 @@ import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.FragmentTvShowDetailsBinding
 import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.ui.base.BaseFragment
+import com.karrar.movieapp.utilities.Constants
+import com.karrar.movieapp.utilities.Constants.INPUT_RATE_KEY
+import com.karrar.movieapp.utilities.Constants.RATE_DIALOG_DISMISSED_KEY
 import com.karrar.movieapp.utilities.collectLast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -30,6 +33,13 @@ class TvShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
         setTitle(false)
         collectTVShowDetailsItems()
         collectEvents()
+        parentFragmentManager.setFragmentResultListener(
+            RATE_DIALOG_DISMISSED_KEY,
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val inputRate = bundle.getFloat(INPUT_RATE_KEY)
+            viewModel.onChangeRating(inputRate)
+        }
     }
 
     private fun collectTVShowDetailsItems() {
@@ -88,6 +98,13 @@ class TvShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
                 Toast.makeText(context, getString(R.string.submit_toast), Toast.LENGTH_SHORT).show()
             }
 
+            TvShowDetailsUIEvent.ShowRateDialogEvent -> {
+                action =
+                    TvShowDetailsFragmentDirections.actionTvShowDetailsFragmentToRateDialog(
+                        args.tvShowId,
+                        Constants.TV_SHOWS
+                    )
+            }
             is TvShowDetailsUIEvent.ClickTvShowEvent -> {
                 viewModelStore.clear()
                 action =

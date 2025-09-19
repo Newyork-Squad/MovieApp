@@ -17,6 +17,9 @@ object Constants {
     const val IMDB_ID = "imdb_id"
     const val TIKTOK_ID = "tiktok_id"
 
+    const val INPUT_RATE_KEY = "input_rate"
+    const val RATE_DIALOG_DISMISSED_KEY = "rate_dialog_dismissed"
+
 
     const val MAX_NUM_REVIEWS = 3
 

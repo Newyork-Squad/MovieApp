@@ -17,7 +17,7 @@ sealed class DetailItemUIState(val priority: Int) {
 
     class Comment(val data: ReviewUIState) : DetailItemUIState(6)
 
-    class Rating(val viewModel: ViewModel) : DetailItemUIState(4)
+    class Rating(val viewModel: ViewModel, val rate: Float) : DetailItemUIState(4)
 
     object ReviewText : DetailItemUIState(5)
 

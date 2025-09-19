@@ -1,7 +1,9 @@
 package com.karrar.movieapp.ui.movieDetails
 
+import android.provider.Settings.Global.getString
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.domain.models.MovieDetails
 import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
@@ -167,7 +169,7 @@ class MovieDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _uiState.update { it.copy(ratingValue = getMovieRate(movieId)) }
-                onAddMovieDetailsItemOfNestedView(DetailItemUIState.Rating(this@MovieDetailsViewModel))
+                onAddMovieDetailsItemOfNestedView(DetailItemUIState.Rating(this@MovieDetailsViewModel, _uiState.value.ratingValue ))
             } catch (e: Throwable) {
             }
         }
@@ -176,9 +178,8 @@ class MovieDetailsViewModel @Inject constructor(
     fun onChangeRating(value: Float) {
         viewModelScope.launch {
             try {
-                setRatingUseCase(args.movieId, value)
                 _uiState.update { it.copy(ratingValue = value) }
-                _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.MessageAppear) }
+                updateRateItemOfNestedView(value)
             } catch (e: Throwable) {
             }
         }
@@ -215,6 +216,19 @@ class MovieDetailsViewModel @Inject constructor(
         _uiState.update { it.copy(detailItemResult = list.toList()) }
     }
 
+    private fun updateRateItemOfNestedView(value : Float) {
+        val list = _uiState.value.detailItemResult.toMutableList()
+        val newList = list.map {
+            if (it is DetailItemUIState.Rating) {
+                DetailItemUIState.Rating(this@MovieDetailsViewModel, value)
+            } else {
+                it
+            }
+        }
+        _uiState.update { it.copy( detailItemResult = newList ) }
+    }
+
+
     private fun showLoginDialog() {
         _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ShowLoginDialogEvent) }
     }
@@ -233,6 +247,18 @@ class MovieDetailsViewModel @Inject constructor(
 
     override fun onclickBack() {
         _movieDetailsUIEvent.update { Event(MovieDetailsUIEvent.ClickBackEvent) }
+    }
+
+    override fun onClickRate() {
+        if (uiState.value.isLogin) {
+            _movieDetailsUIEvent.update {
+                Event(
+                    MovieDetailsUIEvent.ShowRateDialogEvent
+                )
+            }
+        } else {
+            showLoginDialog()
+        }
     }
 
     override fun onClickViewReviews() {

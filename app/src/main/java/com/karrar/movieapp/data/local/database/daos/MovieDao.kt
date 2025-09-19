@@ -124,6 +124,6 @@ interface MovieDao {
     @Query("UPDATE MOVIE_GENRE_TABLE SET visitCount = visitCount + 1 WHERE id = :genreId")
     suspend fun increaseGenreVisitCount(genreId: Int)
 
-    @Query("SELECT * FROM MOVIE_GENRE_TABLE ORDER BY visitCount DESC LIMIT 5")
+    @Query("SELECT * FROM MOVIE_GENRE_TABLE ORDER BY visitCount DESC LIMIT 1")
     fun getTopVisitedMovieGenre(): Flow<MovieGenreEntity>
 }

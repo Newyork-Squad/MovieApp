@@ -125,6 +125,8 @@ interface MovieRepository {
     suspend fun deleteRating(movieId: Int): RatingDto?
 
     suspend fun getRatedMovie(): List<RatedMoviesDto>?
+    
+    suspend fun clearCache()
 
     suspend fun getMatchingMovies(
         moods: List<Mood>,

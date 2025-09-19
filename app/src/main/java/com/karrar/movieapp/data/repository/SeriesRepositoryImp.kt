@@ -210,4 +210,10 @@ class SeriesRepositoryImp @Inject constructor(
     override suspend fun getSimilarTvShows(tvShowId: Int): List<TVShowsDTO>? {
         return service.getSimilarSeries(tvShowId).body()?.items
     }
+
+    override suspend fun clearCache() {
+        seriesDao.deleteAllAiringTodaySeries()
+        seriesDao.deleteAllOnTheAirSeries()
+        seriesDao.deleteAllTopRatedSeries()
+    }
 }

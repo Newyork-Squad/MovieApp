@@ -51,7 +51,6 @@ import com.karrar.movieapp.domain.mappers.MovieQueryMapper
 import com.karrar.movieapp.domain.mappers.movie.MovieGenreMapper
 import com.karrar.movieapp.domain.models.Genre
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 import java.util.Date
 import javax.inject.Inject
@@ -268,7 +267,7 @@ class MovieRepositoryImp @Inject constructor(
 
     override suspend fun getUserMatchingMovies(): Flow<List<UserMatchingMovieEntity>> {
         refreshOneTimePerDay(
-            appConfiguration.getRequestDate(Constants.UPCOMING_MOVIE_REQUEST_DATE_KEY),
+            appConfiguration.getRequestDate(Constants.USER_MATCHING_MOVIE_REQUEST_DATE_KEY),
             ::refreshUserMatchingMovies
         )
         return movieDao.getUserMatchingMovies()
@@ -381,21 +380,22 @@ class MovieRepositoryImp @Inject constructor(
     }
 
     private suspend fun refreshUserMatchingMovies(currentDate: Date) {
-        val topGenre = getTopVisitedMovieGenre().last()
-        refreshWrapper(
-            { movieService.getMovieListByGenre(topGenre.genreID) },
-            { list ->
-                list?.map { dataMappers.userMatchingMovieMapper.map(it) }
-            },
-            {
-                movieDao.deleteAllUserMatchingMovies()
-                movieDao.insertUserMatchingMovie(it)
-                appConfiguration.saveRequestDate(
-                    Constants.USER_MATCHING_MOVIE_REQUEST_DATE_KEY,
-                    currentDate.time
-                )
-            },
-        )
+        getTopVisitedMovieGenre().collect { topGenre ->
+            refreshWrapper(
+                { movieService.getMovieListByGenre(topGenre.genreID) },
+                { list ->
+                    list?.map { dataMappers.userMatchingMovieMapper.map(it) }
+                },
+                {
+                    movieDao.deleteAllUserMatchingMovies()
+                    movieDao.insertUserMatchingMovie(it)
+                    appConfiguration.saveRequestDate(
+                        Constants.USER_MATCHING_MOVIE_REQUEST_DATE_KEY,
+                        currentDate.time
+                    )
+                },
+            )
+        }
     }
 
     private suspend fun refreshAdventureMovies(currentDate: Date) {

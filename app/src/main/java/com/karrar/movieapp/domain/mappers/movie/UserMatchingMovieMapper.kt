@@ -1,5 +1,6 @@
 package com.karrar.movieapp.domain.mappers.movie
 
+import com.karrar.movieapp.BuildConfig
 import com.karrar.movieapp.data.local.database.entity.movie.UserMatchingMovieEntity
 import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.domain.mappers.Mapper
@@ -11,7 +12,7 @@ class UserMatchingMovieMapper @Inject constructor() : Mapper<UserMatchingMovieEn
         return Media(
             mediaID = input.id,
             mediaName = input.title,
-            mediaImage = input.imageUrl,
+            mediaImage = BuildConfig.IMAGE_BASE_PATH + input.imageUrl,
             mediaRate = input.movieRate,
             mediaDate = "",
             mediaType = MediaType.MOVIE.value,

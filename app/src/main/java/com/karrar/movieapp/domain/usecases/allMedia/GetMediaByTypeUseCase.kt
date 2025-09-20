@@ -41,6 +41,10 @@ class GetMediaByTypeUseCase @Inject constructor(
             AllMediaType.UPCOMING -> {
                 wrapper(movieRepository::getUpcomingMoviesPager, movieMapper::map)
             }
+
+            AllMediaType.MATCHES_YOUR_VIBE -> {
+                wrapper(movieRepository::getUpcomingMoviesPager, movieMapper::map)
+            }
         }
     }
 

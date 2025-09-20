@@ -12,6 +12,7 @@ import com.karrar.movieapp.ui.search.mediaSearchUIState.SearchItemUiState
 class SearchAdapter(
     private var items: List<SearchItemUiState>,
     private val listener: SearchItemInteractionListener,
+    private val suggestionsAdapter: SuggestionsAdapter,
 ) : BaseAdapter<SearchItemUiState>(items, listener) {
     override val layoutID: Int = 0
 
@@ -62,17 +63,9 @@ class SearchAdapter(
 
             is SearchItemUiState.SuggestionsItems -> {
                 holder.binding.run {
-//                    setVariable(
-//                        BR.adapterRecycler,
-//                        SuggestionsAdapter(
-//                            currentItem.data,
-//                            R.layout.item_suggestion,
-//                            listener as SuggestionsInteractionListener
-//                        )
-//                    )
-//
-//                setVariable(BR.listener,listener)
-//                    executePendingBindings()
+                    setVariable(BR.adapterRecycler, suggestionsAdapter)
+                    setVariable(BR.listener, listener)
+                    executePendingBindings()
                 }
             }
         }

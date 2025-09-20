@@ -9,14 +9,14 @@ class SearchHistoryItemMapper @Inject constructor() :
     Mapper<SearchHistoryEntity, SearchHistoryUIState> {
     override fun map(input: SearchHistoryEntity): SearchHistoryUIState {
         return SearchHistoryUIState(
-            id = input.id,
-            name = input.search
+            name = input.search,
+            entity = input
         )
     }
 
     fun map(input: SearchHistoryUIState): SearchHistoryEntity {
         return SearchHistoryEntity(
-            id = input.id,
+            id = input.entity.id,
             search = input.name
         )
     }

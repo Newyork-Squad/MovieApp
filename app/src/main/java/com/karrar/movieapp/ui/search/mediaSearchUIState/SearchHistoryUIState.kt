@@ -1,6 +1,8 @@
 package com.karrar.movieapp.ui.search.mediaSearchUIState
 
+import com.karrar.movieapp.data.local.database.entity.SearchHistoryEntity
+
 data class SearchHistoryUIState(
-    val id: Long ,
-    val name: String,
+    val name: String ,
+    val entity: SearchHistoryEntity
 )

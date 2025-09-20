@@ -183,9 +183,9 @@ class HomeViewModel @Inject constructor(
     private fun getMatchingMovies() {
         viewModelScope.launch {
             try {
-                homeUseCasesContainer.getUpcomingMoviesUseCase().collect { list ->
+                homeUseCasesContainer.getMoviesMatchingUserVibeUseCase().collect { list ->
                     if (list.isNotEmpty()) {
-                        val items = list.reversed().map(mediaUiMapper::map)
+                        val items = list.map(mediaUiMapper::map)
                         _homeUiState.update {
                             it.copy(
                                 matchedItems = HomeItem.MatchedItems(items),

@@ -11,6 +11,23 @@ data class HomeUiState (
     val collections: HomeItem = HomeItem.Collections(emptyList()),
     val whatShouldIWatch:HomeItem=HomeItem.WhatShouldWatch,
     val needMoreToWatch:HomeItem=HomeItem.NeedMoreToWatch,
+    val featured: HomeItem = HomeItem.FeaturedCollections(emptyList()),
+    val featuredCollections: List<FeaturedCollectionUiState> = emptyList(),
     val isLoading:Boolean = false,
     val error : List<String> = emptyList(),
 )
+
+data class FeaturedCollectionUiState(
+    val title: String,
+    val imageResId: Int,
+    val target: FeaturedCollectionsTarget
+)
+
+enum class FeaturedCollectionsTarget {
+    LATE_NIGHT_THRILLS,
+    MIND_BENDING_STORIES,
+    CINEMATIC_MASTERPIECES,
+    FAMILY_NIGHT_PICKS,
+    BASED_ON_TRUE_EVENTS,
+    FEEL_GOOD_FAVORITES
+}

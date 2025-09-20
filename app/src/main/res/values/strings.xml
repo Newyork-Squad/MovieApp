@@ -233,4 +233,5 @@
     <string name="no_results">No speech result</string>
     <string name="speech_recognition_not_available_on_this_device">Speech recognition not available on this device</string>
     <string name="permission_denied_for_microphone">Permission denied for microphone</string>
+    <string name="featured_collections">Featured Collections</string>
 </resources>

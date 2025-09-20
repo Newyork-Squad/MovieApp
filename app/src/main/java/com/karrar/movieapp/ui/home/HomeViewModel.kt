@@ -1,6 +1,7 @@
 package com.karrar.movieapp.ui.home
 
 import androidx.lifecycle.viewModelScope
+import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.domain.mappers.WatchHistoryMapper
@@ -13,6 +14,8 @@ import com.karrar.movieapp.ui.adapters.MediaInteractionListener
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.ui.home.adapter.TVShowInteractionListener
+import com.karrar.movieapp.ui.home.homeUiState.FeaturedCollectionUiState
+import com.karrar.movieapp.ui.home.homeUiState.FeaturedCollectionsTarget
 import com.karrar.movieapp.ui.home.homeUiState.HomeUIEvent
 import com.karrar.movieapp.ui.home.homeUiState.HomeUiState
 import com.karrar.movieapp.ui.mappers.MediaUiMapper
@@ -73,6 +76,7 @@ class HomeViewModel @Inject constructor(
         getPopularMovies()
         getRecentlyViewed()
         getCollections()
+        getFeaturedCollections()
     }
 
     override fun getData() {
@@ -132,6 +136,52 @@ class HomeViewModel @Inject constructor(
         SharingStarted.Lazily,
         "Home"
     )
+
+
+    private fun getFeaturedCollections() {
+        val featured = listOf(
+            FeaturedCollectionUiState(
+                "Late-Night Thrills",
+                R.drawable.late_night_thrills,
+                FeaturedCollectionsTarget.LATE_NIGHT_THRILLS
+            ),
+            FeaturedCollectionUiState(
+                "Mind-Bending Stories",
+                R.drawable.mind_bending_stories,
+                FeaturedCollectionsTarget.MIND_BENDING_STORIES
+            ),
+            FeaturedCollectionUiState(
+                "Cinematic Masterpieces",
+                R.drawable.cinematic_master_pieces,
+                FeaturedCollectionsTarget.CINEMATIC_MASTERPIECES
+            ),
+            FeaturedCollectionUiState(
+                "Family Night Picks",
+                R.drawable.family_night_picks,
+                FeaturedCollectionsTarget.FAMILY_NIGHT_PICKS
+            ),
+            FeaturedCollectionUiState(
+                "Based on True Events",
+                R.drawable.based_in_true_events,
+                FeaturedCollectionsTarget.BASED_ON_TRUE_EVENTS
+            ),
+            FeaturedCollectionUiState(
+                "Feel-Good Favorites",
+                R.drawable.feel_good_favorites,
+                FeaturedCollectionsTarget.FEEL_GOOD_FAVORITES
+            )
+        )
+
+        _homeUiState.update {
+            it.copy(featuredCollections = featured)
+        }
+    }
+
+    override fun onClickFeaturedCollections(target: FeaturedCollectionsTarget) {
+        _homeUIEvent.update { Event(HomeUIEvent.ClickFeaturedCollection(target)) }
+    }
+
+
 
     private fun getPopularMovies() {
         viewModelScope.launch {

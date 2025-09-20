@@ -9,25 +9,60 @@
             name="adapterRecycler"
             type="com.karrar.movieapp.ui.search.adapters.SearchHistoryAdapter" />
 
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.search.adapters.SearchItemInteractionListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_small">
+        android:layout_marginTop="@dimen/spacing_large">
+
+        <TextView
+            android:id="@+id/tv_history"
+            style="@style/Title.SM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@string/history"
+            android:textColor="@color/shade_primary"
+            android:textSize="@dimen/text_body_lg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_clear"
+            style="@style/Body_MD.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@string/clear_all"
+            android:onClick="@{ () -> listener.onClearAllQueryHistoryClicked()}"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:textColor="@color/brand_primary"
+            android:clickable="true"
+            android:enabled="true"
+            android:focusable="true"
+            android:textSize="@dimen/text_body_md"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_recent_viewed"
+            android:id="@+id/rv_query_history"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:adapter="@{adapterRecycler}"
             android:clipToPadding="false"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_small"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_history"
             app:spanCount="1"
             tools:listitem="@layout/item_search_history" />
 

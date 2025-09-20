@@ -10,4 +10,5 @@ sealed interface SearchUIEvent {
     object ClickBackEvent : SearchUIEvent
     object ClickRetryEvent : SearchUIEvent
     object ClickVoiceEvent : SearchUIEvent
+    object ClickSearchHistoryEvent : SearchUIEvent
 }

@@ -9,7 +9,7 @@ class OnTheAirSeriesMapper  @Inject constructor() : Mapper<TVShowsDTO, OnTheAirS
     override fun map(input: TVShowsDTO): OnTheAirSeriesEntity {
         return OnTheAirSeriesEntity(
             id = input.id ?:0,
-            name = input.originalName?:"",
+            name = input.name ?: input.originalName ?: "",
             imageUrl = input.posterPath ?:""
         )
     }

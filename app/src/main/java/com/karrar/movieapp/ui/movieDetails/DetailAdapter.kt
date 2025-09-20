@@ -74,6 +74,7 @@ class DetailAdapter(
 
             is DetailItemUIState.Rating -> {
                 holder.binding.run {
+                    setVariable(BR.rate, currentItem.rate)
                     setVariable(BR.viewModel, currentItem.viewModel)
                 }
             }

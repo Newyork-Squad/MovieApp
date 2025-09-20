@@ -1,8 +1,12 @@
 package com.karrar.movieapp.data.local
 
 
+import android.content.res.Configuration
+import android.content.res.Resources
+import com.karrar.movieapp.utilities.Constants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.util.Locale
 import javax.inject.Inject
 
 interface AppConfiguration {
@@ -27,6 +31,8 @@ interface AppConfiguration {
     suspend fun setIsGuest(isGuest: Boolean)
 
     fun isGuestUser(): Boolean
+    suspend fun clearRequestDates()
+
 
 }
 
@@ -53,10 +59,15 @@ class AppConfigurator @Inject constructor(
 
     override fun isDarkMode(): Flow<Boolean> =
         dataStorePreferences.readBooleanFlow(DARK_MODE_KEY)
+            .map { savedMode ->
+                savedMode ?: isSystemInDarkMode()
+            }
 
     override fun getLanguage(): Flow<String> =
         dataStorePreferences.readStringFlow(LANGUAGE_KEY)
-            .map { it ?: "English" }
+            .map { savedLanguage ->
+                savedLanguage ?: getDeviceLanguage()
+            }
 
     override suspend fun setIsGuest(isGuest: Boolean) {
         dataStorePreferences.writeBoolean(IS_GUEST_USER_KEY, isGuest)
@@ -82,6 +93,30 @@ class AppConfigurator @Inject constructor(
         sharedPreferences.saveBoolean(START_UP_KEY, value)
     }
 
+    override suspend fun clearRequestDates() {
+        dataStorePreferences.remove(Constants.POPULAR_MOVIE_REQUEST_DATE_KEY)
+        dataStorePreferences.remove(Constants.TRENDING_MOVIE_REQUEST_DATE_KEY)
+        dataStorePreferences.remove(Constants.UPCOMING_MOVIE_REQUEST_DATE_KEY)
+        dataStorePreferences.remove(Constants.ADVENTURE_MOVIE_REQUEST_DATE_KEY)
+        dataStorePreferences.remove(Constants.MYSTERY_MOVIE_REQUEST_DATE_KEY)
+        dataStorePreferences.remove(Constants.NOW_STREAMING_MOVIE_REQUEST_DATE_KEY)
+        dataStorePreferences.remove(Constants.AIRING_TODAY_SERIES_REQUEST_DATE_KEY)
+        dataStorePreferences.remove(Constants.ON_THE_AIR_SERIES_REQUEST_DATE_KEY)
+        dataStorePreferences.remove(Constants.TOP_RATED_SERIES_REQUEST_DATE_KEY)
+        dataStorePreferences.remove(Constants.ACTOR_REQUEST_DATE_KEY)
+    }
+    private fun getDeviceLanguage(): String {
+        val locale = Locale.getDefault().language
+        return when (locale) {
+            "ar" -> "Arabic"
+            else -> "English"
+        }
+    }
+
+    private fun isSystemInDarkMode(): Boolean {
+        val currentNightMode = Resources.getSystem().configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        return currentNightMode == Configuration.UI_MODE_NIGHT_YES
+    }
 
     companion object Keys {
         const val SESSION_ID_KEY = "session_id"

@@ -4,14 +4,13 @@ import com.karrar.movieapp.BuildConfig
 import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
 import com.karrar.movieapp.data.remote.response.MovieDto
 import com.karrar.movieapp.data.remote.response.genre.GenreDto
-import com.karrar.movieapp.domain.models.Genre
 import javax.inject.Inject
 
 class PopularMovieMapper @Inject constructor() {
     fun map(movie: MovieDto, genreList: List<GenreDto>): PopularMovieEntity {
         return PopularMovieEntity(
             id = movie.id ?: 0,
-            title = movie.title ?: "",
+            title =  movie.title ?: movie.originalTitle ?: "",
             movieRate = movie.voteAverage ?: 0.0,
             imageUrl = (BuildConfig.IMAGE_BASE_PATH + movie.backdropPath),
             genre = getGenreNames(movie.genreIds, genreList)

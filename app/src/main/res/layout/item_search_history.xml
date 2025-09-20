@@ -27,6 +27,6 @@
         android:textColor="@color/shade_secondary"
         android:drawablePadding="6dp"
         app:drawableEndCompat="@drawable/outline_close"
-        android:onClick="@{() -> listener.onClickSearchHistory(item.name)}"/>
+        android:onClick="@{() -> listener.onClickDeleteSearchHistoryItem(item)}"/>
 
 </layout>

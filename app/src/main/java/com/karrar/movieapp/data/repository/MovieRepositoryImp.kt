@@ -51,6 +51,7 @@ import com.karrar.movieapp.domain.mappers.MovieQueryMapper
 import com.karrar.movieapp.domain.mappers.movie.MovieGenreMapper
 import com.karrar.movieapp.domain.models.Genre
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.util.Date
 import javax.inject.Inject
@@ -289,6 +290,16 @@ class MovieRepositoryImp @Inject constructor(
         return Pager(
             config = config,
             pagingSourceFactory = { movieDataSource.upcomingMovieMovieDataSource })
+    }
+
+    override suspend fun getUserMatchingMoviesPager(): Pager<Int, MovieDto> {
+        val topGenre = getTopVisitedMovieGenre().first()
+        val dataSource = mediaDataSourceContainer.movieByGenreDataSource
+        dataSource.setGenre(topGenre.genreID)
+        return Pager(
+            config = config,
+            pagingSourceFactory = { dataSource }
+        )
     }
 
     override suspend fun getAdventureMoviesPager(): Pager<Int, MovieDto> {

@@ -298,12 +298,14 @@ class HomeViewModel @Inject constructor(
                 onClickSeeAllRecentlyViewed()
                 return
             }
+
             HomeItemsType.COLLECTIONS -> {
                 onClickSeeAllCollections()
                 return
             }
+
             HomeItemsType.NON -> AllMediaType.ACTOR_MOVIES
-            HomeItemsType.MATCHES_YOUR_VIBE -> TODO()
+            HomeItemsType.MATCHES_YOUR_VIBE -> AllMediaType.MATCHES_YOUR_VIBE
         }
         _homeUIEvent.update { Event(HomeUIEvent.ClickSeeAllMovieEvent(type)) }
     }

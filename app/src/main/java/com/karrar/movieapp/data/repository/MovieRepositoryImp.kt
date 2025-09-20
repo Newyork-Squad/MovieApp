@@ -157,6 +157,11 @@ class MovieRepositoryImp @Inject constructor(
         return movieDao.insert(movie)
     }
 
+    override suspend fun clearAllSearchHistory() {
+        movieDao.clearAllSearchHistory()
+    }
+
+
     override suspend fun deleteMovieFromHistory(movie: WatchHistoryEntity) {
         movieDao.delete(movie)
     }

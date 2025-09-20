@@ -142,4 +142,6 @@ interface MovieRepository {
 
     fun searchKeywordsPager(query: String): Pager<Int, SearchKeywordDto>
 
+    suspend fun clearAllSearchHistory()
+
 }

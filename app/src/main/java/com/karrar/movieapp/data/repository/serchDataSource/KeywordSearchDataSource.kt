@@ -20,14 +20,18 @@ class KeywordSearchDataSource @Inject constructor(
         val pageNumber = params.key ?: 1
         return try {
             val response = service.getSearchKeywords(keywordSearchText, pageNumber)
-            val pagedResponse = response.body()
+            val results = response.body()?.results ?: emptyList()
+
+            val limitedResults = if (results.size > 20) results.take(20) else results
+
             LoadResult.Page(
-                data = pagedResponse?.results ?: emptyList(),
+                data = limitedResults,
                 prevKey = null,
-                nextKey = if (pagedResponse?.results?.isEmpty() == true) null else pageNumber + 1
+                nextKey = if (results.isEmpty() || pageNumber >= 1) null else pageNumber + 1
             )
         } catch (e: Throwable) {
             LoadResult.Error(e)
         }
     }
+
 }

@@ -3,6 +3,7 @@ package com.karrar.movieapp.data.remote.service
 import com.karrar.movieapp.data.remote.response.AddListResponse
 import com.karrar.movieapp.data.remote.response.AddMovieDto
 import com.karrar.movieapp.data.remote.response.BaseListResponse
+import com.karrar.movieapp.data.remote.response.CollectionDto
 import com.karrar.movieapp.data.remote.response.CreatedListDto
 import com.karrar.movieapp.data.remote.response.CreditsDto
 import com.karrar.movieapp.data.remote.response.DailyTrendingDto
@@ -281,4 +282,11 @@ interface MovieService {
         @Query("session_id") sessionId: String,
         @Field("media_id") movieId: Int
     ): Response<DefaultResponse>
+
+
+    @GET("account/{account_id}/lists")
+    @Headers("need_session_id: true")
+    suspend fun getCollections(
+        @Path("account_id") accountId: Int
+    ): Response<BaseListResponse<CollectionDto>>
 }

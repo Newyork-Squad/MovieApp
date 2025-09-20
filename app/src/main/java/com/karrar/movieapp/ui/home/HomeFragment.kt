@@ -112,4 +112,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         findNavController().navigate(action)
     }
 
+    fun refreshHomeData() {
+        viewModel.refreshHomeData()
+    }
+
+
 }

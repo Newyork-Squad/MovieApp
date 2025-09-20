@@ -149,6 +149,10 @@ class MovieRepositoryImp @Inject constructor(
         return movieDao.delete(item)
     }
 
+    override suspend fun clearSearchHistory() {
+        movieDao.clearSearchHistory()
+    }
+
     override suspend fun insertMovie(movie: WatchHistoryEntity) {
         return movieDao.insert(movie)
     }
@@ -480,6 +484,18 @@ class MovieRepositoryImp @Inject constructor(
             sessionId = sessionId,
             movieId = movieId
         ).body()
+    }
+
+    override suspend fun clearCache() {
+        movieDao.deletePopularMovies()
+        movieDao.deleteAllTrendingMovies()
+        movieDao.deleteAllNowStreamingMovies()
+        movieDao.deleteAllUpcomingMovies()
+        movieDao.deleteAllMysteryMovies()
+        movieDao.deleteAllAdventureMovies()
+        actorDao.deleteActors()
+        appConfiguration.clearRequestDates()
+
     }
 
 

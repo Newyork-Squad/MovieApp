@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="rate"
+            type="Float" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/background_bottomSheet"
+        app:cardCornerRadius="@dimen/radius_large">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="36dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bottom_sheet_handle"
+                android:backgroundTint="@color/shade_quaternary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_confirmation"
+                style="@style/Title.SM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/rate_the_movie"
+                android:textColor="@color/shade_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view" />
+
+            <ImageView
+                android:id="@+id/btn_close"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/cancel"
+                android:src="@drawable/outline_close"
+                app:layout_constraintBottom_toBottomOf="@id/text_confirmation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/text_confirmation"
+                app:tint="@color/shade_secondary" />
+
+
+            <ImageView
+                android:id="@+id/emoji_rate1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="20dp"
+                android:contentDescription="@string/not_now"
+                android:src="@drawable/colored_frowning_face"
+                android:layout_marginStart="@dimen/spacing_small"
+                app:layout_constraintEnd_toStartOf="@+id/emoji_rate2"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/rating_bar"
+                app:layout_constraintTop_toBottomOf="@+id/text_confirmation" />
+
+            <ImageView
+                android:id="@+id/emoji_rate2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/not_now"
+                android:src="@drawable/colored_confused_face"
+                app:layout_constraintTop_toTopOf="@+id/emoji_rate1"
+                app:layout_constraintBottom_toBottomOf="@+id/emoji_rate1"
+                app:layout_constraintStart_toEndOf="@+id/emoji_rate1"
+                app:layout_constraintEnd_toStartOf="@+id/emoji_rate3"
+                />
+
+            <ImageView
+                android:id="@+id/emoji_rate3"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/not_now"
+                android:src="@drawable/colored_neutral_face"
+                app:layout_constraintTop_toTopOf="@+id/emoji_rate1"
+                app:layout_constraintBottom_toBottomOf="@+id/emoji_rate1"
+                app:layout_constraintStart_toEndOf="@+id/emoji_rate2"
+                app:layout_constraintEnd_toStartOf="@+id/emoji_rate4"
+                />
+
+            <ImageView
+                android:id="@+id/emoji_rate4"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/not_now"
+                android:src="@drawable/colored_smiling_face_with_smiling_eyes"
+                app:layout_constraintTop_toTopOf="@+id/emoji_rate1"
+                app:layout_constraintBottom_toBottomOf="@+id/emoji_rate1"
+                app:layout_constraintStart_toEndOf="@+id/emoji_rate3"
+                app:layout_constraintEnd_toStartOf="@+id/emoji_rate5"
+                />
+
+            <ImageView
+                android:id="@+id/emoji_rate5"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/not_now"
+                android:src="@drawable/colored_star_struck"
+                android:layout_marginEnd="@dimen/spacing_small"
+                app:layout_constraintBottom_toBottomOf="@+id/emoji_rate1"
+                app:layout_constraintEnd_toEndOf="@+id/rating_bar"
+                app:layout_constraintStart_toEndOf="@+id/emoji_rate4"
+                app:layout_constraintTop_toTopOf="@+id/emoji_rate1" />
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:backgroundTint="@color/shade_secondary"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:progressDrawable="@drawable/rating_bar"
+                android:rating="@{rate}"
+                android:stepSize="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emoji_rate1"
+                tools:ignore="TouchTargetSizeCheck"
+                tools:rating="3.5" />
+
+            <LinearLayout
+                android:id="@+id/buttons_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rating_bar">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_rate"
+                    style="@style/Body_MD.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_rectangle_disable"
+                    android:text="@string/change_rating"
+                    android:textAllCaps="false"
+                    android:textColor="@color/button_onPrimary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_remove_rate"
+                    style="@style/Body_MD.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:background="@drawable/btn_rectangle"
+                    android:text="@string/remove_rating"
+                    android:textAllCaps="false"
+                    android:textColor="@color/button_onTertiary"
+                    android:visibility="visible"
+                    app:backgroundTint="@color/background_bottomSheet" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

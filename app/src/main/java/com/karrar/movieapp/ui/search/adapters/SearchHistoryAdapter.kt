@@ -9,6 +9,10 @@ class SearchHistoryAdapter(items: List<SearchHistoryUIState>,val layout: Int, li
     override val layoutID: Int = layout
 }
 
+
 interface SearchHistoryInteractionListener : BaseInteractionListener {
     fun onClickSearchHistory(name: String)
+    fun onClickDeleteSearchHistoryItem(item : SearchHistoryUIState)
+
+
 }

@@ -9,7 +9,7 @@ class UpcomingMovieMapper @Inject constructor() : Mapper<MovieDto, UpcomingMovie
     override fun map(input: MovieDto): UpcomingMovieEntity {
         return UpcomingMovieEntity(
             id = input.id ?: 0,
-            name = input.originalTitle ?: "",
+            name = input.title ?: input.originalTitle ?: "",
             imageUrl = input.posterPath ?: "",
             rate = input.voteAverage?.toFloat() ?: 0.0f,
         )

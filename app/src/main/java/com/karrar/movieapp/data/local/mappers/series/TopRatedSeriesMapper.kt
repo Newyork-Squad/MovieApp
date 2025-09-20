@@ -9,7 +9,7 @@ class TopRatedSeriesMapper @Inject constructor() : Mapper<TVShowsDTO, TopRatedSe
     override fun map(input: TVShowsDTO): TopRatedSeriesEntity {
         return TopRatedSeriesEntity(
             id = input.id ?:0,
-            name = input.originalName?:"",
+            name = input.name ?: input.originalName ?: "",
             imageUrl = input.posterPath ?:"",
             rate = input.voteAverage ?:0f,
         )

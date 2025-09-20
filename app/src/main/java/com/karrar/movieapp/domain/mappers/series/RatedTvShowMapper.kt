@@ -12,7 +12,7 @@ class RatedTvShowMapper @Inject constructor() : Mapper<RatedTvShowDto, Rated> {
     override fun map(input: RatedTvShowDto): Rated {
         return Rated(
             id = input.id ?: 0,
-            title = input.title ?: "",
+            title = input.title ?: input.originalTitle ?: "",
             posterPath = BuildConfig.IMAGE_BASE_PATH + input.backdropPath,
             rating = input.rating ?: 0F,
             releaseDate = input.firstAirDate?.convertToDayMonthYearFormat() ?: "",

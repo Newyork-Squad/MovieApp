@@ -1,6 +1,7 @@
 package com.karrar.movieapp.ui.main
 
 import androidx.lifecycle.viewModelScope
+import com.karrar.movieapp.domain.usecases.ClearAppCacheUseCase
 import com.karrar.movieapp.domain.usecases.setting.GetDarkModeUseCase
 import com.karrar.movieapp.domain.usecases.setting.GetLanguageUseCase
 import com.karrar.movieapp.domain.usecases.setting.SaveDarkModeUseCase
@@ -21,8 +22,10 @@ class MainViewModel @Inject constructor(
     private val getLanguageUseCase: GetLanguageUseCase,
     private val saveLanguageUseCase: SaveLanguageUseCase,
     private val getDarkModeUseCase: GetDarkModeUseCase,
-    private val saveDarkModeUseCase: SaveDarkModeUseCase
+    private val saveDarkModeUseCase: SaveDarkModeUseCase,
+    private val clearAppCacheUseCase: ClearAppCacheUseCase,
 ) : BaseViewModel(){
+
     private val _mainUiState: MutableStateFlow<MainUiState> = MutableStateFlow(MainUiState())
     val mainUiState = _mainUiState.asStateFlow()
 
@@ -32,6 +35,8 @@ class MainViewModel @Inject constructor(
     private val _darkMode = MutableStateFlow(false)
     val darkMode: StateFlow<Boolean> = _darkMode
 
+    private val _dataRefreshEvent = MutableStateFlow(false)
+    val dataRefreshEvent: StateFlow<Boolean> = _dataRefreshEvent
 
     override fun getData() {
         _mainUiState.update {
@@ -39,11 +44,13 @@ class MainViewModel @Inject constructor(
                 isFirstLaunch = getStartUpStateUseCase(),
             )
         }
+
         viewModelScope.launch {
             getLanguageUseCase().collect { lang ->
                 _language.value = lang
             }
         }
+
         viewModelScope.launch {
             getDarkModeUseCase().collect { dark ->
                 _darkMode.value = dark
@@ -51,6 +58,12 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun refreshData() {
+        viewModelScope.launch {
+            getData()
+            _dataRefreshEvent.value = !_dataRefreshEvent.value
+        }
+    }
 
     fun changeLanguage(language: String) {
         viewModelScope.launch {
@@ -61,6 +74,14 @@ class MainViewModel @Inject constructor(
     fun toggleDarkMode(enabled: Boolean) {
         viewModelScope.launch {
             saveDarkModeUseCase(enabled)
+        }
+    }
+
+    suspend fun clearCache(language: String) {
+        try {
+            clearAppCacheUseCase(language)
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }

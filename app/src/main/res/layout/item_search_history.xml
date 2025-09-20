@@ -13,20 +13,56 @@
             type="com.karrar.movieapp.ui.search.adapters.SearchHistoryInteractionListener" />
 
     </data>
-
-    <TextView
-        android:id="@+id/text_search_history"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_too_small"
-        android:layout_marginBottom="@dimen/spacing_too_small"
-        tools:text="Star Wars"
-        android:text="@{item.name}"
-        style="@style/Body_SM.Medium"
-        android:drawableStart="@drawable/outline_history"
-        android:textColor="@color/shade_secondary"
-        android:drawablePadding="6dp"
-        app:drawableEndCompat="@drawable/outline_close"
-        android:onClick="@{() -> listener.onClickDeleteSearchHistoryItem(item)}"/>
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{() -> listener.onClickSearchHistory(item.name)}"
+            android:paddingVertical="8dp">
+
+            <ImageView
+                android:id="@+id/iv_start_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_gravity="center"
+                android:src="@drawable/outline_history"
+                app:tint="@color/shade_tertiary" />
+
+
+            <TextView
+                android:id="@+id/tv_suggestion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="@{item.name}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+
+            <ImageView
+                android:id="@+id/iv_end_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:src="@drawable/outline_close"
+                android:onClick="@{() -> listener.deleteHistoryItem(item)}"
+                app:tint="@color/shade_tertiary" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shade_quaternary" />
+    </LinearLayout>
+
 
 </layout>

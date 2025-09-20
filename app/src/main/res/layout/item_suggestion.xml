@@ -2,7 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="item"
             type="com.karrar.movieapp.ui.search.mediaSearchUIState.SearchKeywordUIState" />
@@ -16,7 +15,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> listener.onSuggestionFill(item)}"
         android:orientation="vertical">
 
         <LinearLayout
@@ -35,16 +33,20 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_gravity="center"
+                app:imageSrcCompat='@{item.isFromHistory}'
                 app:tint="@color/shade_tertiary" />
+
 
             <TextView
                 android:id="@+id/tv_suggestion"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
                 android:text="@{item.keyword}"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
+
 
             <ImageView
                 android:id="@+id/iv_end_icon"

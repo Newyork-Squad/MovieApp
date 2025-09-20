@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -29,15 +30,12 @@
             style="@style/Body_MD.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:enabled="true"
-            android:onClick="@{() -> viewModel.onClearSearchHistory()}"
             android:text="@string/clear_all"
             android:textColor="@color/brand_primary"
             android:textSize="14sp"
-            />
+            app:hideWhenListIsEmpty="@{viewModel.uiState.searchHistory}" />
 
     </LinearLayout>
 </layout>

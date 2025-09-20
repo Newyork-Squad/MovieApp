@@ -144,7 +144,7 @@ class HomeAdapter(
                     }
                 }
 
-                is HomeItem.Recommendations -> {
+                is HomeItem.MatchedItems -> {
                     bindMovie(holder, currentItem.items, currentItem.type)
                 }
             }
@@ -186,7 +186,7 @@ class HomeAdapter(
 
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
                 is HomeItem.Upcoming,
-                is HomeItem.Recommendations,
+                is HomeItem.MatchedItems,
                     -> R.layout.list_movie
 
                 is HomeItem.Collections -> R.layout.list_home_collections

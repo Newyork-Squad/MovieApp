@@ -188,7 +188,7 @@ class HomeViewModel @Inject constructor(
                         val items = list.reversed().map(mediaUiMapper::map)
                         _homeUiState.update {
                             it.copy(
-                                recommendations = HomeItem.Recommendations(items),
+                                matchedItems = HomeItem.MatchedItems(items),
                                 isLoading = false
                             )
                         }

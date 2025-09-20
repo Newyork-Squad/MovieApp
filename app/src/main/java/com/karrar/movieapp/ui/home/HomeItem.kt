@@ -22,7 +22,7 @@ sealed class HomeItem(val priority: Int) {
         val type: HomeItemsType = HomeItemsType.UPCOMING
     ) : HomeItem(3)
 
-    data class Recommendations(
+    data class MatchedItems(
         val items: List<MediaUiState>,
         val type: HomeItemsType = HomeItemsType.MATCHES_YOUR_VIBE
     ) : HomeItem(4)

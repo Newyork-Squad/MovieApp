@@ -16,6 +16,7 @@ import com.karrar.movieapp.data.local.database.entity.movie.NowStreamingMovieEnt
 import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.TrendingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.UpcomingMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.UserMatchingMovieEntity
 import com.karrar.movieapp.data.local.mappers.movie.LocalMovieMappersContainer
 import com.karrar.movieapp.data.remote.response.AddListResponse
 import com.karrar.movieapp.data.remote.response.AddMovieDto
@@ -50,6 +51,7 @@ import com.karrar.movieapp.domain.mappers.MovieQueryMapper
 import com.karrar.movieapp.domain.mappers.movie.MovieGenreMapper
 import com.karrar.movieapp.domain.models.Genre
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 import java.util.Date
 import javax.inject.Inject
@@ -83,7 +85,7 @@ class MovieRepositoryImp @Inject constructor(
     }
 
     override suspend fun getTopVisitedMovieGenre(): Flow<Genre> {
-        return movieDao.getTopVisitedMovieGenre().map { movieGenreMapper.map(it)  }
+        return movieDao.getTopVisitedMovieGenre().map { movieGenreMapper.map(it) }
     }
 
     override suspend fun getDailyTrending(): BaseListResponse<DailyTrendingDto> {
@@ -264,6 +266,13 @@ class MovieRepositoryImp @Inject constructor(
         return movieDao.getUpcomingMovies()
     }
 
+    override suspend fun getUserMatchingMovies(): Flow<List<UserMatchingMovieEntity>> {
+        refreshOneTimePerDay(
+            appConfiguration.getRequestDate(Constants.UPCOMING_MOVIE_REQUEST_DATE_KEY),
+            ::refreshUserMatchingMovies
+        )
+        return movieDao.getUserMatchingMovies()
+    }
 
     override suspend fun getTrendingMoviesPager(): Pager<Int, MovieDto> {
         return Pager(
@@ -365,6 +374,24 @@ class MovieRepositoryImp @Inject constructor(
                 movieDao.insertUpcomingMovie(it)
                 appConfiguration.saveRequestDate(
                     Constants.UPCOMING_MOVIE_REQUEST_DATE_KEY,
+                    currentDate.time
+                )
+            },
+        )
+    }
+
+    private suspend fun refreshUserMatchingMovies(currentDate: Date) {
+        val topGenre = getTopVisitedMovieGenre().last()
+        refreshWrapper(
+            { movieService.getMovieListByGenre(topGenre.genreID) },
+            { list ->
+                list?.map { dataMappers.userMatchingMovieMapper.map(it) }
+            },
+            {
+                movieDao.deleteAllUserMatchingMovies()
+                movieDao.insertUserMatchingMovie(it)
+                appConfiguration.saveRequestDate(
+                    Constants.USER_MATCHING_MOVIE_REQUEST_DATE_KEY,
                     currentDate.time
                 )
             },

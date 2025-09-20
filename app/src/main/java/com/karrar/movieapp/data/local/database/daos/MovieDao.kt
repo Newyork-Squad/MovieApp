@@ -15,6 +15,7 @@ import com.karrar.movieapp.data.local.database.entity.movie.NowStreamingMovieEnt
 import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.TrendingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.UpcomingMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.UserMatchingMovieEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -88,6 +89,15 @@ interface MovieDao {
 
     @Query("DELETE FROM UPCOMING_MOVIE_TABLE")
     suspend fun deleteAllUpcomingMovies()
+
+    @Query("SELECT * FROM USER_MATCHING_MOVIE_TABLE")
+    fun getUserMatchingMovies(): Flow<List<UserMatchingMovieEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUserMatchingMovie(items: List<UserMatchingMovieEntity>)
+
+    @Query("DELETE FROM USER_MATCHING_MOVIE_TABLE")
+    suspend fun deleteAllUserMatchingMovies()
 
     @Query("SELECT * FROM UPCOMING_MOVIE_TABLE")
     fun getUpcomingMovies(): Flow<List<UpcomingMovieEntity>>

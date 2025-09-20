@@ -10,6 +10,7 @@ import com.karrar.movieapp.data.local.database.entity.movie.NowStreamingMovieEnt
 import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.TrendingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.UpcomingMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.UserMatchingMovieEntity
 import com.karrar.movieapp.data.remote.response.AddListResponse
 import com.karrar.movieapp.data.remote.response.AddMovieDto
 import com.karrar.movieapp.data.remote.response.BaseListResponse
@@ -90,6 +91,8 @@ interface MovieRepository {
     suspend fun getNowStreamingMovies(): Flow<List<NowStreamingMovieEntity>>
 
     suspend fun getUpcomingMovies(): Flow<List<UpcomingMovieEntity>>
+
+    suspend fun getUserMatchingMovies(): Flow<List<UserMatchingMovieEntity>>
 
     suspend fun getAdventureMovies(): Flow<List<AdventureMovieEntity>>
 

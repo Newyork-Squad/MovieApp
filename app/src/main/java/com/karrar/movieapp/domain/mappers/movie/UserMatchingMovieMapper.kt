@@ -4,8 +4,9 @@ import com.karrar.movieapp.data.local.database.entity.movie.UserMatchingMovieEnt
 import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.domain.mappers.Mapper
 import com.karrar.movieapp.domain.models.Media
+import javax.inject.Inject
 
-class UserMatchingMovieMapper : Mapper<UserMatchingMovieEntity, Media> {
+class UserMatchingMovieMapper @Inject constructor() : Mapper<UserMatchingMovieEntity, Media> {
     override fun map(input: UserMatchingMovieEntity): Media {
         return Media(
             mediaID = input.id,

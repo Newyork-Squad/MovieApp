@@ -15,12 +15,17 @@ sealed class HomeItem(val priority: Int) {
         val type: HomeItemsType = HomeItemsType.RECENTLY_RELEASED
     ) : HomeItem(1)
 
-    object WhatShouldWatch:HomeItem(2)
+    object WhatShouldWatch : HomeItem(2)
 
     data class Upcoming(
         val items: List<MediaUiState>,
         val type: HomeItemsType = HomeItemsType.UPCOMING
     ) : HomeItem(3)
+
+    data class Recommendations(
+        val items: List<MediaUiState>,
+        val type: HomeItemsType = HomeItemsType.Recommendations
+    ) : HomeItem(4)
 
     data class TopRatedTvShows(
         val items: List<MediaUiState>,
@@ -37,7 +42,5 @@ sealed class HomeItem(val priority: Int) {
         val type: HomeItemsType = HomeItemsType.COLLECTIONS
     ) : HomeItem(8)
 
-    object NeedMoreToWatch:HomeItem(9)
-
-    data class Recommendations(val items: List<MediaUiState>, val type: HomeItemsType = HomeItemsType.Recommendations) : HomeItem(13)
+    object NeedMoreToWatch : HomeItem(9)
 }

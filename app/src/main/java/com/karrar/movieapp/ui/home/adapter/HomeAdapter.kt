@@ -157,6 +157,7 @@ class HomeAdapter(
                 MovieAdapter(items, listener as MovieInteractionListener)
             )
             setVariable(BR.movieType, type)
+            setVariable(BR.isVisible, items.isNotEmpty())
         }
     }
 

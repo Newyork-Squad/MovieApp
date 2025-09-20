@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -174,11 +175,11 @@ class HomeAdapter(
             includeRoot.visibility = View.VISIBLE
         }
 
-        val imageView = includeRoot.findViewById<ImageView>(R.id.featuredCardImage)
-        val titleView = includeRoot.findViewById<TextView>(R.id.featuredCardTitle)
-
-        imageView?.setImageResource(item.imageResId)
-        titleView?.text = item.title
+        val binding = DataBindingUtil.bind<ViewDataBinding>(includeRoot)
+        binding?.setVariable(BR.cardTitle, item.title)
+        binding?.setVariable(BR.cardImageRes, item.imageResId)  // uses BindingAdapter
+        binding?.setVariable(BR.cardDescription, item.title)    // reuse title as description
+        binding?.executePendingBindings()
 
         includeRoot.setOnClickListener {
             (listener as? HomeInteractionListener)?.onClickFeaturedCollections(item.target)

@@ -46,7 +46,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         it.recentlyViewed,
                         it.collections,
                         it.whatShouldIWatch,
-                        it.needMoreToWatch
+                        it.needMoreToWatch,
+                        it.featured,
+
                     )
                 )
             }

@@ -10,4 +10,6 @@ sealed interface SearchUIEvent {
     object ClickBackEvent : SearchUIEvent
     object ClickRetryEvent : SearchUIEvent
     object ClickVoiceEvent : SearchUIEvent
+    data class ClickSearchEvent(val query: String) : SearchUIEvent
+
 }

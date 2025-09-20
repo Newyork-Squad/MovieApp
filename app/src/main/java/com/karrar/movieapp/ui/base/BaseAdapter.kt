@@ -44,6 +44,7 @@ abstract class BaseAdapter<T>(
   open  fun setItems(newItems: List<T>) {
         val diffResult = DiffUtil.calculateDiff(BaseDiffUtil(items, newItems,::areItemsSame, ::areContentSame))
         items = newItems
+        notifyDataSetChanged()
         diffResult.dispatchUpdatesTo(this)
     }
 

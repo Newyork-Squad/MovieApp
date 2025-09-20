@@ -81,6 +81,9 @@
         <action
             android:id="@+id/action_actorDetailsFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
+        <action
+            android:id="@+id/action_actorDetailsFragment_to_resultSearch"
+            app:destination="@id/resultSearch" />
     </fragment>
 
     <fragment
@@ -246,6 +249,10 @@
         <action
             android:id="@+id/action_searchFragment_to_tvShowDetailsFragment"
             app:destination="@id/tvShowDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_resultSearch"
+            app:destination="@id/resultSearch" />
+
     </fragment>
 
     <fragment
@@ -506,5 +513,31 @@
             android:name="tvShowId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/resultSearch"
+        android:name="com.karrar.movieapp.ui.search.result.SearchResultFragment"
+        android:label="fragment_result_search"
+        tools:layout="@layout/fragment_result_search">
+
+        <argument
+            android:name="query"
+            app:argType="string"
+            android:defaultValue="" />
+
+        <action
+            android:id="@+id/action_resultSearch_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_resultSearch_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+        <action
+            android:id="@+id/action_resultSearch_to_actorDetailsFragment"
+            app:destination="@id/actorDetailsFragment" />
+        <action
+            android:id="@+id/action_resultSearch_to_tvShowDetailsFragment"
+            app:destination="@id/tvShowDetailsFragment" />
+    </fragment>
+
+
 
 </navigation>

@@ -332,6 +332,7 @@ class HomeViewModel @Inject constructor(
                 return
             }
             HomeItemsType.NON -> AllMediaType.ACTOR_MOVIES
+            HomeItemsType.FEATURED_COLLECTIONS -> AllMediaType.COLLECTION_FEATURE
         }
         _homeUIEvent.update { Event(HomeUIEvent.ClickSeeAllMovieEvent(type)) }
     }

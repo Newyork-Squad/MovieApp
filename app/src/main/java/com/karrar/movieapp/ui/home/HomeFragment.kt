@@ -108,6 +108,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 event.createdListUIState.listID,
                 event.createdListUIState.name
             )
+
+            is HomeUIEvent.ClickFeaturedCollection ->  HomeFragmentDirections.actionHomeFragmentToWatchHistoryFragment()
         }
         findNavController().navigate(action)
     }

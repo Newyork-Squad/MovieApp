@@ -158,6 +158,9 @@ class HomeAdapter(
                     bindIncludedCard(root, R.id.featuredCard5, items.getOrNull(4))
                     bindIncludedCard(root, R.id.featuredCard6, items.getOrNull(5))
                 }
+
+
+                else -> {}
             }
 
     }
@@ -224,6 +227,9 @@ class HomeAdapter(
                 is HomeItem.NeedMoreToWatch -> R.layout.item_needmoretowatch
 
                 is HomeItem.FeaturedCollections -> R.layout.featured_collections
+                is HomeItem.Actor -> R.layout.item_actor_home
+
+                else -> TODO()
             }
         }
         return -1

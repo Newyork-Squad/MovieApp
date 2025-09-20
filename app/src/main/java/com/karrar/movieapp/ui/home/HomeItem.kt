@@ -41,11 +41,11 @@ sealed class HomeItem(val priority: Int) {
 
     data class Actor(val items: List<ActorUiState>) : HomeItem(9)
 
-    data class RecentlyViewed(val items: List<MediaHistoryUiState>, val type: HomeItemsType = HomeItemsType.RECENTLY_VIEWED) : HomeItem(10)
+  //  data class RecentlyViewed(val items: List<MediaHistoryUiState>, val type: HomeItemsType = HomeItemsType.RECENTLY_VIEWED) : HomeItem(10)
 
     data class FeaturedCollections(
         val items: List<FeaturedCollectionUiState>,
         val type: HomeItemsType = HomeItemsType.FEATURED_COLLECTIONS
-    ) : HomeItem(11)
+    ) : HomeItem(5)
     object NeedMoreToWatch:HomeItem(9)
 }

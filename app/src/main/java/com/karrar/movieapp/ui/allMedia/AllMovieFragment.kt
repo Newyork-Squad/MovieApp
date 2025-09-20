@@ -138,6 +138,7 @@ class AllMovieFragment : BaseFragment<FragmentAllMovieBinding>() {
             AllMediaType.TOP_RATED -> getString(R.string.title_top_rated_tv_show)
             AllMediaType.UPCOMING -> getString(R.string.title_upcoming)
             AllMediaType.ACTOR_MOVIES -> ""
+            AllMediaType.COLLECTION_FEATURE ->getString(R.string.featured_collections)
         }
     }
 }

@@ -6,4 +6,5 @@ enum class AllMediaType {
     TOP_RATED,
     UPCOMING,
     ACTOR_MOVIES,
+    COLLECTION_FEATURE
 }

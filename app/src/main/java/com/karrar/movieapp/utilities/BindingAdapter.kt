@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.ShapeAppearanceModel
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.MediaType
@@ -118,6 +120,23 @@ fun showWhenSearch(view: View, text: String) {
     view.isVisible = text.isNotBlank()
 }
 
+@BindingAdapter("app:hideWhenEmpty")
+fun hideWhenEmpty(view: View, text: String?) {
+    if (!text.isNullOrBlank()) {
+        view.animate()
+            .alpha(1f)
+            .setDuration(200)
+            .withStartAction { view.visibility = View.VISIBLE }
+    } else {
+        view.animate()
+            .alpha(0f)
+            .setDuration(200)
+            .withEndAction { view.visibility = View.GONE }
+    }
+}
+
+
+
 @BindingAdapter(value = ["app:hideWhenSearch"])
 fun hideWhenSearch(view: View, text: String) {
     view.isVisible = text.isBlank()
@@ -147,6 +166,21 @@ fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?, resetScroll: Boole
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
     if (resetScroll == true) view.scrollToPosition(0)
 }
+@BindingAdapter("onSearchInputChange")
+fun setOnSearchInputChange(editText: TextInputEditText, listener: (String) -> Unit) {
+    editText.addTextChangedListener { editable ->
+        listener(editable.toString())
+    }
+}
+
+
+@BindingAdapter("imageSrcCompat")
+fun setImageSrcCompat(imageView: ImageView, isFromHistory: Boolean) {
+    val drawableRes = if (isFromHistory) R.drawable.outline_history else R.drawable.outline_search
+    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.context, drawableRes))
+}
+
+
 
 
 @BindingAdapter(value = ["app:usePagerSnapHelper"])

@@ -24,7 +24,7 @@ sealed class HomeItem(val priority: Int) {
 
     data class Recommendations(
         val items: List<MediaUiState>,
-        val type: HomeItemsType = HomeItemsType.Recommendations
+        val type: HomeItemsType = HomeItemsType.MATCHES_YOUR_VIBE
     ) : HomeItem(4)
 
     data class TopRatedTvShows(

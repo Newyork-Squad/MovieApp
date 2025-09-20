@@ -303,7 +303,7 @@ class HomeViewModel @Inject constructor(
                 return
             }
             HomeItemsType.NON -> AllMediaType.ACTOR_MOVIES
-            HomeItemsType.Recommendations -> TODO()
+            HomeItemsType.MATCHES_YOUR_VIBE -> TODO()
         }
         _homeUIEvent.update { Event(HomeUIEvent.ClickSeeAllMovieEvent(type)) }
     }

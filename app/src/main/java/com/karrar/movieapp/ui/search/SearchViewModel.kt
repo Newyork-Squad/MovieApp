@@ -15,11 +15,6 @@ import com.karrar.movieapp.domain.usecases.search.GetSearchHistoryUseCase
 import com.karrar.movieapp.domain.usecases.search.PostSaveSearchResultUseCase
 import com.karrar.movieapp.domain.usecases.searchUseCase.ClearSearchHistoryUseCase
 import com.karrar.movieapp.domain.usecases.searchUseCase.DeleteSearchHistoryItemUseCase
-import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForActorUseCase
-import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForMovieUseCase
-import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchForSeriesUserCase
-import com.karrar.movieapp.domain.usecases.searchUseCase.GetSearchHistoryUseCase
-import com.karrar.movieapp.domain.usecases.searchUseCase.PostSaveSearchResultUseCase
 import com.karrar.movieapp.ui.allMedia.Error
 import com.karrar.movieapp.ui.base.BaseViewModel
 import com.karrar.movieapp.ui.search.adapters.ActorSearchInteractionListener

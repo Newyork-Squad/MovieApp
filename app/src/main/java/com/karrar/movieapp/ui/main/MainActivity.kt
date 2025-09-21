@@ -107,6 +107,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.ratedMoviesFragment, R.id.edit_profile,
                     R.id.createSavedList, R.id.listDetailsFragment,
                     R.id.allMovieFragment, R.id.matchQuestionsFragment,
+                    R.id.actorDetailsFragment, R.id.actorGalleryFragment,
                         -> {
                         false
                     }

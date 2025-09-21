@@ -321,6 +321,7 @@
                         style="@style/Body_MD.Medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:onClick="@{() -> viewModel.onClickSeeAllImages()}"
                         android:text="@string/show_more"
                         android:textColor="@color/brand_primary"
                         app:layout_constraintEnd_toEndOf="parent"

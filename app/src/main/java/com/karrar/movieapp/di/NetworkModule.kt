@@ -3,12 +3,14 @@ package com.karrar.movieapp.di
 import com.google.gson.Gson
 import com.karrar.movieapp.BuildConfig
 import com.karrar.movieapp.data.remote.AuthInterceptor
+import com.karrar.movieapp.data.LanguageInterceptor
+import com.karrar.movieapp.data.local.AppConfiguration
 import com.karrar.movieapp.data.remote.service.MovieService
-import com.karrar.movieapp.utilities.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.flow.first
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -37,11 +39,24 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
+    fun provideOkHttpClient(
+        authInterceptor: AuthInterceptor,
+        languageInterceptor: LanguageInterceptor,): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
+            .addInterceptor(languageInterceptor)
             .build()
     }
+    @Singleton
+    @Provides
+    fun provideLanguageInterceptor(
+        appConfiguration: AppConfiguration
+    ): LanguageInterceptor {
+        return LanguageInterceptor {
+            appConfiguration.getLanguage().first()
+        }
+    }
+
 
     @Singleton
     @Provides

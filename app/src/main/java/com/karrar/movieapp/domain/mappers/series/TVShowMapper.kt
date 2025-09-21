@@ -5,7 +5,6 @@ import com.karrar.movieapp.data.remote.response.TVShowsDTO
 import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.domain.mappers.Mapper
 import com.karrar.movieapp.domain.models.Media
-import com.karrar.movieapp.utilities.Constants
 import javax.inject.Inject
 
 class TVShowMapper @Inject constructor() : Mapper<TVShowsDTO, Media> {
@@ -14,7 +13,7 @@ class TVShowMapper @Inject constructor() : Mapper<TVShowsDTO, Media> {
             mediaID = input.id ?: 0,
             mediaImage = BuildConfig.IMAGE_BASE_PATH + input.posterPath,
             mediaType = MediaType.TV_SHOW.value,
-            mediaName = input.originalName ?: "",
+            mediaName = input.name ?: input.originalName ?: "",
             mediaDate = input.firstAirDate ?: "",
             mediaRate = input.voteAverage?.toFloat() ?: 0F,
             genresIds = input.genreIds ?: emptyList(),

@@ -9,4 +9,6 @@ sealed interface SearchUIEvent {
     data class ClickActorEvent(val actorID: Int) : SearchUIEvent
     object ClickBackEvent : SearchUIEvent
     object ClickRetryEvent : SearchUIEvent
+    object ClickVoiceEvent : SearchUIEvent
+    object ClickSearchHistoryEvent : SearchUIEvent
 }

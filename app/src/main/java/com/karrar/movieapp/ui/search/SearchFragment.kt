@@ -1,10 +1,22 @@
 package com.karrar.movieapp.ui.search
 
+import android.Manifest
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
+import android.animation.ValueAnimator
+import android.app.Activity
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.transition.ChangeTransform
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +41,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
@@ -42,6 +53,44 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     private val oldValue = MutableStateFlow(MediaSearchUIState())
 
+    private var pulseAnimator: ObjectAnimator? = null
+    private var micController: MicControllerHelper? = null
+
+    private val requestRecordPermission = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) {
+            val started = micController?.startListening() ?: false
+            if (!started) {
+                val intent = micController?.buildVoiceIntent(getString(R.string.search_hint))
+                intent?.let { speechLauncher.launch(it) }
+            }
+        } else {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.permission_denied_for_microphone), Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private val speechLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        hideMicOverlay()
+
+        if (result.resultCode == Activity.RESULT_OK) {
+            val matches = result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            if (!matches.isNullOrEmpty()) {
+                val text = matches[0]
+                binding.inputSearch.setText(text)
+                viewModel.onSearchInputChange(text)
+            }
+        } else {
+            Toast.makeText(requireContext(), getString(R.string.no_results), Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedElementEnterTransition = ChangeTransform()
@@ -52,9 +101,41 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         setupToggle()
         observeToggleVisibility()
         observeSearchSections()
+        initMicController()
 
+        binding.inputSearch.setOnFocusChangeListener { _, hasFocus ->
+            viewModel.setSearchFocus(hasFocus)
+        }
         collectLast(viewModel.searchUIEvent) {
             it.getContentIfNotHandled()?.let { onEvent(it) }
+        }
+    }
+
+    private fun initMicController() {
+        micController = MicControllerHelper(requireContext(), viewLifecycleOwner)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    micController?.events?.collectLatest { event ->
+                        when (event) {
+                            is MicEvent.ReadyForSpeech -> showMicOverlay()
+                            is MicEvent.PartialResult -> binding.inputSearch.setText(event.text)
+                            is MicEvent.Result -> {
+                                hideMicOverlay()
+                                binding.inputSearch.setText(event.text)
+                                viewModel.onSearchInputChange(event.text)
+                            }
+
+                            is MicEvent.Error -> {
+                                hideMicOverlay()
+                                Toast.makeText(requireContext(), event.message, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -97,7 +178,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
     }
 
-
     private fun onEvent(event: SearchUIEvent) {
         when (event) {
             is SearchUIEvent.ClickActorEvent -> {
@@ -121,6 +201,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             }
 
             is SearchUIEvent.ClickRecentViewedEvent -> navigateToMovieDetails(event.recentMovieViewedUiState.mediaID)
+
+            SearchUIEvent.ClickVoiceEvent -> handleVoiceClick()
+            SearchUIEvent.ClickSearchHistoryEvent -> binding.inputSearch.clearFocus()
         }
     }
 
@@ -164,7 +247,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
         getMediaSearchResults()
     }
-
 
     private fun bindActors() {
         val footerAdapter = LoadUIStateAdapter(actorSearchAdapter::retry)
@@ -269,5 +351,61 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
     }
 
+
+    private fun showMicOverlay() {
+        binding.includeMicOverlay.micOverlayRoot.visibility = View.VISIBLE
+
+        pulseAnimator?.cancel()
+        pulseAnimator = ObjectAnimator.ofPropertyValuesHolder(
+            binding.includeMicOverlay.pulseView,
+            PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, 1.7f),
+            PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 1.7f),
+            PropertyValuesHolder.ofFloat(View.ALPHA, 1f, 0.3f)
+        ).apply {
+            duration = 900
+            repeatMode = ValueAnimator.REVERSE
+            repeatCount = ValueAnimator.INFINITE
+            start()
+        }
+
+        binding.includeMicOverlay.micIcon.animate().scaleX(1.5f).scaleY(1.5f).setDuration(300)
+            .start()
+    }
+
+    private fun hideMicOverlay() {
+        pulseAnimator?.cancel()
+        pulseAnimator = null
+        binding.includeMicOverlay.micOverlayRoot.visibility = View.GONE
+
+        binding.includeMicOverlay.micIcon.scaleX = 1f
+        binding.includeMicOverlay.micIcon.scaleY = 1f
+    }
+
+    private fun handleVoiceClick() {
+        val hasPermission = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.RECORD_AUDIO
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (!hasPermission) {
+            requestRecordPermission.launch(Manifest.permission.RECORD_AUDIO)
+            return
+        }
+
+        val started = micController?.startListening() ?: false
+        if (!started) {
+            val intent = micController?.buildVoiceIntent(getString(R.string.search_hint))
+            intent?.let { speechLauncher.launch(it) }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        try {
+            micController?.cancel()
+        } catch (_: Exception) {
+        }
+        micController = null
+    }
 
 }

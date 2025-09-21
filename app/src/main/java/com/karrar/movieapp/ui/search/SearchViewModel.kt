@@ -75,6 +75,10 @@ class SearchViewModel @Inject constructor(
     private val _searchSections = MutableStateFlow<List<SearchItemUiState>>(emptyList())
     val searchSections = _searchSections.asStateFlow()
 
+    private val _isSearchFocused = MutableStateFlow(false)
+    val isSearchFocused: StateFlow<Boolean> = _isSearchFocused.asStateFlow()
+
+
     init {
         getAllSearchHistory()
         getRecentViewed()
@@ -82,6 +86,10 @@ class SearchViewModel @Inject constructor(
 
     override fun getData() {
         _searchUIEvent.update { Event(SearchUIEvent.ClickRetryEvent) }
+    }
+
+    fun setSearchFocus(focused: Boolean) {
+        _isSearchFocused.value = focused
     }
 
     private fun getRecentViewed() {
@@ -195,11 +203,13 @@ class SearchViewModel @Inject constructor(
 
     override fun onClickMediaResult(media: MediaUIState) {
         saveSearchResult(media.mediaID, media.mediaName)
+        setSearchFocus(false)
         _searchUIEvent.update { Event(SearchUIEvent.ClickMediaEvent(media)) }
     }
 
     override fun onClickActorResult(personID: Int, name: String) {
         saveSearchResult(personID, name)
+        setSearchFocus(false)
         _searchUIEvent.update { Event(SearchUIEvent.ClickActorEvent(personID)) }
     }
 
@@ -209,6 +219,8 @@ class SearchViewModel @Inject constructor(
 
     override fun onClickSearchHistory(name: String) {
         onSearchInputChange(name)
+        setSearchFocus(false)
+        _searchUIEvent.update { Event(SearchUIEvent.ClickSearchHistoryEvent) }
     }
 
     override fun onClickDeleteSearchHistoryItem(item: SearchHistoryUIState) {
@@ -218,6 +230,10 @@ class SearchViewModel @Inject constructor(
 
     fun onClickBack() {
         _searchUIEvent.update { Event(SearchUIEvent.ClickBackEvent) }
+    }
+
+    fun onClickVoice(){
+        _searchUIEvent.update { Event(SearchUIEvent.ClickVoiceEvent) }
     }
 
     fun setErrorUiState(combinedLoadStates: CombinedLoadStates, itemCount: Int) {
@@ -270,8 +286,14 @@ class SearchViewModel @Inject constructor(
         _searchUIEvent.update { Event(SearchUIEvent.ClickRecentViewedEvent(item)) }
     }
 
-    override fun onClearAllClicked() {
+    override fun onClearAllRecentHistoryClicked() {
         viewModelScope.launch { clearAllRecentViewedUseCase() }
+        getAllSearchHistory()
+        getRecentViewed()
+    }
+
+    override fun onClearAllQueryHistoryClicked() {
+        viewModelScope.launch { clearSearchHistoryUseCase() }
         getAllSearchHistory()
         getRecentViewed()
     }

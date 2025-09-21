@@ -15,6 +15,9 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="add_rating">Add Rating</string>
+    <string name="change_rating">Change Rating</string>
+    <string name="remove_rating">Remove Rating</string>
     <string name="don_t_have_an_account">Don’t have an account?</string>
     <string name="sign_up">Sign up</string>
     <string name="place_of_birth">place of Birth</string>
@@ -127,6 +130,7 @@
     <string name="logout_dialog_title">Are you sure you want to logout?</string>
     <string name="logout_dialog_caption">You can always sign back in with your account.</string>
     <string name="login_dialog_title">You\'re Almost There!</string>
+    <string name="rate_the_movie">Rate the Movie</string>
     <string name="login_dialog_caption">Log in to save movies, create collections, and get personalized recommendations.</string>
     <string name="not_now">Not Now</string>
     <string name="login_or_signup">Login &amp; Sign Up</string>
@@ -158,7 +162,9 @@
     <string name="welcome">Welcome</string>
     <string name="behind_the_scenes">Behind the Scenes</string>
     <string name="give_it_stars">Give it Stars!</string>
+    <string name="you_rated_it">You rated it</string>
     <string name="let_the_world_know_how_you_felt">Let the world know how you felt.</string>
+    <string name="tap_to_change_your_rating">Tap to change your rating</string>
     <string name="arrow">arrow</string>
     <string name="no_history_yet" translatable="false">No History Yet</string>
     <string name="find_something_to_watch" translatable="false">Find Something to Watch</string>
@@ -215,6 +221,18 @@
     <string name="need_more_to_watch">Need More to Watch?</string>
     <string name="browse_everything">Browse Everything</string>
     <string name="explore_all_movies_and_series_by_genre_or_search_for_anything_you_like">Explore all movies and series by genre or search for anything you like.</string>
+
+    <string name="speech_error_no_match">I couldn\'t understand you — could you please try saying it again?</string>
+    <string name="speech_error_timeout">No speech detected — could you speak again?</string>
+    <string name="speech_error_permissions">Microphone permission is required. Open app settings and enable the microphone.</string>
+    <string name="speech_error_busy">The speech recognizer is busy right now. Please try again later.</string>
+    <string name="speech_error_network">Network error — please check your internet connection.</string>
+    <string name="speech_error_unknown">An unknown error occurred. Please try again.</string>
+    <string name="speech_recognition_is_not_available">Speech recognition is not available</string>
+    <string name="cannot_start_speech_recognizer">Cannot start speech recognizer: %1$s</string>
+    <string name="no_results">No speech result</string>
+    <string name="speech_recognition_not_available_on_this_device">Speech recognition not available on this device</string>
+    <string name="permission_denied_for_microphone">Permission denied for microphone</string>
     <string name="gallery">Gallery</string>
     <string name="actor_gallery">%1$s Gallery</string>
 </resources>

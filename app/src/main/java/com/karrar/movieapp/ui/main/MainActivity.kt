@@ -20,6 +20,7 @@ import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.Locale
 
@@ -27,7 +28,7 @@ import java.util.Locale
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
-
+    private var currentLanguage: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,38 +41,51 @@ class MainActivity : AppCompatActivity() {
         )
         supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY)
         setTheme(R.style.Theme_MovieApp)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         installSplashScreen()
-        viewModel.getData()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val language = runBlocking { viewModel.language.first() }
         updateLocale(language)
+        viewModel.getData()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         observeViewModel()
     }
 
-
     private fun observeViewModel() {
         lifecycleScope.launchWhenStarted {
-            viewModel.darkMode
-                .collect { darkMode ->
-                    val mode = if (darkMode) {
-                        AppCompatDelegate.MODE_NIGHT_YES
-                    } else {
-                        AppCompatDelegate.MODE_NIGHT_NO
-                    }
-
-                    if (AppCompatDelegate.getDefaultNightMode() != mode) {
-                        AppCompatDelegate.setDefaultNightMode(mode)
-                    }
+            viewModel.darkMode.collect { darkMode ->
+                val mode = if (darkMode) {
+                    AppCompatDelegate.MODE_NIGHT_YES
+                } else {
+                    AppCompatDelegate.MODE_NIGHT_NO
                 }
+
+                if (AppCompatDelegate.getDefaultNightMode() != mode) {
+                    AppCompatDelegate.setDefaultNightMode(mode)
+                }
+            }
         }
 
         lifecycleScope.launchWhenStarted {
-            viewModel.language
-                .collect { language ->
+            viewModel.language.collect { language ->
+                if (currentLanguage == null) {
+                    currentLanguage = language
                     updateLocale(language)
+                } else if (currentLanguage != language) {
+                    currentLanguage = language
+
+                    lifecycleScope.launch {
+                        try {
+                            viewModel.clearCache(language)
+                            updateLocale(language)
+                            viewModel.refreshData()
+                            recreate()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            recreate()
+                        }
+                    }
                 }
+            }
         }
     }
 
@@ -91,6 +105,7 @@ class MainActivity : AppCompatActivity() {
 
         setBottomNavigationVisibility(navController)
         setNavigationController(navController)
+
         lifecycleScope.launchWhenResumed {
             viewModel.mainUiState.collect {
                 if (!it.isFirstLaunch) navController.navigate(R.id.onboardingFragment)
@@ -111,7 +126,6 @@ class MainActivity : AppCompatActivity() {
                         -> {
                         false
                     }
-
                     else -> true
                 }
         }
@@ -140,10 +154,11 @@ class MainActivity : AppCompatActivity() {
         config.setLocale(locale)
         resources.updateConfiguration(config, resources.displayMetrics)
 
-        window.decorView.layoutDirection =
-            if (locale.language == "ar") View.LAYOUT_DIRECTION_RTL
-            else View.LAYOUT_DIRECTION_LTR
+        if (::binding.isInitialized) {
+            window.decorView.layoutDirection =
+                if (locale.language == "ar") View.LAYOUT_DIRECTION_RTL
+                else View.LAYOUT_DIRECTION_LTR
+        }
     }
-
 
 }

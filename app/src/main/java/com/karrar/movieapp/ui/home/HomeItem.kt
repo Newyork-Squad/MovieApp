@@ -47,5 +47,6 @@ sealed class HomeItem(val priority: Int) {
         val items: List<FeaturedCollectionUiState>,
         val type: HomeItemsType = HomeItemsType.FEATURED_COLLECTIONS
     ) : HomeItem(5)
+
     object NeedMoreToWatch:HomeItem(9)
 }

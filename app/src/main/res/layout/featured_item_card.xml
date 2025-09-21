@@ -3,18 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
-            name="cardTitle"
-            type="String" />
+            name="item"
+            type="com.karrar.movieapp.ui.home.homeUiState.FeaturedCollectionUiState" />
 
-        <variable
-            name="cardImageRes"
-            type="Integer" />
 
-        <variable
-            name="cardDescription"
-            type="String" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -22,6 +15,8 @@
         android:layout_width="280dp"
         android:layout_height="80dp"
         android:foreground="?attr/selectableItemBackground"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginBottom="@dimen/spacing_medium"
         app:cardCornerRadius="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,8 +28,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="fitXY"
-                app:srcCompatSafe="@{cardImageRes}"
-                android:contentDescription="@{cardDescription}"
+                app:srcCompatSafe="@{item.imageResId}"
+                android:contentDescription="@{item.title}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{cardTitle}"
+                    android:text="@{item.title}"
                     android:textColor="@color/shade_primary"
                     style="@style/Body_SM.Medium" />
             </LinearLayout>

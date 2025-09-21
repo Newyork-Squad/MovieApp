@@ -13,6 +13,7 @@ import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.MediaInteractionListener
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
+import com.karrar.movieapp.ui.home.adapter.FeaturedCollectionListener
 import com.karrar.movieapp.ui.home.adapter.TVShowInteractionListener
 import com.karrar.movieapp.ui.home.homeUiState.FeaturedCollectionUiState
 import com.karrar.movieapp.ui.home.homeUiState.FeaturedCollectionsTarget
@@ -50,7 +51,7 @@ class HomeViewModel @Inject constructor(
     private val checkIfLoggedInUseCase: CheckIfLoggedInUseCase,
 ) : BaseViewModel(), HomeInteractionListener, ActorsInteractionListener, MovieInteractionListener,
     MediaInteractionListener, TVShowInteractionListener, WatchHistoryInteractionListener,
-    CreatedListInteractionListener {
+    CreatedListInteractionListener,FeaturedCollectionListener {
 
     private val _homeUiState = MutableStateFlow(HomeUiState())
     val homeUiState = _homeUiState.asStateFlow()
@@ -173,7 +174,7 @@ class HomeViewModel @Inject constructor(
         )
 
         _homeUiState.update {
-            it.copy(featuredCollections = featured)
+            it.copy(featured = HomeItem.FeaturedCollections(featured))
         }
     }
 

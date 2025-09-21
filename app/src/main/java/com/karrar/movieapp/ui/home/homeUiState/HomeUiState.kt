@@ -19,7 +19,7 @@ data class HomeUiState (
 
 data class FeaturedCollectionUiState(
     val title: String,
-    val imageResId: Int?,
+    val imageResId: Int,
     val target: FeaturedCollectionsTarget
 )
 

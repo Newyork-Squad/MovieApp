@@ -1,35 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<data>
+    <variable
+        name="adapterRecycler"
+        type="com.karrar.movieapp.ui.home.adapter.FeaturesCollectionAdapter" />
 
+    <variable
+        name="movieType"
+        type="com.karrar.movieapp.domain.enums.HomeItemsType" />
+</data>
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingTop="@dimen/spacing_medium"
+    android:paddingStart="@dimen/spacing_medium"
+    >
 
 
     <TextView
         android:id="@+id/featuredSectionTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/featured_collections"
+        android:text="@{movieType.value}"
         style="@style/Title.SM"
         android:textColor="@color/shade_primary" />
 
-    <HorizontalScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/featur_collection_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:scrollbars="none">
+        android:layout_marginTop="@dimen/spacing_normal"
+        tools:listitem="@layout/featured_item_card"
+        android:adapter="@{adapterRecycler}"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+
+        />
+
+    <!--<HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+       >
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- first row -->
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,7 +79,7 @@
                     android:layout_marginStart="8dp" />
             </LinearLayout>
 
-            <!-- second row -->
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,7 +109,7 @@
 
         </LinearLayout>
 
-    </HorizontalScrollView>
+    </HorizontalScrollView>-->
 </LinearLayout>
 
 </layout>

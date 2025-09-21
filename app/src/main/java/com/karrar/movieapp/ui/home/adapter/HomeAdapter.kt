@@ -5,10 +5,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -23,7 +20,6 @@ import com.karrar.movieapp.ui.base.BaseAdapter
 import com.karrar.movieapp.ui.base.BaseInteractionListener
 import com.karrar.movieapp.ui.home.HomeInteractionListener
 import com.karrar.movieapp.ui.home.HomeItem
-import com.karrar.movieapp.ui.home.homeUiState.FeaturedCollectionUiState
 import com.karrar.movieapp.ui.models.MediaUiState
 import com.karrar.movieapp.ui.myList.CreatedListAdapter
 import com.karrar.movieapp.ui.myList.CreatedListInteractionListener
@@ -149,15 +145,12 @@ class HomeAdapter(
                 }
 
                 is HomeItem.FeaturedCollections -> {
-                    val items = currentItem.items
-                    val root = holder.binding.root
+                    holder.binding.run {
+                        setVariable(BR.adapterRecycler,FeaturesCollectionAdapter(currentItem.items,
+                            listener as FeaturedCollectionListener))
+                        setVariable(BR.movieType, currentItem.type)
+                    }
 
-                    bindIncludedCard(root, R.id.featuredCard1, items.getOrNull(0))
-                    bindIncludedCard(root, R.id.featuredCard2, items.getOrNull(1))
-                    bindIncludedCard(root, R.id.featuredCard3, items.getOrNull(2))
-                    bindIncludedCard(root, R.id.featuredCard4, items.getOrNull(3))
-                    bindIncludedCard(root, R.id.featuredCard5, items.getOrNull(4))
-                    bindIncludedCard(root, R.id.featuredCard6, items.getOrNull(5))
                 }
 
 
@@ -166,25 +159,6 @@ class HomeAdapter(
 
     }
 
-    private fun bindIncludedCard(root: View, includeId: Int, item: FeaturedCollectionUiState?) {
-        val includeRoot = root.findViewById<View>(includeId) ?: return
-        if (item == null) {
-            includeRoot.visibility = View.GONE
-            return
-        } else {
-            includeRoot.visibility = View.VISIBLE
-        }
-
-        val binding = DataBindingUtil.bind<ViewDataBinding>(includeRoot)
-        binding?.setVariable(BR.cardTitle, item.title)
-        binding?.setVariable(BR.cardImageRes, item.imageResId)  // uses BindingAdapter
-        binding?.setVariable(BR.cardDescription, item.title)    // reuse title as description
-        binding?.executePendingBindings()
-
-        includeRoot.setOnClickListener {
-            (listener as? HomeInteractionListener)?.onClickFeaturedCollections(item.target)
-        }
-    }
 
 
     private fun bindMovie(holder: ItemViewHolder, items: List<MediaUiState>, type: HomeItemsType) {
@@ -230,7 +204,6 @@ class HomeAdapter(
                 is HomeItem.FeaturedCollections -> R.layout.featured_collections
                 is HomeItem.Actor -> R.layout.item_actor_home
 
-                else -> TODO()
             }
         }
         return -1

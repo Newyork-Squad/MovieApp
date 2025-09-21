@@ -103,6 +103,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         observeSearchSections()
         initMicController()
 
+        binding.inputSearch.setOnFocusChangeListener { _, hasFocus ->
+            viewModel.setSearchFocus(hasFocus)
+        }
         collectLast(viewModel.searchUIEvent) {
             it.getContentIfNotHandled()?.let { onEvent(it) }
         }
@@ -200,6 +203,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             is SearchUIEvent.ClickRecentViewedEvent -> navigateToMovieDetails(event.recentMovieViewedUiState.mediaID)
 
             SearchUIEvent.ClickVoiceEvent -> handleVoiceClick()
+            SearchUIEvent.ClickSearchHistoryEvent -> binding.inputSearch.clearFocus()
         }
     }
 

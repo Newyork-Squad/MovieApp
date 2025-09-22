@@ -20,6 +20,7 @@ import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputLayout
 import com.karrar.movieapp.R
+import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.ui.base.BaseAdapter
 import com.karrar.movieapp.ui.category.uiState.ErrorUIState
@@ -380,3 +381,15 @@ fun setOneDecimal(textView: TextView, number: Double?) {
 }
 
 
+@BindingAdapter("localizedTitle")
+fun TextView.setLocalizedTitle(type: HomeItemsType?) {
+    type ?: return
+    text = when (type) {
+        HomeItemsType.TOP_RATED_TV_SHOWS -> context.getString(R.string.title_top_rated_tv_show)
+        HomeItemsType.RECENTLY_RELEASED -> context.getString(R.string.recently_released)
+        HomeItemsType.UPCOMING -> context.getString(R.string.title_upcoming)
+        HomeItemsType.RECENTLY_VIEWED -> context.getString(R.string.recently_viewed)
+        HomeItemsType.COLLECTIONS -> context.getString(R.string.your_collections)
+        HomeItemsType.NON -> ""
+    }
+}

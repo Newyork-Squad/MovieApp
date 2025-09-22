@@ -44,6 +44,8 @@
     <string name="title_upcoming">Upcoming Movies</string>
     <string name="title_recently_viewed">You Recently Viewed</string>
     <string name="your_collections">Your Collections</string>
+    <string name="recently_viewed">Recently Viewed</string>
+
     <string name="title_celebrity">Celebrities</string>
     <string name="title_airing_today">Airing today</string>
     <string name="title_top_rated_tv_show">Top Rated TV Shows</string>

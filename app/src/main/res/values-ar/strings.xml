@@ -45,6 +45,7 @@
     <string name="title_streaming">يُعرض الآن</string>
     <string name="title_upcoming">القادم قريبًا</string>
     <string name="title_recently_viewed">شاهدته مؤخرًا</string>
+    <string name="recently_viewed">شوهد مؤخراً</string>
     <string name="your_collections">مجموعاتك</string>
     <string name="title_celebrity">المشاهير</string>
     <string name="title_airing_today">يعرض اليوم</string>
@@ -216,6 +217,25 @@
 
     <string name="match">كيفي</string>
     <string name="me">انا</string>
+    <string name="new_collection">مجموعة جديدة</string>
+    <string name="start_saving">أنشئ مجموعة جديدة لبدء حفظ أفلامك ومسلسلاتك المفضلة.</string>
+    <string name="create_collection">إنشاء مجموعة</string>
+
+    <string name="let_us_choose_for_you">دعنا نختار لك!</string>
+    <string name="what_should_i_watch">ماذا يجب أن أشاهد؟</string>
+    <string name="we_ll_help_you_skip_the_scroll_and_go_straight_to_the_good_stuff">
+سنساعدك على تخطي التمرير والوصول مباشرة إلى أفضل المحتوى.
+</string>
+
+    <string name="need_more_to_watch">هل تريد المزيد للمشاهدة؟</string>
+    <string name="browse_everything">تصفح كل شيء</string>
+    <string name="explore_all_movies_and_series_by_genre_or_search_for_anything_you_like">
+استكشف جميع الأفلام والمسلسلات حسب النوع أو ابحث عن أي شيء تحبه.
+</string>
+    <string name="add_to_collection">أضف إلى المجموعة</string>
+    <string name="rate_the_movie">قيّم الفيلم</string>
+    <string name="next">التالي</string>
+    <string name="start_matching">ابدأ المطابقة</string>
 
     <string name="speech_error_no_match">لم أتمكن من فهمك جيدًا — يُرجى المحاولة مرة أخرى.</string>
     <string name="speech_error_timeout">لم يتم التقاط أي كلام — يُرجى التحدث مجددًا.</string>

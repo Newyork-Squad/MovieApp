@@ -3,7 +3,7 @@
 
     <string name="show_more">عرض المزيد</string>
     <string name="top_rated">الأعلى تقييمًا</string>
-    <string name="recently_released">الأحدث</string>
+    <string name="title_recently_released">الأحدث</string>
     <string name="popular">الشائع</string>
     <string name="tv_shows">المسلسلات</string>
     <string name="search_hint">ابحث…</string>
@@ -45,7 +45,7 @@
     <string name="title_streaming">يُعرض الآن</string>
     <string name="title_upcoming">القادم قريبًا</string>
     <string name="title_recently_viewed">شاهدته مؤخرًا</string>
-    <string name="your_collections">مجموعاتك</string>
+    <string name="title_your_collections">مجموعاتك</string>
     <string name="title_celebrity">المشاهير</string>
     <string name="title_airing_today">يعرض اليوم</string>
     <string name="title_top_rated_tv_show">أعلى المسلسلات تقييمًا</string>

@@ -1,4 +1,4 @@
-package com.karrar.movieapp.domain.enums
+package com.karrar.movieapp.ui.home.homeUiState
 
 import androidx.annotation.StringRes
 import com.karrar.movieapp.R

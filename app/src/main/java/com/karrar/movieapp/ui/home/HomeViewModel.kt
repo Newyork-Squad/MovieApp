@@ -2,7 +2,7 @@ package com.karrar.movieapp.ui.home
 
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.enums.AllMediaType
-import com.karrar.movieapp.domain.enums.HomeItemsType
+import com.karrar.movieapp.ui.home.homeUiState.HomeItemsType
 import com.karrar.movieapp.domain.mappers.WatchHistoryMapper
 import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
 import com.karrar.movieapp.domain.usecases.GetAccountDetailsUseCase

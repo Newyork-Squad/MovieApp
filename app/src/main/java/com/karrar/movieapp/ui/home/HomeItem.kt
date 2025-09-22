@@ -1,6 +1,6 @@
 package com.karrar.movieapp.ui.home
 
-import com.karrar.movieapp.domain.enums.HomeItemsType
+import com.karrar.movieapp.ui.home.homeUiState.HomeItemsType
 import com.karrar.movieapp.ui.home.homeUiState.PopularUiState
 import com.karrar.movieapp.ui.models.MediaUiState
 import com.karrar.movieapp.ui.myList.myListUIState.CreatedListUIState

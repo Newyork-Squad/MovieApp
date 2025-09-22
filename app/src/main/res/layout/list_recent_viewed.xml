@@ -21,14 +21,13 @@
         android:layout_marginTop="@dimen/spacing_medium">
 
         <TextView
-            android:id="@+id/star_cast"
+            android:id="@+id/tv_you_recent_viewed"
             style="@style/Title.SM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
             android:text="@string/you_recent_viewed"
             android:textColor="@color/shade_primary"
-            android:textFontWeight="500"
             android:textSize="@dimen/text_body_lg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,8 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
             android:text="@string/clear_all"
-            android:onClick="@{ () -> listener.onClearAllClicked()}"
-            android:layout_marginEnd="@dimen/spacing_small"
+            android:onClick="@{ () -> listener.onClearAllRecentHistoryClicked()}"
+            android:layout_marginEnd="@dimen/spacing_medium"
             android:textColor="@color/brand_primary"
             android:clickable="true"
             android:enabled="true"
@@ -52,7 +51,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_recent_viewed"
+            android:id="@+id/rv_query_history"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:adapter="@{adapterRecycler}"
@@ -63,7 +62,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/star_cast"
+            app:layout_constraintTop_toBottomOf="@+id/tv_you_recent_viewed"
             app:spanCount="1"
             tools:listitem="@layout/item_recent_viewed" />
 

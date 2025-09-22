@@ -75,12 +75,12 @@ class SearchAdapter(
         return when (items[position]) {
             is SearchItemUiState.SearchItemHistory -> R.layout.list_search_history
             is SearchItemUiState.RecentViewed -> R.layout.list_recent_viewed
-
         }
     }
 
 }
 
 interface SearchItemInteractionListener : BaseInteractionListener {
-    fun onClearAllClicked()
+    fun onClearAllRecentHistoryClicked()
+    fun onClearAllQueryHistoryClicked()
 }

@@ -490,7 +490,6 @@
     <fragment
         android:id="@+id/matchScreenFragment"
         android:name="com.karrar.movieapp.ui.match.MatchScreenFragment"
-        android:label="fragment_match_screen"
         tools:layout="@layout/fragment_match_screen" >
         <action
             android:id="@+id/action_matchScreenFragment_to_matchQuestionsFragment"

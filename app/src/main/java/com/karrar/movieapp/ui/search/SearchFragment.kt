@@ -344,7 +344,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun observeToggleVisibility() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
             viewModel.showToggle.collect { visible ->
                 binding.viewToggle.root.visibility = if (visible) View.VISIBLE else View.GONE
             }

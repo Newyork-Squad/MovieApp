@@ -1,4 +1,4 @@
-package com.karrar.movieapp.domain.usecases.searchUseCase
+package com.karrar.movieapp.domain.usecases.search
 
 import com.karrar.movieapp.data.local.database.entity.SearchHistoryEntity
 import com.karrar.movieapp.data.repository.MovieRepository

@@ -1,5 +1,7 @@
 package com.karrar.movieapp.utilities
+
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.text.InputType
 import android.view.View
 import android.widget.ImageView
@@ -17,7 +19,6 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.ShapeAppearanceModel
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputLayout
 import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.MediaType
@@ -114,10 +115,23 @@ fun showWhenIsLoggedInWithoutFail(view: View, isLoggedIn: Boolean, isFail: Boole
 }
 
 //Search
+@BindingAdapter(value = ["drawableStartByHistory", "drawableEndRes"], requireAll = false)
+fun setDrawableStartByHistory(textView: TextView, isFromHistory: Boolean?, endDrawable: Drawable?) {
+    val startRes = if (isFromHistory == true)
+        R.drawable.outline_history
+    else
+        R.drawable.outline_search
+
+    val startDrawable: Drawable? = ContextCompat.getDrawable(textView.context, startRes)
+
+    textView.setCompoundDrawablesRelativeWithIntrinsicBounds(startDrawable, null, endDrawable, null)
+}
+
 @BindingAdapter("app:showHistory")
 fun showHistory(view: View, show: Boolean) {
     view.isVisible = show
 }
+
 @BindingAdapter("app:showWhenFocused")
 fun showWhenFocused(view: View, isFocused: Boolean) {
     view.isVisible = isFocused
@@ -280,6 +294,7 @@ fun setButtonIcon(button: MaterialButton, icon: Int) {
         button.icon = null
     }
 }
+
 @BindingAdapter("app:dynamicShapeAppearance")
 fun ShapeableImageView.setDynamicShapeAppearance(isCurrent: Boolean) {
     val styleRes =
@@ -372,6 +387,7 @@ fun setImageRes(view: ShapeableImageView, resId: Int?) {
 fun TextView.setGenresText(genres: List<String>?) {
     text = genres?.joinToString(", ") ?: ""
 }
+
 @BindingAdapter("app:oneDecimal")
 fun setOneDecimal(textView: TextView, number: Double?) {
     number?.let {

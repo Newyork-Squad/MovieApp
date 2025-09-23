@@ -29,6 +29,7 @@ import com.karrar.movieapp.data.remote.response.genre.GenreDto
 import com.karrar.movieapp.data.remote.response.movie.MovieDetailsDto
 import com.karrar.movieapp.data.remote.response.movie.RatingDto
 import com.karrar.movieapp.data.remote.response.review.ReviewsDto
+import com.karrar.movieapp.data.remote.response.search.SearchKeywordDto
 import com.karrar.movieapp.data.remote.response.trailerVideosDto.TrailerDto
 import com.karrar.movieapp.domain.enums.Era
 import com.karrar.movieapp.domain.enums.MatchingGenre
@@ -136,5 +137,7 @@ interface MovieRepository {
     ): List<MovieDto>?
 
     suspend fun removeMovieFromCollection(sessionId: String, collectionId: String, movieId: Int): DefaultResponse?
+
+    suspend fun getSearchKeywords(query: String, page: Int): List<SearchKeywordDto>?
 
 }

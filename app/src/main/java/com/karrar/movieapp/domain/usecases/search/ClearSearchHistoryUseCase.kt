@@ -1,6 +1,5 @@
-package com.karrar.movieapp.domain.usecases.searchUseCase
+package com.karrar.movieapp.domain.usecases.search
 
-import android.util.Log
 import com.karrar.movieapp.data.repository.MovieRepository
 import javax.inject.Inject
 

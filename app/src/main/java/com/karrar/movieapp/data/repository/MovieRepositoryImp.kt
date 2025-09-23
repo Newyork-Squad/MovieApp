@@ -36,6 +36,7 @@ import com.karrar.movieapp.data.remote.response.genre.GenreDto
 import com.karrar.movieapp.data.remote.response.movie.MovieDetailsDto
 import com.karrar.movieapp.data.remote.response.movie.RatingDto
 import com.karrar.movieapp.data.remote.response.review.ReviewsDto
+import com.karrar.movieapp.data.remote.response.search.SearchKeywordDto
 import com.karrar.movieapp.data.remote.response.trailerVideosDto.TrailerDto
 import com.karrar.movieapp.data.remote.service.MovieService
 import com.karrar.movieapp.data.repository.mediaDataSource.ActorMovieDataSource
@@ -485,6 +486,14 @@ class MovieRepositoryImp @Inject constructor(
             movieId = movieId
         ).body()
     }
+
+    override suspend fun getSearchKeywords(
+        query: String,
+        page: Int
+    ): List<SearchKeywordDto>? {
+        return movieService.getSearchKeywords(query, page).body()?.results
+    }
+
 
     override suspend fun clearCache() {
         movieDao.deletePopularMovies()

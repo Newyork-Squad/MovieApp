@@ -5,7 +5,6 @@ import com.karrar.movieapp.ui.allMedia.Error
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
-
 data class MediaSearchUIState(
     val searchInput: String = "",
     val searchTypes: MediaTypes = MediaTypes.MOVIE,
@@ -13,6 +12,7 @@ data class MediaSearchUIState(
     val searchHistory: List<SearchHistoryUIState> = emptyList(),
     val recentMovieViewed: List<RecentMovieViewedUiState> = emptyList(),
     val isLoading : Boolean = false,
+    val suggestHistory: List<SearchKeywordUIState> = emptyList(),
     val isEmpty: Boolean = false,
     val error : List<Error> = emptyList(),
 )

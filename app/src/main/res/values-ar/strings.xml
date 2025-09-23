@@ -49,6 +49,7 @@
     <string name="title_celebrity">المشاهير</string>
     <string name="title_airing_today">يعرض اليوم</string>
     <string name="title_top_rated_tv_show">أعلى المسلسلات تقييمًا</string>
+    <string name="title_matches_your_vibe">تلائم اهتماماتك</string>
     <string name="text_movies">%s أفلام</string>
     <string name="movies_label">الأفلام</string>
     <string name="tv_shows_label">المسلسلات</string>

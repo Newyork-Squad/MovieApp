@@ -43,6 +43,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         it.recentlyReleasedSeries,
                         it.topRatedSeries,
                         it.upcomingMovies,
+                        it.matchedItems,
                         it.recentlyViewed,
                         it.collections,
                         it.whatShouldIWatch,

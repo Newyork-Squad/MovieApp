@@ -143,6 +143,10 @@ class HomeAdapter(
                         setVariable(BR.listener, listener as HomeInteractionListener)
                     }
                 }
+
+                is HomeItem.MatchedItems -> {
+                    bindMovie(holder, currentItem.items, currentItem.type)
+                }
             }
     }
 
@@ -153,6 +157,7 @@ class HomeAdapter(
                 MovieAdapter(items, listener as MovieInteractionListener)
             )
             setVariable(BR.movieType, type)
+            setVariable(BR.isVisible, items.isNotEmpty())
         }
     }
 
@@ -179,9 +184,12 @@ class HomeAdapter(
                 is HomeItem.RecentlyReleased,
                 is HomeItem.TopRatedTvShows,
                     -> R.layout.list_tvshow
+
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
                 is HomeItem.Upcoming,
+                is HomeItem.MatchedItems,
                     -> R.layout.list_movie
+
                 is HomeItem.Collections -> R.layout.list_home_collections
                 is HomeItem.WhatShouldWatch -> R.layout.item_whatshouldwatch
                 is HomeItem.NeedMoreToWatch -> R.layout.item_needmoretowatch

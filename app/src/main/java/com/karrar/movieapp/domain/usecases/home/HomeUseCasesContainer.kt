@@ -5,6 +5,7 @@ import com.karrar.movieapp.domain.usecase.home.getData.movie.GetUpcomingMoviesUs
 import com.karrar.movieapp.domain.usecase.home.getData.series.GetAiringTodaySeriesUseCase
 import com.karrar.movieapp.domain.usecase.home.getData.series.GetTopRatedTvShowSeriesUseCase
 import com.karrar.movieapp.domain.usecases.GetWatchHistoryUseCase
+import com.karrar.movieapp.domain.usecases.home.getData.movie.GetMoviesMatchingUserVibeUseCase
 import javax.inject.Inject
 
 class HomeUseCasesContainer @Inject constructor(
@@ -13,4 +14,5 @@ class HomeUseCasesContainer @Inject constructor(
     val getTopRatedTvShowUseCase: GetTopRatedTvShowSeriesUseCase,
     val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase,
     val getWatchHistoryUseCase: GetWatchHistoryUseCase,
+    val getMoviesMatchingUserVibeUseCase: GetMoviesMatchingUserVibeUseCase
 )

@@ -13,7 +13,7 @@ import com.karrar.movieapp.BR
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.ItemPopularMovieBinding
 import com.karrar.movieapp.domain.enums.AllMediaType
-import com.karrar.movieapp.domain.enums.HomeItemsType
+import com.karrar.movieapp.ui.home.homeUiState.HomeItemsType
 import com.karrar.movieapp.ui.adapters.MovieAdapter
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseAdapter
@@ -143,6 +143,10 @@ class HomeAdapter(
                         setVariable(BR.listener, listener as HomeInteractionListener)
                     }
                 }
+
+                is HomeItem.MatchedItems -> {
+                    bindMovie(holder, currentItem.items, currentItem.type)
+                }
             }
     }
 
@@ -153,6 +157,7 @@ class HomeAdapter(
                 MovieAdapter(items, listener as MovieInteractionListener)
             )
             setVariable(BR.movieType, type)
+            setVariable(BR.isVisible, items.isNotEmpty())
         }
     }
 
@@ -179,9 +184,12 @@ class HomeAdapter(
                 is HomeItem.RecentlyReleased,
                 is HomeItem.TopRatedTvShows,
                     -> R.layout.list_tvshow
+
                 is HomeItem.RecentlyViewed -> R.layout.list_recently_viewed
                 is HomeItem.Upcoming,
+                is HomeItem.MatchedItems,
                     -> R.layout.list_movie
+
                 is HomeItem.Collections -> R.layout.list_home_collections
                 is HomeItem.WhatShouldWatch -> R.layout.item_whatshouldwatch
                 is HomeItem.NeedMoreToWatch -> R.layout.item_needmoretowatch

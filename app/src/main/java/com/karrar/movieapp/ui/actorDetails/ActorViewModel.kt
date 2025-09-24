@@ -2,7 +2,7 @@ package com.karrar.movieapp.ui.actorDetails
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.karrar.movieapp.domain.enums.HomeItemsType
+import com.karrar.movieapp.ui.home.homeUiState.HomeItemsType
 import com.karrar.movieapp.domain.usecases.GetActorDetailsUseCase
 import com.karrar.movieapp.domain.usecases.GetActorImagesUseCase
 import com.karrar.movieapp.domain.usecases.GetActorMoviesUseCase
@@ -94,6 +94,17 @@ class ActorViewModel @Inject constructor(
 
     override fun onClickSeeAllMovie(homeItemsType: HomeItemsType) {
         _actorDetailsUIEvent.update { Event(ActorDetailsUIEvent.SeeAllMovies) }
+    }
+
+    fun onClickSeeAllImages() {
+        _actorDetailsUIEvent.update {
+            Event(
+                ActorDetailsUIEvent.NavigateToSeeAllActorImages(
+                    actorName = _actorDetailsUIState.value.name,
+                    actorImages = _actorDetailsUIState.value.actorImages,
+                ),
+            )
+        }
     }
 
     override fun onClickSocialMediaLink(link: String) {

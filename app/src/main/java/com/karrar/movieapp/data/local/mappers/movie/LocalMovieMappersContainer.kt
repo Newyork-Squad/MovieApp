@@ -9,7 +9,9 @@ class LocalMovieMappersContainer @Inject constructor(
     val trendingMovieMapper: TrendingMovieMapper,
     val nowStreamingMovieMapper: NowStreamingMovieMapper,
     val upcomingMovieMapper: UpcomingMovieMapper,
+    val userMatchingMovieMapper: UserMatchingMovieMapper,
     val mysteryMovieMapper: MysteryMovieMapper,
     val adventureMovieMapper: AdventureMovieMapper,
     val actorMapper: ActorMapper,
+    val movieGenreMapper: MovieGenreMapper
 )

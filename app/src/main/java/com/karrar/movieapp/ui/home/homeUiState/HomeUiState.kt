@@ -11,6 +11,7 @@ data class HomeUiState (
     val collections: HomeItem = HomeItem.Collections(emptyList()),
     val whatShouldIWatch:HomeItem=HomeItem.WhatShouldWatch,
     val needMoreToWatch:HomeItem=HomeItem.NeedMoreToWatch,
+    val matchedItems: HomeItem = HomeItem.MatchedItems(emptyList()),
     val isLoading:Boolean = false,
     val error : List<String> = emptyList(),
 )

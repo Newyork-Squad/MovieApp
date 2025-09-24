@@ -13,7 +13,7 @@
 
         <variable
             name="movieType"
-            type="com.karrar.movieapp.domain.enums.HomeItemsType" />
+            type="com.karrar.movieapp.ui.home.homeUiState.HomeItemsType" />
 
         <variable
             name="mediaType"

@@ -3,6 +3,8 @@ package com.karrar.movieapp.ui.tvShowDetails
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.karrar.movieapp.BR
 import com.karrar.movieapp.R
 import com.karrar.movieapp.ui.adapters.ActorAdapter
@@ -57,6 +59,16 @@ class DetailUIStateAdapter(
                             listener as ActorsInteractionListener
                         )
                     )
+                    val recyclerView =
+                        root.findViewById<RecyclerView>(R.id.cast_adapter)
+                    val layoutManager =
+                        GridLayoutManager(root.context, 2, GridLayoutManager.HORIZONTAL, false)
+                    layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                        override fun getSpanSize(position: Int): Int {
+                            return if (currentItem.data.size == 1) 2 else 1
+                        }
+                    }
+                    recyclerView.layoutManager = layoutManager
                 }
             }
 

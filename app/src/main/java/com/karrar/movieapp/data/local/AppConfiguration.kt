@@ -86,7 +86,7 @@ class AppConfigurator @Inject constructor(
     }
 
     override fun getStartUpState(): Boolean {
-        return sharedPreferences.getBoolean(START_UP_KEY, false)
+        return sharedPreferences.getBoolean(START_UP_KEY, true)
     }
 
     override suspend fun saveStartUpState(value: Boolean) {
@@ -122,7 +122,7 @@ class AppConfigurator @Inject constructor(
         const val SESSION_ID_KEY = "session_id"
         const val IS_GUEST_USER_KEY = "is_guest_user"
 
-        const val START_UP_KEY = "start_up"
+        const val START_UP_KEY = "isFirstLaunch"
         const val DARK_MODE_KEY = "dark_mode"
         const val LANGUAGE_KEY = "language"
     }

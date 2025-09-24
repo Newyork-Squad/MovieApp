@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.karrar.movieapp.domain.enums.HomeItemsType" />
+        <import type="com.karrar.movieapp.ui.home.homeUiState.HomeItemsType" />
 
         <variable
             name="viewModel"
@@ -179,13 +179,12 @@
                     android:id="@+id/cake_icon"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/outline_cake"
-                    app:tint="@color/shade_secondary"
-                    android:contentDescription="@string/birthday"
                     android:layout_marginTop="@dimen/spacing_small"
-                    app:layout_constraintTop_toBottomOf="@+id/text_name_actor"
+                    android:contentDescription="@string/birthday"
+                    android:src="@drawable/outline_cake"
                     app:layout_constraintStart_toStartOf="@+id/text_name_actor"
-                    />
+                    app:layout_constraintTop_toBottomOf="@+id/text_name_actor"
+                    app:tint="@color/shade_secondary" />
 
                 <TextView
                     android:id="@+id/text_birthday_actor"
@@ -196,22 +195,22 @@
                     android:gravity="center_vertical"
                     android:text="@{String.format(@string/born_on,viewModel.actorDetailsUIState.birthday)}"
                     android:textColor="@color/shade_secondary"
+                    app:layout_constraintBottom_toBottomOf="@+id/cake_icon"
                     app:layout_constraintStart_toEndOf="@+id/cake_icon"
                     app:layout_constraintTop_toTopOf="@+id/cake_icon"
-                    app:layout_constraintBottom_toBottomOf="@+id/cake_icon"
                     tools:text="Born on Jan 30, 1974" />
 
                 <ImageView
                     android:id="@+id/place_icon"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/outline_location"
-                    app:tint="@color/shade_secondary"
-                    android:contentDescription="@string/birthday"
                     android:layout_marginTop="@dimen/spacing_small"
-                    app:layout_constraintTop_toBottomOf="@+id/cake_icon"
+                    android:contentDescription="@string/birthday"
+                    android:src="@drawable/outline_location"
                     app:layout_constraintStart_toStartOf="@+id/text_name_actor"
-                    />
+                    app:layout_constraintTop_toBottomOf="@+id/cake_icon"
+                    app:tint="@color/shade_secondary" />
+
                 <TextView
                     android:id="@+id/text_place_of_birth_actor"
                     style="@style/Label_MD.Regular"
@@ -222,11 +221,11 @@
                     android:lines="1"
                     android:text="@{String.format(@string/in,viewModel.actorDetailsUIState.placeOfBirth)}"
                     android:textColor="@color/shade_secondary"
+                    app:layout_constraintBottom_toBottomOf="@+id/place_icon"
                     app:layout_constraintEnd_toEndOf="@+id/actor_card_background"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toEndOf="@+id/place_icon"
                     app:layout_constraintTop_toTopOf="@+id/place_icon"
-                    app:layout_constraintBottom_toBottomOf="@+id/place_icon"
                     tools:text="In Massachusetts, USA" />
 
                 <FrameLayout
@@ -238,103 +237,173 @@
                     android:paddingBottom="@dimen/spacing_medium"
                     app:layout_constraintEnd_toEndOf="@+id/actor_card_background"
                     app:layout_constraintStart_toStartOf="@+id/actor_card_background"
-                    app:layout_constraintTop_toBottomOf="@+id/text_place_of_birth_actor" >
+                    app:layout_constraintTop_toBottomOf="@+id/text_place_of_birth_actor">
 
-                <include
-                    layout="@layout/list_social_media"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="@+id/actor_card_background"
-                    app:layout_constraintStart_toStartOf="@+id/actor_image"
-                    app:layout_constraintTop_toBottomOf="@+id/text_place_of_birth_actor"
-                    app:listener="@{viewModel}"
-                    app:socialMediaList="@{viewModel.actorDetailsUIState.actorSocialMediaLinks}" />
+                    <include
+                        layout="@layout/list_social_media"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="@+id/actor_card_background"
+                        app:layout_constraintStart_toStartOf="@+id/actor_image"
+                        app:layout_constraintTop_toBottomOf="@+id/text_place_of_birth_actor"
+                        app:listener="@{viewModel}"
+                        app:socialMediaList="@{viewModel.actorDetailsUIState.actorSocialMediaLinks}" />
 
                 </FrameLayout>
 
-            <TextView
-                android:id="@+id/related_movie_title"
-                style="@style/Title.SM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/radius_medium"
-                android:layout_marginTop="@dimen/spacing_large"
-                android:text="@{String.format(@string/best_of, viewModel.actorDetailsUIState.name)}"
-                android:textColor="@color/shade_primary"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/actor_card_background"
-                app:showWhenListNotEmpty="@{viewModel.actorDetailsUIState.actorMovies}"
-                tools:text="Best of Christian Bale" />
+                <TextView
+                    android:id="@+id/related_movie_title"
+                    style="@style/Title.SM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/radius_medium"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:text="@{String.format(@string/best_of, viewModel.actorDetailsUIState.name)}"
+                    android:textColor="@color/shade_primary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/actor_card_background"
+                    app:showWhenListNotEmpty="@{viewModel.actorDetailsUIState.actorMovies}"
+                    tools:text="Best of Christian Bale" />
 
 
-            <TextView
-                android:id="@+id/button_show_more"
-                style="@style/Body_MD.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/spacing_medium"
-                android:onClick="@{() -> viewModel.onClickSeeAllMovie(HomeItemsType.NON)}"
-                android:text="@string/show_more"
-                android:textColor="@color/brand_primary"
-                app:layout_constraintBottom_toBottomOf="@+id/related_movie_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/related_movie_title"
-                app:showWhenListNotEmpty="@{viewModel.actorDetailsUIState.actorMovies}" />
+                <TextView
+                    android:id="@+id/button_show_more"
+                    style="@style/Body_MD.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_medium"
+                    android:onClick="@{() -> viewModel.onClickSeeAllMovie(HomeItemsType.NON)}"
+                    android:text="@string/show_more"
+                    android:textColor="@color/brand_primary"
+                    app:layout_constraintBottom_toBottomOf="@+id/related_movie_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/related_movie_title"
+                    app:showWhenListNotEmpty="@{viewModel.actorDetailsUIState.actorMovies}" />
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/related_movie_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_small"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/spacing_medium"
-                app:items="@{viewModel.actorDetailsUIState.actorMovies}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/related_movie_title"
-                tools:ignore="MissingConstraints"
-                tools:listitem="@layout/item_movie" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/related_movie_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/spacing_medium"
+                    app:items="@{viewModel.actorDetailsUIState.actorMovies}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/related_movie_title"
+                    tools:ignore="MissingConstraints"
+                    tools:listitem="@layout/item_movie" />
 
-            <TextView
-                android:id="@+id/over_view_title"
-                style="@style/Title.SM"
-                android:textColor="@color/shade_primary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/radius_medium"
-                android:layout_marginTop="@dimen/radius_large"
-                android:text="@string/biography"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/related_movie_recycler"
-                app:showWhenTextNotEmpty="@{viewModel.actorDetailsUIState.biography}" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/galley_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/radius_medium"
+                    android:layout_marginTop="@dimen/radius_large"
+                    app:layout_constraintTop_toBottomOf="@id/related_movie_recycler"
+                    app:showWhenListNotEmptyAndHaveThreeItems="@{viewModel.actorDetailsUIState.actorImages}">
+
+                    <TextView
+                        android:id="@+id/galley_title"
+                        style="@style/Title.SM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gallery"
+                        android:textColor="@color/shade_primary"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/galley_see_all"
+                        style="@style/Body_MD.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> viewModel.onClickSeeAllImages()}"
+                        android:text="@string/show_more"
+                        android:textColor="@color/brand_primary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/image1"
+                        android:layout_width="102dp"
+                        android:layout_height="134dp"
+                        android:layout_marginTop="@dimen/spacing_normal"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/galley_title"
+                        app:posterImage="@{viewModel.actorDetailsUIState.actorImages[0]}"
+                        app:shapeAppearanceOverlay="@style/RoundedCorners"
+                        tools:src="@drawable/chris_evans" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/image2"
+                        android:layout_width="102dp"
+                        android:layout_height="134dp"
+                        android:layout_marginTop="@dimen/spacing_normal"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/image1"
+                        app:posterImage="@{viewModel.actorDetailsUIState.actorImages[1]}"
+                        app:shapeAppearanceOverlay="@style/RoundedCorners"
+                        tools:src="@drawable/chris_evans" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/image3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/spacing_normal"
+                        android:layout_marginTop="@dimen/spacing_normal"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/image1"
+                        app:layout_constraintTop_toBottomOf="@id/galley_see_all"
+                        app:posterImage="@{viewModel.actorDetailsUIState.actorImages[2]}"
+                        app:shapeAppearanceOverlay="@style/RoundedCorners"
+                        tools:src="@drawable/chris_evans" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/over_view_title"
+                    style="@style/Title.SM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/radius_medium"
+                    android:layout_marginTop="@dimen/radius_large"
+                    android:text="@string/biography"
+                    android:textColor="@color/shade_primary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/galley_section"
+                    app:showWhenTextNotEmpty="@{viewModel.actorDetailsUIState.biography}" />
 
 
-            <TextView
-                android:id="@+id/over_view"
-                android:fontFamily="@font/manrope"
-                android:textColor="@color/shade_secondary"
-                android:textSize="@dimen/text_small"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_medium"
-                android:layout_marginVertical="@dimen/spacing_medium"
-                android:paddingBottom="56dp"
-                android:text="@{viewModel.actorDetailsUIState.biography}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/over_view_title"
-                tools:ignore="MissingClass"
-                tools:text="Krasinski's instincts are very good, and once you've placed the primary action there, then it allows the story instincts are very good, and once you've placed the primary action there, then it allows the story" />
+                <TextView
+                    android:id="@+id/over_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_medium"
+                    android:layout_marginVertical="@dimen/spacing_medium"
+                    android:fontFamily="@font/manrope"
+                    android:paddingBottom="56dp"
+                    android:text="@{viewModel.actorDetailsUIState.biography}"
+                    android:textColor="@color/shade_secondary"
+                    android:textSize="@dimen/text_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/over_view_title"
+                    tools:ignore="MissingClass"
+                    tools:text="Krasinski's instincts are very good, and once you've placed the primary action there, then it allows the story instincts are very good, and once you've placed the primary action there, then it allows the story" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 
-    </layout>
+</layout>

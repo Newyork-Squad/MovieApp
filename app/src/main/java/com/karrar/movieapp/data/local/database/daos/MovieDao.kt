@@ -9,11 +9,13 @@ import com.karrar.movieapp.data.local.database.entity.SearchHistoryEntity
 import com.karrar.movieapp.data.local.database.entity.WatchHistoryEntity
 import com.karrar.movieapp.data.local.database.entity.WatchList
 import com.karrar.movieapp.data.local.database.entity.movie.AdventureMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.MovieGenreEntity
 import com.karrar.movieapp.data.local.database.entity.movie.MysteryMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.NowStreamingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.TrendingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.UpcomingMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.UserMatchingMovieEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -88,6 +90,15 @@ interface MovieDao {
     @Query("DELETE FROM UPCOMING_MOVIE_TABLE")
     suspend fun deleteAllUpcomingMovies()
 
+    @Query("SELECT * FROM USER_MATCHING_MOVIE_TABLE")
+    fun getUserMatchingMovies(): Flow<List<UserMatchingMovieEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUserMatchingMovie(items: List<UserMatchingMovieEntity>)
+
+    @Query("DELETE FROM USER_MATCHING_MOVIE_TABLE")
+    suspend fun deleteAllUserMatchingMovies()
+
     @Query("SELECT * FROM UPCOMING_MOVIE_TABLE")
     fun getUpcomingMovies(): Flow<List<UpcomingMovieEntity>>
 
@@ -110,4 +121,19 @@ interface MovieDao {
 
     @Query("SELECT * FROM ADVENTURE_MOVIE_TABLE")
     fun getAdventureMovies(): Flow<List<AdventureMovieEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertGenre(genre: MovieGenreEntity)
+
+    @Query("SELECT * FROM MOVIE_GENRE_TABLE")
+    fun getAllGenres(): Flow<List<MovieGenreEntity>>
+
+    @Query("DELETE FROM MOVIE_GENRE_TABLE")
+    suspend fun deleteAllGenres()
+
+    @Query("UPDATE MOVIE_GENRE_TABLE SET visitCount = visitCount + 1 WHERE id = :genreId")
+    suspend fun increaseGenreVisitCount(genreId: Int)
+
+    @Query("SELECT * FROM MOVIE_GENRE_TABLE ORDER BY visitCount DESC LIMIT 1")
+    fun getTopVisitedMovieGenre(): Flow<MovieGenreEntity>
 }

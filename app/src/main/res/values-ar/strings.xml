@@ -3,7 +3,7 @@
 
     <string name="show_more">عرض المزيد</string>
     <string name="top_rated">الأعلى تقييمًا</string>
-    <string name="recently_released">الأحدث</string>
+    <string name="title_recently_released">الأحدث</string>
     <string name="popular">الشائع</string>
     <string name="tv_shows">المسلسلات</string>
     <string name="search_hint">ابحث…</string>
@@ -45,10 +45,17 @@
     <string name="title_streaming">يُعرض الآن</string>
     <string name="title_upcoming">القادم قريبًا</string>
     <string name="title_recently_viewed">شاهدته مؤخرًا</string>
-    <string name="your_collections">مجموعاتك</string>
+    <string name="title_your_collections">مجموعاتك</string>
     <string name="title_celebrity">المشاهير</string>
     <string name="title_airing_today">يعرض اليوم</string>
     <string name="title_top_rated_tv_show">أعلى المسلسلات تقييمًا</string>
+    <string name="title_matches_your_vibe">تلائم اهتماماتك</string>
+    <string name="title_what_should_i_watch">ماذا يجب أن أشاهد؟</string>
+    <string name="let_us_choose_for_you">دعنا نختار لك!</string>
+    <string name="we_ll_help_you_skip_the_scroll_and_go_straight_to_the_good_stuff">سوف نساعدك على تجاوز التمرير والوصول مباشرة إلى أفضل المحتوى.</string>
+    <string name="title_need_more_to_watch">هل تحتاج إلى المزيد لتشاهده؟</string>
+    <string name="browse_everything">تصفح كل شيء</string>
+    <string name="explore_all_movies_and_series_by_genre_or_search_for_anything_you_like">استكشف جميع الأفلام والمسلسلات حسب النوع أو ابحث عن أي شيء تفضله.</string>
     <string name="text_movies">%s أفلام</string>
     <string name="movies_label">الأفلام</string>
     <string name="tv_shows_label">المسلسلات</string>
@@ -107,6 +114,7 @@
     <string name="empty">فارغ</string>
     <string name="create_a_new_list">إنشاء مجموعة جديدة</string>
     <string name="save_to">حفظ في…</string>
+    <string name="add_to_collection">أضف إلي مجموعة</string>
     <string name="hours_pattern">%1$s ساعة</string>
     <string name="minutes_pattern">%1$s دقيقة</string>
     <string name="hours_minutes_pattern">%1$s س %2$s د</string>
@@ -117,6 +125,7 @@
     <string name="logout_dialog_title">هل أنت متأكد أنك تريد تسجيل الخروج؟</string>
     <string name="logout_dialog_caption">يمكنك دائمًا تسجيل الدخول مرة أخرى بحسابك.</string>
     <string name="login_dialog_title">أوشكت على الوصول!</string>
+    <string name="rate_the_movie">قيم الفيلم</string>
     <string name="login_dialog_caption">سجل الدخول لحفظ الأفلام وإنشاء القوائم والحصول على توصيات مخصصة.</string>
     <string name="not_now">ليس الآن</string>
     <string name="login_or_signup">تسجيل الدخول أو إنشاء حساب</string>
@@ -188,8 +197,9 @@
     <string name="onboarding_third_page_title">توصيات مخصصة</string>
     <string name="onboarding_second_page_title">تابع كل شيء</string>
 
+    <string name="start_matching">اختر ما يلائمك</string>
     <string name="nothing_found">لم يتم العثور على شيء!</string>
-    <string name="nothing_found_message">بحثنا في كل مكان... لكن لم نجد ما يطابق بحثك. جرّب شيئًا آخر؟</string>
+    <string name="nothing_found_message">بحثنا في كل مكان… لكن لم نجد ما يطابق بحثك. جرّب شيئًا آخر؟</string>
     <string name="select_movies_or_series_tab">اختر تبويب الأفلام أو المسلسلات</string>
     <string name="you_gave_it">لقد أعطيت</string>
     <string name="no_ratings_yet">لا توجد تقييمات بعد</string>
@@ -197,6 +207,7 @@
         قيّم الأفلام والمسلسلات التي شاهدتها لتتبع ما تحبه وما لا يعجبك.
     </string>
     <string name="start_rating">ابدأ التقييم</string>
+    <string name="create_collection">أنشئ مجموعة</string>
     <string name="discover_your_match">اكتشف تطابقك</string>
     <string name="not_sure_what_to_watch">لست متأكدًا مما تشاهد؟</string>
     <string name="answer_a_few_quick_questions_and_we_ll_match_you_with_the_perfect_picks">
@@ -229,5 +240,12 @@
     <string name="speech_recognition_not_available_on_this_device">التعرّف على الكلام غير متاح على هذا الجهاز</string>
     <string name="permission_denied_for_microphone">تم رفض إذن استخدام الميكروفون</string>
     <string name="search_suggestions">اقتراحات البحث</string>
+    <string name="tip_swipe_left_to_remove_movies_from_your_history">تلميح: اسحب لليسار لإزالة الأفلام من سجل المشاهدة.</string>
+    <string name="next">التالي</string>
+    <string name="new_collection">مجموعة جديدة</string>
+    <string name="start_saving">أنشئ مجموعة جديدة لتبدأ في حفظ أفلامك ومسلسلاتك المفضلة.</string>
 
+    <string name="gallery">المعرض</string>
+    <string name="actor_gallery">%1$s معرض</string>
+    <string name="app_version_format">إصدار %1$s</string>
 </resources>

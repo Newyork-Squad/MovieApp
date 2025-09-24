@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="isVisible"
+            type="Boolean" />
+
+    </data>
+
 <androidx.constraintlayout.motion.widget.MotionLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toggleMotion"
     android:layout_width="80dp"
     android:layout_height="40dp"
+    app:isVisible="@{isVisible}"
     android:clipToPadding="false"
     app:layoutDescription="@xml/media_toggle_view_scene">
 
@@ -54,3 +64,4 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>

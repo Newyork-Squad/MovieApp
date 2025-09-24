@@ -45,7 +45,7 @@
             android:paddingTop="@dimen/spacing_too_small"
             android:paddingEnd="@dimen/spacing_xSmall"
             android:paddingBottom="@dimen/spacing_too_small"
-            android:text='@{String.valueOf(item.mediaVoteAverage)}'
+            android:text='@{item.mediaVoteAverage}'
             android:textColor="@color/shade_primary"
             app:drawableEndCompat="@drawable/ic_star"
             tools:text="8.4" />

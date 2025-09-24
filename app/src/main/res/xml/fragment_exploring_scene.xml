@@ -162,7 +162,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/spacing_lSmall"
             android:layout_marginEnd="@dimen/spacing_lSmall"
-            app:layout_constraintBottom_toTopOf="@+id/view_toggle"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tab_explore" />

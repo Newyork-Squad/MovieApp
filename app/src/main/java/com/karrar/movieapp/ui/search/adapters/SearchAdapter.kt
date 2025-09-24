@@ -1,5 +1,6 @@
 package com.karrar.movieapp.ui.search.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -59,12 +60,30 @@ class SearchAdapter(
                     executePendingBindings()
                 }
             }
+
+            is SearchItemUiState.SuggestedSearch -> {
+                holder.binding.run {
+                    setVariable(
+                        BR.adapterRecycler,
+                        SearchSuggestedAdapter(
+                            currentItem.data,
+                            R.layout.item_search_suggest,
+                            listener as SearchSuggestedInteractionListener
+                        )
+                    )
+                    setVariable(BR.listener, listener)
+                    executePendingBindings()
+                }
+
+            }
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun setItems(newItems: List<SearchItemUiState>) {
         items = newItems.sortedBy { it.priority }
         super.setItems(items)
+        notifyDataSetChanged()
     }
 
     override fun areItemsSame(oldItem: SearchItemUiState, newItem: SearchItemUiState): Boolean {
@@ -75,6 +94,7 @@ class SearchAdapter(
         return when (items[position]) {
             is SearchItemUiState.SearchItemHistory -> R.layout.list_search_history
             is SearchItemUiState.RecentViewed -> R.layout.list_recent_viewed
+            is SearchItemUiState.SuggestedSearch -> R.layout.list_search_suggest
         }
     }
 

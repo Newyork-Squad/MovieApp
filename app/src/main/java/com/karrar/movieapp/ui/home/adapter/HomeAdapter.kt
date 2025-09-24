@@ -218,14 +218,13 @@ class HomeAdapter(
 
     private fun setupPageTransformer(viewPager: ViewPager2) {
         viewPager.offscreenPageLimit = 3
-        val sideScale = 1.1f
         val sideTranslationY = 100f
         val sideOffset = -60f
 
         viewPager.setPageTransformer { page, position ->
             val binding = DataBindingUtil.getBinding<ItemPopularMovieBinding>(page)
             binding?.apply {
-                if (position in -0.5f..0.5f) {
+                if (position in -0.05f..0.05f) {
                     root.scaleY = 1f
                     root.translationY = 0f
                     root.translationZ = 1f
@@ -234,7 +233,6 @@ class HomeAdapter(
                     textRate.visibility = View.VISIBLE
                     textCategory.visibility = View.VISIBLE
                 } else {
-                    root.scaleY = sideScale
                     root.translationY = sideTranslationY * kotlin.math.min(kotlin.math.abs(position), 1f)
                     root.translationZ = 0f
                     root.translationX = position * sideOffset

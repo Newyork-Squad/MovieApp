@@ -1,7 +1,7 @@
 package com.karrar.movieapp.ui.adapters
 
 import com.karrar.movieapp.R
-import com.karrar.movieapp.domain.enums.HomeItemsType
+import com.karrar.movieapp.ui.home.homeUiState.HomeItemsType
 import com.karrar.movieapp.ui.base.BaseAdapter
 import com.karrar.movieapp.ui.base.BaseInteractionListener
 import com.karrar.movieapp.ui.models.MediaUiState

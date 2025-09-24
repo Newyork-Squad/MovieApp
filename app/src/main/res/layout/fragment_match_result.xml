@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="com.karrar.movieapp.ui.match.questions.MatchQuestionsViewModel" />
+        <variable
+            name="pagerAdapter"
+            type="com.karrar.movieapp.ui.match.result.MoviePagerAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_screen"
+        android:fillViewport="true"
+        tools:context=".ui.match.result.MatchResultFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back_arrow_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:contentDescription="@string/back_arrow_icon"
+                android:padding="8dp"
+                android:onClick="@{() -> vm.onClickBack()}"
+                android:src="@drawable/outline_arrow_left"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/shade_primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/manrope_medium"
+                android:text="@string/here_s_your_match_list"
+                android:textColor="@color/shade_primary"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/back_arrow_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/horizontal_pager"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_marginTop="73.5dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:overScrollMode="never"
+            android:paddingStart="60dp"
+            android:paddingEnd="60dp"
+            app:layout_constraintTop_toBottomOf="@id/app_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <include
+            android:id="@+id/movieDetailsCard"
+            android:layout_width="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content"
+            layout="@layout/item_match_movie_info"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_pager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+        <FrameLayout
+            android:id="@+id/viewDetailsButtonLayout"
+            style="@style/Body_MD"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            app:backgroundTint="@color/button_login_background"
+            app:cornerRadius="@dimen/radius_lg"
+            app:layout_constraintTop_toBottomOf="@id/movieDetailsCard">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/view_details_button"
+                style="@style/Body_MD"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="0dp"
+
+                android:stateListAnimator="@null"
+                android:textAllCaps="false"
+                android:textColor="@color/login_button_text_color"
+                app:backgroundTint="@color/button_login_background"
+                app:cornerRadius="@dimen/radius_lg"
+                app:strokeColor="@null"
+                app:strokeWidth="0dp" />
+
+            <TextView
+                android:id="@+id/loginButtonText"
+                style="@style/Body_MD"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/view_details"
+                android:textColor="@color/login_button_text_color"/>
+            <ProgressBar
+                android:id="@+id/loginLoading"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateDrawable="@drawable/circular_progress" />
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

@@ -21,6 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/background_screen"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/outline_alt_arrow_left"

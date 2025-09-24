@@ -244,4 +244,6 @@
     <string name="new_collection">مجموعة جديدة</string>
     <string name="start_saving">أنشئ مجموعة جديدة لتبدأ في حفظ أفلامك ومسلسلاتك المفضلة.</string>
 
+    <string name="gallery">المعرض</string>
+    <string name="actor_gallery">%1$s معرض</string>
 </resources>

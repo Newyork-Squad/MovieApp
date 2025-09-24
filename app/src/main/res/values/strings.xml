@@ -235,4 +235,6 @@
     <string name="speech_recognition_not_available_on_this_device">Speech recognition not available on this device</string>
     <string name="permission_denied_for_microphone">Permission denied for microphone</string>
     <string name="tip_swipe_left_to_remove_movies_from_your_history">Tip: Swipe left to remove movies from your history.</string>
+    <string name="gallery">Gallery</string>
+    <string name="actor_gallery">%1$s Gallery</string>
 </resources>

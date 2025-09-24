@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.karrar.movieapp.ui.actorDetails.actorGallery.GalleryItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/spacing_xSmall"
+        android:layout_marginHorizontal="@dimen/radius_medium"
+        app:showWhenListNotEmpty="@{item.images}">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image1"
+            android:layout_width="102dp"
+            android:layout_height="134dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:posterImage="@{item.images[0]}"
+            app:shapeAppearanceOverlay="@style/RoundedCorners"
+            tools:src="@drawable/chris_evans" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image2"
+            android:layout_width="102dp"
+            android:layout_height="134dp"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image1"
+            app:posterImage="@{item.images[1]}"
+            app:shapeAppearanceOverlay="@style/RoundedCorners"
+            tools:src="@drawable/chris_evans" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:posterImage="@{item.images[2]}"
+            app:shapeAppearanceOverlay="@style/RoundedCorners"
+            tools:src="@drawable/chris_evans" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

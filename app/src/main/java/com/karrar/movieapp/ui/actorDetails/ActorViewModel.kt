@@ -96,6 +96,17 @@ class ActorViewModel @Inject constructor(
         _actorDetailsUIEvent.update { Event(ActorDetailsUIEvent.SeeAllMovies) }
     }
 
+    fun onClickSeeAllImages() {
+        _actorDetailsUIEvent.update {
+            Event(
+                ActorDetailsUIEvent.NavigateToSeeAllActorImages(
+                    actorName = _actorDetailsUIState.value.name,
+                    actorImages = _actorDetailsUIState.value.actorImages,
+                ),
+            )
+        }
+    }
+
     override fun onClickSocialMediaLink(link: String) {
         _actorDetailsUIEvent.update { Event(ActorDetailsUIEvent.OpenSocialMediaLink(link)) }
     }

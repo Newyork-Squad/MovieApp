@@ -43,6 +43,10 @@ class GetMediaByTypeUseCase @Inject constructor(
             }
 
             AllMediaType.COLLECTION_FEATURE -> TODO()
+
+            AllMediaType.MATCHES_YOUR_VIBE -> {
+                wrapper(movieRepository::getUserMatchingMoviesPager, movieMapper::map)
+            }
         }
     }
 

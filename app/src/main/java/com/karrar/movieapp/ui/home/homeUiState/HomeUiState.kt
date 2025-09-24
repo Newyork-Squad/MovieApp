@@ -13,6 +13,7 @@ data class HomeUiState (
     val needMoreToWatch:HomeItem=HomeItem.NeedMoreToWatch,
     val featured: HomeItem = HomeItem.FeaturedCollections(emptyList()),
     val featuredCollections: List<FeaturedCollectionUiState> = emptyList(),
+    val matchedItems: HomeItem = HomeItem.MatchedItems(emptyList()),
     val isLoading:Boolean = false,
     val error : List<String> = emptyList(),
 )

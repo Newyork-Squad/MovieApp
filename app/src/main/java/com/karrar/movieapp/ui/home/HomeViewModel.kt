@@ -78,6 +78,7 @@ class HomeViewModel @Inject constructor(
         getRecentlyViewed()
         getCollections()
         getFeaturedCollections()
+        getMatchingMovies()
     }
 
     override fun getData() {
@@ -230,6 +231,26 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun getMatchingMovies() {
+        viewModelScope.launch {
+            try {
+                homeUseCasesContainer.getMoviesMatchingUserVibeUseCase().collect { list ->
+                    if (list.isNotEmpty()) {
+                        val items = list.map(mediaUiMapper::map)
+                        _homeUiState.update {
+                            it.copy(
+                                matchedItems = HomeItem.MatchedItems(items),
+                                isLoading = false
+                            )
+                        }
+                    }
+                }
+            } catch (th: Throwable) {
+                onError(th.message.toString())
+            }
+        }
+    }
+
     private fun getTopRatedTvShow() {
         viewModelScope.launch {
             try {
@@ -328,12 +349,15 @@ class HomeViewModel @Inject constructor(
                 onClickSeeAllRecentlyViewed()
                 return
             }
+
             HomeItemsType.COLLECTIONS -> {
                 onClickSeeAllCollections()
                 return
             }
+
             HomeItemsType.NON -> AllMediaType.ACTOR_MOVIES
             HomeItemsType.FEATURED_COLLECTIONS -> AllMediaType.COLLECTION_FEATURE
+            HomeItemsType.MATCHES_YOUR_VIBE -> AllMediaType.MATCHES_YOUR_VIBE
         }
         _homeUIEvent.update { Event(HomeUIEvent.ClickSeeAllMovieEvent(type)) }
     }

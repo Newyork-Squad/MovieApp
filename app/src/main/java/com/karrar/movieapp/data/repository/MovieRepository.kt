@@ -10,6 +10,7 @@ import com.karrar.movieapp.data.local.database.entity.movie.NowStreamingMovieEnt
 import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.TrendingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.UpcomingMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.UserMatchingMovieEntity
 import com.karrar.movieapp.data.remote.response.AddListResponse
 import com.karrar.movieapp.data.remote.response.AddMovieDto
 import com.karrar.movieapp.data.remote.response.BaseListResponse
@@ -35,11 +36,16 @@ import com.karrar.movieapp.domain.enums.Era
 import com.karrar.movieapp.domain.enums.MatchingGenre
 import com.karrar.movieapp.domain.enums.Mood
 import com.karrar.movieapp.domain.enums.Runtime
+import com.karrar.movieapp.domain.models.Genre
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
 
     suspend fun getMovieGenreList(): List<GenreDto>?
+
+    suspend fun increaseMovieGenreVisitCount(genreId: Int)
+
+    suspend fun getTopVisitedMovieGenre(): Flow<Genre>
 
     suspend fun getDailyTrending(): BaseListResponse<DailyTrendingDto>
 
@@ -87,6 +93,8 @@ interface MovieRepository {
 
     suspend fun getUpcomingMovies(): Flow<List<UpcomingMovieEntity>>
 
+    suspend fun getUserMatchingMovies(): Flow<List<UserMatchingMovieEntity>>
+
     suspend fun getAdventureMovies(): Flow<List<AdventureMovieEntity>>
 
     suspend fun getMysteryMovies(): Flow<List<MysteryMovieEntity>>
@@ -98,6 +106,8 @@ interface MovieRepository {
     suspend fun getNowPlayingMoviesPager(): Pager<Int, MovieDto>
 
     suspend fun getUpcomingMoviesPager(): Pager<Int, MovieDto>
+
+    suspend fun getUserMatchingMoviesPager(): Pager<Int, MovieDto>
 
     suspend fun getActorMoviesPager(actorId: Int): Pager<Int, MovieDto>
 

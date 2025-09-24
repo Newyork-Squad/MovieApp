@@ -3,8 +3,6 @@ package com.karrar.movieapp.data.local.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.karrar.movieapp.data.local.database.daos.ActorDao
 import com.karrar.movieapp.data.local.database.daos.MovieDao
 import com.karrar.movieapp.data.local.database.daos.SeriesDao
@@ -13,11 +11,13 @@ import com.karrar.movieapp.data.local.database.entity.SearchHistoryEntity
 import com.karrar.movieapp.data.local.database.entity.WatchHistoryEntity
 import com.karrar.movieapp.data.local.database.entity.WatchList
 import com.karrar.movieapp.data.local.database.entity.movie.AdventureMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.MovieGenreEntity
 import com.karrar.movieapp.data.local.database.entity.movie.MysteryMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.NowStreamingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.PopularMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.TrendingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.movie.UpcomingMovieEntity
+import com.karrar.movieapp.data.local.database.entity.movie.UserMatchingMovieEntity
 import com.karrar.movieapp.data.local.database.entity.series.AiringTodaySeriesEntity
 import com.karrar.movieapp.data.local.database.entity.series.OnTheAirSeriesEntity
 import com.karrar.movieapp.data.local.database.entity.series.TopRatedSeriesEntity
@@ -28,7 +28,7 @@ import com.karrar.movieapp.data.local.database.entity.series.TopRatedSeriesEntit
         PopularMovieEntity::class, ActorEntity::class, TrendingMovieEntity::class,
         NowStreamingMovieEntity::class, UpcomingMovieEntity::class, MysteryMovieEntity::class,
         AdventureMovieEntity::class, AiringTodaySeriesEntity::class, OnTheAirSeriesEntity::class,
-        TopRatedSeriesEntity::class,
+        TopRatedSeriesEntity::class, MovieGenreEntity::class, UserMatchingMovieEntity::class
     ],
     version = 2
 )

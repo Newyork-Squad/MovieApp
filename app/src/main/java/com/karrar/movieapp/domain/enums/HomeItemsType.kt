@@ -7,5 +7,6 @@ enum class HomeItemsType(val value :String) {
     RECENTLY_VIEWED("Recently viewed"),
     COLLECTIONS("Your Collections"),
     FEATURED_COLLECTIONS("Featured Collections"),
+    MATCHES_YOUR_VIBE("Matches Your Vibe"),
     NON("")
 }

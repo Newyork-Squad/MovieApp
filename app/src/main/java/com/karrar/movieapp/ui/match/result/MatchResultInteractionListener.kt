@@ -1,4 +1,4 @@
-package com.karrar.movieapp.ui.match_result
+package com.karrar.movieapp.ui.match.result
 
 interface MatchResultInteractionListener {
     fun onClickViewDetails()

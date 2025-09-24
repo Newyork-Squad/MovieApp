@@ -34,6 +34,11 @@ fun <T> showWhenListNotEmpty(view: View, list: List<T>) {
     view.isVisible = list.isNotEmpty() == true
 }
 
+@BindingAdapter("app:showWhenListNotEmptyAndHaveThreeItems")
+fun <T> showWhenListNotEmptyAndHaveThreeItems(view: View, list: List<T>) {
+    view.isVisible = list.isNotEmpty() == true && list.size >= 3
+}
+
 @BindingAdapter("app:showWhenListEmpty")
 fun <T> showWhenListEmpty(view: View, list: List<T>) {
     view.isVisible = list.isEmpty() == true

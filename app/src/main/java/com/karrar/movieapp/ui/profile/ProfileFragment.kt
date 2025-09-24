@@ -63,6 +63,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     }
 
     private fun onEvent(event: ProfileUIEvent) {
+        val currentDestination = findNavController().currentDestination?.id
         val action = when (event) {
             ProfileUIEvent.DialogLogoutEvent ->
                 ProfileFragmentDirections.actionProfileFragmentToLogoutDialog()
@@ -81,8 +82,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             ProfileUIEvent.ShowContentPreferences ->
                 ProfileFragmentDirections.actionProfileFragmentToContentPreferencesDialog()
         }
-        findNavController().navigate(action)
-    }
+        if (currentDestination == R.id.profileFragment) {
+            findNavController().navigate(action)
+        }    }
 
     private fun updateProfileTexts() {
         val state = viewModel.profileDetailsUIState.value

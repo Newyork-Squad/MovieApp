@@ -13,7 +13,7 @@ import com.karrar.movieapp.BR
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.ItemPopularMovieBinding
 import com.karrar.movieapp.domain.enums.AllMediaType
-import com.karrar.movieapp.domain.enums.HomeItemsType
+import com.karrar.movieapp.ui.home.homeUiState.HomeItemsType
 import com.karrar.movieapp.ui.adapters.MovieAdapter
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseAdapter

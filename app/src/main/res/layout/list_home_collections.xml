@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
-            android:text="@string/your_collections"
+            android:text="@string/title_your_collections"
             android:textColor="@color/shade_primary"
             android:visibility="@{isVisible ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"

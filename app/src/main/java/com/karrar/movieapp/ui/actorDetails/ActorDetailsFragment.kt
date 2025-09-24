@@ -3,6 +3,7 @@ package com.karrar.movieapp.ui.actorDetails
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -12,7 +13,6 @@ import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.ui.base.BaseFragment
 import com.karrar.movieapp.utilities.collectLast
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.core.net.toUri
 
 @AndroidEntryPoint
 class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
@@ -44,7 +44,20 @@ class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
             is ActorDetailsUIEvent.OpenSocialMediaLink -> {
                 openLink(event.link)
             }
+
+            is ActorDetailsUIEvent.NavigateToSeeAllActorImages -> {
+                navigateToActorGallery(event)
+            }
         }
+    }
+
+    private fun navigateToActorGallery(event: ActorDetailsUIEvent.NavigateToSeeAllActorImages) {
+        findNavController().navigate(
+            ActorDetailsFragmentDirections.actionActorDetailsFragmentToActorGalleryFragment(
+                event.actorName,
+                event.actorImages.toTypedArray(),
+            ),
+        )
     }
 
     private fun navigateToActorMovies() {

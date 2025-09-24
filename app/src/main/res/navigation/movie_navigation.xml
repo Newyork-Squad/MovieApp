@@ -493,6 +493,9 @@
             android:id="@+id/action_matchQuestionsFragment_to_matchResultFragment"
             app:destination="@id/matchResultFragment"
             />
+        <action
+            android:id="@+id/action_matchQuestionsFragment_to_loginDialog"
+            app:destination="@id/loginDialog" />
     </fragment>
     <fragment
         android:id="@+id/matchScreenFragment"
@@ -506,7 +509,20 @@
     <fragment
         android:id="@+id/matchResultFragment"
         android:name="com.karrar.movieapp.ui.match.result.MatchResultFragment"
-        tools:layout="@layout/fragment_match_result" />
+        tools:layout="@layout/fragment_match_result" >
+        <action
+            android:id="@+id/action_matchResultFragment_to_youtubePlayerActivity"
+            app:destination="@id/youtubePlayerActivity" />
+        <action
+            android:id="@+id/action_matchResultFragment_to_saveMovieDialog"
+            app:destination="@id/saveMovieDialog" />
+        <action
+            android:id="@+id/action_matchResultFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+        <action
+            android:id="@+id/action_matchResultFragment_to_loginDialog"
+            app:destination="@id/loginDialog" />
+    </fragment>
     <fragment
         android:id="@+id/seasonsFragment"
         android:name="com.karrar.movieapp.ui.tvShowDetails.seasons.SeasonsFragment"

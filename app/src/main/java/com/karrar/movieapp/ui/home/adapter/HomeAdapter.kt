@@ -235,7 +235,7 @@ class HomeAdapter(
                     textCategory.visibility = View.VISIBLE
                 } else {
                     root.scaleY = sideScale
-                    root.translationY = sideTranslationY
+                    root.translationY = sideTranslationY * kotlin.math.min(kotlin.math.abs(position), 1f)
                     root.translationZ = 0f
                     root.translationX = position * sideOffset
                     textMovieTitle.visibility = View.GONE
@@ -253,10 +253,10 @@ class HomeAdapter(
                 val current = viewPager.currentItem
                 val next = if (current + 1 < adapter.itemCount) current + 1 else 0
                 viewPager.setCurrentItem(next, true)
-                handler.postDelayed(this, 3000)
+                handler.postDelayed(this, 4000)
             }
         }
-        handler.postDelayed(runnable, 3000)
+        handler.postDelayed(runnable, 4000)
     }
 
 }

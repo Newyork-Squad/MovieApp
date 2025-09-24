@@ -4,7 +4,7 @@
     <string name="see_all">See all</string>
     <string name="show_more">Show More</string>
     <string name="top_rated">Top Rated</string>
-    <string name="recently_released">Recently Released</string>
+    <string name="title_recently_released">Recently Released</string>
     <string name="popular">Popular</string>
     <string name="tv_shows">TV Shows</string>
     <string name="search_hint">Search…</string>
@@ -44,7 +44,7 @@
     <string name="title_upcoming">Upcoming Movies</string>
     <string name="title_matches_your_vibe">Matches Your Vibe</string>
     <string name="title_recently_viewed">You Recently Viewed</string>
-    <string name="your_collections">Your Collections</string>
+    <string name="title_your_collections">Your Collections</string>
     <string name="title_celebrity">Celebrities</string>
     <string name="title_airing_today">Airing today</string>
     <string name="title_top_rated_tv_show">Top Rated TV Shows</string>
@@ -217,9 +217,9 @@
     <string name="match">Match</string>
     <string name="me">Me</string>
     <string name="let_us_choose_for_you">Let Us Choose For You!</string>
-    <string name="what_should_i_watch">What Should I Watch?</string>
+    <string name="title_what_should_i_watch">What Should I Watch?</string>
     <string name="we_ll_help_you_skip_the_scroll_and_go_straight_to_the_good_stuff">We’ll help you skip the scroll and go straight to the good stuff.</string>
-    <string name="need_more_to_watch">Need More to Watch?</string>
+    <string name="title_need_more_to_watch">Need More to Watch?</string>
     <string name="browse_everything">Browse Everything</string>
     <string name="explore_all_movies_and_series_by_genre_or_search_for_anything_you_like">Explore all movies and series by genre or search for anything you like.</string>
 
@@ -237,4 +237,7 @@
     <string name="here_s_your_match_list">Here’s Your Match List</string>
     <string name="view_details">View Details</string>
 
+    <string name="tip_swipe_left_to_remove_movies_from_your_history">Tip: Swipe left to remove movies from your history.</string>
+    <string name="gallery">Gallery</string>
+    <string name="actor_gallery">%1$s Gallery</string>
 </resources>

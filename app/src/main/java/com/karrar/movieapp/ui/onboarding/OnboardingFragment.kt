@@ -1,6 +1,7 @@
 package com.karrar.movieapp.ui.onboarding
 
 import android.view.View
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -117,32 +118,28 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
         private val maxRotation = 15f
         private val minScale = 1.1f
 
-        override fun transformPage(
-            page: View,
-            position: Float,
-        ) {
+        override fun transformPage(page: View, position: Float) {
+            val isRTL = ViewCompat.getLayoutDirection(page) == ViewCompat.LAYOUT_DIRECTION_RTL
+            val directionFactor = if (isRTL) -1 else 1
             page.apply {
                 when {
                     position < -1 -> {
-                        rotation = -maxRotation
+                        rotation = -maxRotation * directionFactor
                         scaleX = minScale + (1 - minScale) * (1 + position)
                         scaleY = minScale + (1 - minScale) * (1 + position)
                     }
-
                     position <= 0 -> {
-                        rotation = position * maxRotation
+                        rotation = position * maxRotation * directionFactor
                         scaleX = minScale + (1 - minScale) * (1 + position)
                         scaleY = minScale + (1 - minScale) * (1 + position)
                     }
-
                     position <= 1 -> {
-                        rotation = position * maxRotation
+                        rotation = position * maxRotation * directionFactor
                         scaleX = minScale + (1 - minScale) * (1 - position)
                         scaleY = minScale + (1 - minScale) * (1 - position)
                     }
-
                     else -> {
-                        rotation = maxRotation
+                        rotation = maxRotation * directionFactor
                         scaleX = minScale + (1 - minScale) * (1 + position)
                         scaleY = minScale + (1 - minScale) * (1 + position)
                     }

@@ -100,17 +100,14 @@ class MainActivity : AppCompatActivity() {
             )
         )
         val navController = findNavController(R.id.nav_host_fragment)
+        if (viewModel.isFirstLaunch()) {
+            navController.navigate(R.id.onboardingFragment)
+        }
         binding.bottomNavigation.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         setBottomNavigationVisibility(navController)
         setNavigationController(navController)
-
-        lifecycleScope.launchWhenResumed {
-            viewModel.mainUiState.collect {
-                if (!it.isFirstLaunch) navController.navigate(R.id.onboardingFragment)
-            }
-        }
     }
 
     private fun setBottomNavigationVisibility(navController: NavController) {

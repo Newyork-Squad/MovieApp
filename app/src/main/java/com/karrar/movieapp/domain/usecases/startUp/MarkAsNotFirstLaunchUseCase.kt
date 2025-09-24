@@ -8,5 +8,5 @@ class MarkAsNotFirstLaunchUseCase
     constructor(
         private val appConfiguration: AppConfiguration,
     ) {
-        suspend operator fun invoke() = appConfiguration.saveStartUpState(true)
+        suspend operator fun invoke() = appConfiguration.saveStartUpState(false)
     }

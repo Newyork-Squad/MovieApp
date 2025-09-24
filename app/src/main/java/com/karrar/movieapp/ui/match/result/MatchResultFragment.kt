@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.karrar.movieapp.BR
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.FragmentMatchResultBinding
+import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.ui.base.BaseFragment
-import com.karrar.movieapp.ui.match.questions.MatchQuestionsViewModel
+import com.karrar.movieapp.ui.match.MatchViewModel
 import com.karrar.movieapp.utilities.collectLast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ import kotlin.math.abs
 class MatchResultFragment : BaseFragment<FragmentMatchResultBinding>() {
 
     override val layoutIdFragment: Int = R.layout.fragment_match_result
-    override val viewModel: MatchQuestionsViewModel by activityViewModels()
+    override val viewModel: MatchViewModel by activityViewModels()
 
     private lateinit var pagerAdapter: MoviePagerAdapter
 
@@ -50,6 +50,8 @@ class MatchResultFragment : BaseFragment<FragmentMatchResultBinding>() {
             page.scaleX = scale
             // fading
             page.alpha = 0.6f + (1 - abs(position)) * 0.4f
+
+            page.translationZ = if (position == 0f) 1f else 0f
         }
 
         // page change updates selected movie
@@ -76,6 +78,7 @@ class MatchResultFragment : BaseFragment<FragmentMatchResultBinding>() {
                 val currentMovie = state.movies.getOrNull(state.selectedMovieIndex)
                 binding.movieDetailsCard.apply {
                     setVariable(BR.item, currentMovie?.movieDetailsResult)
+                    setVariable(BR.listener, viewModel)
                     executePendingBindings()
                 }
             }
@@ -83,10 +86,6 @@ class MatchResultFragment : BaseFragment<FragmentMatchResultBinding>() {
 
         collectLast(viewModel.matchResultUiEvent) { event ->
             event.getContentIfNotHandled()?.let { handleEvent(it) }
-        }
-
-        binding.backArrowIcon.setOnClickListener {
-            findNavController().popBackStack()
         }
     }
 
@@ -96,14 +95,37 @@ class MatchResultFragment : BaseFragment<FragmentMatchResultBinding>() {
             MatchUiEvent.NavigateBack -> {
                 findNavController().popBackStack(R.id.homeFragment, false)
             }
-             is MatchUiEvent.PlayYoutubeTrailer -> {
+
+            is MatchUiEvent.PlayYoutubeTrailer -> {
+                val action =
+                    MatchResultFragmentDirections
+                        .actionMatchResultFragmentToYoutubePlayerActivity(
+                            event.movieId,
+                            MediaType.MOVIE,
+                        )
+
+                findNavController().navigate(action)
             }
 
             is MatchUiEvent.SaveMovie -> {
-
+                val action =
+                    MatchResultFragmentDirections
+                        .actionMatchResultFragmentToSaveMovieDialog(event.movieId)
+                findNavController().navigate(action)
             }
 
-            MatchUiEvent.ViewMovieDetails -> {
+            is MatchUiEvent.ViewMovieDetails -> {
+                val action =
+                    MatchResultFragmentDirections
+                        .actionMatchResultFragmentToMovieDetailFragment(event.movieId)
+                findNavController().navigate(action)
+            }
+
+            MatchUiEvent.ShowLoginDialogEvent -> {
+                val action =
+                    MatchResultFragmentDirections
+                        .actionMatchResultFragmentToLoginDialog()
+                findNavController().navigate(action)
             }
 
             MatchUiEvent.NavigateToResults -> TODO()

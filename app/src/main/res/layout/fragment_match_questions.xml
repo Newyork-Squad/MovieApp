@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="isLoading"
             type="Boolean" />
 
         <variable
             name="vm"
-            type="com.karrar.movieapp.ui.match.questions.MatchQuestionsViewModel" />
+            type="com.karrar.movieapp.ui.match.MatchViewModel" />
 
         <import type="android.view.View" />
     </data>
@@ -60,7 +59,7 @@
             android:paddingVertical="14dp"
             android:stateListAnimator="@null"
             android:onClick="@{() -> vm.onNextClicked()}"
-            android:text="@string/next"
+            android:text="@{vm.uiState.isLastQuestion ? @string/start_matching : @string/next}"
             android:textAllCaps="false"
             android:textColor="@color/button_onPrimary"
             android:visibility="@{isLoading ? View.INVISIBLE : View.VISIBLE}"

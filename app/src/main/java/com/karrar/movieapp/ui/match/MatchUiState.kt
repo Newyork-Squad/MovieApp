@@ -1,15 +1,25 @@
-package com.karrar.movieapp.ui.match_result
+package com.karrar.movieapp.ui.match
 
+import com.karrar.movieapp.ui.match.questions.Choice
+import com.karrar.movieapp.ui.match.questions.MatchQuestionType
 import com.karrar.movieapp.ui.movieDetails.movieDetailsUIState.DetailItemUIState
 
-
-data class MatchResultUiState(
-    val movies: List<MovieUIState> = emptyList(),
+data class MatchUiState(
+    val currentQuestionType: MatchQuestionType = MatchQuestionType.MOOD,
+    val isLastQuestion: Boolean = false,
+    val moodSelected: List<Choice> = emptyList(),
+    val genreSelected: List<Choice> = emptyList(),
+    val mediaRuntimeSelected: List<Choice> = emptyList(),
+    val timePeriodSelected: List<Choice> = emptyList(),
     val isLoading: Boolean = false,
-    val isLogin: Boolean = false,
+    val progress: Int = 25,
+    val movies: List<MovieUIState> = emptyList(),
+    val selectedMovieIndex: Int = 0,
     val error: List<ErrorUIState> = emptyList()
 ) {
+
     data class MovieUIState(
+        val id: Int = 0,
         val movieDetailsResult: MovieDetailsUIState = MovieDetailsUIState(),
         val movieCastResult: List<ActorUiState> = emptyList(),
         val movieCrewResult: List<CrewUIState> = emptyList(),
@@ -66,5 +76,4 @@ data class MatchResultUiState(
         val code: Int = 0,
         val message: String = "",
     )
-
 }

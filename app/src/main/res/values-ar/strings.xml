@@ -227,6 +227,8 @@
 
     <string name="match">كيفي</string>
     <string name="me">انا</string>
+    <string name="here_s_your_match_list">اليك قائمة المتشابه</string>
+    <string name="view_details">رؤية التفاصيل</string>
 
     <string name="speech_error_no_match">لم أتمكن من فهمك جيدًا — يُرجى المحاولة مرة أخرى.</string>
     <string name="speech_error_timeout">لم يتم التقاط أي كلام — يُرجى التحدث مجددًا.</string>

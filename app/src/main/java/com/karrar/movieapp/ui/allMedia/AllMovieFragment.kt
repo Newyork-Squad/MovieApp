@@ -137,6 +137,7 @@ class AllMovieFragment : BaseFragment<FragmentAllMovieBinding>() {
             AllMediaType.POPULAR -> getString(R.string.popular)
             AllMediaType.TOP_RATED -> getString(R.string.title_top_rated_tv_show)
             AllMediaType.UPCOMING -> getString(R.string.title_upcoming)
+            AllMediaType.MATCHES_YOUR_VIBE -> getString(R.string.title_matches_your_vibe)
             AllMediaType.ACTOR_MOVIES -> ""
         }
     }

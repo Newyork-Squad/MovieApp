@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
             name="adapterRecycler"
@@ -12,12 +13,17 @@
         <variable
             name="movieType"
             type="com.karrar.movieapp.ui.home.homeUiState.HomeItemsType" />
+
+        <variable
+            name="isVisible"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_extra_large">
+        android:layout_marginTop="@dimen/spacing_extra_large"
+        android:visibility="@{isVisible ? View.VISIBLE : View.GONE}" >
 
         <TextView
             android:id="@+id/text_title"

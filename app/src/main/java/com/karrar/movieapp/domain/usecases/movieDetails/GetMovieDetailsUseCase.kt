@@ -1,5 +1,6 @@
 package com.karrar.movieapp.domain.usecases.movieDetails
 
+import com.karrar.movieapp.data.remote.response.movie.MovieDetailsDto
 import com.karrar.movieapp.data.repository.MovieRepository
 import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.domain.mappers.MovieCrewMapper
@@ -25,9 +26,16 @@ class GetMovieDetailsUseCase @Inject constructor(
 ) {
     suspend fun getMovieDetails(movieId: Int): MovieDetails {
         val response = movieRepository.getMovieDetails(movieId)
+        increaseMovieGenreVisitCount(response)
         return response?.let {
             movieDetailsMapper.map(response)
         } ?: throw Throwable("Not Success")
+    }
+
+    private suspend fun increaseMovieGenreVisitCount(response: MovieDetailsDto?) {
+        response?.genres?.mapNotNull { it?.id }?.forEach { genreId ->
+            movieRepository.increaseMovieGenreVisitCount(genreId)
+        }
     }
 
     suspend fun getMovieCast(movieId: Int): List<Actor> {

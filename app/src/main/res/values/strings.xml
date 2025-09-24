@@ -42,6 +42,7 @@
     <string name="title_trending">Trending</string>
     <string name="title_streaming">Now Streaming</string>
     <string name="title_upcoming">Upcoming Movies</string>
+    <string name="title_matches_your_vibe">Matches Your Vibe</string>
     <string name="title_recently_viewed">You Recently Viewed</string>
     <string name="title_your_collections">Your Collections</string>
     <string name="title_celebrity">Celebrities</string>

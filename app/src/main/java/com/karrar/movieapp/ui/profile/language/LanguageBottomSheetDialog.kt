@@ -25,6 +25,11 @@ class LanguagePickerDialog : BaseDialog<BottomSheetLanguageBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog?.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+        binding.apply {
+            viewModel = this@LanguagePickerDialog.viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
+
         setWidthPercent(90)
 
         collectLast(viewModel.selectedLanguage) { language ->

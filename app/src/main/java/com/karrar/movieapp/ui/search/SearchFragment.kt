@@ -53,6 +53,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     private val oldValue = MutableStateFlow(MediaSearchUIState())
 
+    private var skipInitialFocusEvent = true
+
     private var pulseAnimator: ObjectAnimator? = null
     private var micController: MicControllerHelper? = null
 
@@ -99,11 +101,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         getSearchResultsBySearchTerm()
         setupTabSelection()
         setupToggle()
-        observeToggleVisibility()
         observeSearchSections()
         initMicController()
 
         binding.inputSearch.setOnFocusChangeListener { _, hasFocus ->
+            if (skipInitialFocusEvent) {
+                skipInitialFocusEvent = false
+                return@setOnFocusChangeListener
+            }
             viewModel.setSearchFocus(hasFocus)
         }
         collectLast(viewModel.searchUIEvent) {
@@ -242,7 +247,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
         collect(flow = mediaSearchAdapter.loadStateFlow) {
             viewModel.setErrorUiState(it, mediaSearchAdapter.itemCount)
-            viewModel.setToggleVisibility(mediaSearchAdapter.itemCount > 0)
         }
 
         getMediaSearchResults()
@@ -342,15 +346,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             }
         }
     }
-
-    private fun observeToggleVisibility() {
-        lifecycleScope.launch {
-            viewModel.showToggle.collect { visible ->
-                binding.viewToggle.root.visibility = if (visible) View.VISIBLE else View.GONE
-            }
-        }
-    }
-
 
     private fun showMicOverlay() {
         binding.includeMicOverlay.micOverlayRoot.visibility = View.VISIBLE

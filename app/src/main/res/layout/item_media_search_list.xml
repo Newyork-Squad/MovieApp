@@ -115,7 +115,7 @@
                 android:layout_marginEnd="@dimen/spacing_normal"
                 android:drawableEnd="@drawable/ic_star"
                 android:drawablePadding="@dimen/spacing_too_small"
-                android:text="@{String.valueOf(item.mediaVoteAverage)}"
+                android:text="@{item.mediaVoteAverage}"
                 android:textColor="@color/shade_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

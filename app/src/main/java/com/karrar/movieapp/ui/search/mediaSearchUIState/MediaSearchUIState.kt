@@ -13,6 +13,7 @@ data class MediaSearchUIState(
     val recentMovieViewed: List<RecentMovieViewedUiState> = emptyList(),
     val isLoading : Boolean = false,
     val suggestHistory: List<SearchKeywordUIState> = emptyList(),
+    val isToggleVisible : Boolean = false,
     val isEmpty: Boolean = false,
     val error : List<Error> = emptyList(),
 )

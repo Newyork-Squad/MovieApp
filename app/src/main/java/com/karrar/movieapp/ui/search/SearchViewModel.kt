@@ -75,16 +75,13 @@ class SearchViewModel @Inject constructor(
     private val _isGrid = MutableStateFlow(true)
     val isGrid: StateFlow<Boolean> = _isGrid.asStateFlow()
 
-    private val _showToggle = MutableStateFlow(false)
-    val showToggle = _showToggle.asStateFlow()
-
     private val _searchUIEvent = MutableStateFlow<Event<SearchUIEvent?>>(Event(null))
     val searchUIEvent = _searchUIEvent.asStateFlow()
 
     private val _searchSections = MutableStateFlow<List<SearchItemUiState>>(emptyList())
     val searchSections = _searchSections.asStateFlow()
 
-    private val _isSearchFocused = MutableStateFlow(false)
+    private val _isSearchFocused = MutableStateFlow(true)
     val isSearchFocused: StateFlow<Boolean> = _isSearchFocused.asStateFlow()
 
     private var suggestionJob: Job? = null
@@ -99,6 +96,9 @@ class SearchViewModel @Inject constructor(
     }
 
     fun setSearchFocus(focused: Boolean) {
+        if (focused){
+            _uiState.value.copy(isToggleVisible = false)
+        }
         _isSearchFocused.value = focused
     }
 
@@ -110,7 +110,8 @@ class SearchViewModel @Inject constructor(
                     _uiState.update {
                         it.copy(
                             recentMovieViewed = items,
-                            isLoading = false
+                            isLoading = false,
+                            isToggleVisible = false
                         )
                     }
                     updateSearchSections()
@@ -130,7 +131,8 @@ class SearchViewModel @Inject constructor(
                         it.copy(
                             searchHistory = list.map { item -> searchHistoryUIStateMapper.map(item) },
                             isLoading = false,
-                            isEmpty = false
+                            isEmpty = false,
+                            isToggleVisible = false
                         )
                     }
                     updateSearchSections()
@@ -144,7 +146,6 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun getSuggestedSearch(query: String) {
-        // cancel previous
         suggestionJob?.cancel()
         suggestionJob = viewModelScope.launch {
             delay(250)
@@ -167,10 +168,8 @@ class SearchViewModel @Inject constructor(
                     )
                 }
                 updateSearchSections()
-            } catch (e: Throwable) {
-                _uiState.update {
-                    it.copy(error = listOf(Error(0, e.message.toString())), isLoading = false)
-                }
+            } catch (_: Throwable) {
+
             }
         }
     }
@@ -214,6 +213,7 @@ class SearchViewModel @Inject constructor(
                 it.copy(
                     searchTypes = MediaTypes.MOVIE,
                     isLoading = false,
+                    isToggleVisible = true,
                     searchResult = getSearchForMovieUseCase(it.searchInput).map { pagingData ->
                         pagingData.map { item -> searchMediaUIStateMapper.map(item) }
                     }
@@ -228,6 +228,7 @@ class SearchViewModel @Inject constructor(
                 it.copy(
                     searchTypes = MediaTypes.TVS_SHOW,
                     isLoading = false,
+                    isToggleVisible = true,
                     searchResult = getSearchForSeriesUserCase(it.searchInput).map { pagingData ->
                         pagingData.map { item -> searchMediaUIStateMapper.map(item) }
                     }
@@ -242,6 +243,7 @@ class SearchViewModel @Inject constructor(
                 it.copy(
                     searchTypes = MediaTypes.ACTOR,
                     isLoading = false,
+                    isToggleVisible = false,
                     searchResult = getSearchForActorUseCase(it.searchInput).map { pagingData ->
                         pagingData.map { item -> searchMediaUIStateMapper.map(item) }
                     }
@@ -326,10 +328,6 @@ class SearchViewModel @Inject constructor(
     }
 
     fun toggleGridMode() = setGridMode(!_isGrid.value)
-
-    fun setToggleVisibility(visible: Boolean) {
-        _showToggle.value = visible
-    }
 
     override fun onClickRecentViewed(item: RecentMovieViewedUiState) {
         _searchUIEvent.update { Event(SearchUIEvent.ClickRecentViewedEvent(item)) }

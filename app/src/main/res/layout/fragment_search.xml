@@ -164,6 +164,7 @@
             android:id="@+id/view_toggle"
             layout="@layout/media_toggle_view"
             android:layout_width="wrap_content"
+            app:isVisible="@{viewModel.uiState.isToggleVisible}"
             android:layout_height="40dp"
             android:layout_marginEnd="@dimen/spacing_medium"
             android:layout_marginBottom="@dimen/spacing_medium"

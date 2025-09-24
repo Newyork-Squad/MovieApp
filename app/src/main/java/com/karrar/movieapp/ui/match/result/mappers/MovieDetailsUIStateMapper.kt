@@ -2,15 +2,15 @@ package com.karrar.movieapp.ui.match.result.mappers
 
 import com.karrar.movieapp.domain.mappers.Mapper
 import com.karrar.movieapp.domain.models.MovieDetails
-import com.karrar.movieapp.ui.match.questions.MatchQuestionUiState
+import com.karrar.movieapp.ui.match.MatchUiState
 import javax.inject.Inject
 
 data class MovieDuration(val hours: Int, val minutes: Int)
 
-class MovieDetailsUIStateMapper @Inject constructor() : Mapper<MovieDetails, MatchQuestionUiState.MovieDetailsUIState> {
-    override fun map(input: MovieDetails): MatchQuestionUiState.MovieDetailsUIState {
+class MovieDetailsUIStateMapper @Inject constructor() : Mapper<MovieDetails, MatchUiState.MovieDetailsUIState> {
+    override fun map(input: MovieDetails): MatchUiState.MovieDetailsUIState {
         val duration = formatMovieDuration(input.movieDuration)
-        return MatchQuestionUiState.MovieDetailsUIState(
+        return MatchUiState.MovieDetailsUIState(
             id = input.movieId,
             image = input.movieImage,
             name = input.movieName,

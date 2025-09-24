@@ -120,6 +120,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.createSavedList, R.id.listDetailsFragment,
                     R.id.allMovieFragment, R.id.matchQuestionsFragment,
                     R.id.actorDetailsFragment, R.id.actorGalleryFragment,
+                    R.id.matchResultFragment
                         -> {
                         false
                     }

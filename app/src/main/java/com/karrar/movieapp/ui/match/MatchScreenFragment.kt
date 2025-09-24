@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MatchScreenFragment : BaseFragment<FragmentMatchScreenBinding>() {
     override val layoutIdFragment: Int = R.layout.fragment_match_screen
-    override val viewModel: MatchScreenViewModel by viewModels()
+    override val viewModel: MatchViewModel by viewModels()
 
     override fun onViewCreated(
         view: View,

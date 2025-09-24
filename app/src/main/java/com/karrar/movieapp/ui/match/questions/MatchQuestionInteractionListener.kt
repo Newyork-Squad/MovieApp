@@ -7,4 +7,6 @@ interface MatchQuestionInteractionListener : BaseInteractionListener {
     fun onNextClicked()
 
     fun getCurrentQuestionType(): MatchQuestionType
+
+    fun onStartMatchingClicked()
 }

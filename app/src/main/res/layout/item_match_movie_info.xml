@@ -7,11 +7,11 @@
 
         <variable
             name="item"
-            type="com.karrar.movieapp.ui.match.questions.MatchQuestionUiState.MovieDetailsUIState" />
+            type="com.karrar.movieapp.ui.match.MatchUiState.MovieDetailsUIState" />
 
         <variable
             name="listener"
-            type="com.karrar.movieapp.ui.movieDetails.DetailInteractionListener" />
+            type="com.karrar.movieapp.ui.match.result.MatchResultInteractionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -152,7 +152,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/play_button_background"
             android:contentDescription="@string/save_button"
-            android:onClick="@{() -> listener.onClickPlayTrailer()}"
+            android:onClick="@{() -> listener.onClickYoutubeTrailer()}"
             android:padding="10dp"
             android:src="@drawable/due_tone_play"
             app:layout_constraintEnd_toEndOf="parent"
@@ -166,7 +166,7 @@
             android:layout_marginTop="11.5dp"
             android:background="@drawable/save_icon_shape"
             android:contentDescription="@string/save_button"
-            android:onClick="@{() -> listener.onClickSave()}"
+            android:onClick="@{() -> listener.onClickSaveMovie()}"
             android:padding="10dp"
             android:src="@drawable/due_tone_add"
             app:layout_constraintEnd_toEndOf="parent"

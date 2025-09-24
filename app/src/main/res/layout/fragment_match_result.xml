@@ -8,7 +8,7 @@
         <import type="android.view.View" />
         <variable
             name="vm"
-            type="com.karrar.movieapp.ui.match.questions.MatchQuestionsViewModel" />
+            type="com.karrar.movieapp.ui.match.MatchViewModel" />
         <variable
             name="pagerAdapter"
             type="com.karrar.movieapp.ui.match.result.MoviePagerAdapter" />
@@ -113,14 +113,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/view_details"
-                android:textColor="@color/login_button_text_color"/>
-            <ProgressBar
-                android:id="@+id/loginLoading"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                android:indeterminate="true"
-                android:indeterminateDrawable="@drawable/circular_progress" />
+                android:textColor="@color/login_button_text_color"
+                android:onClick="@{() -> vm.onClickViewDetails()}"/>
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

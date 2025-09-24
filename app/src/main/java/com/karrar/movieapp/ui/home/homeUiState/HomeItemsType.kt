@@ -9,6 +9,7 @@ enum class HomeItemsType(@StringRes val value: Int) {
     UPCOMING(R.string.title_upcoming),
     RECENTLY_VIEWED(R.string.title_recently_viewed),
     COLLECTIONS(R.string.title_your_collections),
+    FEATURED_COLLECTIONS(R.string.featured_collections),
     MATCHES_YOUR_VIBE(R.string.title_matches_your_vibe),
     NON(-1)
 }

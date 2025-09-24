@@ -147,8 +147,23 @@ class HomeAdapter(
                 is HomeItem.MatchedItems -> {
                     bindMovie(holder, currentItem.items, currentItem.type)
                 }
+
+                is HomeItem.FeaturedCollections -> {
+                    holder.binding.run {
+                        setVariable(BR.adapterRecycler,FeaturesCollectionAdapter(currentItem.items,
+                            listener as FeaturedCollectionListener))
+                        setVariable(BR.movieType, currentItem.type)
+                    }
+
+                }
+
+
+                else -> {}
             }
+
     }
+
+
 
     private fun bindMovie(holder: ItemViewHolder, items: List<MediaUiState>, type: HomeItemsType) {
         holder.binding.run {
@@ -193,6 +208,9 @@ class HomeAdapter(
                 is HomeItem.Collections -> R.layout.list_home_collections
                 is HomeItem.WhatShouldWatch -> R.layout.item_whatshouldwatch
                 is HomeItem.NeedMoreToWatch -> R.layout.item_needmoretowatch
+
+                is HomeItem.FeaturedCollections -> R.layout.featured_collections
+
             }
         }
         return -1

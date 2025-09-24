@@ -7,4 +7,5 @@ enum class AllMediaType {
     UPCOMING,
     MATCHES_YOUR_VIBE,
     ACTOR_MOVIES,
+    COLLECTION_FEATURE
 }

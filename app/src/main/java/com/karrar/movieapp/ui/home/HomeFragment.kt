@@ -47,7 +47,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         it.recentlyViewed,
                         it.collections,
                         it.whatShouldIWatch,
-                        it.needMoreToWatch
+                        it.needMoreToWatch,
+                        it.featured,
+
                     )
                 )
             }
@@ -109,6 +111,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 event.createdListUIState.listID,
                 event.createdListUIState.name
             )
+
+            is HomeUIEvent.ClickFeaturedCollection ->  HomeFragmentDirections.actionHomeFragmentToWatchHistoryFragment()
         }
         findNavController().navigate(action)
     }

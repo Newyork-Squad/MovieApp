@@ -54,14 +54,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/welcome"
                     android:textColor="@color/shade_secondary"
-                    android:visibility="@{viewModel.profileDetailsUIState.loggedIn ? View.VISIBLE : View.GONE}" />
+                    android:visibility="@{viewModel.homeUiState.loggedIn ? View.VISIBLE : View.GONE}" />
 
                 <TextView
                     android:id="@+id/tvUserName"
                     style="@style/Title.SM"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.displayName}"
+                    android:text="@{viewModel.homeUiState.isLoggedIn? viewModel.displayName: @string/home }"
                     android:textColor="@color/shade_primary" />
             </LinearLayout>
 

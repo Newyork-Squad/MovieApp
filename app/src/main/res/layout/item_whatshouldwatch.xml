@@ -27,6 +27,7 @@
              android:layout_width="match_parent"
              android:layout_height="80dp"
              android:layout_gravity="center"
+             android:onClick="@{()->listener.onClickWhatShouldWatch()}"
              android:background="@drawable/background_cast_item"
              android:layout_marginTop="@dimen/spacing_medium_small">
              <androidx.cardview.widget.CardView
@@ -84,7 +85,6 @@
                  android:layout_marginStart="12dp"
                  android:layout_marginEnd="@dimen/spacing_small"
                  android:contentDescription="@string/arrow"
-                 android:onClick="@{()->listener.onClickWhatShouldWatch()}"
                  android:src="@drawable/outline_alt_arrow_right"
                  android:backgroundTint="@color/background_card"
                  android:background="@color/background_card"

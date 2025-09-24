@@ -1,5 +1,6 @@
 package com.karrar.movieapp.ui.home
 
+import com.karrar.movieapp.ui.home.homeUiState.FeaturedCollectionUiState
 import com.karrar.movieapp.ui.home.homeUiState.HomeItemsType
 import com.karrar.movieapp.ui.home.homeUiState.PopularUiState
 import com.karrar.movieapp.ui.models.MediaUiState
@@ -41,6 +42,12 @@ sealed class HomeItem(val priority: Int) {
         val items: List<CreatedListUIState>,
         val type: HomeItemsType = HomeItemsType.COLLECTIONS
     ) : HomeItem(8)
+
+
+    data class FeaturedCollections(
+        val items: List<FeaturedCollectionUiState>,
+        val type: HomeItemsType = HomeItemsType.FEATURED_COLLECTIONS
+    ) : HomeItem(5)
 
     object NeedMoreToWatch : HomeItem(9)
 }

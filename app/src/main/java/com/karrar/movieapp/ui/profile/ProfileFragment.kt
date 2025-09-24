@@ -34,6 +34,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             ContextCompat.getColor(requireContext(), R.color.background_screen)
         activity?.window?.navigationBarColor =
             ContextCompat.getColor(requireContext(), R.color.background_screen)
+
+        val packageInfo = requireContext().packageManager.getPackageInfo(requireContext().packageName, 0)
+        val versionName = packageInfo.versionName
+        binding.textAppVersion.text = getString(R.string.app_version_format, versionName)
     }
 
     private fun observeProfileState() {

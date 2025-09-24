@@ -23,7 +23,6 @@ import com.karrar.movieapp.ui.mappers.MediaUiMapper
 import com.karrar.movieapp.ui.myList.CreatedListInteractionListener
 import com.karrar.movieapp.ui.myList.CreatedListUIMapper
 import com.karrar.movieapp.ui.myList.myListUIState.CreatedListUIState
-import com.karrar.movieapp.ui.profile.ProfileUIState
 import com.karrar.movieapp.ui.profile.watchhistory.MediaHistoryUiState
 import com.karrar.movieapp.ui.profile.watchhistory.WatchHistoryInteractionListener
 import com.karrar.movieapp.utilities.Constants
@@ -58,9 +57,6 @@ class HomeViewModel @Inject constructor(
 
     private val _homeUIEvent = MutableStateFlow<Event<HomeUIEvent?>>(Event(null))
     val homeUIEvent = _homeUIEvent.asStateFlow()
-
-    private val _profileDetailsUIState = MutableStateFlow(ProfileUIState())
-    val profileDetailsUIState = _profileDetailsUIState.asStateFlow()
 
     private var lastRefreshTime = 0L
 
@@ -100,43 +96,37 @@ class HomeViewModel @Inject constructor(
 
     private fun getProfileDetails() {
         if (checkIfLoggedInUseCase()) {
-            _profileDetailsUIState.update {
-                it.copy(isLoggedIn = true, error = false)
+            _homeUiState.update {
+                it.copy(isLoggedIn = true)
             }
 
             viewModelScope.launch {
                 try {
                     val accountDetails = getAccountDetailsUseCase()
-                    _profileDetailsUIState.update {
+                    _homeUiState.update {
                         it.copy(
-                            name = accountDetails.name,
-                            username = accountDetails.username,
+                            username = accountDetails.name.ifBlank { accountDetails.username },
+                            isLoggedIn = true,
                             isLoading = false
                         )
                     }
                 } catch (t: Throwable) {
-                    _profileDetailsUIState.update {
-                        it.copy(isLoading = false, error = true)
-                    }
+                    onError(t.message.toString())
                 }
             }
         } else {
-            _profileDetailsUIState.update {
+            _homeUiState.update {
                 it.copy(isLoggedIn = false)
             }
         }
     }
 
-    val displayName: StateFlow<String> = profileDetailsUIState.map { state ->
-        if (state.isLoggedIn) {
-            state.name.ifBlank { state.username }
-        } else {
-            "Home"
-        }
+    val displayName: StateFlow<String> = homeUiState.map { state ->
+        state.username
     }.stateIn(
         viewModelScope,
         SharingStarted.Lazily,
-        "Home"
+        ""
     )
 
 

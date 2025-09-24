@@ -5,6 +5,8 @@ import com.karrar.movieapp.R
 import com.karrar.movieapp.ui.home.HomeItem
 
 data class HomeUiState (
+    val username : String = "",
+    val isLoggedIn: Boolean = false,
     val popularMovies: HomeItem = HomeItem.Slider(emptyList()),
     val upcomingMovies: HomeItem = HomeItem.Upcoming(emptyList()),
     val topRatedSeries: HomeItem = HomeItem.TopRatedTvShows(emptyList()),

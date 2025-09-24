@@ -4,32 +4,31 @@ import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.domain.usecases.ClearAppCacheUseCase
 import com.karrar.movieapp.domain.usecases.setting.GetDarkModeUseCase
 import com.karrar.movieapp.domain.usecases.setting.GetLanguageUseCase
-import com.karrar.movieapp.domain.usecases.setting.SaveDarkModeUseCase
-import com.karrar.movieapp.domain.usecases.setting.SaveLanguageUseCase
 import com.karrar.movieapp.domain.usecases.startUp.GetStartUpStateUseCase
 import com.karrar.movieapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getStartUpStateUseCase: GetStartUpStateUseCase,
     private val getLanguageUseCase: GetLanguageUseCase,
-    private val saveLanguageUseCase: SaveLanguageUseCase,
     private val getDarkModeUseCase: GetDarkModeUseCase,
-    private val saveDarkModeUseCase: SaveDarkModeUseCase,
     private val clearAppCacheUseCase: ClearAppCacheUseCase,
 ) : BaseViewModel(){
 
     private val _mainUiState: MutableStateFlow<MainUiState> = MutableStateFlow(MainUiState())
     val mainUiState = _mainUiState.asStateFlow()
 
-    private val _language = MutableStateFlow("English")
+    private val _language = MutableStateFlow(
+        if (Locale.getDefault().language == "ar") "Arabic" else "English"
+    )
     val language: StateFlow<String> = _language
 
     private val _darkMode = MutableStateFlow(false)
@@ -65,17 +64,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun changeLanguage(language: String) {
-        viewModelScope.launch {
-            saveLanguageUseCase(language)
-        }
-    }
-
-    fun toggleDarkMode(enabled: Boolean) {
-        viewModelScope.launch {
-            saveDarkModeUseCase(enabled)
-        }
-    }
 
     suspend fun clearCache(language: String) {
         try {

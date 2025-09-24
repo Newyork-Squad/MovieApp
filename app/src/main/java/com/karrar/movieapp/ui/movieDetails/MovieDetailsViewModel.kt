@@ -1,12 +1,8 @@
 package com.karrar.movieapp.ui.movieDetails
 
-import android.provider.Settings.Global.getString
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.karrar.movieapp.R
-import com.karrar.movieapp.domain.enums.HomeItemsType
 import com.karrar.movieapp.domain.models.MovieDetails
-import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
 import com.karrar.movieapp.domain.usecases.GetSessionIDUseCase
 import com.karrar.movieapp.domain.usecases.movieDetails.GetMovieDetailsUseCase
 import com.karrar.movieapp.domain.usecases.movieDetails.GetMovieRateUseCase
@@ -15,6 +11,7 @@ import com.karrar.movieapp.domain.usecases.movieDetails.SetRatingUseCase
 import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
+import com.karrar.movieapp.ui.home.homeUiState.HomeItemsType
 import com.karrar.movieapp.ui.mappers.CrewUIStateMapper
 import com.karrar.movieapp.ui.mappers.MediaUIStateMapper
 import com.karrar.movieapp.ui.movieDetails.mapper.ActorUIStateMapper
@@ -169,7 +166,12 @@ class MovieDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _uiState.update { it.copy(ratingValue = getMovieRate(movieId)) }
-                onAddMovieDetailsItemOfNestedView(DetailItemUIState.Rating(this@MovieDetailsViewModel, _uiState.value.ratingValue ))
+                onAddMovieDetailsItemOfNestedView(
+                    DetailItemUIState.Rating(
+                        this@MovieDetailsViewModel,
+                        _uiState.value.ratingValue
+                    )
+                )
             } catch (e: Throwable) {
             }
         }
@@ -216,7 +218,7 @@ class MovieDetailsViewModel @Inject constructor(
         _uiState.update { it.copy(detailItemResult = list.toList()) }
     }
 
-    private fun updateRateItemOfNestedView(value : Float) {
+    private fun updateRateItemOfNestedView(value: Float) {
         val list = _uiState.value.detailItemResult.toMutableList()
         val newList = list.map {
             if (it is DetailItemUIState.Rating) {
@@ -225,7 +227,7 @@ class MovieDetailsViewModel @Inject constructor(
                 it
             }
         }
-        _uiState.update { it.copy( detailItemResult = newList ) }
+        _uiState.update { it.copy(detailItemResult = newList) }
     }
 
 

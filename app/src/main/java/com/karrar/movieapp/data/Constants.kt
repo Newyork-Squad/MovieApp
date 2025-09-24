@@ -5,6 +5,7 @@ object Constants {
     const val POPULAR_MOVIE_REQUEST_DATE_KEY = "popular_movie_request_date"
     const val TRENDING_MOVIE_REQUEST_DATE_KEY = "trending_movie_request_date"
     const val UPCOMING_MOVIE_REQUEST_DATE_KEY = "upcoming_movie_request_date"
+    const val USER_MATCHING_MOVIE_REQUEST_DATE_KEY = "user_matching_movie_request_date"
     const val ADVENTURE_MOVIE_REQUEST_DATE_KEY = "adventure_movie_request_date"
     const val NOW_STREAMING_MOVIE_REQUEST_DATE_KEY = "now_streaming_movie_request_date"
     const val MYSTERY_MOVIE_REQUEST_DATE_KEY = "mystery_movie_request_date"

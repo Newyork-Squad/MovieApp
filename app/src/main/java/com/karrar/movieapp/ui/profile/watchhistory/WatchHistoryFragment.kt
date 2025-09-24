@@ -1,7 +1,6 @@
 package com.karrar.movieapp.ui.profile.watchhistory
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
@@ -34,7 +33,10 @@ class WatchHistoryFragment : BaseFragment<FragmentWatchHistoryBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitle(true, getString(R.string.watch_history))
+        setTitle(false, getString(R.string.watch_history))
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
         adapter = WatchHistoryAdapter(mutableListOf(), viewModel)
         binding.recyclerViewWatchHistory.adapter = adapter
         collectLast(viewModel.watchHistoryUIEvent) {

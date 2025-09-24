@@ -210,7 +210,6 @@ class HomeAdapter(
                 is HomeItem.NeedMoreToWatch -> R.layout.item_needmoretowatch
 
                 is HomeItem.FeaturedCollections -> R.layout.featured_collections
-                is HomeItem.Actor -> R.layout.item_actor_home
 
             }
         }

@@ -15,6 +15,6 @@ class HomeUseCasesContainer @Inject constructor(
     val getTopRatedTvShowUseCase: GetTopRatedTvShowSeriesUseCase,
     val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase,
     val getWatchHistoryUseCase: GetWatchHistoryUseCase,
-    val getMoviesMatchingUserVibeUseCase: GetMoviesMatchingUserVibeUseCase
+    val getMoviesMatchingUserVibeUseCase: GetMoviesMatchingUserVibeUseCase,
     val getCollectionUseCase: GetCollectionUseCase,
 )

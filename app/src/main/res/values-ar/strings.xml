@@ -228,5 +228,6 @@
     <string name="no_results">لا توجد نتيجة للكلام</string>
     <string name="speech_recognition_not_available_on_this_device">التعرّف على الكلام غير متاح على هذا الجهاز</string>
     <string name="permission_denied_for_microphone">تم رفض إذن استخدام الميكروفون</string>
-
+    <string name="gallery">المعرض</string>
+    <string name="actor_gallery">%1$s معرض</string>
 </resources>

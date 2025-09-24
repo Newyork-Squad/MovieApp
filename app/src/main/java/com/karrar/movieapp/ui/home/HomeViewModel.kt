@@ -143,32 +143,32 @@ class HomeViewModel @Inject constructor(
     private fun getFeaturedCollections() {
         val featured = listOf(
             FeaturedCollectionUiState(
-                "Late-Night Thrills",
+                FeaturedCollectionsTarget.LATE_NIGHT_THRILLS.title,
                 R.drawable.late_night_thrills,
                 FeaturedCollectionsTarget.LATE_NIGHT_THRILLS
             ),
             FeaturedCollectionUiState(
-                "Mind-Bending Stories",
+                FeaturedCollectionsTarget.MIND_BENDING_STORIES.title,
                 R.drawable.mind_bending_stories,
                 FeaturedCollectionsTarget.MIND_BENDING_STORIES
             ),
             FeaturedCollectionUiState(
-                "Cinematic Masterpieces",
+                FeaturedCollectionsTarget.CINEMATIC_MASTERPIECES.title,
                 R.drawable.cinematic_master_pieces,
                 FeaturedCollectionsTarget.CINEMATIC_MASTERPIECES
             ),
             FeaturedCollectionUiState(
-                "Family Night Picks",
+                FeaturedCollectionsTarget.FAMILY_NIGHT_PICKS.title,
                 R.drawable.family_night_picks,
                 FeaturedCollectionsTarget.FAMILY_NIGHT_PICKS
             ),
             FeaturedCollectionUiState(
-                "Based on True Events",
+                FeaturedCollectionsTarget.BASED_ON_TRUE_EVENTS.title,
                 R.drawable.based_in_true_events,
                 FeaturedCollectionsTarget.BASED_ON_TRUE_EVENTS
             ),
             FeaturedCollectionUiState(
-                "Feel-Good Favorites",
+                FeaturedCollectionsTarget.FEEL_GOOD_FAVORITES.title,
                 R.drawable.feel_good_favorites,
                 FeaturedCollectionsTarget.FEEL_GOOD_FAVORITES
             )

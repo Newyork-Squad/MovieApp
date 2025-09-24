@@ -383,5 +383,14 @@ fun setOneDecimal(textView: TextView, number: Double?) {
         textView.text = String.format("%.1f", it)
     }
 }
+@BindingAdapter("srcCompatSafe")
+fun ImageView.setSrcCompatSafe(resId: Int?) {
+    if (resId != null && resId != 0) {
+        setImageResource(resId)
+    } else {
+        // show a default image if null
+        setImageResource(R.drawable.late_night_thrills)
+    }
+}
 
 

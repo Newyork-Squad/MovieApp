@@ -36,6 +36,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/spacing_medium_small"
             android:layout_marginBottom="@dimen/spacing_medium"
+            android:onClick="@{()->listener.onClickNeedMoreToWatch()}"
             android:background="@drawable/background_cast_item">
 
             <androidx.cardview.widget.CardView
@@ -100,7 +101,6 @@
                 android:background="@color/background_card"
                 android:backgroundTint="@color/background_card"
                 android:contentDescription="@string/arrow"
-                android:onClick="@{()->listener.onClickNeedMoreToWatch()}"
                 android:src="@drawable/outline_alt_arrow_right"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

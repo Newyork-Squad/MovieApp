@@ -1,6 +1,7 @@
 package com.karrar.movieapp.ui.home
 
 import androidx.lifecycle.viewModelScope
+import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.ui.home.homeUiState.HomeItemsType
 import com.karrar.movieapp.domain.mappers.WatchHistoryMapper
@@ -12,14 +13,16 @@ import com.karrar.movieapp.ui.adapters.ActorsInteractionListener
 import com.karrar.movieapp.ui.adapters.MediaInteractionListener
 import com.karrar.movieapp.ui.adapters.MovieInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
+import com.karrar.movieapp.ui.home.adapter.FeaturedCollectionListener
 import com.karrar.movieapp.ui.home.adapter.TVShowInteractionListener
+import com.karrar.movieapp.ui.home.homeUiState.FeaturedCollectionUiState
+import com.karrar.movieapp.ui.home.homeUiState.FeaturedCollectionsTarget
 import com.karrar.movieapp.ui.home.homeUiState.HomeUIEvent
 import com.karrar.movieapp.ui.home.homeUiState.HomeUiState
 import com.karrar.movieapp.ui.mappers.MediaUiMapper
 import com.karrar.movieapp.ui.myList.CreatedListInteractionListener
 import com.karrar.movieapp.ui.myList.CreatedListUIMapper
 import com.karrar.movieapp.ui.myList.myListUIState.CreatedListUIState
-import com.karrar.movieapp.ui.profile.ProfileUIState
 import com.karrar.movieapp.ui.profile.watchhistory.MediaHistoryUiState
 import com.karrar.movieapp.ui.profile.watchhistory.WatchHistoryInteractionListener
 import com.karrar.movieapp.utilities.Constants
@@ -47,16 +50,13 @@ class HomeViewModel @Inject constructor(
     private val checkIfLoggedInUseCase: CheckIfLoggedInUseCase,
 ) : BaseViewModel(), HomeInteractionListener, ActorsInteractionListener, MovieInteractionListener,
     MediaInteractionListener, TVShowInteractionListener, WatchHistoryInteractionListener,
-    CreatedListInteractionListener {
+    CreatedListInteractionListener,FeaturedCollectionListener {
 
     private val _homeUiState = MutableStateFlow(HomeUiState())
     val homeUiState = _homeUiState.asStateFlow()
 
     private val _homeUIEvent = MutableStateFlow<Event<HomeUIEvent?>>(Event(null))
     val homeUIEvent = _homeUIEvent.asStateFlow()
-
-    private val _profileDetailsUIState = MutableStateFlow(ProfileUIState())
-    val profileDetailsUIState = _profileDetailsUIState.asStateFlow()
 
     private var lastRefreshTime = 0L
 
@@ -73,6 +73,7 @@ class HomeViewModel @Inject constructor(
         getPopularMovies()
         getRecentlyViewed()
         getCollections()
+        getFeaturedCollections()
         getMatchingMovies()
     }
 
@@ -95,44 +96,84 @@ class HomeViewModel @Inject constructor(
 
     private fun getProfileDetails() {
         if (checkIfLoggedInUseCase()) {
-            _profileDetailsUIState.update {
-                it.copy(isLoggedIn = true, error = false)
+            _homeUiState.update {
+                it.copy(isLoggedIn = true)
             }
 
             viewModelScope.launch {
                 try {
                     val accountDetails = getAccountDetailsUseCase()
-                    _profileDetailsUIState.update {
+                    _homeUiState.update {
                         it.copy(
-                            name = accountDetails.name,
-                            username = accountDetails.username,
+                            username = accountDetails.name.ifBlank { accountDetails.username },
+                            isLoggedIn = true,
                             isLoading = false
                         )
                     }
                 } catch (t: Throwable) {
-                    _profileDetailsUIState.update {
-                        it.copy(isLoading = false, error = true)
-                    }
+                    onError(t.message.toString())
                 }
             }
         } else {
-            _profileDetailsUIState.update {
+            _homeUiState.update {
                 it.copy(isLoggedIn = false)
             }
         }
     }
 
-    val displayName: StateFlow<String> = profileDetailsUIState.map { state ->
-        if (state.isLoggedIn) {
-            state.name.ifBlank { state.username }
-        } else {
-            "Home"
-        }
+    val displayName: StateFlow<String> = homeUiState.map { state ->
+        state.username
     }.stateIn(
         viewModelScope,
         SharingStarted.Lazily,
-        "Home"
+        ""
     )
+
+
+    private fun getFeaturedCollections() {
+        val featured = listOf(
+            FeaturedCollectionUiState(
+                FeaturedCollectionsTarget.LATE_NIGHT_THRILLS.title,
+                R.drawable.late_night_thrills,
+                FeaturedCollectionsTarget.LATE_NIGHT_THRILLS
+            ),
+            FeaturedCollectionUiState(
+                FeaturedCollectionsTarget.MIND_BENDING_STORIES.title,
+                R.drawable.mind_bending_stories,
+                FeaturedCollectionsTarget.MIND_BENDING_STORIES
+            ),
+            FeaturedCollectionUiState(
+                FeaturedCollectionsTarget.CINEMATIC_MASTERPIECES.title,
+                R.drawable.cinematic_master_pieces,
+                FeaturedCollectionsTarget.CINEMATIC_MASTERPIECES
+            ),
+            FeaturedCollectionUiState(
+                FeaturedCollectionsTarget.FAMILY_NIGHT_PICKS.title,
+                R.drawable.family_night_picks,
+                FeaturedCollectionsTarget.FAMILY_NIGHT_PICKS
+            ),
+            FeaturedCollectionUiState(
+                FeaturedCollectionsTarget.BASED_ON_TRUE_EVENTS.title,
+                R.drawable.based_in_true_events,
+                FeaturedCollectionsTarget.BASED_ON_TRUE_EVENTS
+            ),
+            FeaturedCollectionUiState(
+                FeaturedCollectionsTarget.FEEL_GOOD_FAVORITES.title,
+                R.drawable.feel_good_favorites,
+                FeaturedCollectionsTarget.FEEL_GOOD_FAVORITES
+            )
+        )
+
+        _homeUiState.update {
+            it.copy(featured = HomeItem.FeaturedCollections(featured))
+        }
+    }
+
+    override fun onClickFeaturedCollections(target: FeaturedCollectionsTarget) {
+        _homeUIEvent.update { Event(HomeUIEvent.ClickFeaturedCollection(target)) }
+    }
+
+
 
     private fun getPopularMovies() {
         viewModelScope.launch {
@@ -305,6 +346,7 @@ class HomeViewModel @Inject constructor(
             }
 
             HomeItemsType.NON -> AllMediaType.ACTOR_MOVIES
+            HomeItemsType.FEATURED_COLLECTIONS -> AllMediaType.COLLECTION_FEATURE
             HomeItemsType.MATCHES_YOUR_VIBE -> AllMediaType.MATCHES_YOUR_VIBE
         }
         _homeUIEvent.update { Event(HomeUIEvent.ClickSeeAllMovieEvent(type)) }

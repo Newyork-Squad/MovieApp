@@ -14,6 +14,7 @@ import com.karrar.movieapp.data.local.database.entity.movie.UserMatchingMovieEnt
 import com.karrar.movieapp.data.remote.response.AddListResponse
 import com.karrar.movieapp.data.remote.response.AddMovieDto
 import com.karrar.movieapp.data.remote.response.BaseListResponse
+import com.karrar.movieapp.data.remote.response.CollectionDto
 import com.karrar.movieapp.data.remote.response.CreatedListDto
 import com.karrar.movieapp.data.remote.response.CreditsDto
 import com.karrar.movieapp.data.remote.response.DailyTrendingDto
@@ -146,5 +147,8 @@ interface MovieRepository {
     ): List<MovieDto>?
 
     suspend fun removeMovieFromCollection(sessionId: String, collectionId: String, movieId: Int): DefaultResponse?
+    //////////////
+    suspend fun getCollections(accountId: Int): List<CollectionDto>?
+
 
 }

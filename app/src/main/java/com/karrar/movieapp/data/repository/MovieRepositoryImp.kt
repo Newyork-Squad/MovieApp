@@ -1,6 +1,7 @@
 package com.karrar.movieapp.data.repository
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.paging.Pager
 import com.karrar.movieapp.data.Constants
@@ -21,6 +22,7 @@ import com.karrar.movieapp.data.local.mappers.movie.LocalMovieMappersContainer
 import com.karrar.movieapp.data.remote.response.AddListResponse
 import com.karrar.movieapp.data.remote.response.AddMovieDto
 import com.karrar.movieapp.data.remote.response.BaseListResponse
+import com.karrar.movieapp.data.remote.response.CollectionDto
 import com.karrar.movieapp.data.remote.response.CreatedListDto
 import com.karrar.movieapp.data.remote.response.CreditsDto
 import com.karrar.movieapp.data.remote.response.DailyTrendingDto
@@ -539,6 +541,11 @@ class MovieRepositoryImp @Inject constructor(
             movieId = movieId
         ).body()
     }
+//////////////////////
+    override suspend fun getCollections(accountId: Int): List<CollectionDto>? {
+        val response=movieService.getCollections(accountId).body()?.items
+      return  response
+    }
 
     override suspend fun clearCache() {
         movieDao.deletePopularMovies()
@@ -551,5 +558,8 @@ class MovieRepositoryImp @Inject constructor(
         appConfiguration.clearRequestDates()
 
     }
+
+
+
 
 }

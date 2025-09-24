@@ -15,4 +15,6 @@ sealed interface HomeUIEvent {
     data class ClickListEvent(val createdListUIState: CreatedListUIState) : HomeUIEvent
     object clickToMatchScreen:HomeUIEvent
     object clickToExploreScreen:HomeUIEvent
+    data class ClickFeaturedCollection(val target: FeaturedCollectionsTarget) : HomeUIEvent
+
 }

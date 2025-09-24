@@ -1,8 +1,10 @@
-package com.karrar.movieapp.ui.match.questions
+package com.karrar.movieapp.ui.match
 
+import com.karrar.movieapp.ui.match.questions.Choice
+import com.karrar.movieapp.ui.match.questions.MatchQuestionType
 import com.karrar.movieapp.ui.movieDetails.movieDetailsUIState.DetailItemUIState
 
-data class MatchQuestionUiState(
+data class MatchUiState(
     val currentQuestionType: MatchQuestionType = MatchQuestionType.MOOD,
     val isLastQuestion: Boolean = false,
     val moodSelected: List<Choice> = emptyList(),
@@ -17,6 +19,7 @@ data class MatchQuestionUiState(
 ) {
 
     data class MovieUIState(
+        val id: Int = 0,
         val movieDetailsResult: MovieDetailsUIState = MovieDetailsUIState(),
         val movieCastResult: List<ActorUiState> = emptyList(),
         val movieCrewResult: List<CrewUIState> = emptyList(),

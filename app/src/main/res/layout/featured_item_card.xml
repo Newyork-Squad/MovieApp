@@ -7,6 +7,9 @@
             name="item"
             type="com.karrar.movieapp.ui.home.homeUiState.FeaturedCollectionUiState" />
 
+        <variable
+            name="listener"
+            type="com.karrar.movieapp.ui.home.adapter.FeaturedCollectionListener" />
 
     </data>
 
@@ -14,6 +17,7 @@
         android:id="@+id/featuredCard"
         android:layout_width="280dp"
         android:layout_height="80dp"
+        android:onClick="@{() -> listener.onClickFeaturedCollections(item.target)}"
         android:foreground="?attr/selectableItemBackground"
         android:layout_marginEnd="@dimen/spacing_medium"
         android:layout_marginBottom="@dimen/spacing_medium"

@@ -10,6 +10,7 @@ import com.karrar.movieapp.databinding.FragmentHomeBinding
 import com.karrar.movieapp.ui.base.BaseFragment
 import com.karrar.movieapp.ui.home.adapter.HomeAdapter
 import com.karrar.movieapp.ui.home.homeUiState.HomeUIEvent
+import com.karrar.movieapp.ui.home.homeUiState.IdType
 import com.karrar.movieapp.utilities.collectLast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -50,7 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         it.needMoreToWatch,
                         it.featured,
 
-                    )
+                        )
                 )
             }
         }
@@ -74,35 +75,43 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     event.actorID
                 )
             }
+
             is HomeUIEvent.ClickMovieEvent -> {
                 HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(
                     event.movieID
                 )
             }
+
             HomeUIEvent.ClickSeeAllActorEvent -> {
                 HomeFragmentDirections.actionHomeFragmentToActorsFragment()
             }
+
             is HomeUIEvent.ClickSeeAllMovieEvent -> {
                 HomeFragmentDirections.actionHomeFragmentToAllMovieFragment(
-                    -1, event.mediaType
+                    -1,
+                    event.mediaType,
+                    IdType.ACTOR,
                 )
             }
+
             is HomeUIEvent.ClickSeeAllTVShowsEvent -> {
                 HomeFragmentDirections.actionHomeFragmentToAllMovieFragment(
                     -1,
-                    event.mediaType
+                    event.mediaType,
+                    IdType.ACTOR,
                 )
             }
+
             is HomeUIEvent.ClickSeriesEvent -> {
                 HomeFragmentDirections.actionHomeFragmentToTvShowDetailsFragment(
                     event.seriesID
                 )
             }
 
-            HomeUIEvent.clickToMatchScreen->HomeFragmentDirections.actionHomeFragmentToMatchScreenFragment()
+            HomeUIEvent.clickToMatchScreen -> HomeFragmentDirections.actionHomeFragmentToMatchScreenFragment()
 
             HomeUIEvent.ClickSeeAllRecentlyViewed -> HomeFragmentDirections.actionHomeFragmentToWatchHistoryFragment()
-            HomeUIEvent.clickToExploreScreen->HomeFragmentDirections.actionHomeFragmentToExploringFragment()
+            HomeUIEvent.clickToExploreScreen -> HomeFragmentDirections.actionHomeFragmentToExploringFragment()
 
 
             HomeUIEvent.ClickSeeAllCollections -> HomeFragmentDirections.actionHomeFragmentToSavedListFragment()
@@ -112,7 +121,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 event.createdListUIState.name
             )
 
-            is HomeUIEvent.ClickFeaturedCollection ->  HomeFragmentDirections.actionHomeFragmentToWatchHistoryFragment()
+            is HomeUIEvent.ClickFeaturedCollection -> HomeFragmentDirections.actionHomeFragmentToAllMovieFragment(
+                event.target.id,
+                event.mediaType,
+                IdType.GENRE,
+            )
         }
         findNavController().navigate(action)
     }

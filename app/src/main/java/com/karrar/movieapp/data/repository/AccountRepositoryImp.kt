@@ -89,19 +89,4 @@ class AccountRepositoryImp @Inject constructor(
         appConfiguration.saveSessionId(sessionId)
     }
 
-    override suspend fun isDarkMode(): Flow<Boolean> =
-        appConfiguration.isDarkMode()
-
-    override suspend fun saveDarkMode(enabled: Boolean) {
-        appConfiguration.saveDarkMode(enabled)
-    }
-
-    override suspend fun getLanguage():  Flow<String> =
-        appConfiguration.getLanguage()
-
-    override suspend fun saveLanguage(language: String) {
-        appConfiguration.saveLanguage(language)
-    }
-
-
 }

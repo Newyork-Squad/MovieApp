@@ -22,7 +22,7 @@ interface AppConfiguration {
     fun isDarkMode(): Flow<Boolean>
 
     suspend fun saveLanguage(language: String)
-    fun getLanguage(): Flow<String>
+    fun getLanguageCodeFlow(): Flow<String?>
 
     fun getStartUpState(): Boolean
 
@@ -57,24 +57,24 @@ class AppConfigurator @Inject constructor(
         return dataStorePreferences.readLong(key)
     }
 
+    override suspend fun saveDarkMode(enabled: Boolean) {
+        dataStorePreferences.writeBoolean(DARK_MODE_KEY, enabled)
+    }
+
     override fun isDarkMode(): Flow<Boolean> =
         dataStorePreferences.readBooleanFlow(DARK_MODE_KEY)
             .map { savedMode ->
                 savedMode ?: isSystemInDarkMode()
             }
 
-    override fun getLanguage(): Flow<String> =
+    override fun getLanguageCodeFlow(): Flow<String?> =
         dataStorePreferences.readStringFlow(LANGUAGE_KEY)
             .map { savedLanguage ->
-                savedLanguage ?: getDeviceLanguage()
+                savedLanguage
             }
 
     override suspend fun setIsGuest(isGuest: Boolean) {
         dataStorePreferences.writeBoolean(IS_GUEST_USER_KEY, isGuest)
-    }
-
-    override suspend fun saveDarkMode(enabled: Boolean) {
-        dataStorePreferences.writeBoolean(DARK_MODE_KEY, enabled)
     }
 
     override fun isGuestUser(): Boolean {
@@ -105,16 +105,10 @@ class AppConfigurator @Inject constructor(
         dataStorePreferences.remove(Constants.TOP_RATED_SERIES_REQUEST_DATE_KEY)
         dataStorePreferences.remove(Constants.ACTOR_REQUEST_DATE_KEY)
     }
-    private fun getDeviceLanguage(): String {
-        val locale = Locale.getDefault().language
-        return when (locale) {
-            "ar" -> "Arabic"
-            else -> "English"
-        }
-    }
 
     private fun isSystemInDarkMode(): Boolean {
-        val currentNightMode = Resources.getSystem().configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        val currentNightMode =
+            Resources.getSystem().configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return currentNightMode == Configuration.UI_MODE_NIGHT_YES
     }
 

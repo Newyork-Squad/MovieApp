@@ -21,8 +21,8 @@ class LanguageViewModel @Inject constructor(
     private val clearAppCacheUseCase: ClearAppCacheUseCase
 ) : ViewModel() {
 
-    private val _selectedLanguage = MutableStateFlow<String?>(null)
-    val selectedLanguage: StateFlow<String?> = _selectedLanguage.asStateFlow()
+    private val _selectedLanguageCode = MutableStateFlow<String?>(null)
+    val selectedLanguageCode: StateFlow<String?> = _selectedLanguageCode.asStateFlow()
 
     private val _languageUIEvent = MutableStateFlow<Event<LanguageUIEvent?>>(Event(null))
     val languageUIEvent = _languageUIEvent.asStateFlow()
@@ -36,24 +36,22 @@ class LanguageViewModel @Inject constructor(
 
     private fun loadCurrentLanguage() {
         viewModelScope.launch {
-            getLanguageUseCase().collect { language ->
-                _selectedLanguage.value = language
+            getLanguageUseCase.invoke().collect { code ->
+                _selectedLanguageCode.value = code
             }
         }
     }
 
-    fun selectLanguage(language: String) {
+    fun selectLanguage(languageCode: String) {
         viewModelScope.launch {
             _isLanguageChanging.value = true
-
             try {
-                saveLanguageUseCase(language)
-                clearAppCacheUseCase(language)
-                _selectedLanguage.value = language
-                _languageUIEvent.update { Event(LanguageUIEvent.LanguageSelected(language)) }
+                saveLanguageUseCase(languageCode)
+                clearAppCacheUseCase(languageCode)
+                _selectedLanguageCode.value = languageCode
+                _languageUIEvent.update { Event(LanguageUIEvent.LanguageSelected(languageCode)) }
             } catch (e: Exception) {
                 e.printStackTrace()
-                loadCurrentLanguage()
             } finally {
                 _isLanguageChanging.value = false
             }

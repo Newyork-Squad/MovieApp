@@ -8,7 +8,6 @@ import com.karrar.movieapp.domain.usecases.GetGenreListUseCase
 import com.karrar.movieapp.domain.usecases.GetMediaByGenreIDUseCase
 import com.karrar.movieapp.ui.adapters.MediaInteractionListener
 import com.karrar.movieapp.ui.base.BaseViewModel
-import com.karrar.movieapp.ui.explore.GenresInteractionListener
 import com.karrar.movieapp.ui.category.GenreUIStateMapper
 import com.karrar.movieapp.ui.category.MediaUIStateMapper
 import com.karrar.movieapp.ui.explore.exploreUIState.ErrorUIState
@@ -45,6 +44,10 @@ class ExploringViewModel @Inject constructor(
 
     init {
         setMediaType(Constants.MOVIE_CATEGORIES_ID)
+    }
+
+    fun refreshData() {
+        getData()
     }
 
     override fun getData() {

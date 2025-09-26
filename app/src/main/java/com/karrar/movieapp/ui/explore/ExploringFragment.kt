@@ -63,6 +63,11 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshData()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setTitle(false)

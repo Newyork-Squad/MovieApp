@@ -3,6 +3,7 @@ package com.karrar.movieapp.data.local
 
 import android.content.res.Configuration
 import android.content.res.Resources
+import com.karrar.movieapp.ml.StrengthLevel
 import com.karrar.movieapp.utilities.Constants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -32,7 +33,8 @@ interface AppConfiguration {
 
     fun isGuestUser(): Boolean
     suspend fun clearRequestDates()
-
+    suspend fun saveContentPreference(level: StrengthLevel)
+    fun getContentPreference(): Flow<StrengthLevel>
 
 }
 
@@ -93,6 +95,14 @@ class AppConfigurator @Inject constructor(
         sharedPreferences.saveBoolean(START_UP_KEY, value)
     }
 
+    override suspend fun saveContentPreference(level: StrengthLevel) {
+        dataStorePreferences.writeString(CONTENT_PREFERENCE_KEY, level.name)
+    }
+
+    override fun getContentPreference(): Flow<StrengthLevel> =
+        dataStorePreferences.readStringFlow(CONTENT_PREFERENCE_KEY)
+            .map { it?.let { name -> StrengthLevel.valueOf(name) } ?: StrengthLevel.HIDE_EXPLICIT }
+
     override suspend fun clearRequestDates() {
         dataStorePreferences.remove(Constants.POPULAR_MOVIE_REQUEST_DATE_KEY)
         dataStorePreferences.remove(Constants.TRENDING_MOVIE_REQUEST_DATE_KEY)
@@ -121,6 +131,7 @@ class AppConfigurator @Inject constructor(
     companion object Keys {
         const val SESSION_ID_KEY = "session_id"
         const val IS_GUEST_USER_KEY = "is_guest_user"
+        const val CONTENT_PREFERENCE_KEY = "content_preference"
 
         const val START_UP_KEY = "isFirstLaunch"
         const val DARK_MODE_KEY = "dark_mode"

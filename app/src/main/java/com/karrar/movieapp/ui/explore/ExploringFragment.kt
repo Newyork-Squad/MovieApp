@@ -81,34 +81,9 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
     }
 
     private fun setupToggle() {
-        val toggleRoot = binding.viewToggle
-
-        toggleRoot.ivGrid.setOnClickListener { viewModel.setGridMode(true) }
-        toggleRoot.ivList.setOnClickListener { viewModel.setGridMode(false) }
-        toggleRoot.indicator.setOnClickListener { viewModel.toggleGridMode() }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.isGrid.collect { isGrid ->
-                if (isGrid) toggleRoot.toggleMotion.transitionToStart() else toggleRoot.toggleMotion.transitionToEnd()
-
-                allMediaAdapter.setGridMode(isGrid)
-
-                val lm = binding.recyclerMedia.layoutManager as? GridLayoutManager
-                lm?.let {
-                    val firstPos = it.findFirstVisibleItemPosition()
-                    it.spanCount = if (isGrid) 2 else 1
-
-                    binding.recyclerMedia.post {
-                        it.requestLayout()
-                        if (firstPos != RecyclerView.NO_POSITION) binding.recyclerMedia.scrollToPosition(firstPos)
-                    }
-                }
-                val gridIcon = if (isGrid) R.drawable.ic_grid_selected else R.drawable.ic_grid_unselected
-                val listIcon = if (!isGrid) R.drawable.ic_row_vertical_selected else R.drawable.ic_row_vertical_unselected
-                toggleRoot.ivGrid.setImageResource(gridIcon)
-                toggleRoot.ivList.setImageResource(listIcon)
-            }
-        }
+        binding.viewToggle.ivGrid.setOnClickListener { viewModel.setGridMode(true) }
+        binding.viewToggle.ivList.setOnClickListener { viewModel.setGridMode(false) }
+        binding.viewToggle.indicator.setOnClickListener { viewModel.toggleGridMode() }
     }
 
     private fun initTabLayout() {
@@ -148,9 +123,14 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
     private fun collectData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.uiState.collect { state ->
+                allMediaAdapter.setGridMode(state.isGrid)
+                val gridIcon = if (state.isGrid) R.drawable.ic_grid_selected else R.drawable.ic_grid_unselected
+                val listIcon = if (!state.isGrid) R.drawable.ic_row_vertical_selected else R.drawable.ic_row_vertical_unselected
+                binding.viewToggle.ivGrid.setImageResource(gridIcon)
+                binding.viewToggle.ivList.setImageResource(listIcon)
+
                 genreAdapter.setItems(state.genre)
                 genreAdapter.setSelectedGenre(state.selectedCategoryID)
-
                 val desiredTab = if (state.selectedMediaId == Constants.TV_CATEGORIES_ID) 1 else 0
                 if (binding.tabExplore.selectedTabPosition != desiredTab) {
                     ignoreTabChanges = true

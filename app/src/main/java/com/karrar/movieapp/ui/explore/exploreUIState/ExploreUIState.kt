@@ -14,6 +14,7 @@ data class ExploreUIState(
     val media: Flow<PagingData<MediaUIState>> = emptyFlow(),
     val selectedMediaId: Int = Constants.MOVIE_CATEGORIES_ID,
     val selectedGenreId: Int? = null,
+    val isGrid: Boolean = true,
     val isLoading: Boolean = false,
     val error: List<ErrorUIState> = emptyList()
 )

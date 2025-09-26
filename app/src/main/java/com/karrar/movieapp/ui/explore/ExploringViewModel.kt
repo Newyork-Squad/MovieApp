@@ -39,9 +39,6 @@ class ExploringViewModel @Inject constructor(
     private val _exploringUIEvent: MutableStateFlow<Event<ExploringUIEvent>?> = MutableStateFlow(null)
     val exploringUIEvent= _exploringUIEvent.asStateFlow()
 
-    private val _isGrid = MutableStateFlow(true)
-    val isGrid: StateFlow<Boolean> = _isGrid.asStateFlow()
-
     init {
         setMediaType(Constants.MOVIE_CATEGORIES_ID)
     }
@@ -67,10 +64,10 @@ class ExploringViewModel @Inject constructor(
     }
 
     fun setGridMode(grid: Boolean) {
-        _isGrid.value = grid
+        _uiState.update { it.copy(isGrid = grid) }
     }
 
-    fun toggleGridMode() = setGridMode(!_isGrid.value)
+    fun toggleGridMode() = setGridMode(!_uiState.value.isGrid)
 
     private fun loadGenres(mediaId: Int) {
         viewModelScope.launch {

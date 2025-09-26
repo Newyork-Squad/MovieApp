@@ -1,6 +1,7 @@
 package com.karrar.movieapp.utilities
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.text.InputType
 import android.view.View
@@ -14,7 +15,8 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import coil.imageLoader
+import coil.request.ImageRequest
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.imageview.ShapeableImageView
@@ -29,6 +31,10 @@ import com.karrar.movieapp.utilities.Constants.FIRST_CATEGORY_ID
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @BindingAdapter("app:showWhenListNotEmpty")
 fun <T> showWhenListNotEmpty(view: View, list: List<T>) {
@@ -178,25 +184,98 @@ fun usePagerSnapHelperWithRecycler(recycler: RecyclerView, useSnapHelper: Boolea
         PagerSnapHelper().attachToRecyclerView(recycler)
 }
 
+
 @BindingAdapter("app:posterImage")
 fun bindMovieImage(image: ImageView, imageURL: String?) {
-    imageURL?.let {
-        image.load(imageURL) {
-            placeholder(R.drawable.loading)
-            error(R.drawable.ic_profile_place_holder)
+    val context = image.context
+
+    imageURL?.let { url ->
+        image.setImageResource(R.drawable.loading)
+
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val request = ImageRequest.Builder(context)
+                    .data(url)
+                    .allowHardware(false)
+                    .build()
+
+                val drawable = context.imageLoader.execute(request).drawable
+                val bitmap = (drawable as? BitmapDrawable)?.bitmap
+
+                bitmap?.let { original ->
+                    val processed = SafeImageProcessor.processImage(
+                        context = context,
+                        bitmap = original,
+                        blurRadius = 20
+                    )
+
+                    withContext(Dispatchers.Main) {
+                        image.setImageBitmap(processed.finalBitmap)
+                    }
+                } ?: run {
+                    withContext(Dispatchers.Main) {
+                        image.setImageResource(R.drawable.media_place_holder)
+                    }
+                }
+
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    image.setImageResource(R.drawable.media_place_holder)
+                }
+            }
         }
     }
 }
 
 @BindingAdapter("app:mediaPoster")
 fun loadMediaPoster(image: ImageView, imageURL: String?) {
-    imageURL?.let {
-        image.load(imageURL) {
-            placeholder(R.drawable.loading)
-            error(R.drawable.media_place_holder)
+    val context = image.context
+
+    imageURL?.let { url ->
+        image.setImageResource(R.drawable.loading)
+
+
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val request = ImageRequest.Builder(context)
+                    .data(url)
+                    .allowHardware(false)
+                    .build()
+
+                val drawable = context.imageLoader.execute(request).drawable
+                val bitmap = (drawable as? BitmapDrawable)?.bitmap
+
+                bitmap?.let { original ->
+                    val processed = SafeImageProcessor.processImage(
+                        context = context,
+                        bitmap = original,
+                        blurRadius = 20
+                    )
+
+                    withContext(Dispatchers.Main) {
+                        image.setImageBitmap(processed.finalBitmap)
+                    }
+                } ?: run {
+                    withContext(Dispatchers.Main) {
+                        image.setImageResource(R.drawable.media_place_holder)
+                    }
+                }
+
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    image.setImageResource(R.drawable.media_place_holder)
+                }
+            }
         }
     }
 }
+
+
+
+
+
 
 @BindingAdapter("app:showProfileWhenSuccess")
 fun showWhenProfileSuccess(view: View, userName: String) {

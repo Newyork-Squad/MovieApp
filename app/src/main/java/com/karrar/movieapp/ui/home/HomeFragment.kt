@@ -90,7 +90,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 HomeFragmentDirections.actionHomeFragmentToAllMovieFragment(
                     -1,
                     event.mediaType,
-                    IdType.ACTOR
+                    IdType.ACTOR,
                 )
             }
 
@@ -98,7 +98,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 HomeFragmentDirections.actionHomeFragmentToAllMovieFragment(
                     -1,
                     event.mediaType,
-                    IdType.ACTOR
+                    IdType.ACTOR,
                 )
             }
 
@@ -124,7 +124,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             is HomeUIEvent.ClickFeaturedCollection -> HomeFragmentDirections.actionHomeFragmentToAllMovieFragment(
                 event.target.id,
                 event.mediaType,
-                IdType.GENRE
+                IdType.GENRE,
             )
         }
         findNavController().navigate(action)

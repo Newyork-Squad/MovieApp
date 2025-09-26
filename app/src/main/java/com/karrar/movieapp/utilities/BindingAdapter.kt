@@ -272,11 +272,6 @@ fun loadMediaPoster(image: ImageView, imageURL: String?) {
     }
 }
 
-
-
-
-
-
 @BindingAdapter("app:showProfileWhenSuccess")
 fun showWhenProfileSuccess(view: View, userName: String) {
     view.isVisible = userName.isNotEmpty()

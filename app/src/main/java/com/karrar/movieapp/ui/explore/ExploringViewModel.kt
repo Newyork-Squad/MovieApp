@@ -46,10 +46,6 @@ class ExploringViewModel @Inject constructor(
         setMediaType(Constants.MOVIE_CATEGORIES_ID)
     }
 
-    fun refreshData() {
-        getData()
-    }
-
     override fun getData() {
         val mediaId = _uiState.value.selectedMediaId
         val catId = _uiState.value.selectedCategoryID
@@ -103,7 +99,13 @@ class ExploringViewModel @Inject constructor(
 
                 _uiState.update { it.copy(isLoading = false, media = paging, error = emptyList()) }
             } catch (t: Throwable) {
-                _uiState.update { it.copy(isLoading = false, error = listOf(ErrorUIState(-1, t.message.orEmpty()))) }
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        error = listOf(ErrorUIState(-1, t.message.orEmpty())
+                        )
+                    )
+                }
             }
         }
     }
@@ -127,17 +129,20 @@ class ExploringViewModel @Inject constructor(
         when (combinedLoadStates.refresh) {
             is LoadState.NotLoading -> {
                 _uiState.update {
-                    it.copy(isLoading = false, error = emptyList())
+                    it.copy(isLoading = false,
+                        error = emptyList())
                 }
             }
             LoadState.Loading -> {
                 _uiState.update {
-                    it.copy(isLoading = false, error = emptyList())
+                    it.copy(isLoading = false,
+                        error = emptyList())
                 }
             }
             is LoadState.Error -> {
                 _uiState.update {
-                    it.copy(isLoading = false, error = listOf(ErrorUIState(404, "Error")))
+                    it.copy(isLoading = false,
+                        error = listOf(ErrorUIState(404, "Error")))
                 }
             }
         }

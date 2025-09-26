@@ -249,4 +249,5 @@
     <string name="gallery">Gallery</string>
     <string name="actor_gallery">%1$s Gallery</string>
     <string name="app_version_format">Version %1$s</string>
+    <string name="txt_all">All</string>
 </resources>

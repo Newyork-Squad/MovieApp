@@ -65,7 +65,7 @@ class ExploringFragment : BaseFragment<FragmentExploringBinding>() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.refreshData()
+        viewModel.getData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

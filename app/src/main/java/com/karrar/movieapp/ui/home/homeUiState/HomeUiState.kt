@@ -28,11 +28,11 @@ data class FeaturedCollectionUiState(
     val target: FeaturedCollectionsTarget
 )
 
-enum class FeaturedCollectionsTarget(@StringRes val title: Int) {
-    LATE_NIGHT_THRILLS(R.string.late_night_thrills),
-    MIND_BENDING_STORIES(R.string.mind_bending_stories),
-    CINEMATIC_MASTERPIECES(R.string.cinematic_masterpieces),
-    FAMILY_NIGHT_PICKS(R.string.family_night_picks),
-    BASED_ON_TRUE_EVENTS(R.string.based_on_true_events),
-    FEEL_GOOD_FAVORITES(R.string.feel_good_favorites),
+enum class FeaturedCollectionsTarget(@StringRes val title: Int, val id: Int) {
+    LATE_NIGHT_THRILLS(R.string.late_night_thrills,53),
+    MIND_BENDING_STORIES(R.string.mind_bending_stories,9648),
+    CINEMATIC_MASTERPIECES(R.string.cinematic_masterpieces,18),
+    FAMILY_NIGHT_PICKS(R.string.family_night_picks,35),
+    BASED_ON_TRUE_EVENTS(R.string.based_on_true_events,36),
+    FEEL_GOOD_FAVORITES(R.string.feel_good_favorites,10749),
 }

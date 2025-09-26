@@ -14,7 +14,13 @@ class SettingsRepositoryImp @Inject constructor(
 
     override suspend fun saveLanguageCode(code: String) {
         appConfiguration.saveLanguage(code)
+
+    override suspend fun savePreference(level: StrengthLevel) {
+        appConfiguration.saveContentPreference(level)
     }
+
+    override fun getPreference(): Flow<StrengthLevel> =
+        appConfiguration.getContentPreference()
 
     override fun isDarkMode(): Flow<Boolean> =
         appConfiguration.isDarkMode()

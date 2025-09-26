@@ -11,6 +11,7 @@ import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.FragmentActorDetailsBinding
 import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.ui.base.BaseFragment
+import com.karrar.movieapp.ui.home.homeUiState.IdType
 import com.karrar.movieapp.utilities.collectLast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -65,7 +66,8 @@ class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
             .navigate(
                 ActorDetailsFragmentDirections.actionActorDetailsFragmentToAllMovieOfActorFragment(
                     viewModel.args.id,
-                    AllMediaType.ACTOR_MOVIES
+                    AllMediaType.ACTOR_MOVIES,
+                    IdType.ACTOR
                 )
             )
     }

@@ -79,7 +79,6 @@
                     android:id="@+id/hide_explicit_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/background_bottomSheetCard"
                     app:cardCornerRadius="@dimen/radius_xl"
                     app:cardElevation="0dp">
 
@@ -91,16 +90,18 @@
                         android:paddingHorizontal="16dp">
 
                         <FrameLayout
+                            android:id="@+id/frameHideExplicit"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:background="@drawable/back_icon_rectangle"
                             android:layout_gravity="center_vertical">
 
                             <ImageView
+                                android:id="@+id/imageHideExplicit"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/due_tone_eye_slash"/>
+                                android:src="@drawable/due_tone_eye_slash" />
                         </FrameLayout>
 
                         <LinearLayout
@@ -111,6 +112,7 @@
                             android:padding="16dp">
 
                             <TextView
+                                android:id="@+id/textHideExplicit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
@@ -119,6 +121,7 @@
                                 android:textColor="@color/shade_primary"/>
 
                             <TextView
+                                android:id="@+id/textHideExplicitDesc"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
@@ -135,8 +138,7 @@
                     android:id="@+id/strict_filtering_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    android:backgroundTint="@color/background_bottomSheetCard"
+                    android:layout_marginVertical="12dp"
                     app:cardCornerRadius="@dimen/radius_xl"
                     app:cardElevation="0dp">
 
@@ -148,16 +150,18 @@
                         android:paddingHorizontal="16dp">
 
                         <FrameLayout
+                            android:id="@+id/frameStrictFiltering"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:background="@drawable/back_icon_rectangle"
                             android:layout_gravity="center_vertical">
 
                             <ImageView
+                                android:id="@+id/imageStrictFiltering"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/due_tone_slash"/>
+                                android:src="@drawable/due_tone_slash" />
                         </FrameLayout>
 
                         <LinearLayout
@@ -168,6 +172,7 @@
                             android:padding="16dp">
 
                             <TextView
+                                android:id="@+id/StrictFiltering"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
@@ -176,6 +181,7 @@
                                 android:textColor="@color/shade_primary"/>
 
                             <TextView
+                                android:id="@+id/StrictFilteringDesc"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
@@ -190,7 +196,6 @@
                     android:id="@+id/show_all_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/background_bottomSheetCard"
                     app:cardCornerRadius="@dimen/radius_xl"
                     app:cardElevation="0dp">
 
@@ -202,18 +207,19 @@
                         android:paddingHorizontal="16dp">
 
                         <FrameLayout
+                            android:id="@+id/frameShowAll"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:background="@drawable/back_icon_rectangle"
                             android:layout_gravity="center_vertical">
 
                             <ImageView
+                                android:id="@+id/imageShowAll"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/due_tone_eye"/>
+                                android:src="@drawable/due_tone_eye" />
                         </FrameLayout>
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -222,6 +228,7 @@
                             android:padding="16dp">
 
                             <TextView
+                                android:id="@+id/ShowAllContent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
@@ -230,6 +237,7 @@
                                 android:textColor="@color/shade_primary"/>
 
                             <TextView
+                                android:id="@+id/ShowAllContentDesc"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"

@@ -3,6 +3,7 @@ package com.karrar.movieapp.ui.home
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.AllMediaType
+import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.ui.home.homeUiState.HomeItemsType
 import com.karrar.movieapp.domain.mappers.WatchHistoryMapper
 import com.karrar.movieapp.domain.usecases.CheckIfLoggedInUseCase
@@ -170,9 +171,19 @@ class HomeViewModel @Inject constructor(
     }
 
     override fun onClickFeaturedCollections(target: FeaturedCollectionsTarget) {
-        _homeUIEvent.update { Event(HomeUIEvent.ClickFeaturedCollection(target)) }
-    }
+        val mediaType = when (target) {
+            FeaturedCollectionsTarget.LATE_NIGHT_THRILLS -> AllMediaType.COLLECTION_FEATURE
+            FeaturedCollectionsTarget.MIND_BENDING_STORIES -> AllMediaType.COLLECTION_FEATURE
+            FeaturedCollectionsTarget.CINEMATIC_MASTERPIECES -> AllMediaType.COLLECTION_FEATURE
+            FeaturedCollectionsTarget.FAMILY_NIGHT_PICKS -> AllMediaType.COLLECTION_FEATURE
+            FeaturedCollectionsTarget.BASED_ON_TRUE_EVENTS -> AllMediaType.COLLECTION_FEATURE
+            FeaturedCollectionsTarget.FEEL_GOOD_FAVORITES -> AllMediaType.COLLECTION_FEATURE
+        }
 
+        _homeUIEvent.update {
+            Event(HomeUIEvent.ClickFeaturedCollection(target, mediaType))
+        }
+    }
 
 
     private fun getPopularMovies() {

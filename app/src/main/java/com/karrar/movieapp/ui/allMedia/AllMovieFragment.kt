@@ -13,6 +13,8 @@ import com.karrar.movieapp.databinding.FragmentAllMovieBinding
 import com.karrar.movieapp.domain.enums.AllMediaType
 import com.karrar.movieapp.ui.adapters.LoadUIStateAdapter
 import com.karrar.movieapp.ui.base.BaseFragment
+import com.karrar.movieapp.ui.home.homeUiState.FeaturedCollectionsTarget
+import com.karrar.movieapp.ui.home.homeUiState.IdType
 import com.karrar.movieapp.ui.models.MediaUiState
 import com.karrar.movieapp.utilities.collect
 import com.karrar.movieapp.utilities.collectLast
@@ -30,10 +32,12 @@ class AllMovieFragment : BaseFragment<FragmentAllMovieBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitle(false, getTitle(viewModel.args.type))
+
+        val args = viewModel.args
+        setTitle(false, getTitle(args.type , args.id , args.idType))
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
         toolbar.setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
-        val title =getTitle(viewModel.args.type)
+        val title =getTitle(args.type , args.id , args.idType)
         binding.toolbar.title = title
         setMovieAdapter()
         setupToggle()
@@ -131,15 +135,21 @@ class AllMovieFragment : BaseFragment<FragmentAllMovieBinding>() {
         findNavController().popBackStack()
     }
 
-    private fun getTitle(type: AllMediaType): String {
-        return when (type) {
-            AllMediaType.RECENTLY_RELEASED -> getString(R.string.title_recently_released)
-            AllMediaType.POPULAR -> getString(R.string.popular)
-            AllMediaType.TOP_RATED -> getString(R.string.title_top_rated_tv_show)
-            AllMediaType.UPCOMING -> getString(R.string.title_upcoming)
-            AllMediaType.MATCHES_YOUR_VIBE -> getString(R.string.title_matches_your_vibe)
-            AllMediaType.ACTOR_MOVIES -> ""
-            AllMediaType.COLLECTION_FEATURE ->getString(R.string.featured_collections)
+    private fun getTitle(type: AllMediaType, id: Int, idType: IdType): String {
+        return when {
+            type == AllMediaType.RECENTLY_RELEASED -> getString(R.string.title_recently_released)
+            type == AllMediaType.POPULAR -> getString(R.string.popular)
+            type == AllMediaType.TOP_RATED -> getString(R.string.title_top_rated_tv_show)
+            type == AllMediaType.UPCOMING -> getString(R.string.title_upcoming)
+            type == AllMediaType.MATCHES_YOUR_VIBE -> getString(R.string.title_matches_your_vibe)
+            idType == IdType.ACTOR -> ""
+            idType == IdType.GENRE && type == AllMediaType.COLLECTION_FEATURE -> {
+                FeaturedCollectionsTarget.values().find { it.id == id }
+                    ?.let { getString(it.title) }
+                    ?: getString(R.string.featured_collections)
+            }
+            else -> getString(R.string.featured_collections)
         }
     }
+
 }

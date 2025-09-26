@@ -6,6 +6,7 @@ import com.karrar.movieapp.domain.usecases.setting.GetDarkModeUseCase
 import com.karrar.movieapp.domain.usecases.setting.GetLanguageUseCase
 import com.karrar.movieapp.domain.usecases.startUp.GetStartUpStateUseCase
 import com.karrar.movieapp.ui.base.BaseViewModel
+import com.karrar.movieapp.utilities.LocaleManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,9 +21,7 @@ class MainViewModel @Inject constructor(
     private val getDarkModeUseCase: GetDarkModeUseCase,
     private val clearAppCacheUseCase: ClearAppCacheUseCase,
 ) : BaseViewModel(){
-    private val _language = MutableStateFlow(
-        if (Locale.getDefault().language == "ar") "Arabic" else "English"
-    )
+    private val _language: MutableStateFlow<String> = MutableStateFlow(LocaleManager.normalizeDeviceLanguage(Locale.getDefault().language))
     val language: StateFlow<String> = _language
 
     private val _darkMode = MutableStateFlow(false)
@@ -33,7 +32,7 @@ class MainViewModel @Inject constructor(
 
     override fun getData() {
         viewModelScope.launch {
-            getLanguageUseCase().collect { lang ->
+            getLanguageUseCase.invoke().collect { lang ->
                 _language.value = lang
             }
         }
@@ -45,9 +44,8 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun refreshData() {
+    fun refreshUiTexts() {
         viewModelScope.launch {
-            getData()
             _dataRefreshEvent.value = !_dataRefreshEvent.value
         }
     }

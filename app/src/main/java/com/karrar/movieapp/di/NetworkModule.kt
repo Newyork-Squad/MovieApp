@@ -58,7 +58,7 @@ object NetworkModule {
         appConfiguration: AppConfiguration
     ): LanguageInterceptor {
         return LanguageInterceptor {
-            appConfiguration.getLanguage().first()
+            appConfiguration.getLanguageCodeFlow().first()
         }
     }
 

@@ -32,16 +32,16 @@ class LanguagePickerDialog : BaseDialog<BottomSheetLanguageBinding>() {
 
         setWidthPercent(90)
 
-        collectLast(viewModel.selectedLanguage) { language ->
+        collectLast(viewModel.selectedLanguageCode) { language ->
             updateCardSelection(language)
         }
 
         binding.cardEnglish.setOnClickListener {
-            viewModel.selectLanguage("English")
+            viewModel.selectLanguage("en")
         }
 
         binding.cardArabic.setOnClickListener {
-            viewModel.selectLanguage("Arabic")
+            viewModel.selectLanguage("ar")
         }
 
         collectLast(viewModel.languageUIEvent) {
@@ -55,13 +55,13 @@ class LanguagePickerDialog : BaseDialog<BottomSheetLanguageBinding>() {
         binding.cardEnglish.backgroundTintList =
             ContextCompat.getColorStateList(
                 requireContext(),
-                if (selected == "English") R.color.brand_tertiary else R.color.background_bottomSheetCard
+                if (selected == "en") R.color.brand_tertiary else R.color.background_bottomSheetCard
             )
 
-        binding.cardEnglish.strokeWidth = if (selected == "English") 4 else 0
+        binding.cardEnglish.strokeWidth = if (selected == "en") 4 else 0
         binding.cardEnglish.strokeColor = borderColor
         binding.textEnglish.setTextColor(
-            if (selected == "English")
+            if (selected == "en")
                 ContextCompat.getColor(requireContext(), R.color.brand_primary)
             else
                 ContextCompat.getColor(requireContext(), R.color.shade_primary)
@@ -70,13 +70,13 @@ class LanguagePickerDialog : BaseDialog<BottomSheetLanguageBinding>() {
         binding.cardArabic.backgroundTintList =
             ContextCompat.getColorStateList(
                 requireContext(),
-                if (selected == "Arabic") R.color.brand_tertiary else R.color.background_bottomSheetCard
+                if (selected == "ar") R.color.brand_tertiary else R.color.background_bottomSheetCard
             )
 
-        binding.cardArabic.strokeWidth = if (selected == "Arabic") 4 else 0
+        binding.cardArabic.strokeWidth = if (selected == "ar") 4 else 0
         binding.cardArabic.strokeColor = borderColor
         binding.textArabic.setTextColor(
-            if (selected == "Arabic")
+            if (selected == "ar")
                 ContextCompat.getColor(requireContext(), R.color.brand_primary)
             else
                 ContextCompat.getColor(requireContext(), R.color.shade_primary)
@@ -87,7 +87,6 @@ class LanguagePickerDialog : BaseDialog<BottomSheetLanguageBinding>() {
         when (event) {
             is LanguageUIEvent.LanguageSelected -> {
                 dismiss()
-
                 (requireActivity() as? MainActivity)?.let { activity ->
                     activity.lifecycleScope.launch {
                         try {

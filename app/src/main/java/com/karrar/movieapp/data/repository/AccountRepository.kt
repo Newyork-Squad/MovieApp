@@ -15,12 +15,6 @@ interface AccountRepository {
 
     suspend fun getAccountDetails(): AccountDto?
 
-    suspend fun isDarkMode(): Flow<Boolean>
-    suspend fun saveDarkMode(enabled: Boolean)
-
-    suspend fun getLanguage():  Flow<String>
-    suspend fun saveLanguage(language: String)
-
     fun isGuestUser(): Boolean
 
     suspend fun loginAsGuest(): Boolean

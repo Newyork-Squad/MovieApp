@@ -1,7 +1,7 @@
 package com.karrar.movieapp.ui.main
 
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.view.Window
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -18,11 +18,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.karrar.movieapp.R
 import com.karrar.movieapp.databinding.ActivityMainBinding
+import com.karrar.movieapp.utilities.LocaleManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -32,13 +31,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val initialMode = runBlocking { viewModel.darkMode.first() }
-
         AppCompatDelegate.setDefaultNightMode(
             if (initialMode) AppCompatDelegate.MODE_NIGHT_YES
             else AppCompatDelegate.MODE_NIGHT_NO
         )
+
         supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY)
         setTheme(R.style.Theme_MovieApp)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -69,21 +67,14 @@ class MainActivity : AppCompatActivity() {
             viewModel.language.collect { language ->
                 if (currentLanguage == null) {
                     currentLanguage = language
+                    viewModel.clearCache(language)
                     updateLocale(language)
                 } else if (currentLanguage != language) {
+                    viewModel.clearCache(language)
                     currentLanguage = language
-
-                    lifecycleScope.launch {
-                        try {
-                            viewModel.clearCache(language)
-                            updateLocale(language)
-                            viewModel.refreshData()
-                            recreate()
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                            recreate()
-                        }
-                    }
+                    updateLocale(language)
+                    viewModel.refreshUiTexts()
+                    recreate()
                 }
             }
         }
@@ -141,22 +132,8 @@ class MainActivity : AppCompatActivity() {
         return findNavController(R.id.nav_host_fragment).navigateUp() || super.onSupportNavigateUp()
     }
 
-    fun updateLocale(language: String) {
-        val locale = when (language) {
-            "Arabic" -> Locale("ar")
-            else -> Locale("en")
-        }
-        Locale.setDefault(locale)
-
-        val config = resources.configuration
-        config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
-
-        if (::binding.isInitialized) {
-            window.decorView.layoutDirection =
-                if (locale.language == "ar") View.LAYOUT_DIRECTION_RTL
-                else View.LAYOUT_DIRECTION_LTR
-        }
+    fun updateLocale(languageCode: String) {
+        LocaleManager.applyLanguageTag(languageCode)
     }
 
 }

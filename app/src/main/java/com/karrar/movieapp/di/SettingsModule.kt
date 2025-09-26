@@ -1,6 +1,5 @@
 package com.karrar.movieapp.di
 
-
 import com.karrar.movieapp.data.repository.SettingsRepository
 import com.karrar.movieapp.data.repository.SettingsRepositoryImp
 import dagger.Binds

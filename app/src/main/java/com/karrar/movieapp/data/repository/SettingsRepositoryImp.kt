@@ -9,6 +9,14 @@ class SettingsRepositoryImp @Inject constructor(
     private val appConfiguration: AppConfiguration,
 ) : SettingsRepository, BaseRepository() {
 
+    override fun getSavedLanguageCodeFlow(): Flow<String?> =
+        appConfiguration.getLanguageCodeFlow()
+
+
+    override suspend fun saveLanguageCode(code: String) {
+        appConfiguration.saveLanguage(code)
+    }
+
     override suspend fun savePreference(level: StrengthLevel) {
         appConfiguration.saveContentPreference(level)
     }
@@ -16,4 +24,10 @@ class SettingsRepositoryImp @Inject constructor(
     override fun getPreference(): Flow<StrengthLevel> =
         appConfiguration.getContentPreference()
 
+    override fun isDarkMode(): Flow<Boolean> =
+        appConfiguration.isDarkMode()
+
+    override suspend fun saveDarkMode(enabled: Boolean) {
+        appConfiguration.saveDarkMode(enabled)
+    }
 }

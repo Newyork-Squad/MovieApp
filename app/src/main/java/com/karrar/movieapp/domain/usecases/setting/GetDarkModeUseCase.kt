@@ -1,11 +1,11 @@
 package com.karrar.movieapp.domain.usecases.setting
 
-import com.karrar.movieapp.data.repository.AccountRepository
+import com.karrar.movieapp.data.repository.SettingsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetDarkModeUseCase @Inject constructor(
-    private val repository: AccountRepository
+    private val repository: SettingsRepository
 ) {
-    suspend operator fun invoke(): Flow<Boolean> = repository.isDarkMode()
+    operator fun invoke(): Flow<Boolean> = repository.isDarkMode()
 }

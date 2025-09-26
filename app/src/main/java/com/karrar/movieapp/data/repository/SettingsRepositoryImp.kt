@@ -1,6 +1,7 @@
 package com.karrar.movieapp.data.repository
 
 import com.karrar.movieapp.data.local.AppConfiguration
+import com.karrar.movieapp.ml.StrengthLevel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -14,6 +15,7 @@ class SettingsRepositoryImp @Inject constructor(
 
     override suspend fun saveLanguageCode(code: String) {
         appConfiguration.saveLanguage(code)
+    }
 
     override suspend fun savePreference(level: StrengthLevel) {
         appConfiguration.saveContentPreference(level)

@@ -34,5 +34,5 @@ enum class FeaturedCollectionsTarget(@StringRes val title: Int, val id: Int) {
     CINEMATIC_MASTERPIECES(R.string.cinematic_masterpieces,18),
     FAMILY_NIGHT_PICKS(R.string.family_night_picks,35),
     BASED_ON_TRUE_EVENTS(R.string.based_on_true_events,36),
-    FEEL_GOOD_FAVORITES(R.string.feel_good_favorites,10749),
+    FEEL_GOOD_FAVORITES(R.string.feel_good_favorites,35),
 }

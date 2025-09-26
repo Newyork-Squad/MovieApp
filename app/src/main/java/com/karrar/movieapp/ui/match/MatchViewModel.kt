@@ -1,5 +1,6 @@
 package com.karrar.movieapp.ui.match
 
+import android.content.Context
 import androidx.lifecycle.viewModelScope
 import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.Era
@@ -28,6 +29,7 @@ import com.karrar.movieapp.ui.match.result.mappers.ReviewUIStateMapper
 import com.karrar.movieapp.utilities.Constants
 import com.karrar.movieapp.utilities.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -46,6 +48,7 @@ class MatchViewModel
         private val reviewUIStateMapper: ReviewUIStateMapper,
         private val crewUIStateMapper: CrewUIStateMapper,
         private val sessionIDUseCase: GetSessionIDUseCase,
+        @ApplicationContext private val context: Context
     ) : BaseViewModel(),
         MatchQuestionInteractionListener,
         MatchResultInteractionListener {
@@ -130,82 +133,79 @@ class MatchViewModel
                 MatchQuestionType.TIME_PERIOD -> _uiState.value.timePeriodSelected
             }
 
-        override fun getData() {
-            val mood =
-                listOf(
-                    Choice(name = "Chill", icon = R.drawable.due_tone_headphone),
-                    Choice(name = "Excited", icon = R.drawable.due_tone_flame),
-                    Choice(name = "Emotional", icon = R.drawable.due_tone_heart),
-                    Choice(name = "Curious", icon = R.drawable.due_tone_search),
-                )
-            val genre =
-                listOf(
-                    Choice(name = "Action"),
-                    Choice(name = "Comedy"),
-                    Choice(name = "Drama"),
-                    Choice(name = "Romance"),
-                    Choice(name = "Sci-Fi"),
-                    Choice(name = "Thriller"),
-                    Choice(name = "Animation"),
-                    Choice(name = "Mystery"),
-                )
-            val time =
-                listOf(
-                    Choice(
-                        name = "Short",
-                        description = "(Under 90 min)",
-                        icon = R.drawable.due_tone_time_short,
-                    ),
-                    Choice(
-                        name = "Medium",
-                        description = "(between 90 & 120 min)",
-                        icon = R.drawable.due_tone_time_medium,
-                    ),
-                    Choice(
-                        name = "Long",
-                        description = "(Over 120 min)",
-                        icon = R.drawable.due_tone_time_long,
-                    ),
-                )
-            val release =
-                listOf(
-                    Choice(name = "Recent"),
-                    Choice(name = "Classic"),
-                    Choice(name = "Both"),
-                )
-            items.addAll(
-                listOf(
-                    MatchQuestion(
-                        question = "What mood are you in?",
-                        type = MatchQuestionType.MOOD,
-                        choices = mood,
-                        isAnswered = false,
-                    ),
-                    MatchQuestion(
-                        question = "What genre are you in?",
-                        type = MatchQuestionType.GENRE,
-                        choices = genre,
-                        isAnswered = false,
-                    ),
-                    MatchQuestion(
-                        question = "What time of day are you in?",
-                        type = MatchQuestionType.MEDIA_RUNTIME,
-                        choices = time,
-                        isAnswered = false,
-                    ),
-                    MatchQuestion(
-                        question = "What year are you in?",
-                        type = MatchQuestionType.TIME_PERIOD,
-                        choices = release,
-                        isAnswered = false,
-                    ),
+    override fun getData() {
+        val mood = listOf(
+            Choice(name = context.getString(R.string.mood_chill), icon = R.drawable.due_tone_headphone),
+            Choice(name = context.getString(R.string.mood_excited), icon = R.drawable.due_tone_flame),
+            Choice(name = context.getString(R.string.mood_emotional), icon = R.drawable.due_tone_heart),
+            Choice(name = context.getString(R.string.mood_curious), icon = R.drawable.due_tone_search),
+        )
+        val genre = listOf(
+            Choice(name = context.getString(R.string.genre_action)),
+            Choice(name = context.getString(R.string.genre_comedy)),
+            Choice(name = context.getString(R.string.genre_drama)),
+            Choice(name = context.getString(R.string.genre_romance)),
+            Choice(name = context.getString(R.string.genre_scifi)),
+            Choice(name = context.getString(R.string.genre_thriller)),
+            Choice(name = context.getString(R.string.genre_animation)),
+            Choice(name = context.getString(R.string.genre_mystery)),
+        )
+        val time = listOf(
+            Choice(
+                name = context.getString(R.string.time_short),
+                description = context.getString(R.string.time_short_desc),
+                icon = R.drawable.due_tone_time_short,
+            ),
+            Choice(
+                name = context.getString(R.string.time_medium),
+                description = context.getString(R.string.time_medium_desc),
+                icon = R.drawable.due_tone_time_medium,
+            ),
+            Choice(
+                name = context.getString(R.string.time_long),
+                description = context.getString(R.string.time_long_desc),
+                icon = R.drawable.due_tone_time_long,
+            ),
+        )
+        val release = listOf(
+            Choice(name = context.getString(R.string.release_recent)),
+            Choice(name = context.getString(R.string.release_classic)),
+            Choice(name = context.getString(R.string.release_both)),
+        )
+
+        items.addAll(
+            listOf(
+                MatchQuestion(
+                    question = context.getString(R.string.question_mood),
+                    type = MatchQuestionType.MOOD,
+                    choices = mood,
+                    isAnswered = false,
+                ),
+                MatchQuestion(
+                    question = context.getString(R.string.question_genre),
+                    type = MatchQuestionType.GENRE,
+                    choices = genre,
+                    isAnswered = false,
+                ),
+                MatchQuestion(
+                    question = context.getString(R.string.question_time),
+                    type = MatchQuestionType.MEDIA_RUNTIME,
+                    choices = time,
+                    isAnswered = false,
+                ),
+                MatchQuestion(
+                    question = context.getString(R.string.question_release),
+                    type = MatchQuestionType.TIME_PERIOD,
+                    choices = release,
+                    isAnswered = false,
                 ),
             )
-            _questions.update {
-                listOf(items.first())
-            }
-        }
+        )
 
+        _questions.update {
+            listOf(items.first())
+        }
+    }
         fun onChoiceSelected(
             type: MatchQuestionType,
             choices: List<Choice>,

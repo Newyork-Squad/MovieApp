@@ -249,4 +249,35 @@
     <string name="gallery">Gallery</string>
     <string name="actor_gallery">%1$s Gallery</string>
     <string name="app_version_format">Version %1$s</string>
+    <string name="no_matching_movies_found">No matching movies found</string>
+
+    <string name="mood_chill">Chill</string>
+    <string name="mood_excited">Excited</string>
+    <string name="mood_emotional">Emotional</string>
+    <string name="mood_curious">Curious</string>
+
+    <string name="genre_action">Action</string>
+    <string name="genre_comedy">Comedy</string>
+    <string name="genre_drama">Drama</string>
+    <string name="genre_romance">Romance</string>
+    <string name="genre_scifi">Sci-Fi</string>
+    <string name="genre_thriller">Thriller</string>
+    <string name="genre_animation">Animation</string>
+    <string name="genre_mystery">Mystery</string>
+
+    <string name="time_short">Short</string>
+    <string name="time_short_desc">(Under 90 min)</string>
+    <string name="time_medium">Medium</string>
+    <string name="time_medium_desc">(between 90 &amp; 120 min)</string>
+    <string name="time_long">Long</string>
+    <string name="time_long_desc">(Over 120 min)</string>
+
+    <string name="release_recent">Recent</string>
+    <string name="release_classic">Classic</string>
+    <string name="release_both">Both</string>
+
+    <string name="question_mood">What mood are you in?</string>
+    <string name="question_genre">What genre are you in?</string>
+    <string name="question_time">What time of day are you in?</string>
+    <string name="question_release">What year are you in?</string>
 </resources>

@@ -29,7 +29,6 @@ class MatchResultFragment : BaseFragment<FragmentMatchResultBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("tst-onv-movies","${viewModel.uiState.value.movies}")
         setTitle(false)
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -67,7 +66,6 @@ class MatchResultFragment : BaseFragment<FragmentMatchResultBinding>() {
         lifecycleScope.launch {
             viewModel.uiState.collect { state ->
                 pagerAdapter.setItems(state.movies.map {movie -> movie.movieDetailsResult.image})
-                Log.d("tst-fragment","${state.movies}")
             // <--- IMPORTANT
             }
         }
@@ -90,7 +88,6 @@ class MatchResultFragment : BaseFragment<FragmentMatchResultBinding>() {
     }
 
     private fun handleEvent(event: MatchUiEvent) {
-        Log.d("back-before when","event $event")
         when (event) {
             MatchUiEvent.NavigateBack -> {
                 findNavController().popBackStack(R.id.homeFragment, false)

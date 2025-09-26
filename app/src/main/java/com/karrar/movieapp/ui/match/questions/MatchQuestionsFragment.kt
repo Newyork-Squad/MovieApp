@@ -73,7 +73,7 @@ class MatchQuestionsFragment : BaseFragment<FragmentMatchQuestionsBinding>() {
                         Toast
                             .makeText(
                                 requireContext(),
-                                "No matching movies found",
+                                getString(R.string.no_matching_movies_found),
                                 Toast.LENGTH_SHORT,
                             ).show()
                     }

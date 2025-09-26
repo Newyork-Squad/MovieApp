@@ -60,7 +60,7 @@
                 android:paddingHorizontal="@dimen/spacing_medium"
                 android:paddingVertical="12dp"
                 android:stateListAnimator="@null"
-                android:text="Start Matching"
+                android:text="@string/start_matching"
                 android:textAllCaps="false"
                 android:textColor="@color/button_onPrimary"
                 app:cornerRadius="@dimen/radius_md" />

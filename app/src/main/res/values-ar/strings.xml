@@ -257,4 +257,34 @@
     <string name="gallery">المعرض</string>
     <string name="actor_gallery">%1$s معرض</string>
     <string name="app_version_format">إصدار %1$s</string>
+    <string name="no_matching_movies_found">لا توجد أفلام متشابهة</string>
+    <string name="mood_chill">هادئ</string>
+    <string name="mood_excited">متحمس</string>
+    <string name="mood_emotional">عاطفي</string>
+    <string name="mood_curious">فضولي</string>
+
+    <string name="genre_action">أكشن</string>
+    <string name="genre_comedy">كوميديا</string>
+    <string name="genre_drama">دراما</string>
+    <string name="genre_romance">رومانسية</string>
+    <string name="genre_scifi">خيال علمي</string>
+    <string name="genre_thriller">تشويق</string>
+    <string name="genre_animation">رسوم متحركة</string>
+    <string name="genre_mystery">غموض</string>
+
+    <string name="time_short">قصير</string>
+    <string name="time_short_desc">(أقل من 90 دقيقة)</string>
+    <string name="time_medium">متوسط</string>
+    <string name="time_medium_desc">(بين 90 و 120 دقيقة)</string>
+    <string name="time_long">طويل</string>
+    <string name="time_long_desc">(أكثر من 120 دقيقة)</string>
+
+    <string name="release_recent">حديث</string>
+    <string name="release_classic">كلاسيكي</string>
+    <string name="release_both">كلاهما</string>
+
+    <string name="question_mood">ما هو مزاجك؟</string>
+    <string name="question_genre">ما هو نوع الفيلم الذي تفضله؟</string>
+    <string name="question_time">ما هو وقت العرض المناسب لك؟</string>
+    <string name="question_release">أي فترة زمنية تفضل؟</string>
 </resources>

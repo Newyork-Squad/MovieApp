@@ -22,6 +22,7 @@ import com.google.android.material.chip.ChipGroup
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.textfield.TextInputLayout
+import com.karrar.movieapp.MovieApplication
 import com.karrar.movieapp.R
 import com.karrar.movieapp.domain.enums.MediaType
 import com.karrar.movieapp.ui.base.BaseAdapter
@@ -188,84 +189,92 @@ fun usePagerSnapHelperWithRecycler(recycler: RecyclerView, useSnapHelper: Boolea
 @BindingAdapter("app:posterImage")
 fun bindMovieImage(image: ImageView, imageURL: String?) {
     val context = image.context
+    val app = context.applicationContext as MovieApplication
+    val processor = app.safeImageProcessor
 
     imageURL?.let { url ->
         image.setImageResource(R.drawable.loading)
 
+        CoroutineScope(Dispatchers.Main).launch {
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val request = ImageRequest.Builder(context)
-                    .data(url)
-                    .allowHardware(false)
-                    .build()
+            withContext(Dispatchers.IO) {
+                try {
+                    val request = ImageRequest.Builder(context)
+                        .data(url)
+                        .allowHardware(false)
+                        .build()
 
-                val drawable = context.imageLoader.execute(request).drawable
-                val bitmap = (drawable as? BitmapDrawable)?.bitmap
+                    val drawable = context.imageLoader.execute(request).drawable
+                    val bitmap = (drawable as? BitmapDrawable)?.bitmap
 
-                bitmap?.let { original ->
-                    val processed = SafeImageProcessor.processImage(
-                        context = context,
-                        bitmap = original,
-                        blurRadius = 20
-                    )
+                    bitmap?.let { original ->
+                        val processed = processor.processImage(
+                            context = context,
+                            bitmap = original,
+                            blurRadius = 20
+                        )
 
-                    withContext(Dispatchers.Main) {
-                        image.setImageBitmap(processed.finalBitmap)
+                        withContext(Dispatchers.Main) {
+                            image.setImageBitmap(processed.finalBitmap)
+                        }
+                    } ?: run {
+                        withContext(Dispatchers.Main) {
+                            image.setImageResource(R.drawable.ic_profile_place_holder)
+                        }
                     }
-                } ?: run {
+                } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
-                        image.setImageResource(R.drawable.media_place_holder)
+                        image.setImageResource(R.drawable.ic_profile_place_holder)
                     }
-                }
-
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    image.setImageResource(R.drawable.media_place_holder)
                 }
             }
         }
     }
 }
 
+
+
+
 @BindingAdapter("app:mediaPoster")
 fun loadMediaPoster(image: ImageView, imageURL: String?) {
     val context = image.context
+    val app = context.applicationContext as MovieApplication
+    val processor = app.safeImageProcessor
 
     imageURL?.let { url ->
         image.setImageResource(R.drawable.loading)
 
+        CoroutineScope(Dispatchers.Main).launch {
 
+            withContext(Dispatchers.IO) {
+                try {
+                    val request = ImageRequest.Builder(context)
+                        .data(url)
+                        .allowHardware(false)
+                        .build()
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val request = ImageRequest.Builder(context)
-                    .data(url)
-                    .allowHardware(false)
-                    .build()
+                    val drawable = context.imageLoader.execute(request).drawable
+                    val bitmap = (drawable as? BitmapDrawable)?.bitmap
 
-                val drawable = context.imageLoader.execute(request).drawable
-                val bitmap = (drawable as? BitmapDrawable)?.bitmap
+                    bitmap?.let { original ->
+                        val processed = processor.processImage(
+                            context = context,
+                            bitmap = original,
+                            blurRadius = 20
+                        )
 
-                bitmap?.let { original ->
-                    val processed = SafeImageProcessor.processImage(
-                        context = context,
-                        bitmap = original,
-                        blurRadius = 20
-                    )
-
-                    withContext(Dispatchers.Main) {
-                        image.setImageBitmap(processed.finalBitmap)
+                        withContext(Dispatchers.Main) {
+                            image.setImageBitmap(processed.finalBitmap)
+                        }
+                    } ?: run {
+                        withContext(Dispatchers.Main) {
+                            image.setImageResource(R.drawable.ic_profile_place_holder)
+                        }
                     }
-                } ?: run {
+                } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
-                        image.setImageResource(R.drawable.media_place_holder)
+                        image.setImageResource(R.drawable.ic_profile_place_holder)
                     }
-                }
-
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    image.setImageResource(R.drawable.media_place_holder)
                 }
             }
         }

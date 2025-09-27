@@ -257,4 +257,5 @@
     <string name="gallery">المعرض</string>
     <string name="actor_gallery">%1$s معرض</string>
     <string name="app_version_format">إصدار %1$s</string>
+    <string name="txt_all">الكل</string>
 </resources>

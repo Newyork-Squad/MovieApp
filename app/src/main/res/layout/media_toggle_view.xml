@@ -8,6 +8,10 @@
             name="isVisible"
             type="Boolean" />
 
+        <variable
+            name="isGrid"
+            type="Boolean" />
+
     </data>
 
 <androidx.constraintlayout.motion.widget.MotionLayout
@@ -16,6 +20,7 @@
     android:layout_height="40dp"
     app:isVisible="@{isVisible}"
     android:clipToPadding="false"
+    app:transitionToSelect="@{isGrid}"
     app:layoutDescription="@xml/media_toggle_view_scene">
 
     <View

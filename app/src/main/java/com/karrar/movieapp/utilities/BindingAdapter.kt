@@ -10,9 +10,11 @@ import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import coil.imageLoader
@@ -281,10 +283,28 @@ fun loadMediaPoster(image: ImageView, imageURL: String?) {
     }
 }
 
+@BindingAdapter("app:transitionToSelect")
+fun transitionToSelect(motionLayout: MotionLayout, isSelect: Boolean) {
+    if (isSelect) {
+        motionLayout.transitionToStart()
+    } else {
+        motionLayout.transitionToEnd()
+    }
+}
 
+@BindingAdapter("app:isRecyclerViewGrid")
+fun isRecyclerViewGrid(recyclerView: RecyclerView, isGrid: Boolean) {
+    val lm = recyclerView.layoutManager as? GridLayoutManager ?: return
+    val firstPos = lm.findFirstVisibleItemPosition()
+    lm.spanCount = if (isGrid) 2 else 1
 
-
-
+    recyclerView.post {
+        lm.requestLayout()
+        if (firstPos != RecyclerView.NO_POSITION) {
+            recyclerView.scrollToPosition(firstPos)
+        }
+    }
+}
 
 @BindingAdapter("app:showProfileWhenSuccess")
 fun showWhenProfileSuccess(view: View, userName: String) {
@@ -487,6 +507,7 @@ fun setOneDecimal(textView: TextView, number: Double?) {
         textView.text = String.format("%.1f", it)
     }
 }
+
 @BindingAdapter("srcCompatSafe")
 fun ImageView.setSrcCompatSafe(resId: Int?) {
     if (resId != null && resId != 0) {

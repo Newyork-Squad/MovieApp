@@ -39,15 +39,8 @@ class ExploringViewModel @Inject constructor(
     private val _exploringUIEvent: MutableStateFlow<Event<ExploringUIEvent>?> = MutableStateFlow(null)
     val exploringUIEvent= _exploringUIEvent.asStateFlow()
 
-    private val _isGrid = MutableStateFlow(true)
-    val isGrid: StateFlow<Boolean> = _isGrid.asStateFlow()
-
     init {
         setMediaType(Constants.MOVIE_CATEGORIES_ID)
-    }
-
-    fun refreshData() {
-        getData()
     }
 
     override fun getData() {
@@ -71,10 +64,10 @@ class ExploringViewModel @Inject constructor(
     }
 
     fun setGridMode(grid: Boolean) {
-        _isGrid.value = grid
+        _uiState.update { it.copy(isGrid = grid) }
     }
 
-    fun toggleGridMode() = setGridMode(!_isGrid.value)
+    fun toggleGridMode() = setGridMode(!_uiState.value.isGrid)
 
     private fun loadGenres(mediaId: Int) {
         viewModelScope.launch {
@@ -103,7 +96,13 @@ class ExploringViewModel @Inject constructor(
 
                 _uiState.update { it.copy(isLoading = false, media = paging, error = emptyList()) }
             } catch (t: Throwable) {
-                _uiState.update { it.copy(isLoading = false, error = listOf(ErrorUIState(-1, t.message.orEmpty()))) }
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        error = listOf(ErrorUIState(-1, t.message.orEmpty())
+                        )
+                    )
+                }
             }
         }
     }
@@ -127,17 +126,20 @@ class ExploringViewModel @Inject constructor(
         when (combinedLoadStates.refresh) {
             is LoadState.NotLoading -> {
                 _uiState.update {
-                    it.copy(isLoading = false, error = emptyList())
+                    it.copy(isLoading = false,
+                        error = emptyList())
                 }
             }
             LoadState.Loading -> {
                 _uiState.update {
-                    it.copy(isLoading = false, error = emptyList())
+                    it.copy(isLoading = false,
+                        error = emptyList())
                 }
             }
             is LoadState.Error -> {
                 _uiState.update {
-                    it.copy(isLoading = false, error = listOf(ErrorUIState(404, "Error")))
+                    it.copy(isLoading = false,
+                        error = listOf(ErrorUIState(404, "Error")))
                 }
             }
         }

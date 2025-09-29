@@ -32,8 +32,8 @@
 
 
 ## Contributors
-<a href="https://github.com/Salmon-family/MovieApp/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Salmon-family/MovieApp" />
+<a href="https://github.com/Newyork-Squad/MovieApp/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Newyork-Squad/MovieApp" />
 </a>
 
 

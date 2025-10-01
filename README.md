@@ -1,13 +1,14 @@
 <h1 align="center"> 	Movie Application </h1>
-
+<div align="center">
+  <img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/4f13bcde-b8a3-485f-981f-0e1f91065910" />
+</div>
 <p align="center">This movie andoid app has been developed with features that allow users to browse movies and series, actors and their works, search for movies, series or actors, add reviews and comments on movies and series, create custom lists such as watch later or favorites, and manage their account through a login and signup. </p>
 
-## Video
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=i2YURMEcDec?autoplay=1">
-    <img src="http://img.youtube.com/vi/i2YURMEcDec/hqdefault.jpg" alt="Movie App" width="800" height="450">
-  </a>
-</p>
+
+## App Screenshots
+<img width="45%" height="400" alt="App Screen 1" src="https://github.com/user-attachments/assets/b74e7c16-7e69-438a-9e52-77c5caddfd6c" /> <img width="45%" height="400" alt="App Screen 2" src="https://github.com/user-attachments/assets/2912c81c-4fa6-4197-9369-0124d13187d9" />
+<img width="45%" height="400" alt="App Screen 3" src="https://github.com/user-attachments/assets/ecf809f2-eb9d-4486-8b7c-02d4dc8c2890" />  <img width="45%" height="400" alt="App Screen 4" src="https://github.com/user-attachments/assets/6d8bff69-d352-4682-abd7-627939a3b176" /> 
+
 
 ## Tech stack
 - [Hilt dependency injection](https://developer.android.com/training/dependency-injection/hilt-android) to manage dependencies, which can help to improve code quality and maintainability.
@@ -28,6 +29,8 @@
 - <b>Review and comment:</b> Users can add reviews and comments to movies and series, sharing their opinions and thoughts about the content.
 - <b>Create custom lists:</b> Users can create custom lists to keep track of the movies and series they want to watch, such as a watch later list or a list of favorites.
 - <b>Watch trailers:</b> Users can watch trailers of movies and series to get a glimpse of the content before watching it.
+- <b>Find matches to your vibes:</b> User answer a few questions to find the suitable movie or series that suits their mood.
+- <b>Blur sensitive content:</b> AI blur the senstive content.
 
 
 
